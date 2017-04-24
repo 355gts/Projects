@@ -1,0 +1,11 @@
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Services.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Services.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\AutoMapper.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\log4net.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\Ninject.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\AutoMapper.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\log4net.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\Ninject.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\obj\Debug\JoelScottFitness.Services.csprojResolveAssemblyReference.cache
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\obj\Debug\JoelScottFitness.Services.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\obj\Debug\JoelScottFitness.Services.pdb

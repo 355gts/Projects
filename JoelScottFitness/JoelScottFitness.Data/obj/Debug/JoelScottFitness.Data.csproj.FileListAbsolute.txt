@@ -1,0 +1,14 @@
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Data.dll.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Data.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Data.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\EntityFramework.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\log4net.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Ninject.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\EntityFramework.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\log4net.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Ninject.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.csprojResolveAssemblyReference.cache
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.pdb
