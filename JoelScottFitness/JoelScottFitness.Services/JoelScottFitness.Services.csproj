@@ -54,5 +54,15 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JoelScottFitness.Data\JoelScottFitness.Data.csproj">
+      <Project>{c4825771-d9c6-4b84-9284-3eb4f1e05222}</Project>
+      <Name>JoelScottFitness.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JoelScottFitness.PayPal\JoelScottFitness.PayPal.csproj">
+      <Project>{22b6eafe-ffa4-419f-8cc0-138581a1ac95}</Project>
+      <Name>JoelScottFitness.PayPal</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
