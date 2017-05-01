@@ -100,3 +100,12 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\obj\Debug\JoelScottFitness.Web.csprojResolveAssemblyReference.cache
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\obj\Debug\JoelScottFitness.Web.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\obj\Debug\JoelScottFitness.Web.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Services.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Services.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Data.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Identity.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Data.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Data.dll.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Identity.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Identity.dll.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Services.dll.config

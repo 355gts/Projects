@@ -39,6 +39,12 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -53,11 +59,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\Gender.cs" />
+    <Compile Include="Enumerations\ItemType.cs" />
+    <Compile Include="IJSFitnessContext.cs" />
+    <Compile Include="IJSFitnessRepository.cs" />
+    <Compile Include="JSFitnessContext.cs" />
+    <Compile Include="JSFitnessRespository.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\BaseRecord.cs" />
+    <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DiscountCode.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\PlanOption.cs" />
+    <Compile Include="Models\Plan.cs" />
+    <Compile Include="Models\Purchase.cs" />
+    <Compile Include="Models\PurchasedItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\JoelScottFitness.Identity\JoelScottFitness.Identity.csproj">
+      <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
+      <Name>JoelScottFitness.Identity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

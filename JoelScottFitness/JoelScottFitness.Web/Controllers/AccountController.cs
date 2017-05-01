@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JoelScottFitness.Web.Models;
+using JoelScottFitness.Identity.Models;
 
 namespace JoelScottFitness.Web.Controllers
 {

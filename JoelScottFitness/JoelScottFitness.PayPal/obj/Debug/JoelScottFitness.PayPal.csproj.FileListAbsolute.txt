@@ -8,6 +8,5 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\bin\Debug\Newtonsoft.Json.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\bin\Debug\Ninject.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\bin\Debug\PayPal.xml
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\obj\Debug\JoelScottFitness.PayPal.csprojResolveAssemblyReference.cache
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\obj\Debug\JoelScottFitness.PayPal.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.PayPal\obj\Debug\JoelScottFitness.PayPal.pdb

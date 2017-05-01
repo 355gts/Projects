@@ -12,3 +12,11 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bi
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.csprojResolveAssemblyReference.cache
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\ApplicationInsights.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Identity.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Identity.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Identity.dll.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml

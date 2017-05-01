@@ -286,6 +286,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JoelScottFitness.Data\JoelScottFitness.Data.csproj">
+      <Project>{c4825771-d9c6-4b84-9284-3eb4f1e05222}</Project>
+      <Name>JoelScottFitness.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JoelScottFitness.Identity\JoelScottFitness.Identity.csproj">
+      <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
+      <Name>JoelScottFitness.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JoelScottFitness.Services\JoelScottFitness.Services.csproj">
       <Project>{a5b36590-a841-4221-9d33-5ae3f4e2a2ed}</Project>
       <Name>JoelScottFitness.Services</Name>
