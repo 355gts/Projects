@@ -1,5 +1,4 @@
 ﻿using JoelScottFitness.Data.Models;
-using JoelScottFitness.Identity;
 using JoelScottFitness.Identity.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -9,13 +8,21 @@ namespace JoelScottFitness.Data
 {
     public interface IJSFitnessContext
     {
+        #region context methods
         Task<int> SaveChangesAsync();
+
+        void SetModified(object entity);
+
+        void SetValues<TEntity>(TEntity oldEntity, TEntity newEntity) where TEntity : class;
+
+        Database Database { get; }
+        
+        DbContextConfiguration Configuration { get; }
 
         DbEntityEntry Entry(object entity);
 
-        EntityState SetModified(object entity);
-
-        void SetValues<TEntity>(TEntity oldEntity, TEntity newEntity) where TEntity : class;
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+        #endregion
 
         DbSet<ApplicationUser> ApplicationUsers { get; set; }
 

@@ -59,9 +59,18 @@ namespace JoelScottFitness.Data
             return await SaveChangesAync();
         }
 
-        public async Task<bool> DeleteBlog(long id)
+        public async Task<bool> DeactivateBlog(long id)
         {
-            throw new NotImplementedException();
+            var blog = await dbContext.Blogs.FindAsync(id);
+
+            if (blog == null)
+                return false;
+
+            blog.ActiveTo = DateTime.UtcNow;
+
+            dbContext.SetModified(blog);
+
+            return await SaveChangesAync();
         }
 
         public async Task<Blog> GetBlog(long id)

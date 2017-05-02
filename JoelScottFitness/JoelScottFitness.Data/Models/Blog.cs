@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Data.Models
 {
@@ -24,5 +25,15 @@ namespace JoelScottFitness.Data.Models
 
         [Required]
         public string ImagePath { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public bool Active
+        {
+            get
+            {
+                var currentDate = DateTime.UtcNow;
+                return ActiveFrom <= currentDate && currentDate <= ActiveTo;
+            }
+        }
     }
 }

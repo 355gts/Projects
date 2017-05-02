@@ -12,7 +12,7 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<Blog>> GetBlogs(int number = 0, bool activeOnly = true);
 
-        Task<bool> DeleteBlog(long id);
+        Task<bool> DeactivateBlog(long id);
 
         Task<long> CreateOrUpdateCustomer(Customer customer);
 
