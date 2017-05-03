@@ -1,4 +1,6 @@
-﻿using JoelScottFitness.Data.Models;
+﻿using JoelScottFitness.Common.Results;
+using JoelScottFitness.Data.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +12,8 @@ namespace JoelScottFitness.Data
 {
     public class JSFitnessRespository : IJSFitnessRepository
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(JSFitnessRespository));
+
         private readonly IJSFitnessContext dbContext;
 
         public JSFitnessRespository(IJSFitnessContext dbContext)
@@ -20,29 +24,126 @@ namespace JoelScottFitness.Data
             this.dbContext = dbContext;
         }
 
-        public async Task<long> CreateOrUpdateBlog(Blog blog)
+        public async Task<AsyncResult<long>> CreateOrUpdateBlog(Blog blog)
         {
-            throw new NotImplementedException();
+            var existingBlog = await dbContext.Blogs.FindAsync(blog.Id);
+
+            if (existingBlog != null)
+            {
+                dbContext.SetValues(existingBlog, blog);
+                dbContext.SetModified(existingBlog);
+            }
+            else
+            {
+                dbContext.Blogs.Add(blog);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingBlog != null ? existingBlog.Id : blog.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<long> CreateOrUpdateCustomer(Customer customer)
+        public async Task<AsyncResult<long>> CreateOrUpdateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            var existingCustomer = await dbContext.Customers.FindAsync(customer.Id);
+
+            if (existingCustomer != null)
+            {
+                dbContext.SetValues(existingCustomer, customer);
+                dbContext.SetValues(existingCustomer.BillingAddress, customer.BillingAddress);
+                dbContext.SetModified(existingCustomer);
+                dbContext.SetModified(existingCustomer.BillingAddress);
+            }
+            else
+            {
+                dbContext.Customers.Add(customer);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingCustomer != null ? existingCustomer.Id : customer.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<long> CreateOrUpdateDiscountCode(DiscountCode discountCode)
+        public async Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCode discountCode)
         {
-            throw new NotImplementedException();
+            var existingDiscountCode = await dbContext.DiscountCodes.FindAsync(discountCode.Id);
+
+            if (existingDiscountCode != null)
+            {
+                dbContext.SetValues(existingDiscountCode, discountCode);
+                dbContext.SetModified(existingDiscountCode);
+            }
+            else
+            {
+                dbContext.DiscountCodes.Add(discountCode);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingDiscountCode != null ? existingDiscountCode.Id : discountCode.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<long> CreateOrUpdatePlan(Plan plan)
+        public async Task<AsyncResult<long>> CreateOrUpdatePlan(Plan plan)
         {
-            throw new NotImplementedException();
+            var existingPlan = await dbContext.Plans.FindAsync(plan.Id);
+
+            if (existingPlan != null)
+            {
+                dbContext.SetValues(existingPlan, plan);
+                dbContext.SetModified(existingPlan);
+
+                var newOptions = plan.Options.Where(p => p.Id == 0).ToList();
+                var removedOptions = existingPlan.Options.Where(ep => !plan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
+                var updatedOptions = existingPlan.Options.Where(ep => plan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
+                
+                dbContext.PlanOptions.RemoveRange(removedOptions);
+                dbContext.PlanOptions.AddRange(newOptions);
+
+                updatedOptions.ForEach(updatedOption => 
+                {
+                    var existingOption = existingPlan.Options.FirstOrDefault(eo => eo.Id == updatedOption.Id);
+
+                    if (existingOption != null)
+                    {
+                        dbContext.SetValues(existingOption, updatedOption);
+                        dbContext.SetModified(existingOption);
+                    }
+                });
+            }
+            else
+            {
+                dbContext.Plans.Add(plan);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingPlan != null ? existingPlan.Id : plan.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<long> CreatePurchase(Purchase purchase)
+        public async Task<AsyncResult<long>> CreatePurchase(Purchase purchase)
         {
-            throw new NotImplementedException();
+            dbContext.Purchases.Add(purchase);
+
+            if (await SaveChangesAsync())
+                return new AsyncResult<long>() { Success = true, Result = purchase.Id };
+
+            return new AsyncResult<long>() { Success = false };
         }
 
         public async Task<bool> DeactivatePlan(long id)
@@ -56,7 +157,7 @@ namespace JoelScottFitness.Data
 
             dbContext.SetModified(plan);
 
-            return await SaveChangesAync();
+            return await SaveChangesAsync();
         }
 
         public async Task<bool> DeactivateBlog(long id)
@@ -70,7 +171,7 @@ namespace JoelScottFitness.Data
 
             dbContext.SetModified(blog);
 
-            return await SaveChangesAync();
+            return await SaveChangesAsync();
         }
 
         public async Task<Blog> GetBlog(long id)
@@ -96,40 +197,55 @@ namespace JoelScottFitness.Data
 
         public async Task<Customer> GetCustomerDetails(long id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Customers
+                                  .Include(c => c.BillingAddress)
+                                  .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<DiscountCode> GetDiscountCode(long id)
         {
-            throw new NotImplementedException();
+            return await dbContext.DiscountCodes.FindAsync(id);
         }
 
         public async Task<IEnumerable<DiscountCode>> GetDiscountCodes()
         {
-            throw new NotImplementedException();
+            return await dbContext.DiscountCodes
+                                  .OrderBy(d => d.Code)
+                                  .ToListAsync();
         }
 
         public async Task<Plan> GetPlan(long id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Plans
+                                  .Include(p => p.Options)
+                                  .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Plan>> GetPlans()
         {
-            throw new NotImplementedException();
+            return await dbContext.Plans
+                                  .Include(p => p.Options)
+                                  .OrderBy(p => p.Name)
+                                  .ToListAsync();
         }
 
         public async Task<Purchase> GetPurchase(long id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Purchases
+                                  .Include(p => p.Items)
+                                  .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Purchase>> GetPurchases(long customerId)
         {
-            throw new NotImplementedException();
+            return await dbContext.Purchases
+                                  .Include(p => p.Items)
+                                  .Where(p => p.CustomerId == customerId)
+                                  .OrderByDescending(p => p.PurchaseDate)
+                                  .ToListAsync();
         }
 
-        private async Task<bool> SaveChangesAync()
+        private async Task<bool> SaveChangesAsync()
         {
             bool success = false;
 
@@ -140,7 +256,7 @@ namespace JoelScottFitness.Data
             }
             catch (DbUpdateException ex)
             {
-                //TODO log out here
+                logger.Warn($"An exception occured update the database, details - '{ex.Message}'.");
             }
 
             return success;

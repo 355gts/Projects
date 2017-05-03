@@ -20,3 +20,5 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bi
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Identity.dll.config
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Common.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bin\Debug\JoelScottFitness.Common.pdb

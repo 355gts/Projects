@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Data.Models;
+﻿using JoelScottFitness.Common.Results;
+using JoelScottFitness.Data.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace JoelScottFitness.Data
 {
     public interface IJSFitnessRepository
     {
-        Task<long> CreateOrUpdateBlog(Blog blog);
+        Task<AsyncResult<long>> CreateOrUpdateBlog(Blog blog);
 
         Task<Blog> GetBlog(long id);
 
@@ -14,17 +15,17 @@ namespace JoelScottFitness.Data
 
         Task<bool> DeactivateBlog(long id);
 
-        Task<long> CreateOrUpdateCustomer(Customer customer);
+        Task<AsyncResult<long>> CreateOrUpdateCustomer(Customer customer);
 
         Task<Customer> GetCustomerDetails(long id);
 
-        Task<long> CreateOrUpdateDiscountCode(DiscountCode discountCode);
+        Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCode discountCode);
 
         Task<DiscountCode> GetDiscountCode(long id);
 
         Task<IEnumerable<DiscountCode>> GetDiscountCodes();
 
-        Task<long> CreateOrUpdatePlan(Plan plan);
+        Task<AsyncResult<long>> CreateOrUpdatePlan(Plan plan);
 
         Task<Plan> GetPlan(long id);
 
@@ -32,7 +33,7 @@ namespace JoelScottFitness.Data
 
         Task<bool> DeactivatePlan(long id);
 
-        Task<long> CreatePurchase(Purchase purchase);
+        Task<AsyncResult<long>> CreatePurchase(Purchase purchase);
 
         Task<Purchase> GetPurchase(long id);
 

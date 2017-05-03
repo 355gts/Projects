@@ -12,3 +12,4 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identit
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\obj\Debug\JoelScottFitness.Identity.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\obj\Debug\JoelScottFitness.Identity.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\obj\Debug\JoelScottFitness.Identity.csprojResolveAssemblyReference.cache

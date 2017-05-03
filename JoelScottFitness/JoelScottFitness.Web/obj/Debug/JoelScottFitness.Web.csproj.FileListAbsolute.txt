@@ -109,3 +109,5 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Identity.pdb
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Identity.dll.config
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Services.dll.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Common.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\JoelScottFitness.Common.pdb

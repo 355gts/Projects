@@ -2,3 +2,4 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Debug\JoelScottFitness.Common.pdb
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Debug\JoelScottFitness.Common.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Debug\JoelScottFitness.Common.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Debug\JoelScottFitness.Common.csprojResolveAssemblyReference.cache
