@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Enumerations\Gender.cs" />
     <Compile Include="Enumerations\ItemType.cs" />
+    <Compile Include="Mapper\IMapper.cs" />
     <Compile Include="Mapper\ITypeMapper.cs" />
+    <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
