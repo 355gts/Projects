@@ -1,4 +1,4 @@
-﻿namespace JoelScottFitness.Data.Enumerations
+﻿namespace JoelScottFitness.Common.Enumerations
 {
     public enum Gender
     {

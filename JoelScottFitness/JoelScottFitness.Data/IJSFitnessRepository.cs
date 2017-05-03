@@ -7,36 +7,36 @@ namespace JoelScottFitness.Data
 {
     public interface IJSFitnessRepository
     {
-        Task<AsyncResult<long>> CreateOrUpdateBlog(Blog blog);
+        Task<AsyncResult<long>> CreateOrUpdateBlogAsync(Blog blog);
 
-        Task<Blog> GetBlog(long id);
+        Task<Blog> GetBlogAsync(long id);
 
-        Task<IEnumerable<Blog>> GetBlogs(int number = 0, bool activeOnly = true);
+        Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0, bool activeOnly = true);
 
-        Task<bool> DeactivateBlog(long id);
+        Task<bool> DeactivateBlogAsync(long id);
 
-        Task<AsyncResult<long>> CreateOrUpdateCustomer(Customer customer);
+        Task<AsyncResult<long>> CreateOrUpdateCustomerAsync(Customer customer);
 
-        Task<Customer> GetCustomerDetails(long id);
+        Task<Customer> GetCustomerDetailsAsync(long id);
 
-        Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCode discountCode);
+        Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCode discountCode);
 
-        Task<DiscountCode> GetDiscountCode(long id);
+        Task<DiscountCode> GetDiscountCodeAsync(long id);
 
-        Task<IEnumerable<DiscountCode>> GetDiscountCodes();
+        Task<IEnumerable<DiscountCode>> GetDiscountCodesAsync();
 
-        Task<AsyncResult<long>> CreateOrUpdatePlan(Plan plan);
+        Task<AsyncResult<long>> CreateOrUpdatePlanAsync(Plan plan);
 
-        Task<Plan> GetPlan(long id);
+        Task<Plan> GetPlanAsync(long id);
 
-        Task<IEnumerable<Plan>> GetPlans();
+        Task<IEnumerable<Plan>> GetPlansAsync();
 
-        Task<bool> DeactivatePlan(long id);
+        Task<bool> DeactivatePlanAsync(long id);
 
-        Task<AsyncResult<long>> CreatePurchase(Purchase purchase);
+        Task<AsyncResult<long>> CreatePurchaseAsync(Purchase purchase);
 
-        Task<Purchase> GetPurchase(long id);
+        Task<Purchase> GetPurchaseAsync(long id);
 
-        Task<IEnumerable<Purchase>> GetPurchases(long customerId);
+        Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId);
     }
 }

@@ -59,8 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumerations\Gender.cs" />
-    <Compile Include="Enumerations\ItemType.cs" />
     <Compile Include="IJSFitnessContext.cs" />
     <Compile Include="IJSFitnessRepository.cs" />
     <Compile Include="JSFitnessContext.cs" />

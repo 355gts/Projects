@@ -18,13 +18,10 @@ namespace JoelScottFitness.Data
 
         public JSFitnessRespository(IJSFitnessContext dbContext)
         {
-            if (dbContext == null)
-                throw new ArgumentNullException(nameof(dbContext));
-
-            this.dbContext = dbContext;
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateBlog(Blog blog)
+        public async Task<AsyncResult<long>> CreateOrUpdateBlogAsync(Blog blog)
         {
             var existingBlog = await dbContext.Blogs.FindAsync(blog.Id);
 
@@ -47,7 +44,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateCustomer(Customer customer)
+        public async Task<AsyncResult<long>> CreateOrUpdateCustomerAsync(Customer customer)
         {
             var existingCustomer = await dbContext.Customers.FindAsync(customer.Id);
 
@@ -72,7 +69,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCode discountCode)
+        public async Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCode discountCode)
         {
             var existingDiscountCode = await dbContext.DiscountCodes.FindAsync(discountCode.Id);
 
@@ -95,7 +92,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdatePlan(Plan plan)
+        public async Task<AsyncResult<long>> CreateOrUpdatePlanAsync(Plan plan)
         {
             var existingPlan = await dbContext.Plans.FindAsync(plan.Id);
 
@@ -136,7 +133,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreatePurchase(Purchase purchase)
+        public async Task<AsyncResult<long>> CreatePurchaseAsync(Purchase purchase)
         {
             dbContext.Purchases.Add(purchase);
 
@@ -146,7 +143,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<bool> DeactivatePlan(long id)
+        public async Task<bool> DeactivatePlanAsync(long id)
         {
             var plan = await dbContext.Plans.FindAsync(id);
 
@@ -160,7 +157,7 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeactivateBlog(long id)
+        public async Task<bool> DeactivateBlogAsync(long id)
         {
             var blog = await dbContext.Blogs.FindAsync(id);
 
@@ -174,12 +171,12 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<Blog> GetBlog(long id)
+        public async Task<Blog> GetBlogAsync(long id)
         {
             return await dbContext.Blogs.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Blog>> GetBlogs(int number = 0, bool activeOnly = true)
+        public async Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0, bool activeOnly = true)
         {
             var currentDate = DateTime.UtcNow;
 
@@ -195,33 +192,33 @@ namespace JoelScottFitness.Data
             return await blogQuery.ToListAsync();
         }
 
-        public async Task<Customer> GetCustomerDetails(long id)
+        public async Task<Customer> GetCustomerDetailsAsync(long id)
         {
             return await dbContext.Customers
                                   .Include(c => c.BillingAddress)
                                   .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<DiscountCode> GetDiscountCode(long id)
+        public async Task<DiscountCode> GetDiscountCodeAsync(long id)
         {
             return await dbContext.DiscountCodes.FindAsync(id);
         }
 
-        public async Task<IEnumerable<DiscountCode>> GetDiscountCodes()
+        public async Task<IEnumerable<DiscountCode>> GetDiscountCodesAsync()
         {
             return await dbContext.DiscountCodes
                                   .OrderBy(d => d.Code)
                                   .ToListAsync();
         }
 
-        public async Task<Plan> GetPlan(long id)
+        public async Task<Plan> GetPlanAsync(long id)
         {
             return await dbContext.Plans
                                   .Include(p => p.Options)
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Plan>> GetPlans()
+        public async Task<IEnumerable<Plan>> GetPlansAsync()
         {
             return await dbContext.Plans
                                   .Include(p => p.Options)
@@ -229,14 +226,14 @@ namespace JoelScottFitness.Data
                                   .ToListAsync();
         }
 
-        public async Task<Purchase> GetPurchase(long id)
+        public async Task<Purchase> GetPurchaseAsync(long id)
         {
             return await dbContext.Purchases
                                   .Include(p => p.Items)
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Purchase>> GetPurchases(long customerId)
+        public async Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId)
         {
             return await dbContext.Purchases
                                   .Include(p => p.Items)

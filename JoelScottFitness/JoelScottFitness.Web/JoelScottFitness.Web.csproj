@@ -286,6 +286,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JoelScottFitness.Common\JoelScottFitness.Common.csproj">
+      <Project>{2f9ea598-48ae-4bc6-87d4-db0b06213267}</Project>
+      <Name>JoelScottFitness.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JoelScottFitness.Data\JoelScottFitness.Data.csproj">
       <Project>{c4825771-d9c6-4b84-9284-3eb4f1e05222}</Project>
       <Name>JoelScottFitness.Data</Name>

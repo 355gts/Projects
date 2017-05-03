@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace JoelScottFitness.Data.Models
+namespace JoelScottFitness.Common.Models
 {
-    public class Plan : BaseRecord
+    public class PlanViewModel : BaseViewModel
     {
         [Required]
         public string Name { get; set; }
@@ -33,6 +33,6 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public bool Active { get; set; }
 
-        public ICollection<PlanOption> Options { get; set; }
+        public ICollection<PlanOptionViewModel> Options { get; set; }
     }
 }
