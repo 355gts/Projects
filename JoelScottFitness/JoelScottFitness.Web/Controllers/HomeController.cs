@@ -1,19 +1,29 @@
 ﻿using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.Services.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
 
 namespace JoelScottFitness.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IJSFitnessService jsfService;
+        
+        public HomeController(IJSFitnessService jsfService)
+        {
+            if (jsfService == null)
+                throw new ArgumentNullException(nameof(jsfService));
+
+            this.jsfService = jsfService;
+        }
+
         public ActionResult Index()
         {
+            
+
             DiscountCodeViewModel dvm = new DiscountCodeViewModel()
             {
                 Active = true,
@@ -47,6 +57,29 @@ namespace JoelScottFitness.Web.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Checkout()
+        {
+            // method used to initiate the paypal payment transaction
+            //string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +
+            //            "/Home/CompletePayment?";
+
+            //var paymentInitiationResult = jsfService.InitiatePayPalPayment(baseUri);
+
+            //Session.Add("PaymentId", paymentInitiationResult.PaymentId);
+
+            //return Redirect(paymentInitiationResult.PayPalRedirectUrl);
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CompletePayment(string guid)
+        {
+            // method used to complete the paypal payment transaction
             return View();
         }
     }

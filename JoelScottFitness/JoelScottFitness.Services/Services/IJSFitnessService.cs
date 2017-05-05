@@ -1,5 +1,6 @@
 ﻿using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
+using JoelScottFitness.PayPal.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -38,5 +39,7 @@ namespace JoelScottFitness.Services.Services
         Task<PurchaseViewModel> GetPurchase(long id);
 
         Task<IEnumerable<PurchaseViewModel>> GetPurchases(long customerId);
+
+        PaymentInitiationResult InitiatePayPalPayment(string baseUri);
     }
 }

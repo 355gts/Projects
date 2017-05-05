@@ -1,0 +1,14 @@
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\ApplicationInsights.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\JoelScottFitness.Identity.dll.config
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\JoelScottFitness.Identity.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\JoelScottFitness.Identity.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\EntityFramework.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\EntityFramework.SqlServer.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\Microsoft.AspNet.Identity.Core.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\EntityFramework.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\EntityFramework.SqlServer.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\Microsoft.AspNet.Identity.Core.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\bin\Release\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\obj\Release\JoelScottFitness.Identity.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Identity\obj\Release\JoelScottFitness.Identity.pdb

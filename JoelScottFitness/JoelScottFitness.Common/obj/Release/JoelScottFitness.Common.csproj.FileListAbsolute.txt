@@ -1,0 +1,4 @@
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Release\JoelScottFitness.Common.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Release\JoelScottFitness.Common.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Release\JoelScottFitness.Common.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Release\JoelScottFitness.Common.pdb

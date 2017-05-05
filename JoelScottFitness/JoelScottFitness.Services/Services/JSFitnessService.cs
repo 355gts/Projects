@@ -3,11 +3,13 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.PayPal.Services;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JoelScottFitness.PayPal.Models;
 
 namespace JoelScottFitness.Services.Services
 {
@@ -17,11 +19,15 @@ namespace JoelScottFitness.Services.Services
 
         private readonly IJSFitnessRepository repository;
         private readonly IMapper mapper;
+        private readonly IPayPalService paypalService;
 
-        public JSFitnessService(IJSFitnessRepository repository, IMapper mapper)
+        public JSFitnessService(IJSFitnessRepository repository, 
+                                IMapper mapper, 
+                                IPayPalService paypalService)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this.paypalService = paypalService ?? throw new ArgumentNullException(nameof(paypalService));
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateBlog(BlogViewModel blog)
@@ -157,6 +163,11 @@ namespace JoelScottFitness.Services.Services
                 return Enumerable.Empty<PurchaseViewModel>();
 
             return mapper.MapEnumerable<Purchase, PurchaseViewModel>(purchases);
+        }
+
+        public PaymentInitiationResult InitiatePayPalPayment(string baseUri)
+        {
+            return paypalService.InitialPayPalPayment(baseUri);
         }
     }
 }
