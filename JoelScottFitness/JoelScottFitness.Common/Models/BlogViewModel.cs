@@ -12,7 +12,7 @@ namespace JoelScottFitness.Common.Models
         public string SubHeader { get; set; }
 
         [Required]
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Required]
         public DateTime ActiveFrom { get; set; }

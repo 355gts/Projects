@@ -4,8 +4,8 @@ namespace JoelScottFitness.Common.Mapper
 {
     public interface IMapper
     {
-        TOut Map<TIn, TOut>(TIn fromObject, TOut toObject = null) where TIn : class where TOut : class;
+        TTo Map<TFrom, TTo>(TFrom fromObject, TTo toObject = null) where TFrom : class where TTo : class;
 
-        IEnumerable<TOut> MapEnumerable<TIn, TOut>(IEnumerable<TIn> fromObjects) where TIn : class where TOut : class;
+        IEnumerable<TTo> MapEnumerable<TFrom, TTo>(IEnumerable<TFrom> fromObjects) where TFrom : class where TTo : class;
     }
 }

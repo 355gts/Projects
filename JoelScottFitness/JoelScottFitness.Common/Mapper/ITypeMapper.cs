@@ -1,7 +1,7 @@
 ﻿namespace JoelScottFitness.Common.Mapper
 {
-    public interface ITypeMapper<in TIn, TOut> where TIn : class where TOut : class
+    public interface ITypeMapper<in TFrom, TTo> where TFrom : class where TTo : class
     {
-        TOut Map(TIn fromObject, TOut toObject = null);
+        TTo Map(TFrom fromObject, TTo toObject = null);
     }
 }

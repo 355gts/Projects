@@ -26,6 +26,6 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Service
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Identity.pdb
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Identity.dll.config
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\ApplicationInsights.config
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Common.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Common.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\ApplicationInsights.config
