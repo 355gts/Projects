@@ -51,6 +51,7 @@
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DiscountCodeViewModel.cs" />
+    <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\PlanOptionViewModel.cs" />
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\PurchasedItemViewModel.cs" />

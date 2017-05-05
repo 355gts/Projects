@@ -6,7 +6,7 @@ namespace JoelScottFitness.Data.Models
     public class PurchasedItem : Item
     {
         [Required]
-        public long OriginalItemId { get; set; }
+        public long ItemId { get; set; }
 
         [ForeignKey("Purchase")]
         [Required]

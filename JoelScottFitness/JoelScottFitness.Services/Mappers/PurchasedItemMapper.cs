@@ -9,10 +9,11 @@ namespace JoelScottFitness.Services.Mappers
         public PurchasedItemViewModel Map(PurchasedItem fromObject, PurchasedItemViewModel toObject = null)
         {
             var item = toObject ?? new PurchasedItemViewModel();
-
+            
+            item.Description = fromObject.Description;
             item.Id = fromObject.Id;
+            item.ItemId = fromObject.ItemId;
             item.ItemType = fromObject.ItemType;
-            item.OriginalItemId = fromObject.OriginalItemId;
             item.Price = fromObject.Price;
 
             return item;
@@ -22,9 +23,10 @@ namespace JoelScottFitness.Services.Mappers
         {
             var item = toObject ?? new PurchasedItem();
 
+            item.Description = fromObject.Description;
             item.Id = fromObject.Id;
+            item.ItemId = fromObject.ItemId;
             item.ItemType = fromObject.ItemType;
-            item.OriginalItemId = fromObject.OriginalItemId;
             item.Price = fromObject.Price;
 
             return item;

@@ -22,7 +22,7 @@ namespace JoelScottFitness.Services.Mappers
             purchase.SalesReference = fromObject.SalesReference;
             purchase.TotalAmount = fromObject.TotalAmount;
 
-            if (purchase.Items != null && purchase.Items.Any())
+            if (fromObject.Items != null && fromObject.Items.Any())
             {
                 var items = new List<PurchasedItem>();
                 foreach (var item in fromObject.Items)
@@ -47,7 +47,7 @@ namespace JoelScottFitness.Services.Mappers
             purchase.SalesReference = fromObject.SalesReference;
             purchase.TotalAmount = fromObject.TotalAmount;
 
-            if (purchase.Items != null && purchase.Items.Any())
+            if (fromObject.Items != null && fromObject.Items.Any())
             {
                 var items = new List<PurchasedItemViewModel>();
                 foreach (var item in fromObject.Items)

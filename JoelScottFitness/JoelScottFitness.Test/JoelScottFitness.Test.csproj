@@ -50,6 +50,10 @@
   <ItemGroup>
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\BlogMapper.cs" />
+    <Compile Include="Mappers\CustomerMapper.cs" />
+    <Compile Include="Mappers\DiscountCodeMapper.cs" />
+    <Compile Include="Mappers\PurchasedItemMapper.cs" />
+    <Compile Include="Mappers\PurchaseMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

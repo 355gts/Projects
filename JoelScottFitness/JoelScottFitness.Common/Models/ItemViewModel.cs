@@ -1,11 +1,10 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace JoelScottFitness.Data.Models
+namespace JoelScottFitness.Common.Models
 {
-    public class Item : BaseRecord
+    public class ItemViewModel : BaseViewModel
     {
         [Required]
         public string Description { get; set; }
@@ -22,7 +21,6 @@ namespace JoelScottFitness.Data.Models
         public DateTime ActiveTo { get; set; }
 
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public bool ItemDiscontinued { get { return ActiveTo == null; } }
+        public bool ItemDiscontinued { get; set; }
     }
 }
