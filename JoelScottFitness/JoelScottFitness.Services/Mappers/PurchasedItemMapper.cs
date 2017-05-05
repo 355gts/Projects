@@ -15,6 +15,7 @@ namespace JoelScottFitness.Services.Mappers
             item.ItemId = fromObject.ItemId;
             item.ItemType = fromObject.ItemType;
             item.Price = fromObject.Price;
+            item.Quantity = fromObject.Quantity;
 
             return item;
         }
@@ -28,6 +29,7 @@ namespace JoelScottFitness.Services.Mappers
             item.ItemId = fromObject.ItemId;
             item.ItemType = fromObject.ItemType;
             item.Price = fromObject.Price;
+            item.Quantity = fromObject.Quantity;
 
             return item;
         }

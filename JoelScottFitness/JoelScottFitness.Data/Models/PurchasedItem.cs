@@ -8,6 +8,9 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public long ItemId { get; set; }
 
+        [Required]
+        public long Quantity { get; set; }
+
         [ForeignKey("Purchase")]
         [Required]
         public long PurchaseId { get; set; }

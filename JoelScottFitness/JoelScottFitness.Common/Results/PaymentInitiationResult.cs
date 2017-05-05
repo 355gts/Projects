@@ -1,4 +1,4 @@
-﻿namespace JoelScottFitness.PayPal.Models
+﻿namespace JoelScottFitness.Common.Results
 {
     public class PaymentInitiationResult
     {

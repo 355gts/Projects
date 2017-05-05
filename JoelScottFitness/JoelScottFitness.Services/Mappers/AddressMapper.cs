@@ -17,6 +17,8 @@ namespace JoelScottFitness.Services.Mappers
             address.City = fromObject.City;
             address.PostCode = fromObject.PostCode;
             address.Region = fromObject.Region;
+            address.Country = fromObject.Country;
+            address.CountryCode = fromObject.CountryCode;
 
             return address;
         }
@@ -32,6 +34,8 @@ namespace JoelScottFitness.Services.Mappers
             address.City = fromObject.City;
             address.PostCode = fromObject.PostCode;
             address.Region = fromObject.Region;
+            address.Country = fromObject.Country;
+            address.CountryCode = fromObject.CountryCode;
 
             return address;
         }

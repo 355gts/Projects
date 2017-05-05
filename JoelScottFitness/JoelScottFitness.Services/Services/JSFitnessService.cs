@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JoelScottFitness.PayPal.Models;
 
 namespace JoelScottFitness.Services.Services
 {
@@ -29,7 +28,7 @@ namespace JoelScottFitness.Services.Services
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this.paypalService = paypalService ?? throw new ArgumentNullException(nameof(paypalService));
         }
-
+        
         public async Task<AsyncResult<long>> CreateOrUpdateBlog(BlogViewModel blog)
         {
             var repoBlog = mapper.Map<BlogViewModel, Blog>(blog);
@@ -167,7 +166,13 @@ namespace JoelScottFitness.Services.Services
 
         public PaymentInitiationResult InitiatePayPalPayment(string baseUri)
         {
-            return paypalService.InitialPayPalPayment(baseUri);
+            return paypalService.InitiatePayPalPayment(baseUri);
+        }
+
+
+        public PaymentResult CompletePayPalPayment(string paymentId, string payerId)
+        {
+            return paypalService.CompletePayPalPayment(paymentId, payerId);
         }
     }
 }

@@ -64,21 +64,30 @@ namespace JoelScottFitness.Web.Controllers
         public ActionResult Checkout()
         {
             // method used to initiate the paypal payment transaction
-            //string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +
-            //            "/Home/CompletePayment?";
+            string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +
+                        "/Home/CompletePayment?";
 
-            //var paymentInitiationResult = jsfService.InitiatePayPalPayment(baseUri);
+            var paymentInitiationResult = jsfService.InitiatePayPalPayment(baseUri);
 
-            //Session.Add("PaymentId", paymentInitiationResult.PaymentId);
+            Session.Add("PaymentId", paymentInitiationResult.PaymentId);
 
-            //return Redirect(paymentInitiationResult.PayPalRedirectUrl);
-
-            return View();
+            return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
 
         [HttpPost]
         public ActionResult CompletePayment(string guid)
         {
+            // need to define a model to return with the success invoice number or failure reason
+            string payerId = Request.Params["PayerID"];
+            string paymentId = (string)Session["PaymentId"];
+
+            var paymentResult = jsfService.CompletePayPalPayment(paymentId, payerId);
+
+            if (!paymentResult.Success)
+            {
+                // return error
+            }
+
             // method used to complete the paypal payment transaction
             return View();
         }

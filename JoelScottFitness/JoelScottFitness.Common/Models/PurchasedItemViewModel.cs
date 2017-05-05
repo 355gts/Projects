@@ -9,6 +9,9 @@ namespace JoelScottFitness.Common.Models
         public long ItemId { get; set; }
 
         [Required]
+        public long Quantity { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
         [Required]

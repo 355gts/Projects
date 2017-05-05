@@ -1,5 +1,5 @@
-﻿using JoelScottFitness.PayPal.Models;
-using PayPal.Api;
+﻿using JoelScottFitness.Common.Models;
+using JoelScottFitness.Common.Results;
 using System.Collections.Generic;
 
 namespace JoelScottFitness.PayPal.Services
@@ -8,26 +8,26 @@ namespace JoelScottFitness.PayPal.Services
     {
         void InitialisePayment();
 
-        void AddItems(IEnumerable<Item> items);
+        void AddItems(IEnumerable<PurchasedItemViewModel> items);
 
-        void AddItem(Item item);
+        void AddItem(PurchasedItemViewModel item);
 
-        void RemoveItem(Item item);
+        void RemoveItem(PurchasedItemViewModel item);
 
         void RemoveAllItems();
 
-        void SetBillingAddress(Address address);
+        void SetBillingAddress(AddressViewModel address);
 
-        void AddCreditCard(CreditCard creditCard);
+        void AddCreditCard(CreditCardViewModel creditCard);
 
         void SetPaymentDetails(double total);
 
         void CreateTransaction(string description, string invoiceNumber);
 
-        PayPalPaymentResult PayWithCreditCard();
+        PaymentResult PayWithCreditCard();
 
-        PaymentInitiationResult InitialPayPalPayment(string baseUri);
-
-        PayPalPaymentResult CompletePayPalPayment(string PaymentId, string payerId);
+        PaymentInitiationResult InitiatePayPalPayment(string baseUri);
+        
+        PaymentResult CompletePayPalPayment(string paymentId, string payerId);
     }
 }

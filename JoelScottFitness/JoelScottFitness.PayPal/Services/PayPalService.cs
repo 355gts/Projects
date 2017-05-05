@@ -1,19 +1,22 @@
-﻿using System;
+﻿using JoelScottFitness.Common.Mapper;
+using JoelScottFitness.Common.Models;
+using JoelScottFitness.Common.Results;
+using JoelScottFitness.PayPal.Configuration;
+using log4net;
+using PayPal;
+using PayPal.Api;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JoelScottFitness.PayPal.Models;
-using PayPal.Api;
-using PayPal;
-using log4net;
-using JoelScottFitness.PayPal.Configuration;
+using System.Reflection;
 
 namespace JoelScottFitness.PayPal.Services
 {
     public class PayPalService : IPayPalService
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(PayPalService));
+
+        private readonly IMapper mapper;
 
         private List<Item> items;
         private ItemList itemList;
@@ -26,10 +29,19 @@ namespace JoelScottFitness.PayPal.Services
         private FundingInstrument fundingInstrument;
         private List<FundingInstrument> fundingInstruments;
         private Payer payer;
-        
 
-        public PayPalService()
+        public PayPalService() 
+            : this(new Mapper(Assembly.Load("JoelScottFitness.PayPal")))
         {
+
+        }
+        public PayPalService(IMapper mapper)
+        {
+            if (mapper == null)
+                throw new ArgumentNullException(nameof(mapper));
+
+            this.mapper = mapper;
+
             InitialisePayment();
         }
 
@@ -48,9 +60,9 @@ namespace JoelScottFitness.PayPal.Services
             payer = new Payer();
         }
 
-        public void AddCreditCard(CreditCard newCreditCard)
+        public void AddCreditCard(CreditCardViewModel newCreditCard)
         {
-            creditCard = newCreditCard;
+            creditCard = mapper.Map<CreditCardViewModel, CreditCard>(newCreditCard);
             creditCard.billing_address = billingAddress;
 
             fundingInstrument.credit_card = creditCard;
@@ -61,13 +73,15 @@ namespace JoelScottFitness.PayPal.Services
             payer.payment_method = "credit_card";
         }
 
-        public void AddItem(Item item)
+        public void AddItem(PurchasedItemViewModel item)
         {
-            if (!items.Contains(item))
-                items.Add(item);
+            var paypalItem = mapper.Map<PurchasedItemViewModel, Item>(item);
+
+            if (!items.Contains(paypalItem))
+                items.Add(paypalItem);
         }
 
-        public void AddItems(IEnumerable<Item> items)
+        public void AddItems(IEnumerable<PurchasedItemViewModel> items)
         {
             foreach (var item in items)
             {
@@ -75,7 +89,7 @@ namespace JoelScottFitness.PayPal.Services
             }
         }
 
-        public PayPalPaymentResult PayWithCreditCard()
+        public PaymentResult PayWithCreditCard()
         {
             Payment payment = new Payment()
             {
@@ -91,7 +105,7 @@ namespace JoelScottFitness.PayPal.Services
                 Payment createdPayment = payment.Create(apiContext);
 
                 if (createdPayment.state.ToLower() != "approved")
-                    return new PayPalPaymentResult()
+                    return new PaymentResult()
                     {
                         Success = false,
                         ErrorMessage = $"Payment was not approvred, returned state '{createdPayment.state}'.",
@@ -100,14 +114,14 @@ namespace JoelScottFitness.PayPal.Services
             catch(PayPalException pex)
             {
                 logger.Warn($"PayPal error - '{pex.Message}'.");
-                return new PayPalPaymentResult()
+                return new PaymentResult()
                 {
                     Success = false,
                     ErrorMessage = $"PayPal error - '{pex.Message}'."
                 };
             }
 
-            return new PayPalPaymentResult() { Success = true };
+            return new PaymentResult() { Success = true };
         }
 
         public void RemoveAllItems()
@@ -115,17 +129,19 @@ namespace JoelScottFitness.PayPal.Services
             items = new List<Item>();
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(PurchasedItemViewModel item)
         {
-            if (items.Contains(item))
+            var paypalItem = mapper.Map<PurchasedItemViewModel, Item>(item);
+
+            if (items.Contains(paypalItem))
             {
-                items.Remove(item);
+                items.Remove(paypalItem);
             }
         }
 
-        public void SetBillingAddress(Address address)
+        public void SetBillingAddress(AddressViewModel address)
         {
-            billingAddress = address;
+            billingAddress = mapper.Map<AddressViewModel, Address>(address);
         }
 
         public void SetPaymentDetails(double total)
@@ -155,7 +171,7 @@ namespace JoelScottFitness.PayPal.Services
         }
 
 
-        public PaymentInitiationResult InitialPayPalPayment(string baseUri)
+        public PaymentInitiationResult InitiatePayPalPayment(string baseUri)
         {
             APIContext apiContext = PayPalConfiguration.GetAPIContext();
 
@@ -186,22 +202,22 @@ namespace JoelScottFitness.PayPal.Services
             };
         }
         
-        public PayPalPaymentResult CompletePayPalPayment(string PaymentId, string payerId)
+        public PaymentResult CompletePayPalPayment(string paymentId, string payerId)
         {
             APIContext apiContext = PayPalConfiguration.GetAPIContext();
 
-            var executedPayment = ExecutePayment(apiContext, payerId, PaymentId);
+            var executedPayment = ExecutePayment(apiContext, payerId, paymentId);
 
             if (executedPayment.state.ToLower() != "approved")
             {
-                return new PayPalPaymentResult()
+                return new PaymentResult()
                 {
                     Success = false,
                     ErrorMessage = $"Payment was not approvied, returned state of '{executedPayment.state}'.",
                 };
             }
 
-            return new PayPalPaymentResult()
+            return new PaymentResult()
             {
                 Success = true
             };
@@ -232,15 +248,16 @@ namespace JoelScottFitness.PayPal.Services
                 details = details
             };
 
-            var transactionList = new List<Transaction>();
-
-            transactionList.Add(new Transaction()
+            var transactionList = new List<Transaction>
             {
-                description = "Transaction description.",
-                invoice_number = "your invoice number",
-                amount = amount,
-                item_list = itemList
-            });
+                new Transaction()
+                {
+                    description = "Transaction description.",
+                    invoice_number = "your invoice number",
+                    amount = amount,
+                    item_list = itemList
+                }
+            };
 
             Payment payment = new Payment()
             {

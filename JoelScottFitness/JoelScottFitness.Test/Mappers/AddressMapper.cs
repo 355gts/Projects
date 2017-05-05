@@ -23,6 +23,8 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 456,
                     PostCode = "PostCode",
                     Region = "Region",
+                    Country = "Country",
+                    CountryCode = "CountryCode",
                 };
 
                 var mapper = new Map.AddressMapper();
@@ -44,6 +46,8 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 456,
                     PostCode = "PostCode",
                     Region = "Region",
+                    Country = "Country",
+                    CountryCode = "CountryCode",
                 };
 
                 AddressViewModel toObject = new AddressViewModel();
@@ -61,6 +65,8 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.AddressLine2, webObject.AddressLine2);
                 Assert.AreEqual(repoObject.AddressLine3, webObject.AddressLine3);
                 Assert.AreEqual(repoObject.City, webObject.City);
+                Assert.AreEqual(repoObject.Country, webObject.Country);
+                Assert.AreEqual(repoObject.CountryCode, webObject.CountryCode);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.PostCode, webObject.PostCode);
                 Assert.AreEqual(repoObject.Region, webObject.Region);
@@ -82,6 +88,8 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 456,
                     PostCode = "PostCode",
                     Region = "Region",
+                    Country = "Country",
+                    CountryCode = "CountryCode",
                 };
 
                 var mapper = new Map.AddressMapper();
@@ -103,6 +111,8 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 456,
                     PostCode = "PostCode",
                     Region = "Region",
+                    Country = "Country",
+                    CountryCode = "CountryCode",
                 };
 
                 Address toObject = new Address();
@@ -120,6 +130,8 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.AddressLine2, repoObject.AddressLine2);
                 Assert.AreEqual(webObject.AddressLine3, repoObject.AddressLine3);
                 Assert.AreEqual(webObject.City, repoObject.City);
+                Assert.AreEqual(webObject.Country, repoObject.Country);
+                Assert.AreEqual(webObject.CountryCode, repoObject.CountryCode);
                 Assert.AreEqual(webObject.Id, repoObject.Id);
                 Assert.AreEqual(webObject.PostCode, repoObject.PostCode);
                 Assert.AreEqual(webObject.Region, repoObject.Region);

@@ -22,6 +22,7 @@ namespace JoelScottFitness.Test.Mappers
                     ItemId = 456,
                     ItemType = ItemType.Plan,
                     Price = 12.34,
+                    Quantity = 2,
                 };
 
                 var mapper = new Map.PurchasedItemMapper();
@@ -41,6 +42,7 @@ namespace JoelScottFitness.Test.Mappers
                     ItemId = 456,
                     ItemType = ItemType.Plan,
                     Price = 12.34,
+                    Quantity = 2,
                 };
 
                 PurchasedItemViewModel toObject = new PurchasedItemViewModel();
@@ -59,6 +61,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.ItemId, webObject.ItemId);
                 Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
+                Assert.AreEqual(repoObject.Quantity, webObject.Quantity);
             }
         }
 
@@ -75,6 +78,7 @@ namespace JoelScottFitness.Test.Mappers
                     ItemId = 456,
                     ItemType = ItemType.Plan,
                     Price = 12.34,
+                    Quantity = 2,
                 };
 
                 var mapper = new Map.PurchasedItemMapper();
@@ -94,6 +98,7 @@ namespace JoelScottFitness.Test.Mappers
                     ItemId = 456,
                     ItemType = ItemType.Plan,
                     Price = 12.34,
+                    Quantity = 2,
                 };
 
                 PurchasedItem toObject = new PurchasedItem();
@@ -112,6 +117,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.ItemId, webObject.ItemId);
                 Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
+                Assert.AreEqual(repoObject.Quantity, webObject.Quantity);
 
             }
         }
