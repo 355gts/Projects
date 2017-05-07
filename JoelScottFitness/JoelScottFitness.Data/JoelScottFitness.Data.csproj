@@ -73,6 +73,7 @@
     <Compile Include="Models\Plan.cs" />
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
+    <Compile Include="Modules\DataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

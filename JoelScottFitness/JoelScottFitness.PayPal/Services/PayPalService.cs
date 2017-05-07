@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.PayPal.Configuration;
 using log4net;
+using Ninject;
 using PayPal;
 using PayPal.Api;
 using System;
@@ -35,7 +36,7 @@ namespace JoelScottFitness.PayPal.Services
         {
 
         }
-        public PayPalService(IMapper mapper)
+        public PayPalService([Named("PayPalMapper")] IMapper mapper)
         {
             if (mapper == null)
                 throw new ArgumentNullException(nameof(mapper));

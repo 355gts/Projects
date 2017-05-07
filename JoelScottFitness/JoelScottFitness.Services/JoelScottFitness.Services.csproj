@@ -68,6 +68,7 @@
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
     <Compile Include="Mappers\PurchasedItemMapper.cs" />
     <Compile Include="Mappers\PurchaseMapper.cs" />
+    <Compile Include="Modules\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IJSFitnessService.cs" />
     <Compile Include="Services\JSFitnessService.cs" />

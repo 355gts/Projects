@@ -1,4 +1,3 @@
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\ApplicationInsights.config
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Services.dll.config
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Services.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\JoelScottFitness.Services.pdb

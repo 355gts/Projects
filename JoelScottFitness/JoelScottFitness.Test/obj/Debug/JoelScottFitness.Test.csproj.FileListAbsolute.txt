@@ -90,3 +90,7 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bi
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\System.Web.WebPages.Deployment.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\obj\Debug\JoelScottFitness.Test.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\obj\Debug\JoelScottFitness.Test.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.Web.Common.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.Web.Common.xml

@@ -115,3 +115,6 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\PayPal.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\obj\Debug\JoelScottFitness.Web.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\obj\Debug\JoelScottFitness.Web.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\Ninject.Web.Mvc.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\WebActivatorEx.dll
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Web\bin\Ninject.Web.Mvc.xml

@@ -1,9 +1,6 @@
-﻿using JoelScottFitness.Common.Mapper;
-using JoelScottFitness.Common.Models;
-using JoelScottFitness.Data.Models;
-using JoelScottFitness.Services.Services;
+﻿using JoelScottFitness.Services.Services;
 using System;
-using System.Reflection;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace JoelScottFitness.Web.Controllers
@@ -22,27 +19,6 @@ namespace JoelScottFitness.Web.Controllers
 
         public ActionResult Index()
         {
-            
-
-            DiscountCodeViewModel dvm = new DiscountCodeViewModel()
-            {
-                Active = true,
-                Code = "ABC123",
-                Id = 123,
-                PercentDiscount = 10,
-                ValidFrom = DateTime.UtcNow.AddDays(-2),
-                ValidTo = DateTime.UtcNow.AddDays(+3),
-            };
-
-            var mapper = new Mapper(Assembly.Load("JoelScottFitness.Services"));
-
-            DiscountCode d = mapper.Map<DiscountCodeViewModel, DiscountCode>(dvm);
-            d.ValidTo = DateTime.UtcNow.AddSeconds(-30);
-
-            var t = mapper.Map<DiscountCode, DiscountCodeViewModel>(d);
-
-
-
             return View();
         }
 
@@ -60,7 +36,14 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Blogs()
+        {
+            var blogs = await jsfService.GetBlogs();
+            return View(blogs);
+        }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Checkout()
         {
             // method used to initiate the paypal payment transaction
@@ -75,6 +58,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult CompletePayment(string guid)
         {
             // need to define a model to return with the success invoice number or failure reason

@@ -5,6 +5,7 @@ using JoelScottFitness.Data;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.PayPal.Services;
 using log4net;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace JoelScottFitness.Services.Services
         private readonly IMapper mapper;
         private readonly IPayPalService paypalService;
 
-        public JSFitnessService(IJSFitnessRepository repository, 
-                                IMapper mapper, 
+        public JSFitnessService(IJSFitnessRepository repository,
+                                [Named("ServiceMapper")] IMapper  mapper, 
                                 IPayPalService paypalService)
         {
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));

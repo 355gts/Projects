@@ -56,6 +56,7 @@
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\CreditCardMapper.cs" />
     <Compile Include="Mappers\ItemMapper.cs" />
+    <Compile Include="Modules\PayPalModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPayPalService.cs" />
     <Compile Include="Services\PayPalService.cs" />
