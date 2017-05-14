@@ -1,23 +1,54 @@
-﻿using JoelScottFitness.Identity.Models;
+﻿using System;
+using System.Data.Entity;
+using JoelScottFitness.Identity.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Identity
 {
-    public class IdentityContext : IdentityDbContext<ApplicationUser>
+    public class IdentityContext : IdentityDbContext<AuthUser, AuthRole, long, AuthLogin, AuthUserRole, AuthClaim>, IIdentityContext
     {
         public IdentityContext()
-    :       base("DefaultConnection", throwIfV1Schema: false)
+    :       base("DefaultConnection")
         {
         }
 
-        public IdentityContext(string dbConnection, bool throwIfV1Schema = false)
-            : base(dbConnection, throwIfV1Schema: throwIfV1Schema)
+        public IdentityContext(string dbConnection)
+            : base(dbConnection)
         {
         }
 
-        //public static IdentityContext Create()
-        //{
-        //    return new IdentityContext();
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            if (modelBuilder == null)
+                throw new ArgumentNullException(nameof(modelBuilder));
+
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AuthClaim>().ToTable("AuthClaim");
+            modelBuilder.Entity<AuthLogin>().ToTable("AuthLogin");
+            modelBuilder.Entity<AuthRole>().ToTable("AuthRole");
+            modelBuilder.Entity<AuthUser>().ToTable("AuthUser");
+            modelBuilder.Entity<AuthUserRole>().ToTable("AuthUserRole");
+
+            modelBuilder.Entity<AuthUser>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<AuthRole>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<AuthClaim>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+        }
+
+        public IDbSet<AuthClaim> Claims { get; set; }
+        public IDbSet<AuthLogin> Logins { get; set; }
+        public IDbSet<AuthUserRole> UserRoles { get; set; }
+        public override IDbSet<AuthRole> Roles
+        {
+            get { return base.Roles; }
+            set { base.Roles = value; }
+        }
+        public override IDbSet<AuthUser> Users
+        {
+            get { return base.Users; }
+            set { base.Users = value; }
+        }
     }
 }

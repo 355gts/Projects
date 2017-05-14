@@ -152,7 +152,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new AuthUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -176,14 +176,14 @@ namespace JoelScottFitness.Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(long userId, string code)
         {
-            if (userId == null || code == null)
+            if (userId > 0)
             {
-                return View("Error");
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+                return View(result.Succeeded ? "ConfirmEmail" : "Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return View("Error");
         }
 
         //
@@ -289,7 +289,7 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
-            if (userId == null)
+            if (userId <= 0)
             {
                 return View("Error");
             }
@@ -368,7 +368,7 @@ namespace JoelScottFitness.Web.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new AuthUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

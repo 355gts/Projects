@@ -94,3 +94,4 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bi
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.Web.Common.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.xml
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\Ninject.Web.Common.xml
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Test\bin\Debug\WebActivatorEx.dll

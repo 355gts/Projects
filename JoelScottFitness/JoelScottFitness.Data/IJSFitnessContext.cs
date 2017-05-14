@@ -1,12 +1,12 @@
 ﻿using JoelScottFitness.Data.Models;
-using JoelScottFitness.Identity.Models;
+using JoelScottFitness.Identity;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading.Tasks;
 
 namespace JoelScottFitness.Data
 {
-    public interface IJSFitnessContext
+    public interface IJSFitnessContext : IIdentityContext
     {
         #region context methods
         Task<int> SaveChangesAsync();

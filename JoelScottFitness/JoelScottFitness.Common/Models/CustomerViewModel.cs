@@ -26,7 +26,7 @@ namespace JoelScottFitness.Common.Models
         [Required]
         public AddressViewModel BillingAddress { get; set; }
         
-        public string UserId { get; set; }
+        public long? UserId { get; set; }
         
         public ICollection<PurchaseViewModel> PurchaseHistory { get; set; }
     }

@@ -1404,3 +1404,1678 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 2017-05-14 19:59:54,006       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 19:59:54 +01:00
 
+2017-05-14 20:55:37,231       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,244       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+SELECT Count(*)
+FROM INFORMATION_SCHEMA.TABLES AS t
+WHERE t.TABLE_SCHEMA + '.' + t.TABLE_NAME IN ('dbo.Addresses','dbo.Blogs','dbo.AspNetUserClaims','dbo.Customers','dbo.Purchases','dbo.DiscountCodes','dbo.Items','dbo.AspNetUsers','dbo.AspNetUserLogins','dbo.AspNetUserRoles','dbo.Plans','dbo.AspNetRoles')
+    OR t.TABLE_NAME = 'EdmMetadata'
+2017-05-14 20:55:37,244       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,246       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,266       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 19 ms with result: 12
+
+2017-05-14 20:55:37,266       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,269       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,324       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,394       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [GroupBy1].[A1] AS [C1]
+    FROM ( SELECT 
+        COUNT(1) AS [A1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [GroupBy1]
+2017-05-14 20:55:37,394       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,396       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-05-14 20:55:37,396       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,401       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 4 ms with result: SqlDataReader
+
+2017-05-14 20:55:37,401       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,406       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,409       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,414       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Project1].[C1] AS [C1], 
+    [Project1].[MigrationId] AS [MigrationId], 
+    [Project1].[Model] AS [Model], 
+    [Project1].[ProductVersion] AS [ProductVersion]
+    FROM ( SELECT 
+        [Extent1].[MigrationId] AS [MigrationId], 
+        [Extent1].[Model] AS [Model], 
+        [Extent1].[ProductVersion] AS [ProductVersion], 
+        1 AS [C1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[MigrationId] DESC
+2017-05-14 20:55:37,416       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,419       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-05-14 20:55:37,419       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,421       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 20:55:37,421       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,421       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,441       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,499       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 20:55:37,501       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,501       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 20:55:37,504       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:37,524       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 19 ms with result: SqlDataReader
+
+2017-05-14 20:55:37,526       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:37,531       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:55:37 +01:00
+
+2017-05-14 20:55:39,593       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 20:55:39 +01:00
+
+2017-05-14 20:55:39,595       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 20:55:39 +01:00
+
+2017-05-14 20:55:39,603       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Addresses]([AddressLine1], [AddressLine2], [AddressLine3], [City], [Region], [PostCode], [Country], [CountryCode])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+SELECT [Id]
+FROM [dbo].[Addresses]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 20:55:39,605       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:39,605       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: '19 Alexandra Grove' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,608       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'Test' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,608       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Test2' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,610       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'Los Angeles' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,610       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'Cheshire' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,613       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'WA75DZ' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,615       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'UK' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,615       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: 'UK' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,615       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 20:55:39 +01:00
+
+2017-05-14 20:55:39,620       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 20:55:39,620       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:39,625       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Customers]([Firstname], [Surname], [EmailAddress], [CreatedDate], [ModifiedDate], [UserId], [BillingAddress_Id])
+VALUES (@0, @1, @2, @3, @4, NULL, @5)
+SELECT [Id]
+FROM [dbo].[Customers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 20:55:39,628       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:39,628       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Simon' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,628       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'John Blackmore' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,630       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Blackmore__s@hotmail.com' (Type = String, Size = -1)
+
+2017-05-14 20:55:39,630       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '14/05/2017 19:55:35' (Type = DateTime2)
+
+2017-05-14 20:55:39,630       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: '14/05/2017 19:55:35' (Type = DateTime2)
+
+2017-05-14 20:55:39,633       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: '2' (Type = Int64)
+
+2017-05-14 20:55:39,633       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 20:55:39 +01:00
+
+2017-05-14 20:55:39,640       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 5 ms with result: SqlDataReader
+
+2017-05-14 20:55:39,640       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:55:39,648       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 20:55:39 +01:00
+
+2017-05-14 20:55:39,650       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:55:39 +01:00
+
+2017-05-14 20:56:00,665       [13] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,695       [13] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AspNetUsers] AS [Extent1]
+    WHERE ((UPPER([Extent1].[UserName])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[UserName]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 20:56:00,697       [13] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,697       [13] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmaizl.com' (Type = String, Size = 4000)
+
+2017-05-14 20:56:00,697       [13] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,710       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 11 ms with result: SqlDataReader
+
+2017-05-14 20:56:00,715       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,735       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,747       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,750       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AspNetUsers] AS [Extent1]
+    WHERE ((UPPER([Extent1].[Email])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[Email]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 20:56:00,750       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,752       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmaizl.com' (Type = String, Size = 4000)
+
+2017-05-14 20:56:00,752       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,762       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 4 ms with result: SqlDataReader
+
+2017-05-14 20:56:00,762       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,765       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,780       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,795       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    CASE WHEN ( EXISTS (SELECT 
+        1 AS [C1]
+        FROM [dbo].[AspNetUsers] AS [Extent1]
+        WHERE [Extent1].[UserName] = @p__linq__0
+    )) THEN cast(1 as bit) ELSE cast(0 as bit) END AS [C1]
+    FROM  ( SELECT 1 AS X ) AS [SingleRowTable1]
+2017-05-14 20:56:00,795       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,797       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmaizl.com' (Type = String, Size = 4000)
+
+2017-05-14 20:56:00,797       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,802       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 20:56:00,802       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,807       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,810       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,817       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,820       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[AspNetUsers]([Email], [EmailConfirmed], [PasswordHash], [SecurityStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEndDateUtc], [LockoutEnabled], [AccessFailedCount], [UserName])
+VALUES (@0, @1, @2, @3, NULL, @4, @5, NULL, @6, @7, @8)
+SELECT [Id]
+FROM [dbo].[AspNetUsers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 20:56:00,822       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,825       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Blackmore__s@hotmaizl.com' (Type = String, Size = 256)
+
+2017-05-14 20:56:00,825       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'False' (Type = Boolean)
+
+2017-05-14 20:56:00,825       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'ALa7DUgplWsA7bEgZNT3PHtLrLDgFvdx+oHvVjdUifgrcTfqxqY0GNtClacAHq9tdA==' (Type = String, Size = -1)
+
+2017-05-14 20:56:00,827       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '9919079b-3882-4e0e-ab76-e6159bb4cbbc' (Type = String, Size = -1)
+
+2017-05-14 20:56:00,832       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'False' (Type = Boolean)
+
+2017-05-14 20:56:00,835       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'False' (Type = Boolean)
+
+2017-05-14 20:56:00,835       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'True' (Type = Boolean)
+
+2017-05-14 20:56:00,835       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: '0' (Type = Int32)
+
+2017-05-14 20:56:00,835       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @8: 'Blackmore__s@hotmaizl.com' (Type = String, Size = 256)
+
+2017-05-14 20:56:00,837       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 20:56:00,847       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Failed in 10 ms with error: Cannot insert the value NULL into column 'Id', table 'JoelScottFitness.dbo.AspNetUsers'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+
+2017-05-14 20:56:00,847       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 20:56:00,855       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 20:56:00 +01:00
+
+2017-05-14 22:13:59,074       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,086       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+SELECT Count(*)
+FROM INFORMATION_SCHEMA.TABLES AS t
+WHERE t.TABLE_SCHEMA + '.' + t.TABLE_NAME IN ('dbo.Addresses','dbo.Blogs','dbo.AspNetUserClaims','dbo.Customers','dbo.Purchases','dbo.DiscountCodes','dbo.Items','dbo.AspNetUsers','dbo.AspNetUserLogins','dbo.AspNetUserRoles','dbo.Plans','dbo.AspNetRoles')
+    OR t.TABLE_NAME = 'EdmMetadata'
+2017-05-14 22:13:59,087       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,089       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,112       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 22 ms with result: 12
+
+2017-05-14 22:13:59,113       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,113       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,185       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,249       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [GroupBy1].[A1] AS [C1]
+    FROM ( SELECT 
+        COUNT(1) AS [A1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [GroupBy1]
+2017-05-14 22:13:59,250       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,251       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-05-14 22:13:59,251       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,258       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 5 ms with result: SqlDataReader
+
+2017-05-14 22:13:59,258       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,262       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,266       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,274       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Project1].[C1] AS [C1], 
+    [Project1].[MigrationId] AS [MigrationId], 
+    [Project1].[Model] AS [Model], 
+    [Project1].[ProductVersion] AS [ProductVersion]
+    FROM ( SELECT 
+        [Extent1].[MigrationId] AS [MigrationId], 
+        [Extent1].[Model] AS [Model], 
+        [Extent1].[ProductVersion] AS [ProductVersion], 
+        1 AS [C1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[MigrationId] DESC
+2017-05-14 22:13:59,274       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,275       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-05-14 22:13:59,276       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,278       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:13:59,281       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,281       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,299       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,350       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:13:59,351       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,351       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:13:59,352       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:13:59,359       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 6 ms with result: SqlDataReader
+
+2017-05-14 22:13:59,361       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:13:59,364       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:13:59 +01:00
+
+2017-05-14 22:14:01,316       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:01 +01:00
+
+2017-05-14 22:14:01,318       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:14:01 +01:00
+
+2017-05-14 22:14:01,328       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Addresses]([AddressLine1], [AddressLine2], [AddressLine3], [City], [Region], [PostCode], [Country], [CountryCode])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+SELECT [Id]
+FROM [dbo].[Addresses]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:14:01,330       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:01,331       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: '19 Alexandra Grove' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,332       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'Test' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,334       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Test2' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,335       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'Los Angeles' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,336       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'Cheshire' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,337       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'WA75DZ' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,337       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,338       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,339       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:01 +01:00
+
+2017-05-14 22:14:01,345       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 4 ms with result: SqlDataReader
+
+2017-05-14 22:14:01,346       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:01,348       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Customers]([Firstname], [Surname], [EmailAddress], [CreatedDate], [ModifiedDate], [UserId], [BillingAddress_Id])
+VALUES (@0, @1, @2, @3, @4, NULL, @5)
+SELECT [Id]
+FROM [dbo].[Customers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:14:01,348       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:01,349       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Simon' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,350       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'John Blackmore' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,351       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Blackmore__s@hotmail.com' (Type = String, Size = -1)
+
+2017-05-14 22:14:01,351       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '14/05/2017 21:13:52' (Type = DateTime2)
+
+2017-05-14 22:14:01,352       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: '14/05/2017 21:13:52' (Type = DateTime2)
+
+2017-05-14 22:14:01,352       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: '1' (Type = Int64)
+
+2017-05-14 22:14:01,353       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:01 +01:00
+
+2017-05-14 22:14:01,358       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 4 ms with result: SqlDataReader
+
+2017-05-14 22:14:01,359       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:01,362       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:14:01 +01:00
+
+2017-05-14 22:14:01,363       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:01 +01:00
+
+2017-05-14 22:14:40,340       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,363       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AspNetUsers] AS [Extent1]
+    WHERE ((UPPER([Extent1].[UserName])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[UserName]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 22:14:40,364       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,364       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blaqckmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:14:40,365       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,381       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 15 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,382       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,383       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,390       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,392       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AspNetUsers] AS [Extent1]
+    WHERE ((UPPER([Extent1].[Email])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[Email]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 22:14:40,393       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,393       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blaqckmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:14:40,394       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,397       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,397       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,398       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,409       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,417       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    CASE WHEN ( EXISTS (SELECT 
+        1 AS [C1]
+        FROM [dbo].[AspNetUsers] AS [Extent1]
+        WHERE [Extent1].[UserName] = @p__linq__0
+    )) THEN cast(1 as bit) ELSE cast(0 as bit) END AS [C1]
+    FROM  ( SELECT 1 AS X ) AS [SingleRowTable1]
+2017-05-14 22:14:40,417       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,418       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blaqckmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:14:40,418       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,422       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,423       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,427       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,430       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,431       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,434       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[AspNetUsers]([Email], [EmailConfirmed], [PasswordHash], [SecurityStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEndDateUtc], [LockoutEnabled], [AccessFailedCount], [UserName])
+VALUES (@0, @1, @2, @3, NULL, @4, @5, NULL, @6, @7, @8)
+SELECT [Id]
+FROM [dbo].[AspNetUsers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:14:40,435       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,435       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Blaqckmore__s@hotmail.com' (Type = String, Size = 256)
+
+2017-05-14 22:14:40,436       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'False' (Type = Boolean)
+
+2017-05-14 22:14:40,436       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'AAVSIpnBh86Ye62zytzWQE0lkaoV0mityW6SzuzX9Lc9azxHq+uv1QGf5XXdq177Nw==' (Type = String, Size = -1)
+
+2017-05-14 22:14:40,436       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'fa890b40-5c74-4117-b88c-fcf74e39b31c' (Type = String, Size = -1)
+
+2017-05-14 22:14:40,437       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'False' (Type = Boolean)
+
+2017-05-14 22:14:40,437       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'False' (Type = Boolean)
+
+2017-05-14 22:14:40,438       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'True' (Type = Boolean)
+
+2017-05-14 22:14:40,438       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: '0' (Type = Int32)
+
+2017-05-14 22:14:40,439       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @8: 'Blaqckmore__s@hotmail.com' (Type = String, Size = 256)
+
+2017-05-14 22:14:40,439       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,445       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 4 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,445       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,447       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,448       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,473       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,489       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[UserId] AS [UserId], 
+    [Extent1].[ClaimType] AS [ClaimType], 
+    [Extent1].[ClaimValue] AS [ClaimValue]
+    FROM [dbo].[AspNetUserClaims] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:14:40,490       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,491       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:14:40,492       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,497       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,497       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,499       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,505       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,519       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[LoginProvider] AS [LoginProvider], 
+    [Extent1].[ProviderKey] AS [ProviderKey], 
+    [Extent1].[UserId] AS [UserId]
+    FROM [dbo].[AspNetUserLogins] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:14:40,519       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,520       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:14:40,521       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,524       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,525       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,527       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,532       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,543       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[UserId] AS [UserId], 
+    [Extent1].[RoleId] AS [RoleId]
+    FROM [dbo].[AspNetUserRoles] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:14:40,545       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,545       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:14:40,546       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,548       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,549       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,550       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,560       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,563       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent2].[Name] AS [Name]
+    FROM  [dbo].[AspNetUserRoles] AS [Extent1]
+    INNER JOIN [dbo].[AspNetRoles] AS [Extent2] ON [Extent1].[RoleId] = [Extent2].[Id]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:14:40,564       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,565       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:14:40,566       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:40,589       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 22 ms with result: SqlDataReader
+
+2017-05-14 22:14:40,590       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:40,591       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:40 +01:00
+
+2017-05-14 22:14:42,522       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,529       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:14:42,530       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:42,531       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:14:42,532       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,543       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 5 ms with result: SqlDataReader
+
+2017-05-14 22:14:42,544       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:42,545       [12] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,551       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,552       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,554       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Addresses]([AddressLine1], [AddressLine2], [AddressLine3], [City], [Region], [PostCode], [Country], [CountryCode])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+SELECT [Id]
+FROM [dbo].[Addresses]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:14:42,554       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:42,555       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: '19 Alexandra Grove' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,557       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'Test' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,559       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Test2' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,559       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'Los Angeles' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,561       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'Cheshire' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,563       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'WA75DZ' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,563       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,565       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,566       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,568       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:14:42,569       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:42,570       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Customers]([Firstname], [Surname], [EmailAddress], [CreatedDate], [ModifiedDate], [UserId], [BillingAddress_Id])
+VALUES (@0, @1, @2, @3, @4, NULL, @5)
+SELECT [Id]
+FROM [dbo].[Customers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:14:42,575       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:42,577       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Simon' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,581       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'John Blackmore' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,581       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Blackmore__s@hotmail.com' (Type = String, Size = -1)
+
+2017-05-14 22:14:42,583       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '14/05/2017 21:14:40' (Type = DateTime2)
+
+2017-05-14 22:14:42,584       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: '14/05/2017 21:14:40' (Type = DateTime2)
+
+2017-05-14 22:14:42,600       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: '2' (Type = Int64)
+
+2017-05-14 22:14:42,611       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,624       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 12 ms with result: SqlDataReader
+
+2017-05-14 22:14:42,652       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:14:42,654       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:14:42,656       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:14:42 +01:00
+
+2017-05-14 22:18:40,207       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,220       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+SELECT Count(*)
+FROM INFORMATION_SCHEMA.TABLES AS t
+WHERE t.TABLE_SCHEMA + '.' + t.TABLE_NAME IN ('dbo.Addresses','dbo.Blogs','dbo.AuthClaim','dbo.Customers','dbo.Purchases','dbo.DiscountCodes','dbo.Items','dbo.AuthUser','dbo.AuthLogin','dbo.AuthUserRole','dbo.Plans','dbo.AuthRole')
+    OR t.TABLE_NAME = 'EdmMetadata'
+2017-05-14 22:18:40,221       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,223       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,248       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 25 ms with result: 12
+
+2017-05-14 22:18:40,249       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,250       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,307       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,361       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [GroupBy1].[A1] AS [C1]
+    FROM ( SELECT 
+        COUNT(1) AS [A1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [GroupBy1]
+2017-05-14 22:18:40,362       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,362       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-05-14 22:18:40,363       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,370       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 6 ms with result: SqlDataReader
+
+2017-05-14 22:18:40,371       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,375       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,377       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,383       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Project1].[C1] AS [C1], 
+    [Project1].[MigrationId] AS [MigrationId], 
+    [Project1].[Model] AS [Model], 
+    [Project1].[ProductVersion] AS [ProductVersion]
+    FROM ( SELECT 
+        [Extent1].[MigrationId] AS [MigrationId], 
+        [Extent1].[Model] AS [Model], 
+        [Extent1].[ProductVersion] AS [ProductVersion], 
+        1 AS [C1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[MigrationId] DESC
+2017-05-14 22:18:40,384       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,385       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-05-14 22:18:40,385       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,388       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:18:40,388       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,389       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,408       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,458       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:18:40,459       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,459       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:18:40,460       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:40,467       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 6 ms with result: SqlDataReader
+
+2017-05-14 22:18:40,468       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:40,469       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:18:40 +01:00
+
+2017-05-14 22:18:42,428       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:18:42 +01:00
+
+2017-05-14 22:18:42,429       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:18:42 +01:00
+
+2017-05-14 22:18:42,438       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Addresses]([AddressLine1], [AddressLine2], [AddressLine3], [City], [Region], [PostCode], [Country], [CountryCode])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+SELECT [Id]
+FROM [dbo].[Addresses]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:18:42,440       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:42,440       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: '19 Alexandra Grove' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,441       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'Test' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,442       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Test2' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,443       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'Los Angeles' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,443       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'Cheshire' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,444       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'WA75DZ' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,444       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,445       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,446       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:18:42 +01:00
+
+2017-05-14 22:18:42,450       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:18:42,451       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:42,454       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Customers]([Firstname], [Surname], [EmailAddress], [CreatedDate], [ModifiedDate], [UserId], [BillingAddress_Id])
+VALUES (@0, @1, @2, @3, @4, NULL, @5)
+SELECT [Id]
+FROM [dbo].[Customers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:18:42,455       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:42,455       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Simon' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,456       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'John Blackmore' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,456       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Blackmore__s@hotmail.com' (Type = String, Size = -1)
+
+2017-05-14 22:18:42,457       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '14/05/2017 21:18:33' (Type = DateTime2)
+
+2017-05-14 22:18:42,458       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: '14/05/2017 21:18:33' (Type = DateTime2)
+
+2017-05-14 22:18:42,459       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: '1' (Type = Int64)
+
+2017-05-14 22:18:42,459       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:18:42 +01:00
+
+2017-05-14 22:18:42,464       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:18:42,465       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:42,468       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:18:42 +01:00
+
+2017-05-14 22:18:42,469       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:18:42 +01:00
+
+2017-05-14 22:18:44,441       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:18:44 +01:00
+
+2017-05-14 22:18:44,442       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:18:44,443       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:44,445       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:18:44,445       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:18:44 +01:00
+
+2017-05-14 22:18:44,450       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:18:44,451       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:18:44,466       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:18:44 +01:00
+
+2017-05-14 22:19:07,548       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,571       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AuthUser] AS [Extent1]
+    WHERE ((UPPER([Extent1].[UserName])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[UserName]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 22:19:07,572       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,572       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:19:07,573       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,577       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,598       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,599       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,606       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,608       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AuthUser] AS [Extent1]
+    WHERE ((UPPER([Extent1].[Email])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[Email]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 22:19:07,609       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,610       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:19:07,610       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,613       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,614       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,614       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,626       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,637       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    CASE WHEN ( EXISTS (SELECT 
+        1 AS [C1]
+        FROM [dbo].[AuthUser] AS [Extent1]
+        WHERE [Extent1].[UserName] = @p__linq__0
+    )) THEN cast(1 as bit) ELSE cast(0 as bit) END AS [C1]
+    FROM  ( SELECT 1 AS X ) AS [SingleRowTable1]
+2017-05-14 22:19:07,638       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,639       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:19:07,640       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,643       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,644       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,649       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,654       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,655       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,660       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[AuthUser]([Email], [EmailConfirmed], [PasswordHash], [SecurityStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEndDateUtc], [LockoutEnabled], [AccessFailedCount], [UserName])
+VALUES (@0, @1, @2, @3, NULL, @4, @5, NULL, @6, @7, @8)
+SELECT [Id]
+FROM [dbo].[AuthUser]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:19:07,661       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,661       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Blackmore__s@hotmail.com' (Type = String, Size = 256)
+
+2017-05-14 22:19:07,662       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'False' (Type = Boolean)
+
+2017-05-14 22:19:07,663       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'AJdzz12yqznTWOyqLaZ3RceYNR8sME6N2AeHE/pbjDDOghB260/L9M6B4rvEatD3Yg==' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,663       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '71ac9dd4-c95b-4622-8122-50ab5d7ea462' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,664       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'False' (Type = Boolean)
+
+2017-05-14 22:19:07,665       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'False' (Type = Boolean)
+
+2017-05-14 22:19:07,666       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'True' (Type = Boolean)
+
+2017-05-14 22:19:07,667       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: '0' (Type = Int32)
+
+2017-05-14 22:19:07,667       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @8: 'Blackmore__s@hotmail.com' (Type = String, Size = 256)
+
+2017-05-14 22:19:07,668       [11] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,673       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,674       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,676       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,677       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,701       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,716       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[UserId] AS [UserId], 
+    [Extent1].[ClaimType] AS [ClaimType], 
+    [Extent1].[ClaimValue] AS [ClaimValue]
+    FROM [dbo].[AuthClaim] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:07,717       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,717       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:07,718       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,722       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,723       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,724       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,733       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,750       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[LoginProvider] AS [LoginProvider], 
+    [Extent1].[ProviderKey] AS [ProviderKey], 
+    [Extent1].[UserId] AS [UserId]
+    FROM [dbo].[AuthLogin] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:07,751       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,752       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:07,753       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,756       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,758       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,759       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,767       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,780       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[UserId] AS [UserId], 
+    [Extent1].[RoleId] AS [RoleId]
+    FROM [dbo].[AuthUserRole] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:07,781       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,782       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:07,782       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,785       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,787       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,787       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,797       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,800       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent2].[Name] AS [Name]
+    FROM  [dbo].[AuthUserRole] AS [Extent1]
+    INNER JOIN [dbo].[AuthRole] AS [Extent2] ON [Extent1].[RoleId] = [Extent2].[Id]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:07,801       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,801       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:07,802       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,806       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,806       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,807       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,830       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,832       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:19:07,833       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,835       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:07,836       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,839       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,840       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,841       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,844       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,847       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,849       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Addresses]([AddressLine1], [AddressLine2], [AddressLine3], [City], [Region], [PostCode], [Country], [CountryCode])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+SELECT [Id]
+FROM [dbo].[Addresses]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:19:07,852       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,853       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: '19 Alexandra Grove' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,854       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'Test' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,855       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Test2' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,856       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'Los Angeles' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,857       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'Cheshire' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,857       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'WA75DZ' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,858       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,859       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,860       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,872       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 10 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,910       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,936       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Customers]([Firstname], [Surname], [EmailAddress], [CreatedDate], [ModifiedDate], [UserId], [BillingAddress_Id])
+VALUES (@0, @1, @2, @3, @4, NULL, @5)
+SELECT [Id]
+FROM [dbo].[Customers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:19:07,940       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,944       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Simon' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,950       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'John Blackmore' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,951       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Blackmore__s@hotmail.com' (Type = String, Size = -1)
+
+2017-05-14 22:19:07,953       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '14/05/2017 21:19:07' (Type = DateTime2)
+
+2017-05-14 22:19:07,954       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: '14/05/2017 21:19:07' (Type = DateTime2)
+
+2017-05-14 22:19:07,956       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: '2' (Type = Int64)
+
+2017-05-14 22:19:07,957       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,960       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:07,961       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:07,962       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:07,963       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:07 +01:00
+
+2017-05-14 22:19:31,659       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:31 +01:00
+
+2017-05-14 22:19:31,662       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:19:31,665       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:31,666       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:31,667       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:31 +01:00
+
+2017-05-14 22:19:31,669       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:31,672       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:31,673       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:31 +01:00
+
+2017-05-14 22:19:42,848       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,850       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Email] AS [Email], 
+    [Extent1].[EmailConfirmed] AS [EmailConfirmed], 
+    [Extent1].[PasswordHash] AS [PasswordHash], 
+    [Extent1].[SecurityStamp] AS [SecurityStamp], 
+    [Extent1].[PhoneNumber] AS [PhoneNumber], 
+    [Extent1].[PhoneNumberConfirmed] AS [PhoneNumberConfirmed], 
+    [Extent1].[TwoFactorEnabled] AS [TwoFactorEnabled], 
+    [Extent1].[LockoutEndDateUtc] AS [LockoutEndDateUtc], 
+    [Extent1].[LockoutEnabled] AS [LockoutEnabled], 
+    [Extent1].[AccessFailedCount] AS [AccessFailedCount], 
+    [Extent1].[UserName] AS [UserName]
+    FROM [dbo].[AuthUser] AS [Extent1]
+    WHERE ((UPPER([Extent1].[UserName])) = (UPPER(@p__linq__0))) OR ((UPPER([Extent1].[UserName]) IS NULL) AND (UPPER(@p__linq__0) IS NULL))
+2017-05-14 22:19:42,851       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,852       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'Blackmore__s@hotmail.com' (Type = String, Size = 4000)
+
+2017-05-14 22:19:42,852       [14] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,854       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,856       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,858       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,859       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,860       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[UserId] AS [UserId], 
+    [Extent1].[ClaimType] AS [ClaimType], 
+    [Extent1].[ClaimValue] AS [ClaimValue]
+    FROM [dbo].[AuthClaim] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:42,861       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,861       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:42,862       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,863       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,865       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,867       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,869       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,870       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[LoginProvider] AS [LoginProvider], 
+    [Extent1].[ProviderKey] AS [ProviderKey], 
+    [Extent1].[UserId] AS [UserId]
+    FROM [dbo].[AuthLogin] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:42,871       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,871       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:42,872       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,874       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,874       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,875       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,877       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,878       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[UserId] AS [UserId], 
+    [Extent1].[RoleId] AS [RoleId]
+    FROM [dbo].[AuthUserRole] AS [Extent1]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:42,878       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,880       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:42,881       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,883       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,883       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,884       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,922       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,924       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent2].[Name] AS [Name]
+    FROM  [dbo].[AuthUserRole] AS [Extent1]
+    INNER JOIN [dbo].[AuthRole] AS [Extent2] ON [Extent1].[RoleId] = [Extent2].[Id]
+    WHERE [Extent1].[UserId] = @p__linq__0
+2017-05-14 22:19:42,926       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,926       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:42,927       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,930       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,931       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,932       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,941       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,942       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:19:42,943       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,944       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:42,944       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,947       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,948       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,949       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,953       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,954       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Started transaction at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,956       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Addresses]([AddressLine1], [AddressLine2], [AddressLine3], [City], [Region], [PostCode], [Country], [CountryCode])
+VALUES (@0, @1, @2, @3, @4, @5, @6, @7)
+SELECT [Id]
+FROM [dbo].[Addresses]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:19:42,956       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:42,957       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: '19 Alexandra Grove' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,958       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'Test' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,959       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Test2' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,959       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: 'Los Angeles' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,960       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: 'Cheshire' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,961       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: 'WA75DZ' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,963       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @6: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,965       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @7: 'UK' (Type = String, Size = -1)
+
+2017-05-14 22:19:42,965       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:42 +01:00
+
+2017-05-14 22:19:42,992       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 25 ms with result: SqlDataReader
+
+2017-05-14 22:19:42,998       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:43,003       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] INSERT [dbo].[Customers]([Firstname], [Surname], [EmailAddress], [CreatedDate], [ModifiedDate], [UserId], [BillingAddress_Id])
+VALUES (@0, @1, @2, @3, @4, NULL, @5)
+SELECT [Id]
+FROM [dbo].[Customers]
+WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
+2017-05-14 22:19:43,005       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:43,007       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @0: 'Simon' (Type = String, Size = -1)
+
+2017-05-14 22:19:43,008       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @1: 'John Blackmore' (Type = String, Size = -1)
+
+2017-05-14 22:19:43,009       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @2: 'Blackmore__s@hotmail.com' (Type = String, Size = -1)
+
+2017-05-14 22:19:43,011       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @3: '14/05/2017 21:19:42' (Type = DateTime2)
+
+2017-05-14 22:19:43,012       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @4: '14/05/2017 21:19:42' (Type = DateTime2)
+
+2017-05-14 22:19:43,013       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- @5: '3' (Type = Int64)
+
+2017-05-14 22:19:43,013       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:43 +01:00
+
+2017-05-14 22:19:43,017       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-05-14 22:19:43,019       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:43,020       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Committed transaction at 14/05/2017 22:19:43 +01:00
+
+2017-05-14 22:19:43,021       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:43 +01:00
+
+2017-05-14 22:19:44,615       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 14/05/2017 22:19:44 +01:00
+
+2017-05-14 22:19:44,616       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Limit1].[C1] AS [C1], 
+    [Limit1].[Id] AS [Id], 
+    [Limit1].[Firstname] AS [Firstname], 
+    [Limit1].[Surname] AS [Surname], 
+    [Limit1].[EmailAddress] AS [EmailAddress], 
+    [Limit1].[CreatedDate] AS [CreatedDate], 
+    [Limit1].[ModifiedDate] AS [ModifiedDate], 
+    [Limit1].[UserId] AS [UserId], 
+    [Limit1].[Id1] AS [Id1], 
+    [Limit1].[AddressLine1] AS [AddressLine1], 
+    [Limit1].[AddressLine2] AS [AddressLine2], 
+    [Limit1].[AddressLine3] AS [AddressLine3], 
+    [Limit1].[City] AS [City], 
+    [Limit1].[Region] AS [Region], 
+    [Limit1].[PostCode] AS [PostCode], 
+    [Limit1].[Country] AS [Country], 
+    [Limit1].[CountryCode] AS [CountryCode]
+    FROM ( SELECT TOP (1) 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Firstname] AS [Firstname], 
+        [Extent1].[Surname] AS [Surname], 
+        [Extent1].[EmailAddress] AS [EmailAddress], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[UserId] AS [UserId], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[AddressLine1] AS [AddressLine1], 
+        [Extent2].[AddressLine2] AS [AddressLine2], 
+        [Extent2].[AddressLine3] AS [AddressLine3], 
+        [Extent2].[City] AS [City], 
+        [Extent2].[Region] AS [Region], 
+        [Extent2].[PostCode] AS [PostCode], 
+        [Extent2].[Country] AS [Country], 
+        [Extent2].[CountryCode] AS [CountryCode], 
+        1 AS [C1]
+        FROM  [dbo].[Customers] AS [Extent1]
+        INNER JOIN [dbo].[Addresses] AS [Extent2] ON [Extent1].[BillingAddress_Id] = [Extent2].[Id]
+        WHERE [Extent1].[Id] = @p__linq__0
+    )  AS [Limit1]
+2017-05-14 22:19:44,617       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:44,617       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '3' (Type = Int64, IsNullable = false)
+
+2017-05-14 22:19:44,618       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 14/05/2017 22:19:44 +01:00
+
+2017-05-14 22:19:44,621       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-05-14 22:19:44,622       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-05-14 22:19:44,643       [10] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 14/05/2017 22:19:44 +01:00
+

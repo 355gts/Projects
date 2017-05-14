@@ -56,7 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IdentityContext.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="IIdentityContext.cs" />
+    <Compile Include="Models\AuthClaim.cs" />
+    <Compile Include="Models\AuthRole.cs" />
+    <Compile Include="Models\AuthUser.cs" />
+    <Compile Include="Models\AuthLogin.cs" />
+    <Compile Include="Models\AuthUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

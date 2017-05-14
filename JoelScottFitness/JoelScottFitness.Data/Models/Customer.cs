@@ -26,9 +26,9 @@ namespace JoelScottFitness.Data.Models
         public Address BillingAddress { get; set; }
 
         [ForeignKey("User")]
-        public string UserId { get; set; }
+        public long? UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public AuthUser User { get; set; }
 
         public ICollection<Purchase> PurchaseHistory { get; set; }
     }

@@ -1,19 +1,17 @@
 ﻿using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity;
-using JoelScottFitness.Identity.Models;
-using System.Data.Entity;
-using System;
 using log4net;
-using System.Collections.Generic;
+using System;
+using System.Data.Entity;
 
 namespace JoelScottFitness.Data
 {
-    public class JSFitnessContext : IdentityContext, IJSFitnessContext
+    public class JSFitnessContext : IdentityContext, IJSFitnessContext, IIdentityContext
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(JSFitnessContext));
 
         public JSFitnessContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection")
         {
             //Database.SetInitializer(new NullDatabaseInitializer<JSFitnessContext>());
 
@@ -38,11 +36,12 @@ namespace JoelScottFitness.Data
         {
             if (modelBuilder == null)
                 throw new ArgumentNullException(nameof(modelBuilder));
-            
+
+            base.OnModelCreating(modelBuilder);
+
             //modelBuilder.HasDefaultSchema(Settings.Default.DefaultSchema);
             //modelBuilder.Properties<string>().Configure(c => c.HasColumnType("VARCHAR2"));
-            
-            base.OnModelCreating(modelBuilder);
+
         }
 
         public virtual DbContextTransaction BeginTransaction()
