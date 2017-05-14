@@ -24,8 +24,6 @@ namespace JoelScottFitness.Data
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         #endregion
 
-        DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
         DbSet<Address> Addresses { get; set; }
 
         DbSet<Blog> Blogs { get; set; }

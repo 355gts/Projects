@@ -23,7 +23,7 @@ namespace JoelScottFitness.Services.Mappers
             customer.Surname = fromObject.Surname;
             customer.UserId = fromObject.UserId;
 
-            if (customer.BillingAddress != null)
+            if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);
 
             if (customer.PurchaseHistory != null)
@@ -52,10 +52,10 @@ namespace JoelScottFitness.Services.Mappers
             customer.Surname = fromObject.Surname;
             customer.UserId = fromObject.UserId;
 
-            if (customer.BillingAddress != null)
+            if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);
 
-            if (customer.PurchaseHistory != null)
+            if (fromObject.PurchaseHistory != null)
             {
                 var purchases = new List<PurchaseViewModel>();
                 foreach (var item in fromObject.PurchaseHistory)

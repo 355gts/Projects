@@ -15,7 +15,7 @@ namespace JoelScottFitness.Data
         public JSFitnessContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer(new NullDatabaseInitializer<JSFitnessContext>());
+            //Database.SetInitializer(new NullDatabaseInitializer<JSFitnessContext>());
 
             Database.Log = logentry =>
             {
@@ -85,8 +85,6 @@ namespace JoelScottFitness.Data
         {
             this.Entry<TEntity>(oldEntity).CurrentValues.SetValues(newEntity);
         }
-
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
 

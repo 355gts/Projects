@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Services.Services;
+﻿using JoelScottFitness.Common.Models;
+using JoelScottFitness.Services.Services;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -19,6 +20,30 @@ namespace JoelScottFitness.Web.Controllers
 
         public ActionResult Index()
         {
+            CustomerViewModel c = new CustomerViewModel()
+            {
+                BillingAddress = new AddressViewModel()
+                {
+                    Id = 3,
+                    AddressLine1 = "19 Alexandra Grove",
+                    AddressLine2 = "Test",
+                    AddressLine3 = "Test2",
+                    City = "Los Angeles",
+                    Country = "UK",
+                    CountryCode = "UK",
+                    PostCode = "WA75DZ",
+                    Region = "Cheshire",
+                },
+                Id = 3,
+                CreatedDate = DateTime.UtcNow,
+                ModifiedDate = DateTime.UtcNow,
+                EmailAddress = "Blackmore__s@hotmail.com",
+                Firstname = "Simon",
+                Surname = "John Blackmore",
+            };
+
+            var result = jsfService.CreateOrUpdateCustomer(c);
+
             return View();
         }
 

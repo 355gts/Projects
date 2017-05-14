@@ -21,7 +21,7 @@ namespace JoelScottFitness.Common.Models
         [Required]
         public DateTime CreatedDate { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         [Required]
         public AddressViewModel BillingAddress { get; set; }

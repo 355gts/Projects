@@ -25,11 +25,5 @@ namespace JoelScottFitness.Data.Models
         public string Country { get; set; }
         
         public string CountryCode { get; set; }
-
-        [ForeignKey("Customer")]
-        [Required]
-        public long CustomerId { get; set; }
-
-        public Customer Customer { get; set; }
     }
 }

@@ -32,3 +32,4 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Service
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\obj\Debug\JoelScottFitness.Services.csprojResolveAssemblyReference.cache
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\obj\Debug\JoelScottFitness.Services.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\obj\Debug\JoelScottFitness.Services.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Services\bin\Debug\ApplicationInsights.config

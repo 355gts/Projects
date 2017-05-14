@@ -46,7 +46,7 @@ namespace JoelScottFitness.Data
 
         public async Task<AsyncResult<long>> CreateOrUpdateCustomerAsync(Customer customer)
         {
-            var existingCustomer = await dbContext.Customers.FindAsync(customer.Id);
+            var existingCustomer = await dbContext.Customers.Include(c => c.BillingAddress).FirstOrDefaultAsync(c => c.Id == customer.Id);
 
             if (existingCustomer != null)
             {

@@ -63,6 +63,11 @@
     <Compile Include="IJSFitnessRepository.cs" />
     <Compile Include="JSFitnessContext.cs" />
     <Compile Include="JSFitnessRespository.cs" />
+    <Compile Include="Migrations\201705111918422_InitialCreate.cs" />
+    <Compile Include="Migrations\201705111918422_InitialCreate.Designer.cs">
+      <DependentUpon>201705111918422_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BaseRecord.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -80,7 +85,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\JoelScottFitness.Common\JoelScottFitness.Common.csproj">
       <Project>{2f9ea598-48ae-4bc6-87d4-db0b06213267}</Project>
@@ -90,6 +94,11 @@
       <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
       <Name>JoelScottFitness.Identity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705111918422_InitialCreate.resx">
+      <DependentUpon>201705111918422_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

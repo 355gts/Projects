@@ -22,3 +22,5 @@ D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\bi
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.csprojResolveAssemblyReference.cache
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.dll
 D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.pdb
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.Migrations.InitialCreate.resources
+D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Data\obj\Debug\JoelScottFitness.Data.csproj.GenerateResource.Cache
