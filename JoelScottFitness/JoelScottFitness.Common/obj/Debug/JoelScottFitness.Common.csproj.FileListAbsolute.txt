@@ -1,6 +1,0 @@
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Debug\JoelScottFitness.Common.dll
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Debug\JoelScottFitness.Common.pdb
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Debug\JoelScottFitness.Common.dll
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\obj\Debug\JoelScottFitness.Common.pdb
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Debug\Ninject.dll
-D:\Users\localadmin\Documents\Projects\JoelScottFitness\JoelScottFitness.Common\bin\Debug\Ninject.xml
