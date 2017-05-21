@@ -220,8 +220,14 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\banner.JPG" />
+    <Content Include="Content\Images\Rope-Work.jpg" />
+    <Content Include="Content\Images\section1.PNG" />
+    <Content Include="Content\Images\section2.JPG" />
+    <Content Include="Content\Images\section3.PNG" />
     <Content Include="Content\Logos\Badge.svg" />
     <Content Include="Content\Logos\JSF4.svg" />
+    <Content Include="Content\Logos\n-06-1440x630.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -232,6 +238,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\JoelScottFitness.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

@@ -4,13 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")*@
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css?<?php echo date('l jS \of F Y h:i:s A'); ?>" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
-    
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="header">
+        <div class="logo">
+            <img src="~/Content/Logos/JSF4.svg" />
+        </div>
+    </div>
+    <div id="nav" class="navbar navbar-inverse menu">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,10 +24,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div style="width:100px;position:absolute;"><a href="#" class="navbar-left"><img style="width:100px;height:auto;padding-top:6px;overflow-x:visible;overflow-y:visible" src="~/Content/Logos/Badge.svg"></a></div>
+                <div style="width:100px;position:absolute;"><a href="#" class="navbar-left"><img class="nav-logo" src="~/Content/Logos/JSF4.svg"></a></div>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" style="padding-left:100px">
+                <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Blog", "Blogs", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -30,16 +36,46 @@
             </div>
         </div>
     </div>
+    <div id="nav-back-mask" class="nav-back-mask"></div>
+    <div class="home-panel"></div>
+    <div class="sectContainer">
+        <div class="sect sect1"></div>
+        <div class="subSect">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
+            </p>
+        </div>
+        <div class="sect sect2"></div>
+        <div class="subSect">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
+            </p>
+        </div>
+        <div class="sect sect3"></div>
+    </div>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
+    </p><p>
+        In hac habitasse platea dictumst. Aliquam in sapien sodales, interdum turpis in, pulvinar mi. Curabitur sagittis ipsum a sodales vehicula. Sed sed metus sapien. Vivamus venenatis lorem vel urna convallis faucibus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean id arcu augue. Aenean elementum nibh at libero sodales eleifend. Vestibulum auctor, est non feugiat malesuada, massa dui consequat quam, vitae imperdiet quam est vel eros. Ut luctus aliquam turpis eget feugiat. Nunc interdum tincidunt dictum. Etiam gravida leo nec lobortis iaculis. Pellentesque nec laoreet sapien. Donec egestas neque lacinia, lobortis enim ut, venenatis dui. In hac habitasse platea dictumst.
+    </p><p>
+        Nam quis nibh tincidunt orci volutpat interdum et quis lectus. Cras dui elit, molestie ut finibus ac, suscipit sit amet ipsum. Donec scelerisque pharetra tortor consectetur egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Morbi blandit, leo id congue lobortis, tellus erat elementum ex, viverra rutrum mauris leo ut diam. Aenean fermentum arcu sed molestie molestie. Duis sit amet massa elementum, commodo lacus a, ornare mauris. Donec vulputate nunc eget faucibus congue. Etiam in commodo lorem. Vivamus tincidunt elementum neque. Suspendisse facilisis nisl nisl, ac fermentum velit ullamcorper sed.
+    </p><p>
+        Vivamus ut ipsum ligula. Phasellus eget mi est. Integer vehicula massa dolor, sit amet iaculis nisl accumsan id. Cras dignissim, odio eu iaculis pellentesque, enim augue mattis neque, nec mattis nibh nisi a ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi a sagittis sem. Sed in interdum libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque tempor aliquet velit, sed pulvinar sem tempus nec. Phasellus egestas id lectus sit amet sagittis. Nunc sagittis nec metus ac vehicula. Morbi eget enim lorem. Ut nulla nunc, accumsan a purus sit amet, ullamcorper placerat felis. Nam sollicitudin risus eu mauris placerat finibus. Suspendisse dapibus condimentum commodo. Proin varius ipsum id quam facilisis blandit.
+    </p>
+
+
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+        @*<hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>*@
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/JoelScottFitness.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @RenderSection("scripts", required: false)
+        
 </body>
 </html>
