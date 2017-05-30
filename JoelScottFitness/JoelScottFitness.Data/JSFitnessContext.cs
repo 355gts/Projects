@@ -13,7 +13,7 @@ namespace JoelScottFitness.Data
         public JSFitnessContext()
             : base("DefaultConnection")
         {
-            //Database.SetInitializer(new NullDatabaseInitializer<JSFitnessContext>());
+            Database.SetInitializer(new JSFitnessInitializer());
 
             Database.Log = logentry =>
             {

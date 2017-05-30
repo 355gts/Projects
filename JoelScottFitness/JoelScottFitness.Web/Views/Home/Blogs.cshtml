@@ -4,10 +4,47 @@
     ViewBag.Title = "Blogs";
 }
 
-<h2>Blogs</h2>
+<div class="container" style="padding-top:30px;">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            BLOG
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="text-align:center; font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">
+            @{
+                string blogAlternate;
+                int count = 0;
 
-@foreach (var blog in Model)
-{
-    Html.RenderPartial("_Blog", blog);
-}
+                foreach (var blog in Model)
+                {
+                    if (count % 2 == 0)
+                    {
+                        blogAlternate = "blog-alternate-black";
+                    }
+                    else
+                    {
+                        blogAlternate = "blog-alternate-white";
+                    }
 
+                    
+                        <div class="blog-container content-format">
+                            <a href="#" class="blog-link">
+                                <div class="blog-image" style="background-image:url('@blog.ImagePath');">
+                                    <div class="blog-title @blogAlternate">@blog.Title</div>
+                                    <div class="blog-date @blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
+                                </div>
+                                <div style="clear:both"></div>
+                            </a>
+
+</div>
+                    
+
+                    count++;
+                }
+            }
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>

@@ -62,6 +62,7 @@
     <Compile Include="IJSFitnessContext.cs" />
     <Compile Include="IJSFitnessRepository.cs" />
     <Compile Include="JSFitnessContext.cs" />
+    <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
     <Compile Include="Migrations\201705142117401_InitialCreate.cs" />
     <Compile Include="Migrations\201705142117401_InitialCreate.Designer.cs">
