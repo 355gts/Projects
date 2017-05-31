@@ -12,34 +12,31 @@
         <div style="clear:both"></div>
     </div>
     <div class="row">
-        <div class="col-xs-12" style="text-align:center; font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">
+        <div class="col-xs-12 blog-row-container">
             @{
-                string blogAlternate;
                 int count = 0;
 
                 foreach (var blog in Model)
                 {
                     if (count % 2 == 0)
                     {
-                        blogAlternate = "blog-alternate-black";
+                        ViewBag.blogAlternate = "blog-alternate-black";
                     }
                     else
                     {
-                        blogAlternate = "blog-alternate-white";
+                        ViewBag.blogAlternate = "blog-alternate-white";
                     }
+                    <div class="blog-container content-format">
+                        <a href="#" class="blog-link">
+                            <div class="blog-image" style="background-image:url('@blog.ImagePath');">
+                                <div class="blog-title @ViewBag.blogAlternate">@blog.Title</div>
+                                <div class="blog-date @ViewBag.blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
+                            </div>
+                            <div style="clear:both"></div>
+                        </a>
+                    </div>
 
-                    
-                        <div class="blog-container content-format">
-                            <a href="#" class="blog-link">
-                                <div class="blog-image" style="background-image:url('@blog.ImagePath');">
-                                    <div class="blog-title @blogAlternate">@blog.Title</div>
-                                    <div class="blog-date @blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
-                                </div>
-                                <div style="clear:both"></div>
-                            </a>
-
-</div>
-                    
+                    //Html.RenderPartial("_Blog", blog);
 
                     count++;
                 }

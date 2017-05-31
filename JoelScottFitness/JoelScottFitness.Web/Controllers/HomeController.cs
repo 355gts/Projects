@@ -18,9 +18,16 @@ namespace JoelScottFitness.Web.Controllers
             this.jsfService = jsfService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var blogs = await jsfService.GetBlogs(6);
+
+            var indexViewModel = new IndexViewModel()
+            {
+                Blogs = blogs
+            };
+
+            return View(indexViewModel);
         }
 
         public ActionResult About()

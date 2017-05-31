@@ -1,4 +1,6 @@
-﻿@{
+﻿@model JoelScottFitness.Common.Models.IndexViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -43,36 +45,81 @@
 
     </div>
     <div class="subSect">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1" style="margin:20px;width:100%;text-align:center;align-content:center;">
-            <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block;">
-                PLANS
+        <div class="container" style="padding-top:30px;">
+            <div class="col-xs-12 section-title">
+                <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block;">
+                    PLANS
+                </div>
+            </div>
+            <div class="row col-xs-12 plan-row-container">
+                <div class="plan-index-container">
+                    <a href="#" class="plan-index-link">
+                        <div class="plan-index-image" style="background-image: url('../../Content/Images/ladies3.jpg');">
+                            <div class="plan-index-title">
+                                FOR HER
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="plan-index-container">
+                    <a href="#" style="text-decoration:none">
+                        <div class="plan-index-image" style="background-image: url('../../Content/Images/mens1.jpg');">
+                            <div class="plan-index-title">
+                                FOR HIM
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div style="clear:both"></div>
             </div>
         </div>
-        <div class="row col-xs-12 col-sm-10 col-sm-offset-2">
-            <a href="#" style="text-decoration:none">
-                <div class="col-xs-10 col-sm-4" style="text-decoration-style:none;height:400px;background-color:rgb(224, 145, 191);font-family:'Bebas Neue';font-size:100px;line-height:1;text-align:center;color:black">
-                    FOR HER
-                </div>
-            </a>
-            <a href="#" style="text-decoration:none">
-                <div class="col-xs-offset-1 col-xs-10 col-sm-4 col-sm-offset-2" style="text-decoration:none;height:auto;background-color:rgb(59, 90, 144);font-family:'Bebas Neue';font-size:100px;line-height:1;text-align:center;color:black">
-                    FOR HIM
-                </div>
-            </a>
-
-            <div style="clear:both"></div>
-        </div>
-    </div>
     <div class="sect sect3"></div>
     <div class="subSect">
-        <div class="d-flex align-items-stretch" style="margin:20px;width:100%;text-align:center;align-content:center;">
-            <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">
-                BLOG
+        <div class="container" style="padding-top:30px;">
+            <div class="row">
+                <div class="col-xs-12 title-format">
+                    BLOG
+                </div>
+                <div style="clear:both"></div>
             </div>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
-            </p>
-            <div style="clear:both"></div>
+            <div class="row">
+                <div class="col-xs-12 blog-row-container">
+                    @{
+                        if (Model.Blogs.Any())
+                        {
+                            int count = 0;
+
+                            foreach (var blog in Model.Blogs)
+                            {
+                                if (count % 2 == 0)
+                                {
+                                    ViewBag.blogAlternate = "blog-alternate-black";
+                                }
+                                else
+                                {
+                                    ViewBag.blogAlternate = "blog-alternate-white";
+                                }
+                                <div class="blog-container content-format">
+                                    <a href="#" class="blog-link">
+                                        <div class="blog-image" style="background-image:url('@blog.ImagePath');">
+                                            <div class="blog-title @ViewBag.blogAlternate">@blog.Title</div>
+                                            <div class="blog-date @ViewBag.blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
+                                        </div>
+                                        <div style="clear:both"></div>
+                                    </a>
+                                </div>
+
+                                count++;
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-xs-12" style="text-align:center; font-family:'Bebas Neue';font-size:20px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">Not Available</div>
+                        }
+                    }
+                </div>
+                <div style="clear:both"></div>
+            </div>
         </div>
 
     </div>

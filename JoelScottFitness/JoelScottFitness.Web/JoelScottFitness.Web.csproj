@@ -225,6 +225,10 @@
     <Content Include="Content\Images\banner.JPG" />
     <Content Include="Content\Images\Chrys.jpg" />
     <Content Include="Content\Images\Desert.jpg" />
+    <Content Include="Content\Images\ladies1.jpg" />
+    <Content Include="Content\Images\ladies2.jpg" />
+    <Content Include="Content\Images\ladies3.jpg" />
+    <Content Include="Content\Images\mens1.jpg" />
     <Content Include="Content\Images\section1.PNG" />
     <Content Include="Content\Images\section2.JPG" />
     <Content Include="Content\Images\section3.PNG" />
