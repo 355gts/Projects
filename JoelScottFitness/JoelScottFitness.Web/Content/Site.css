@@ -385,3 +385,128 @@ a:hover {
     background-color: white;
 }
 /* BLOG PAGE STYLES END */
+
+
+
+/* PLAN PAGE STYLES START */
+
+.plan-main-row-container {
+    text-align: center;
+    font-family: 'Bebas Neue';
+    font-size: 100px;
+    line-height: 1;
+    display: inline-block;
+    width: 100%;
+    height:600px;
+    position: relative;
+    text-align: center;
+    color: black;
+    padding-bottom:20px;
+}
+
+.plan-main-image {
+    background-position: top top;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+
+.plan-main-title {
+    height: auto;
+    top: 20px;
+    left: 0px;
+    position: absolute;
+    text-align: left;
+    padding-left:20px;
+    vertical-align: bottom;
+    font-size: 80px;
+    color:white;
+    width:100%;
+    /*background-color:black;
+    opacity:0.5;*/
+}
+
+.plan-main-header {
+    height: auto;
+    top: 40px;
+    right: 0px;
+    position: absolute;
+    text-align: right;
+    padding-right: 20px;
+    vertical-align: bottom;
+    font-size: 40px;
+    color: white;
+    /*background-color: black;
+    opacity: 0.5;*/
+}
+
+.plan-main-description {
+    height: auto;
+    bottom: 40px;
+    left: 0px;
+    position: absolute;
+    text-align: center;
+    padding-left: 20px 0px;
+    vertical-align: bottom;
+    font-size: 30px;
+    color: white;
+    background-color: black;
+    opacity: 0.5;
+    width:100%;
+}
+
+.plan-main-options {
+    height: auto;
+    top: 250px;
+    left: 0px;
+    position: absolute;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 40px;
+    color: white;
+    /*background-color: black;
+    opacity: 0.5;*/
+}
+
+.plan-main-button-wrapper {
+    top: 320px;
+    left: 0px;
+    position: relative;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 40px;
+    color: white;
+}
+
+.plan-main-button {
+    width:60px;
+}
+
+.plan-main-button-text {
+    font-size: 20px;
+}
+
+.plan-main-options-dropdown-wrapper {
+    top: 300px;
+    left: 0px;
+    position: relative;
+    text-align: left;
+    padding-left: 20px;
+    font-size: 40px;
+    color: white;
+}
+
+.plan-main-options-dropdown {
+    position: relative;
+    text-align: left;
+    font-size: 20px;
+    color: black;
+    width: auto;
+    height: 40px;
+}
+
+/* PLAN PAGE STYLES END */
+
+/*position: relative; text-align: center; font-size: 30px; color: black; width:100px; height:40px; vertical-align:middle;*/

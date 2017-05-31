@@ -61,7 +61,7 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> Plans(Gender gender)
         {
             var plans = await jsfService.GetPlansByGender(gender);
-            return View(new List<PlanViewModel>() { plans.First() });
+            return View(plans);
         }
 
         [HttpPost]

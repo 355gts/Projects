@@ -30,6 +30,8 @@ namespace JoelScottFitness.Common.Models
 
         public DateTime? ModifiedDate { get; set; }
 
+        public long SelectedOptionId { get; set; }
+
         [Required]
         public bool Active { get; set; }
 

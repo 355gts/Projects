@@ -1,69 +1,35 @@
 ﻿@model IEnumerable<JoelScottFitness.Common.Models.PlanViewModel>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BannerHeader)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePathMedium)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePathLarge)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ModifiedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th></th>
-    </tr>
+@using System.Collections.Generic;
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BannerHeader)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePathMedium)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePathLarge)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ModifiedDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@{
+    ViewBag.Title = "Plans";
 }
 
-</table>
+<div class="container" style="padding-top:30px;">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            PLANS
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    @foreach (var plan in Model)
+    {
+        <div class="row">
+            <div class="plan-main-row-container" style="background-color:red">
+                <div class="plan-main-image" style="width:100%;height:100%; background-image:url('@plan.ImagePathLarge');">
+                    <div class="plan-main-title">@plan.Name</div>
+                    <div class="plan-main-header">@plan.BannerHeader</div>
+                    <div class="plan-main-description">@plan.Description</div>
+                    <div class="plan-main-options">Options:</div>
+                    <div class="plan-main-options-dropdown-wrapper">@Html.DropDownListFor(p => plan.SelectedOptionId, plan.Options.Select(o => new SelectListItem() { Text = o.Description + "  -  £" + o.Price, Value = o.Id.ToString() }).ToList(), new { @class = "plan-main-options-dropdown" })</div>
+                    <div class="plan-main-button-wrapper">
+                        <button type="submit" class="btn btn-default btn-lg plan-main-button"><span class="plan-main-button-text">BUY</span></button>
+                        <div style="clear:both"></div>
+                    </div>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    }
+</div>
