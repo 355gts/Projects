@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201705142117401_InitialCreate.Designer.cs">
       <DependentUpon>201705142117401_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705312001479_Modified Date on Plan nullable.cs" />
+    <Compile Include="Migrations\201705312001479_Modified Date on Plan nullable.Designer.cs">
+      <DependentUpon>201705312001479_Modified Date on Plan nullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BaseRecord.cs" />
@@ -99,6 +103,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705142117401_InitialCreate.resx">
       <DependentUpon>201705142117401_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705312001479_Modified Date on Plan nullable.resx">
+      <DependentUpon>201705312001479_Modified Date on Plan nullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

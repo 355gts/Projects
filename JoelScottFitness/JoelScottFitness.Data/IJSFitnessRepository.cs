@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Common.Results;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace JoelScottFitness.Data
         Task<Plan> GetPlanAsync(long id);
 
         Task<IEnumerable<Plan>> GetPlansAsync();
+
+        Task<IEnumerable<Plan>> GetPlansByGenderAsync(Gender gender);
 
         Task<bool> DeactivatePlanAsync(long id);
 

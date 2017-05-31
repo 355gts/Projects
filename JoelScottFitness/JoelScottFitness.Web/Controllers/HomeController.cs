@@ -1,6 +1,9 @@
-﻿using JoelScottFitness.Common.Models;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -18,6 +21,7 @@ namespace JoelScottFitness.Web.Controllers
             this.jsfService = jsfService;
         }
 
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var blogs = await jsfService.GetBlogs(6);
@@ -30,6 +34,7 @@ namespace JoelScottFitness.Web.Controllers
             return View(indexViewModel);
         }
 
+        [HttpGet]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -37,6 +42,7 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -44,10 +50,18 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<ActionResult> Blogs()
         {
             var blogs = await jsfService.GetBlogs();
             return View(blogs);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Plans(Gender gender)
+        {
+            var plans = await jsfService.GetPlansByGender(gender);
+            return View(new List<PlanViewModel>() { plans.First() });
         }
 
         [HttpPost]
@@ -66,7 +80,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult CompletePayment(string guid)
         {
             // need to define a model to return with the success invoice number or failure reason

@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Common.Results;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Models;
 using log4net;
 using System;
@@ -222,6 +223,15 @@ namespace JoelScottFitness.Data
         {
             return await dbContext.Plans
                                   .Include(p => p.Options)
+                                  .OrderBy(p => p.Name)
+                                  .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Plan>> GetPlansByGenderAsync(Gender gender)
+        {
+            return await dbContext.Plans
+                                  .Include(p => p.Options)
+                                  .Where(p => p.TargetGender == gender)
                                   .OrderBy(p => p.Name)
                                   .ToListAsync();
         }

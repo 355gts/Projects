@@ -228,6 +228,10 @@
     <Content Include="Content\Images\ladies1.jpg" />
     <Content Include="Content\Images\ladies2.jpg" />
     <Content Include="Content\Images\ladies3.jpg" />
+    <Content Include="Content\Images\male-plan1.jpg" />
+    <Content Include="Content\Images\male-plan2.jpg" />
+    <Content Include="Content\Images\male-plan3.jpg" />
+    <Content Include="Content\Images\male-plan4.jpg" />
     <Content Include="Content\Images\mens1.jpg" />
     <Content Include="Content\Images\section1.PNG" />
     <Content Include="Content\Images\section2.JPG" />
@@ -304,6 +308,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Blogs.cshtml" />
     <Content Include="Views\Shared\_Blog.cshtml" />
+    <Content Include="Views\Home\Plans.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

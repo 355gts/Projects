@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Common.Mapper;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
@@ -145,6 +146,16 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Plan, PlanViewModel>(plans);
         }
 
+        public async Task<IEnumerable<PlanViewModel>> GetPlansByGender(Gender gender)
+        {
+            var plans = await repository.GetPlansByGenderAsync(gender);
+
+            if (plans == null || !plans.Any())
+                return Enumerable.Empty<PlanViewModel>();
+
+            return mapper.MapEnumerable<Plan, PlanViewModel>(plans);
+        }
+        
         public async Task<PurchaseViewModel> GetPurchase(long id)
         {
             var purchase = await repository.GetPurchaseAsync(id);

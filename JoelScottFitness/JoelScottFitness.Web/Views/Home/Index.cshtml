@@ -53,7 +53,7 @@
             </div>
             <div class="row col-xs-12 plan-row-container">
                 <div class="plan-index-container">
-                    <a href="#" class="plan-index-link">
+                    <a href=@Url.Action("Plans", "Home", new { gender = "Female" }, Request.Url.Scheme) class="plan-index-link">
                         <div class="plan-index-image" style="background-image: url('../../Content/Images/ladies3.jpg');">
                             <div class="plan-index-title">
                                 FOR HER
@@ -62,7 +62,7 @@
                     </a>
                 </div>
                 <div class="plan-index-container">
-                    <a href="#" style="text-decoration:none">
+                    <a href=@Url.Action("Plans", "Home", new { gender = "Male" }, Request.Url.Scheme) style="text-decoration:none">
                         <div class="plan-index-image" style="background-image: url('../../Content/Images/mens1.jpg');">
                             <div class="plan-index-title">
                                 FOR HIM

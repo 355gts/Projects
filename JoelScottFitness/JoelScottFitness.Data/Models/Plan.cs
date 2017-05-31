@@ -28,7 +28,7 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public DateTime CreatedDate { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         [Required]
         public bool Active { get; set; }

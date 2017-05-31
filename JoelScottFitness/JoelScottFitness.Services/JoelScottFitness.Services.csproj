@@ -66,6 +66,9 @@
     <Compile Include="Mappers\BlogMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
+    <Compile Include="Mappers\ITypeMapper.cs" />
+    <Compile Include="Mappers\PlanMapper.cs" />
+    <Compile Include="Mappers\PlanOptionMapper.cs" />
     <Compile Include="Mappers\PurchasedItemMapper.cs" />
     <Compile Include="Mappers\PurchaseMapper.cs" />
     <Compile Include="Modules\ServiceModule.cs" />
