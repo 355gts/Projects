@@ -1,9 +1,9 @@
 ﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -12,13 +12,19 @@ namespace JoelScottFitness.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IJSFitnessService jsfService;
+        private readonly IHelper helper;
         
-        public HomeController(IJSFitnessService jsfService)
+        public HomeController(IJSFitnessService jsfService, 
+                              IHelper helper)
         {
             if (jsfService == null)
                 throw new ArgumentNullException(nameof(jsfService));
 
+            if (helper == null)
+                throw new ArgumentNullException(nameof(helper));
+
             this.jsfService = jsfService;
+            this.helper = helper;
         }
 
         [HttpGet]
@@ -55,6 +61,30 @@ namespace JoelScottFitness.Web.Controllers
         {
             var blogs = await jsfService.GetBlogs();
             return View(blogs);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Blog(long id)
+        {
+            var blog = await jsfService.GetBlog(id);
+
+            return new JsonResult() {
+                Data = new
+                {
+                    title = blog.Title,
+                    date = string.Format(blog.CreatedDate.ToString("dd{0} MMMM yyyy"), helper.GetSuffix(blog.CreatedDate.Day.ToString())),
+                    subTitle = blog.SubHeader,
+                    content = blog.Content,
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            };
+        }
+
+        [HttpGet]
+        public ActionResult Media()
+        {
+            var mediaViewModel = new List<MediaViewModel>();
+            return View(mediaViewModel);
         }
 
         [HttpGet]

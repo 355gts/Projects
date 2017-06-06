@@ -52,3 +52,20 @@ $(function () {
         });
     });
 });
+
+// get blog post
+function getBlog(id) {
+        $.ajax({
+        type: 'GET',
+        url: '/Home/Blog/'+id,
+        success: function (data) {
+            $('#blog-title').text(data.title);
+            $('#blog-sub-title').text(data.subTitle);
+            $('#blog-date').text(data.date);
+            $('#blog-content').text(data.content);
+            $("#blog-modal").modal();
+            return false;
+        }
+    });
+
+}

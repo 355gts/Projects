@@ -36,21 +36,28 @@
     <div class="sect sect1" style="z-index:-10">
     </div>
     <div class="subSect">
-        <div class="row col-xs-12">
-        <div class="d-flex align-items-stretch" style="margin:20px;width:100%;text-align:center;align-content:center;">
-            <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">
-                MEDIA
+        <div id="media" class="row col-xs-12">
+            <div class="d-flex align-items-stretch" style="margin:20px;width:100%;text-align:center;align-content:center;">
+                <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">
+                    MEDIA
+                </div>
+            </div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
+            </p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="more-link-wrapper">
+                        <a href="/Home/Media" class="more-link">MORE</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
-        </p>
-            </div>
         <div class="clearfix"></div>
     </div>
     <div class="sect sect2">
     </div>
-    <div class="subSect">
+    <div id="plans" class="subSect">
         <div class="container" style="padding-top:30px;">
             <div class="col-xs-12 section-title">
                 <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block;">
@@ -91,43 +98,49 @@
                 <div class="row">
                     <div class="col-xs-12 blog-row-container">
                         @{
-                        if (Model.Blogs.Any())
-                        {
-                            int count = 0;
-
-                            foreach (var blog in Model.Blogs)
+                            if (Model.Blogs.Any())
                             {
-                                if (count % 2 == 0)
-                                {
-                                    ViewBag.blogAlternate = "blog-alternate-black";
-                                }
-                                else
-                                {
-                                    ViewBag.blogAlternate = "blog-alternate-white";
-                                }
-                    <div class="blog-container content-format">
-                        <a href="#" class="blog-link">
-                            <div class="blog-image" style="background-image:url('@blog.ImagePath');">
-                                <div class="blog-title @ViewBag.blogAlternate">@blog.Title</div>
-                                <div class="blog-date @ViewBag.blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
-                            </div>
-                            <div style="clear:both"></div>
-                        </a>
-                    </div>
+                                int count = 0;
 
-                                count++;
+                                foreach (var blog in Model.Blogs)
+                                {
+                                    if (count % 2 == 0)
+                                    {
+                                        ViewBag.blogAlternate = "blog-alternate-black";
+                                    }
+                                    else
+                                    {
+                                        ViewBag.blogAlternate = "blog-alternate-white";
+                                    }
+                        <div class="blog-container content-format">
+                            <a class="blog-link" onclick="getBlog(@blog.Id)">
+                                <div class="blog-image" style="background-image:url('@blog.ImagePath');">
+                                    <div class="blog-title @ViewBag.blogAlternate">@blog.Title</div>
+                                    <div class="blog-date @ViewBag.blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
+                                </div>
+                                <div style="clear:both"></div>
+                            </a>
+                        </div>
+
+                                    count++;
+                                }
                             }
-                        }
-                        else
-                        {
-                    <div class="col-xs-12" style="text-align:center; font-family:'Bebas Neue';font-size:20px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">Not Available</div>
-                        }
+                            else
+                            {
+                        <div class="col-xs-12" style="text-align:center; font-family:'Bebas Neue';font-size:20px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">Not Available</div>
+                            }
                         }
                     </div>
                     <div style="clear:both"></div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="more-link-wrapper">
+                            <a href="/Home/Blogs" class="more-link">MORE</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </div>
