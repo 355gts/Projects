@@ -2,6 +2,7 @@
 using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
+using JoelScottFitness.YouTube.Client;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,9 +14,11 @@ namespace JoelScottFitness.Web.Controllers
     {
         private readonly IJSFitnessService jsfService;
         private readonly IHelper helper;
-        
+        private readonly IYouTubeClient youTubeClient;
+
         public HomeController(IJSFitnessService jsfService, 
-                              IHelper helper)
+                              IHelper helper,
+                              IYouTubeClient youTubeClient)
         {
             if (jsfService == null)
                 throw new ArgumentNullException(nameof(jsfService));
@@ -23,8 +26,12 @@ namespace JoelScottFitness.Web.Controllers
             if (helper == null)
                 throw new ArgumentNullException(nameof(helper));
 
+            if (youTubeClient == null)
+                throw new ArgumentNullException(nameof(youTubeClient));
+
             this.jsfService = jsfService;
             this.helper = helper;
+            this.youTubeClient = youTubeClient;
         }
 
         [HttpGet]
@@ -83,6 +90,8 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult Media()
         {
+            youTubeClient.GetVideos(10);
+
             var mediaViewModel = new List<MediaViewModel>();
             return View(mediaViewModel);
         }

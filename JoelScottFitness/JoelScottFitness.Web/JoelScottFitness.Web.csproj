@@ -52,8 +52,8 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
@@ -354,6 +354,10 @@
     <ProjectReference Include="..\JoelScottFitness.Services\JoelScottFitness.Services.csproj">
       <Project>{a5b36590-a841-4221-9d33-5ae3f4e2a2ed}</Project>
       <Name>JoelScottFitness.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JoelScottFitness.YouTube\JoelScottFitness.YouTube.csproj">
+      <Project>{D453D2AA-4A82-48BD-86B5-D15C3DBD91B1}</Project>
+      <Name>JoelScottFitness.YouTube</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
