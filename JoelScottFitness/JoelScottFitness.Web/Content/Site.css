@@ -79,6 +79,44 @@ textarea {
 
 }
 
+.believe-achieve-logo-wrapper {
+    position:relative;
+}
+
+.believe-achieve-logo-wrapper:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.believe-achieve-logo-absolute {
+    position: absolute;
+}
+
+.believe-achieve-logo {
+    width: 25%;
+}
+
+.believe-achieve-logo-bottom-right {
+    right: 20px;
+    bottom: 20px;
+    width: 25%;
+}
+
+.believe-achieve-logo-bottom-left {
+    left: 20px;
+    bottom: 20px;
+    width: 25%;
+}
+
+.believe-achieve-logo-bottom-center {
+    bottom: 20px;
+    margin: auto;
+    width: 25%;
+}
+
+
+
 .navbar-left {
     z-index: 1000;
 }
@@ -157,6 +195,7 @@ p{
 .sectContainer{
     height:100%;
     width:100%;
+    position:relative;
     clear:both;
 }
 
@@ -184,6 +223,16 @@ p{
 }
 .sect3 {
     background-image: url('Images/section3.PNG');
+    background-size: cover;
+    background-position: center center;
+}
+
+.believe-achieve-background-wrapper{
+    width:200px;
+} 
+
+.believe-achieve-background {
+    background-image: url('Logos/believe-achieve-black.svg');
     background-size: cover;
     background-position: center center;
 }
@@ -310,6 +359,20 @@ a:hover {
     text-align:center;
     width:100%;
     color:white;
+}
+
+.believe-achieve {
+    font-family: 'Bebas Neue';
+    font-size: 50px;
+    font-stretch: extra-expanded;
+}
+
+.believe-achieve-white {
+    color:white;
+}
+
+.believe-achieve-black {
+    color: black;
 }
 
 
@@ -509,4 +572,77 @@ a:hover {
 
 /* PLAN PAGE STYLES END */
 
-/*position: relative; text-align: center; font-size: 30px; color: black; width:100px; height:40px; vertical-align:middle;*/
+/* FOOTER STYLES START */
+.footer-container {
+    padding-top:60px;
+    background-color:black;
+}
+
+.footer-subscribe-container{
+    padding: 10px 20px;
+}
+.footer-logo-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    vertical-align: middle;
+    padding: 20px;
+}
+
+.footer-logo {
+    padding-top:40px;
+}
+
+.footer-map-header{
+    color:white;
+    font-size:14px;
+}
+
+.footer-site-map{
+    font-size:14px;
+    color:grey;
+    position:relative;
+}
+
+.footer-site-map ul {
+    list-style: none;
+    text-align: center;
+}
+.footer-site-map ul li {
+    padding: 10px;
+}
+
+.footer-site-map ul li a {
+    text-decoration: none;
+    color:grey;
+}
+
+.footer-site-map ul li a:hover {
+    color: white;
+}
+
+.footer-social-map {
+    font-size: 14px;
+    color: grey;
+    position: relative;
+}
+
+.footer-social-map ul {
+    list-style: none;
+    text-align:center;
+}
+
+.footer-social-map ul li {
+    padding: 10px;
+}
+
+.footer-social-map ul li a {
+    text-decoration: none;
+    color: grey;
+}
+
+.footer-social-map ul li a:hover {
+    color: white;
+}
+/* FOOTER STYLES END */

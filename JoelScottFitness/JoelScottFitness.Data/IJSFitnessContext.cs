@@ -41,5 +41,7 @@ namespace JoelScottFitness.Data
         DbSet<Purchase> Purchases { get; set; }
 
         DbSet<PurchasedItem> PurchasedItems { get; set; }
+
+        DbSet<MailingListItem> MailingList { get; set; }
     }
 }

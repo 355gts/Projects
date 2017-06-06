@@ -52,6 +52,7 @@
     <Compile Include="Mappers\BlogMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
+    <Compile Include="Mappers\MailingListItemMapper.cs" />
     <Compile Include="Mappers\PlanMapper.cs" />
     <Compile Include="Mappers\PlanOptionMapper.cs" />
     <Compile Include="Mappers\PurchasedItemMapper.cs" />

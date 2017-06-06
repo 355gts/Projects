@@ -34,3 +34,21 @@ $(function () {
         $('#full-page-image').show();
     }
 });
+
+// submit the mailing list subscription
+$(function () {
+    $('#subscribe').click(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/SubscribeToMailingList',
+            data: {
+                emailAddress: $('#emailAddress').val(),
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            },
+            success: function (data) {
+                $('#emailAddress').val('');
+                $('#emailAddress').attr('placeholder', 'Thanks!');
+            }
+        });
+    });
+});

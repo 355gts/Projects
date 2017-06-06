@@ -72,6 +72,10 @@
     <Compile Include="Migrations\201705312001479_Modified Date on Plan nullable.Designer.cs">
       <DependentUpon>201705312001479_Modified Date on Plan nullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706041845380_Added mailing list.cs" />
+    <Compile Include="Migrations\201706041845380_Added mailing list.Designer.cs">
+      <DependentUpon>201706041845380_Added mailing list.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BaseRecord.cs" />
@@ -79,6 +83,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DiscountCode.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\MailingListItem.cs" />
     <Compile Include="Models\PlanOption.cs" />
     <Compile Include="Models\Plan.cs" />
     <Compile Include="Models\Purchase.cs" />
@@ -106,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705312001479_Modified Date on Plan nullable.resx">
       <DependentUpon>201705312001479_Modified Date on Plan nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706041845380_Added mailing list.resx">
+      <DependentUpon>201706041845380_Added mailing list.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

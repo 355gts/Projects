@@ -222,6 +222,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\banner.JPG" />
     <Content Include="Content\Images\Chrys.jpg" />
     <Content Include="Content\Images\Desert.jpg" />
@@ -237,9 +239,12 @@
     <Content Include="Content\Images\section2.JPG" />
     <Content Include="Content\Images\section3.PNG" />
     <Content Include="Content\Logos\Badge.svg" />
+    <Content Include="Content\Logos\believe-achieve-white.svg" />
+    <Content Include="Content\Logos\believe-achieve-black.svg" />
     <Content Include="Content\Logos\jsf-black.svg" />
     <Content Include="Content\Logos\jsf-white.svg" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -258,6 +263,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -309,6 +319,9 @@
     <Content Include="Views\Home\Blogs.cshtml" />
     <Content Include="Views\Shared\_Blog.cshtml" />
     <Content Include="Views\Home\Plans.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_BelieveAchieve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

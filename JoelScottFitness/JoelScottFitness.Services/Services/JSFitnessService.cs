@@ -186,5 +186,12 @@ namespace JoelScottFitness.Services.Services
         {
             return paypalService.CompletePayPalPayment(paymentId, payerId);
         }
+
+        public async Task<bool> UpdateMailingList(MailingListItemViewModel mailingListItem)
+        {
+            var repoMailingListItem = mapper.Map<MailingListItemViewModel, MailingListItem>(mailingListItem);
+
+            return await repository.UpdateMailingList(repoMailingListItem);
+        }
     }
 }

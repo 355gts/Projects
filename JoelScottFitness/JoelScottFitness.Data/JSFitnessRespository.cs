@@ -268,5 +268,24 @@ namespace JoelScottFitness.Data
 
             return success;
         }
+
+        public async Task<bool> UpdateMailingList(MailingListItem mailingListItem)
+        {
+            var existingEntry = await dbContext.MailingList
+                                               .Where(e => e.Email == mailingListItem.Email)
+                                               .FirstOrDefaultAsync();
+
+            if (existingEntry == null)
+            {
+                dbContext.MailingList.Add(mailingListItem);
+            }
+            else
+            {
+                existingEntry.Active = mailingListItem.Active;
+                dbContext.SetModified(existingEntry);
+            }
+
+            return await SaveChangesAsync();
+        }
     }
 }

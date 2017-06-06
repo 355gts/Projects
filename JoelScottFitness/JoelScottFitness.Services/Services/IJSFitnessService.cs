@@ -45,5 +45,7 @@ namespace JoelScottFitness.Services.Services
         PaymentInitiationResult InitiatePayPalPayment(string baseUri);
 
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
+
+        Task<bool> UpdateMailingList(MailingListItemViewModel mailingListItem);
     }
 }

@@ -64,6 +64,12 @@ namespace JoelScottFitness.Web.Controllers
             return View(plans);
         }
 
+        [HttpGet]
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Checkout()
@@ -97,5 +103,19 @@ namespace JoelScottFitness.Web.Controllers
             // method used to complete the paypal payment transaction
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<bool> SubscribeToMailingList(string emailAddress)
+        {
+            var mailingListItemViewModel = new MailingListItemViewModel()
+            {
+                Active = true,
+                Email = emailAddress,
+            };
+
+            return await jsfService.UpdateMailingList(mailingListItemViewModel);
+        }
+       
     }
 }
