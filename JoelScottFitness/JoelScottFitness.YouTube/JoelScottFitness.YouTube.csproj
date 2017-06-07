@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\IYouTubeClient.cs" />
+    <Compile Include="Models\YouTubeVideo.cs" />
     <Compile Include="Modules\YouTubeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client\YouTubeClient.cs" />

@@ -1,6 +1,6 @@
-﻿namespace JoelScottFitness.Common.Models
+﻿namespace JoelScottFitness.YouTube.Models
 {
-    public class MediaViewModel
+    public class YouTubeVideo
     {
         public string VideoId { get; set; }
 

@@ -5,6 +5,7 @@ using JoelScottFitness.Services.Services;
 using JoelScottFitness.YouTube.Client;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -38,10 +39,18 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var blogs = await jsfService.GetBlogs(6);
+            var videos = youTubeClient.GetVideos(3);
+
+            var videoViewModel = videos.Select(v => new MediaViewModel()
+            {
+                VideoId = v.VideoId,
+                Description = v.Description,
+            });
 
             var indexViewModel = new IndexViewModel()
             {
-                Blogs = blogs
+                Blogs = blogs,
+                Videos = videoViewModel,
             };
 
             return View(indexViewModel);
@@ -90,10 +99,15 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult Media()
         {
-            youTubeClient.GetVideos(10);
+            var videos = youTubeClient.GetVideos(0);
 
-            var mediaViewModel = new List<MediaViewModel>();
-            return View(mediaViewModel);
+            var videoViewModel = videos.Select(v => new MediaViewModel()
+            {
+                VideoId = v.VideoId,
+                Description = v.Description,
+            });
+
+            return View(videoViewModel);
         }
 
         [HttpGet]
