@@ -44374,3 +44374,696 @@ WHERE t.TABLE_SCHEMA + '.' + t.TABLE_NAME IN ('dbo.Addresses','dbo.Blogs','dbo.A
 
 2017-06-07 22:26:43,605       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:26:43 +01:00
 
+2017-06-07 22:37:47,249       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,260       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+SELECT Count(*)
+FROM INFORMATION_SCHEMA.TABLES AS t
+WHERE t.TABLE_SCHEMA + '.' + t.TABLE_NAME IN ('dbo.Addresses','dbo.Blogs','dbo.AuthClaim','dbo.Customers','dbo.Purchases','dbo.DiscountCodes','dbo.Items','dbo.AuthUser','dbo.AuthLogin','dbo.AuthUserRole','dbo.Plans','dbo.MailingList','dbo.AuthRole')
+    OR t.TABLE_NAME = 'EdmMetadata'
+2017-06-07 22:37:47,261       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,262       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,287       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 24 ms with result: 13
+
+2017-06-07 22:37:47,288       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,289       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,363       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,439       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [GroupBy1].[A1] AS [C1]
+    FROM ( SELECT 
+        COUNT(1) AS [A1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [GroupBy1]
+2017-06-07 22:37:47,440       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,440       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-06-07 22:37:47,441       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,448       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 5 ms with result: SqlDataReader
+
+2017-06-07 22:37:47,456       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,466       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,469       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,478       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT TOP (1) 
+    [Project1].[C1] AS [C1], 
+    [Project1].[MigrationId] AS [MigrationId], 
+    [Project1].[Model] AS [Model], 
+    [Project1].[ProductVersion] AS [ProductVersion]
+    FROM ( SELECT 
+        [Extent1].[MigrationId] AS [MigrationId], 
+        [Extent1].[Model] AS [Model], 
+        [Extent1].[ProductVersion] AS [ProductVersion], 
+        1 AS [C1]
+        FROM [dbo].[__MigrationHistory] AS [Extent1]
+        WHERE [Extent1].[ContextKey] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[MigrationId] DESC
+2017-06-07 22:37:47,479       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,480       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'JoelScottFitness.Data.Migrations.Configuration' (Type = String, Size = 4000)
+
+2017-06-07 22:37:47,480       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,483       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-06-07 22:37:47,484       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,484       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,496       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,541       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:37:47,541       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,542       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:37:47,543       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:37:46' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:37:47,544       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:37:46' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:37:47,544       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:37:47,554       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 8 ms with result: SqlDataReader
+
+2017-06-07 22:37:47,555       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:37:47,560       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:37:47 +01:00
+
+2017-06-07 22:38:30,219       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:38:30 +01:00
+
+2017-06-07 22:38:30,234       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:38:30,234       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:38:30,234       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:38:30,234       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:38:30' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:38:30,234       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:38:30' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:38:30,234       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:38:30 +01:00
+
+2017-06-07 22:38:30,234       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-06-07 22:38:30,234       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:38:30,250       [8] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:38:30 +01:00
+
+2017-06-07 22:38:38,899       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:38:38 +01:00
+
+2017-06-07 22:38:38,899       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:38:38,915       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:38:38,916       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:38:38,916       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:38:38' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:38:38,917       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:38:38' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:38:38,919       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:38:38 +01:00
+
+2017-06-07 22:38:38,922       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-06-07 22:38:38,923       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:38:38,924       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:38:38 +01:00
+
+2017-06-07 22:38:49,274       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:38:49 +01:00
+
+2017-06-07 22:38:49,280       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:38:49,315       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:38:49,316       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:38:49,316       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:38:49' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:38:49,317       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:38:49' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:38:49,318       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:38:49 +01:00
+
+2017-06-07 22:38:49,320       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-06-07 22:38:49,321       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:38:49,322       [6] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:38:49 +01:00
+
+2017-06-07 22:39:08,430       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:39:08 +01:00
+
+2017-06-07 22:39:08,430       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:39:08,446       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:39:08,448       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:39:08,449       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:39:08' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:39:08,452       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:39:08' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:39:08,453       [7] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:39:08 +01:00
+
+2017-06-07 22:39:08,455       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-06-07 22:39:08,458       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:39:08,460       [17] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:39:08 +01:00
+
+2017-06-07 22:40:31,615       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:40:31 +01:00
+
+2017-06-07 22:40:31,617       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:40:31,618       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:40:31,619       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:40:31,619       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:40:31' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:40:31,620       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:40:31' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:40:31,621       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:40:31 +01:00
+
+2017-06-07 22:40:31,628       [19] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 5 ms with result: SqlDataReader
+
+2017-06-07 22:40:31,630       [19] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:40:31,631       [19] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:40:31 +01:00
+
+2017-06-07 22:40:53,750       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:40:53 +01:00
+
+2017-06-07 22:40:53,753       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:40:53,755       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:40:53,756       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:40:53,758       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:40:53' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:40:53,759       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:40:53' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:40:53,760       [28] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:40:53 +01:00
+
+2017-06-07 22:40:53,764       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-06-07 22:40:53,765       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:40:53,767       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:40:53 +01:00
+
+2017-06-07 22:42:04,998       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:42:04 +01:00
+
+2017-06-07 22:42:05,014       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:42:05,017       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:42:05,018       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:42:05,019       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:42:04' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:42:05,021       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:42:04' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:42:05,022       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:42:05 +01:00
+
+2017-06-07 22:42:05,027       [22] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 3 ms with result: SqlDataReader
+
+2017-06-07 22:42:05,029       [22] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:42:05,031       [22] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:42:05 +01:00
+
+2017-06-07 22:42:12,201       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:42:12 +01:00
+
+2017-06-07 22:42:12,201       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Extent1].[Id] AS [Id], 
+    [Extent1].[Title] AS [Title], 
+    [Extent1].[SubHeader] AS [SubHeader], 
+    [Extent1].[CreatedDate] AS [CreatedDate], 
+    [Extent1].[ActiveFrom] AS [ActiveFrom], 
+    [Extent1].[ActiveTo] AS [ActiveTo], 
+    [Extent1].[Content] AS [Content], 
+    [Extent1].[ImagePath] AS [ImagePath]
+    FROM [dbo].[Blogs] AS [Extent1]
+    WHERE [Extent1].[Id] = @p0
+2017-06-07 22:42:12,201       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:42:12,201       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p0: '3' (Type = Int64)
+
+2017-06-07 22:42:12,201       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:42:12 +01:00
+
+2017-06-07 22:42:12,216       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 7 ms with result: SqlDataReader
+
+2017-06-07 22:42:12,216       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:42:12,216       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:42:12 +01:00
+
+2017-06-07 22:42:15,246       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:42:15 +01:00
+
+2017-06-07 22:42:15,246       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:42:15,246       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:42:15,246       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:42:15,263       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:42:15' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:42:15,264       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:42:15' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:42:15,265       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:42:15 +01:00
+
+2017-06-07 22:42:15,269       [22] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-06-07 22:42:15,270       [22] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:42:15,270       [22] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:42:15 +01:00
+
+2017-06-07 22:43:01,366       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:43:01 +01:00
+
+2017-06-07 22:43:01,373       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:43:01,374       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:01,375       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:43:01,376       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:43:01' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:43:01,377       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:43:01' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:43:01,379       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:43:01 +01:00
+
+2017-06-07 22:43:01,382       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-06-07 22:43:01,384       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:01,386       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:43:01 +01:00
+
+2017-06-07 22:43:07,586       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:43:07 +01:00
+
+2017-06-07 22:43:07,589       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:43:07,590       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:07,591       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:43:07,592       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:43:07' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:43:07,593       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:43:07' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:43:07,594       [36] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:43:07 +01:00
+
+2017-06-07 22:43:07,597       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-06-07 22:43:07,598       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:07,599       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:43:07 +01:00
+
+2017-06-07 22:43:12,483       [37] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:43:12 +01:00
+
+2017-06-07 22:43:12,523       [37] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[TargetGender] AS [TargetGender], 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Name] AS [Name], 
+    [Project1].[Description] AS [Description], 
+    [Project1].[BannerHeader] AS [BannerHeader], 
+    [Project1].[ImagePathMedium] AS [ImagePathMedium], 
+    [Project1].[ImagePathLarge] AS [ImagePathLarge], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ModifiedDate] AS [ModifiedDate], 
+    [Project1].[Active] AS [Active], 
+    [Project1].[C2] AS [C1], 
+    [Project1].[C1] AS [C2], 
+    [Project1].[Id1] AS [Id1], 
+    [Project1].[Description1] AS [Description1], 
+    [Project1].[Price] AS [Price], 
+    [Project1].[ItemType] AS [ItemType], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Duration] AS [Duration], 
+    [Project1].[PlanId] AS [PlanId]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Name] AS [Name], 
+        [Extent1].[Description] AS [Description], 
+        [Extent1].[BannerHeader] AS [BannerHeader], 
+        [Extent1].[ImagePathMedium] AS [ImagePathMedium], 
+        [Extent1].[ImagePathLarge] AS [ImagePathLarge], 
+        [Extent1].[TargetGender] AS [TargetGender], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[Active] AS [Active], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[Description] AS [Description1], 
+        [Extent2].[Price] AS [Price], 
+        [Extent2].[ItemType] AS [ItemType], 
+        [Extent2].[ActiveFrom] AS [ActiveFrom], 
+        [Extent2].[ActiveTo] AS [ActiveTo], 
+        [Extent2].[Duration] AS [Duration], 
+        [Extent2].[PlanId] AS [PlanId], 
+        CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS varchar(1)) ELSE '2X0X' END AS [C1], 
+        CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C2]
+        FROM  [dbo].[Plans] AS [Extent1]
+        LEFT OUTER JOIN [dbo].[Items] AS [Extent2] ON ([Extent2].[Discriminator] = N'PlanOption') AND ([Extent1].[Id] = [Extent2].[PlanId])
+        WHERE [Extent1].[TargetGender] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[Name] ASC, [Project1].[Id] ASC, [Project1].[C2] ASC
+2017-06-07 22:43:12,524       [37] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:12,525       [37] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '1' (Type = Int32, IsNullable = false)
+
+2017-06-07 22:43:12,525       [37] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:43:12 +01:00
+
+2017-06-07 22:43:12,545       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 18 ms with result: SqlDataReader
+
+2017-06-07 22:43:12,545       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:12,556       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:43:12 +01:00
+
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:43:42 +01:00
+
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Title] AS [Title], 
+    [Project1].[SubHeader] AS [SubHeader], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Content] AS [Content], 
+    [Project1].[ImagePath] AS [ImagePath]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Title] AS [Title], 
+        [Extent1].[SubHeader] AS [SubHeader], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ActiveFrom] AS [ActiveFrom], 
+        [Extent1].[ActiveTo] AS [ActiveTo], 
+        [Extent1].[Content] AS [Content], 
+        [Extent1].[ImagePath] AS [ImagePath]
+        FROM [dbo].[Blogs] AS [Extent1]
+        WHERE (@p__linq__0 <> 1) OR (([Extent1].[ActiveFrom] <= @p__linq__1) AND (@p__linq__2 <= [Extent1].[ActiveTo]))
+    )  AS [Project1]
+    ORDER BY [Project1].[ActiveFrom] DESC
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: 'True' (Type = Boolean, IsNullable = false)
+
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__1: '07/06/2017 21:43:42' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__2: '07/06/2017 21:43:42' (Type = DateTime2, IsNullable = false)
+
+2017-06-07 22:43:42,547       [33] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:43:42 +01:00
+
+2017-06-07 22:43:42,564       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 2 ms with result: SqlDataReader
+
+2017-06-07 22:43:42,567       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:42,569       [31] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:43:42 +01:00
+
+2017-06-07 22:43:44,101       [34] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Opened connection asynchronously at 07/06/2017 22:43:44 +01:00
+
+2017-06-07 22:43:44,102       [34] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] SELECT 
+    [Project1].[TargetGender] AS [TargetGender], 
+    [Project1].[Id] AS [Id], 
+    [Project1].[Name] AS [Name], 
+    [Project1].[Description] AS [Description], 
+    [Project1].[BannerHeader] AS [BannerHeader], 
+    [Project1].[ImagePathMedium] AS [ImagePathMedium], 
+    [Project1].[ImagePathLarge] AS [ImagePathLarge], 
+    [Project1].[CreatedDate] AS [CreatedDate], 
+    [Project1].[ModifiedDate] AS [ModifiedDate], 
+    [Project1].[Active] AS [Active], 
+    [Project1].[C2] AS [C1], 
+    [Project1].[C1] AS [C2], 
+    [Project1].[Id1] AS [Id1], 
+    [Project1].[Description1] AS [Description1], 
+    [Project1].[Price] AS [Price], 
+    [Project1].[ItemType] AS [ItemType], 
+    [Project1].[ActiveFrom] AS [ActiveFrom], 
+    [Project1].[ActiveTo] AS [ActiveTo], 
+    [Project1].[Duration] AS [Duration], 
+    [Project1].[PlanId] AS [PlanId]
+    FROM ( SELECT 
+        [Extent1].[Id] AS [Id], 
+        [Extent1].[Name] AS [Name], 
+        [Extent1].[Description] AS [Description], 
+        [Extent1].[BannerHeader] AS [BannerHeader], 
+        [Extent1].[ImagePathMedium] AS [ImagePathMedium], 
+        [Extent1].[ImagePathLarge] AS [ImagePathLarge], 
+        [Extent1].[TargetGender] AS [TargetGender], 
+        [Extent1].[CreatedDate] AS [CreatedDate], 
+        [Extent1].[ModifiedDate] AS [ModifiedDate], 
+        [Extent1].[Active] AS [Active], 
+        [Extent2].[Id] AS [Id1], 
+        [Extent2].[Description] AS [Description1], 
+        [Extent2].[Price] AS [Price], 
+        [Extent2].[ItemType] AS [ItemType], 
+        [Extent2].[ActiveFrom] AS [ActiveFrom], 
+        [Extent2].[ActiveTo] AS [ActiveTo], 
+        [Extent2].[Duration] AS [Duration], 
+        [Extent2].[PlanId] AS [PlanId], 
+        CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS varchar(1)) ELSE '2X0X' END AS [C1], 
+        CASE WHEN ([Extent2].[Id] IS NULL) THEN CAST(NULL AS int) ELSE 1 END AS [C2]
+        FROM  [dbo].[Plans] AS [Extent1]
+        LEFT OUTER JOIN [dbo].[Items] AS [Extent2] ON ([Extent2].[Discriminator] = N'PlanOption') AND ([Extent1].[Id] = [Extent2].[PlanId])
+        WHERE [Extent1].[TargetGender] = @p__linq__0
+    )  AS [Project1]
+    ORDER BY [Project1].[Name] ASC, [Project1].[Id] ASC, [Project1].[C2] ASC
+2017-06-07 22:43:44,103       [34] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:44,104       [34] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- p__linq__0: '0' (Type = Int32, IsNullable = false)
+
+2017-06-07 22:43:44,104       [34] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Executing asynchronously at 07/06/2017 22:43:44 +01:00
+
+2017-06-07 22:43:44,107       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] -- Completed in 1 ms with result: SqlDataReader
+
+2017-06-07 22:43:44,108       [23] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] 
+
+2017-06-07 22:43:44,111       [38] DEBUG JoelScottFitness.Data.JSFitnessContext [(null)] Closed connection at 07/06/2017 22:43:44 +01:00
+

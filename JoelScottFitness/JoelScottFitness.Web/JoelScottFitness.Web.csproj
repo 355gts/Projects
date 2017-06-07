@@ -317,7 +317,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Blogs.cshtml" />
-    <Content Include="Views\Shared\_Blog.cshtml" />
+    <Content Include="Views\Shared\_BlogEntry.cshtml" />
     <Content Include="Views\Home\Plans.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
@@ -326,6 +326,7 @@
     <Content Include="Views\Home\Media.cshtml" />
     <Content Include="Views\Shared\_MediaEntry.cshtml" />
     <Content Include="Views\Shared\_Media.cshtml" />
+    <Content Include="Views\Shared\_Blog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

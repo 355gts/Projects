@@ -13,34 +13,9 @@
     </div>
     <div class="row">
         <div class="col-xs-12 blog-row-container">
-            @{
-                int count = 0;
+            
+            @Html.Partial("_Blog", Model)
 
-                foreach (var blog in Model)
-                {
-                    if (count % 2 == 0)
-                    {
-                        ViewBag.blogAlternate = "blog-alternate-black";
-                    }
-                    else
-                    {
-                        ViewBag.blogAlternate = "blog-alternate-white";
-                    }
-                    <div class="blog-container content-format">
-                        <a class="blog-link" onclick="getBlog(@blog.Id)">
-                            <div class="blog-image" style="background-image:url('@blog.ImagePath');">
-                                <div class="blog-title @ViewBag.blogAlternate">@blog.Title</div>
-                                <div class="blog-date @ViewBag.blogAlternate"><span style="font-size:30px;">@blog.CreatedDate.ToString("dd")</span><br />@blog.CreatedDate.ToString("MMM")</div>
-                            </div>
-                            <div style="clear:both"></div>
-                        </a>
-                    </div>
-
-                    //Html.RenderPartial("_Blog", blog);
-
-                    count++;
-                }
-            }
         </div>
         <div style="clear:both"></div>
     </div>

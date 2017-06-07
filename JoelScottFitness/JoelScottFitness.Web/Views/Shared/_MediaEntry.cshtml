@@ -1,13 +1,13 @@
 ﻿@model JoelScottFitness.Common.Models.MediaViewModel
 
-<div class="row" style="padding-left:10px;padding-right:10px;">
+<div class="row" style="padding-left:10px;padding-right:10px;font-family: 'Bebas Neue';">
     <div class="col-xs-12 col-sm-6 @ViewData["push"]">
         <div class="embed-responsive embed-responsive-16by9">
             <iframe frameborder="0" class="embed-responsive-item" allowfullscreen src=@string.Format("https://www.youtube.com/embed/{0}", @Model.VideoId)> </iframe>
         </div>
     </div>
     <div class="col-xs-12 col-sm-6 @ViewData["pull"]" style="padding:20px">
-        <p style="font-size:16px">@Model.Description</p>
+        <p style="font-size:18px">@Model.Description</p>
     </div>
     <div style="clear:both"></div>
     <hr style="border-top: 1px solid #8c8b8b;" />

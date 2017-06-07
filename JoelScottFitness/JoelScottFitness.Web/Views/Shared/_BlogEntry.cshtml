@@ -1,0 +1,11 @@
+﻿@model JoelScottFitness.Common.Models.BlogViewModel
+
+<div class="blog-container content-format">
+    <a class="blog-link" onclick="getBlog(@Model.Id)">
+        <div class="blog-image" style="background-image:url('@Model.ImagePath');">
+            <div class="blog-title @ViewBag.blogAlternate">@Model.Title</div>
+            <div class="blog-date @ViewBag.blogAlternate"><span style="font-size:30px;">@Model.CreatedDate.ToString("dd")</span><br />@Model.CreatedDate.ToString("MMM")</div>
+        </div>
+        <div style="clear:both"></div>
+    </a>
+</div>
