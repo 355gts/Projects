@@ -1,0 +1,32 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.MediaViewModel>
+
+@{
+    if (!Model.Any())
+    {
+        <div class="row col-xs-12" style="margin:0px">
+            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                SORRY NOT CURRENTLY AVAILABLE
+            </div>
+        </div>
+    }
+    else
+    {
+        var videoCount = 0;
+
+        foreach (var video in Model)
+        {
+            string pull = string.Empty;
+            string push = string.Empty;
+
+            if (videoCount % 2 == 1)
+            {
+                pull = "col-sm-pull-6";
+                push = "col-sm-push-6";
+            }
+
+            Html.RenderPartial("_MediaEntry", video, new ViewDataDictionary() { { "pull", pull }, { "push", push } });
+
+            videoCount++;
+        }
+    }
+}

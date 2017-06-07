@@ -99,7 +99,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult Media()
         {
-            var videos = youTubeClient.GetVideos(0);
+            var videos = youTubeClient.GetVideos(10);
 
             var videoViewModel = videos.Select(v => new MediaViewModel()
             {

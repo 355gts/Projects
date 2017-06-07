@@ -4,54 +4,15 @@
     ViewBag.Title = "Media";
 }
 <div class="container" style="padding:20px;font-family:'Bebas Neue';">
-    <div class="row col-xs-12 title-format" style="padding-top:30px;">
+    <div class="row col-xs-12 title-format" style="padding-top:30px;margin:0px">
         MEDIA
         <div style="clear:both"></div>
     </div>
     <div style="clear:both"></div>
-    @{
-        if (!Model.Any())
-        {
-            <div class="row col-xs-12">
-                <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
-                    SORRY NOT CURRENTLY AVAILABLE
-                </div>
-            </div>
-        }
-        else
-        {
 
-        }
-        var videoCount = 0;
+    @Html.Partial("_Media", Model)
 
-        foreach (var video in Model)
-        {
-            string pull = string.Empty;
-            string push = string.Empty;
-
-            if (videoCount % 2 == 1)
-            {
-                pull = "col-sm-pull-6";
-                push = "col-sm-push-6";
-            }
-
-            <div class="row" style="padding-left:10px;padding-right:10px;">
-                <div class="col-xs-12 col-sm-6 @push">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe frameborder="0" class="embed-responsive-item" allowfullscreen src=@string.Format("https://www.youtube.com/embed/{0}", @video.VideoId)> </iframe>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 @pull" style="padding:20px">
-                    <p style="font-size:16px">@video.Description</p>
-                </div>
-                <div style="clear:both"></div>
-                <hr style="border-top: 1px solid #8c8b8b;"/>
-            </div>
-
-            videoCount++;
-        }
-    }
-    <div class="row col-xs-12">
+    <div class="row col-xs-12" style="margin:0px;">
         <div class="more-link-wrapper">
             <a href="https://www.youtube.com/channel/UCubxF1muUJF5xH7yLe_KfFg" target="_blank" class="more-link">VIEW MY CHANNEL</a>
         </div>

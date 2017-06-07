@@ -39,53 +39,20 @@
     <div class="subSect">
         <div class="container" style="padding-top:30px;">
             <div id="media" class="row col-xs-12 section-title">
-                <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block">
+                <div class="home-row home-welcome sect-header">
                     MEDIA
                 </div>
             </div>
 
-            <div class="row">
-                <ul style="list-style:none">
-                    @{ 
-                        var videoCount = 0;
+            @Html.Partial("_Media", Model.Videos)
 
-                        foreach (var video in Model.Videos)
-                        {
-                            string pull = string.Empty;
-                            string push = string.Empty;
-
-                            if (videoCount % 2 == 0)
-                            {
-                                pull = "col-sm-pull-6";
-                                push = "col-sm-push-6";
-                            }
-
-                            <li>
-                            <div class="col-xs-12 col-sm-6">
-                                <div class="video-container">
-                                    <iframe frameborder="0" allowfullscreen src=@string.Format("https://www.youtube.com/embed/{0}", @video.VideoId)> </iframe>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <p>@video.Description</p>
-                            </div>
-
-                                <div class="clearfix"></div>
-                            </li>
-
-                            videoCount++;
-                        }
-                    }
-                </ul>
-                <div style="clear:both"></div>
-            </div>
-            <div class="row col-xs-12">
+            <div class="row col-xs-12" style="margin:0px;">
                 <div class="more-link-wrapper">
                     <a href="/Home/Media" class="more-link">MORE</a>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
+        <div style="clear:both"></div>
     </div>
 </div>
 <div class="sect sect2">
@@ -93,7 +60,7 @@
 <div id="plans" class="subSect">
     <div class="container" style="padding-top:30px;">
         <div class="row col-xs-12 section-title">
-            <div class="home-row home-welcome" style="font-family:'Bebas Neue';font-size:100px;line-height:1;margin-top:0;padding-top:0;padding-right:20px;display:inline-block;">
+            <div class="home-row home-welcome sect-header">
                 PLANS
             </div>
         </div>
@@ -122,8 +89,8 @@
     <div class="sect sect3"></div>
     <div class="subSect">
         <div class="container" style="padding-top:30px;">
-            <div class="row">
-                <div class="col-xs-12 title-format">
+            <div class="row col-xs-12 section-title">
+                <div class="home-row home-welcome sect-header">
                     BLOG
                 </div>
                 <div style="clear:both"></div>
