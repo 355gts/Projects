@@ -13,23 +13,29 @@
         </div>
         <div style="clear:both"></div>
     </div>
-    @foreach (var plan in Model)
-    {
-        <div class="row">
-            <div class="plan-main-row-container" style="background-color:red">
-                <div class="plan-main-image" style="width:100%;height:100%; background-image:url('@plan.ImagePathLarge');">
-                    <div class="plan-main-title">@plan.Name</div>
-                    <div class="plan-main-header">@plan.BannerHeader</div>
-                    <div class="plan-main-description">@plan.Description</div>
-                    <div class="plan-main-options">Options:</div>
-                    <div class="plan-main-options-dropdown-wrapper">@Html.DropDownListFor(p => plan.SelectedOptionId, plan.Options.Select(o => new SelectListItem() { Text = o.Description + "  -  £" + o.Price, Value = o.Id.ToString() }).ToList(), new { @class = "plan-main-options-dropdown" })</div>
-                    <div class="plan-main-button-wrapper">
-                        <button type="submit" class="btn btn-default btn-lg plan-main-button"><span class="plan-main-button-text">BUY</span></button>
-                        <div style="clear:both"></div>
+    @{ 
+        var planCount = 0;
+
+        foreach (var plan in Model)
+        {
+            <div class="row">
+                <div class="plan-main-row-container" style="background-color:red">
+                    <div class="plan-main-image" style="width:100%;height:100%; background-image:url('@plan.ImagePathLarge');">
+                        <div class="plan-main-title">@plan.Name</div>
+                        <div class="plan-main-header">@plan.BannerHeader</div>
+                        <div class="plan-main-description">@plan.Description</div>
+                        <div class="plan-main-options">Options:</div>
+                        <div class="plan-main-options-dropdown-wrapper">@Html.DropDownListFor(p => plan.SelectedOptionId, plan.Options.Select(o => new SelectListItem() { Text = o.Description + "  -  £" + o.Price, Value = o.Id.ToString() }).ToList(), new { @id = "drop-down-"+ @planCount, @class = "plan-main-options-dropdown" })</div>
+                        <div class="plan-main-button-wrapper">
+                            <button type="button" class="btn btn-default btn-lg plan-main-button" onclick="addToBasket('drop-down-@planCount')"><span class="plan-main-button-text">BUY</span></button>
+                            <div style="clear:both"></div>
+                        </div>
                     </div>
+                    <div style="clear:both"></div>
                 </div>
-                <div style="clear:both"></div>
             </div>
-        </div>
-    }
+
+            planCount++;
+        }
+        }
 </div>

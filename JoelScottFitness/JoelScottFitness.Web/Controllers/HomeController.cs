@@ -17,6 +17,8 @@ namespace JoelScottFitness.Web.Controllers
         private readonly IHelper helper;
         private readonly IYouTubeClient youTubeClient;
 
+        private const string basketKey = "Basket";
+
         public HomeController(IJSFitnessService jsfService, 
                               IHelper helper,
                               IYouTubeClient youTubeClient)
@@ -117,10 +119,33 @@ namespace JoelScottFitness.Web.Controllers
             return View(plans);
         }
 
-        [HttpGet]
-        public ActionResult Test()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void AddToBasket(long id)
         {
-            return View();
+            AddItemToBasket(id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public void RemoveFromBasket(long id)
+        {
+            RemoveFromBasket(id);
+        }
+
+        [HttpGet]
+        public ActionResult GetBasketItemCount()
+        {
+            var numberOfItems = GetBasket().Count();
+
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    items = numberOfItems
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         [HttpPost]
@@ -169,6 +194,39 @@ namespace JoelScottFitness.Web.Controllers
 
             return await jsfService.UpdateMailingList(mailingListItemViewModel);
         }
-       
+
+        private void AddItemToBasket(long id)
+        {
+            var basket = GetBasket();
+
+            if (!basket.Contains(id))
+            {
+                basket.Add(id);
+            }
+
+            Session[basketKey] = basket;
+        }
+
+        private void RemoveItemFromBasket(long id)
+        {
+            var basket = GetBasket();
+
+            if (!basket.Contains(id))
+            {
+                basket.Remove(id);
+            }
+
+            Session[basketKey] = basket;
+        }
+
+        private ICollection<long> GetBasket()
+        {
+            if (Session[basketKey] == null)
+            {
+                Session[basketKey] = new List<long>();
+            }
+
+            return (List<long>)Session[basketKey];
+        }
     }
 }

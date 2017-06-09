@@ -67,5 +67,69 @@ function getBlog(id) {
             return false;
         }
     });
+}
 
+// add item to shopping basket
+function addToBasket(dropdownId) {
+    
+    $.ajax({
+        type: 'POST',
+        url: '/Home/AddToBasket',
+        data: {
+            id: $('#' + dropdownId + ' option:selected').val(),
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function (data) {
+            getBasketItems();
+        }
+    });
+
+    return false;
+}
+
+// remove item from shopping basket
+function removeFromBasket(id) {
+
+    $.ajax({
+        type: 'POST',
+        url: '/Home/RemoveFromBasket',
+        data: {
+            id: id,
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function (data) {
+            getBasketItems();
+        }
+    });
+
+    return false;
+}
+
+// calls get basket items on page load to show the basket or not
+$(function () {
+    getBasketItems();
+});
+
+// get basket item count
+function getBasketItems() {
+
+    var toggled = false;
+
+    $.ajax({
+        type: 'GET',
+        url: '/Home/GetBasketItemCount',
+        success: function (data) {
+            if (data.items > 0) {
+                // populate the items badge and show the basket div
+                $('#basket-badge').text(data.items);
+
+                if (!$('#basket-container').is(":visible")) {
+                    $('#basket-container').animate({ width: 'toggle' }, "slow");
+                }
+            }
+            else if (data.items <= 0 && $('#basket-container').is(":visible")) {
+                $('#basket-container').animate({ width: 'toggle' }, "slow");
+            }
+        }
+    });
 }

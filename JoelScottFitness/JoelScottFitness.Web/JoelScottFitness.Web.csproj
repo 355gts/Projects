@@ -327,6 +327,7 @@
     <Content Include="Views\Shared\_MediaEntry.cshtml" />
     <Content Include="Views\Shared\_Media.cshtml" />
     <Content Include="Views\Shared\_Blog.cshtml" />
+    <Content Include="Views\Shared\_Basket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -49,15 +49,15 @@
 
     <div class="clearfix"></div>
 
-    @Html.Partial("_BlogModal")
-
-
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/JoelScottFitness.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
 
+    @Html.Partial("_BlogModal")
+
+    @Html.Partial("_Basket")
 
 </body>
 </html>
