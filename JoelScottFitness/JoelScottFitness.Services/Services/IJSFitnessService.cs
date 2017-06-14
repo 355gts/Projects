@@ -34,6 +34,8 @@ namespace JoelScottFitness.Services.Services
 
         Task<IEnumerable<PlanViewModel>> GetPlansByGender(Gender gender);
 
+        Task<PlanOptionViewModel> GetPlanOptionAsync(long id);
+
         Task<bool> DeactivatePlan(long id);
 
         Task<AsyncResult<long>> CreatePurchase(PurchaseViewModel purchase);

@@ -121,16 +121,40 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void AddToBasket(long id)
+        public async Task AddToBasket(long id)
         {
-            AddItemToBasket(id);
+            await AddItemToBasket(id);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public void RemoveFromBasket(long id)
         {
-            RemoveFromBasket(id);
+            RemoveItemFromBasket(id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult IncreaseQuantity(long id)
+        {
+            var itemQuantityModel = IncreaseItemQuantity(id);
+
+            return new JsonResult()
+            {
+                Data = itemQuantityModel
+            };
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult DecreaseQuantity(long id)
+        {
+            var itemQuantityModel = DecreaseItemQuantity(id);
+
+            return new JsonResult()
+            {
+                Data = itemQuantityModel
+            };
         }
 
         [HttpGet]
@@ -149,12 +173,31 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult CalculateTotal()
+        {
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    TotalPrice = String.Format("{0:0.00}", CalculateTotalCost())
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
         public async Task<ActionResult> Basket()
         {
             var basket = GetBasketItems();
+            
+            var basketItems = await jsfService.GetBasketItems(basket.Keys.ToList());
 
-            var basketItems = await jsfService.GetBasketItems(basket.ToList());
-
+            // map the quantities to the items
+            foreach (var basketItem in basketItems)
+            {
+                basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : 1;
+            }
+            
             return View(basketItems);
         }
 
@@ -205,13 +248,23 @@ namespace JoelScottFitness.Web.Controllers
             return await jsfService.UpdateMailingList(mailingListItemViewModel);
         }
 
-        private void AddItemToBasket(long id)
+        private async Task AddItemToBasket(long id)
         {
             var basket = GetBasketItems();
 
-            if (!basket.Contains(id))
+            if (!basket.ContainsKey(id))
             {
-                basket.Add(id);
+                var planOption = await jsfService.GetPlanOptionAsync(id);
+
+                if (planOption != null)
+                {
+                    basket.Add(id, new ItemQuantityViewModel()
+                    {
+                        Id = id,
+                        Price = planOption.Price,
+                        Quantity = 1, // 1 is the default quantity
+                    });
+                }
             }
 
             Session[basketKey] = basket;
@@ -221,7 +274,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var basket = GetBasketItems();
 
-            if (!basket.Contains(id))
+            if (basket.ContainsKey(id))
             {
                 basket.Remove(id);
             }
@@ -229,14 +282,57 @@ namespace JoelScottFitness.Web.Controllers
             Session[basketKey] = basket;
         }
 
-        private ICollection<long> GetBasketItems()
+        private ItemQuantityViewModel IncreaseItemQuantity(long id)
+        {
+            var basket = GetBasketItems();
+
+            if (basket.ContainsKey(id))
+            {
+                basket[id].Quantity = ++basket[id].Quantity;
+                
+                Session[basketKey] = basket;
+            }
+
+            return new ItemQuantityViewModel() { Id = id, Quantity = basket[id].Quantity };
+        }
+
+        private ItemQuantityViewModel DecreaseItemQuantity(long id)
+        {
+            var basket = GetBasketItems();
+
+            // only permit the customer to decrease the quantity to 1
+            if (basket.ContainsKey(id) && basket[id].Quantity > 1)
+            {
+                basket[id].Quantity = --basket[id].Quantity;
+
+                Session[basketKey] = basket;
+            }
+            
+            return new ItemQuantityViewModel() { Id = id, Quantity = basket[id].Quantity };
+        }
+
+        private IDictionary<long, ItemQuantityViewModel> GetBasketItems()
         {
             if (Session[basketKey] == null)
             {
-                Session[basketKey] = new List<long>();
+                Session[basketKey] = new Dictionary<long, ItemQuantityViewModel>();
             }
 
-            return (List<long>)Session[basketKey];
+            return (Dictionary<long, ItemQuantityViewModel>)Session[basketKey];
+        }
+
+        private double CalculateTotalCost()
+        {
+            double total = 0;
+
+            var basket = GetBasketItems();
+
+            foreach (var item in basket)
+            {
+                total += item.Value.Quantity * item.Value.Price;
+            }
+
+            return Math.Round(total, 2);
         }
     }
 }

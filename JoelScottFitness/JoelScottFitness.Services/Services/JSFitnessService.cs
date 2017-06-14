@@ -155,7 +155,17 @@ namespace JoelScottFitness.Services.Services
 
             return mapper.MapEnumerable<Plan, PlanViewModel>(plans);
         }
-        
+
+        public async Task<PlanOptionViewModel> GetPlanOptionAsync(long id)
+        {
+            var planOption = await repository.GetPlanOptionAsync(id);
+
+            if (planOption == null)
+                return null;
+
+            return mapper.Map<PlanOption, PlanOptionViewModel>(planOption);
+        }
+
         public async Task<PurchaseViewModel> GetPurchase(long id)
         {
             var purchase = await repository.GetPurchaseAsync(id);

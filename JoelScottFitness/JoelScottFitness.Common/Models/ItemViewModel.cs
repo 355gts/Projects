@@ -13,6 +13,9 @@ namespace JoelScottFitness.Common.Models
         public double Price { get; set; }
 
         [Required]
+        public long Quantity { get; set; }
+
+        [Required]
         public ItemType ItemType { get; set; }
 
         [Required]

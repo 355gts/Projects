@@ -12,7 +12,7 @@ namespace JoelScottFitness.Data.Models
 
         [Required]
         public double Price { get; set; }
-
+        
         [Required]
         public ItemType ItemType { get; set; }
 

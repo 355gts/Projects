@@ -62,6 +62,7 @@
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DiscountCodeViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\ItemQuantityViewModel.cs" />
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\MailingListItemViewModel.cs" />
     <Compile Include="Models\MediaViewModel.cs" />

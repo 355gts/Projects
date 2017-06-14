@@ -30,6 +30,8 @@ namespace JoelScottFitness.Data
 
         Task<Plan> GetPlanAsync(long id);
 
+        Task<PlanOption> GetPlanOptionAsync(long id);
+
         Task<IEnumerable<Plan>> GetPlansAsync();
 
         Task<IEnumerable<Plan>> GetPlansByGenderAsync(Gender gender);

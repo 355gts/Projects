@@ -1,7 +1,7 @@
 ﻿// nav menu scroll event handlers
 $(window).scroll(function () {
     OffsetMenu();
-})
+});
 
 $(window).resize(function () {
     OffsetMenu();
@@ -27,7 +27,7 @@ function OffsetMenu() {
 
 // hides full page image when not on index
 $(function () {
-    if (window.location.pathname != '/' || window.location.pathname.toLowerCase().indexOf('index') == 0) {
+    if (window.location.pathname !== '/' || window.location.pathname.toLowerCase().indexOf('index') === 0) {
         $('#full-page-image').hide();
     }
     else {
@@ -88,7 +88,7 @@ function addToBasket(dropdownId) {
 }
 
 // remove item from shopping basket
-function removeFromBasket(id) {
+function removeFromBasket(id, controlId) {
 
     $.ajax({
         type: 'POST',
@@ -98,6 +98,8 @@ function removeFromBasket(id) {
             __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
         },
         success: function (data) {
+            $('#' + controlId).remove();
+            $('#basket-total').text(calculateTotal());
             getBasketItems();
         }
     });
@@ -130,6 +132,56 @@ function getBasketItems() {
             else if (data.items <= 0 && $('#basket-container').is(":visible")) {
                 $('#basket-container').animate({ width: 'toggle' }, "slow");
             }
+        }
+    });
+}
+
+// increase an items quantity
+function increaseQuantity(id, controlId) {
+
+    var action = 'IncreaseQuantity';
+
+    return changeQuantity(id, controlId, action);
+}
+
+// decrease an items quantity
+function decreaseQuantity(id, controlId) {
+
+    var action = 'DecreaseQuantity';
+
+    return changeQuantity(id, controlId, action);
+}
+
+function changeQuantity(id, controlId, action) {
+
+    $.ajax({
+        type: 'POST',
+        url: '/Home/' + action,
+        data: {
+            id: id,
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function (data) {
+            $('#' + controlId).text(data.Quantity);
+            $('#basket-total').text(calculateTotal());
+        }
+    });
+
+    return false;
+}
+
+// calls get basket items on page load to show the basket or not
+$(function () {
+    calculateTotal();
+});
+
+function calculateTotal() {
+    
+    $.ajax({
+        type: 'GET',
+        url: '/Home/CalculateTotal',
+        success: function (data) {
+            $('#basket-total').text(data.TotalPrice);
         }
     });
 }

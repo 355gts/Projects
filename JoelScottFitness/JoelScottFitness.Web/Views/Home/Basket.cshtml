@@ -13,30 +13,41 @@
     </div>
     @{
         <div class="row hidden-xs visible-sm visible-md visible-lg">
-            <div class="col-sm-4">Plan</div>
-            <div class="col-sm-4">Description</div>
-            <div class="col-sm-2">Duration</div>
+            <div class="col-sm-2">Plan</div>
+            <div class="col-sm-3">Description</div>
+            <div class="col-sm-4" style="text-align:center">Quantity</div>
             <div class="col-sm-2">Price</div>
+            <div class="col-sm-1"></div>
         </div>
+
+        var itemCount = 0;
 
         foreach (var planOption in Model)
         {
-            <div class="row">
+            <div id="basket-item-row-@itemCount" class="row basket-item-row">
                 <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Plan:</div>
-                <div class="col-xs-12 col-sm-4">@Html.TextBoxFor(s => planOption.Plan.Name, new { @readonly = true, @class = "basket-value" })</div>
+                <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Plan.Name, new { @readonly = true, @class = "basket-value" })</div>
                 <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Description:</div>
-                <div class="col-xs-12 col-sm-4">@Html.TextBoxFor(s => planOption.Description, new { @readonly = true, @class = "basket-value" })</div>
-                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Duration:</div>
-                <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Duration, new { @readonly = true, @class = "basket-value" })</div>
-                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Price:</div>
-                <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Price, new { @readonly = true, @class = "basket-value" })</div>
+                <div class="col-xs-12 col-sm-3">@Html.TextBoxFor(s => planOption.Description, new { @readonly = true, @class = "basket-value" })</div>
+                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Quantity:</div>
+                <div class="col-xs-2 col-sm-1"><button type="button" class="btn btn-default btn-sm" onclick="increaseQuantity('@planOption.Id','basket-item-quantity-@itemCount')"><i class="fa fa-plus"></i></button></div>
+                <div class="col-xs-8 col-sm-2">
+                    <label class="basket-value" id="basket-item-quantity-@itemCount" style="text-align:center;">@planOption.Quantity</label>
+                    @*@Html.TextBoxFor(s => planOption.Quantity, new { @readonly = true, @class = "basket-value", @id = "basket-item-quantity-" + @itemCount, @style = "test-align:center;" })*@
+                </div>
+                <div class="col-xs-2 col-sm-1"><button type="button" class="btn btn-default btn-sm" onclick="decreaseQuantity('@planOption.Id','basket-item-quantity-@itemCount')"><i class="fa fa-minus"></i></button></div>
+                    <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Price:</div>
+                    <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Price, new { @readonly = true, @class = "basket-value" })</div>
+                <div class="col-xs-12 col-sm-1"><button type="button" class="btn btn-default btn-sm" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></div>    
             </div>
+                
+            itemCount++;
         }
 
         <div class="row">
-            <div class="col-sm-10 hidden-xs visible-sm visible-md visible-lg" style="text-align:right">Total:</div>
+            <div class="col-sm-9 hidden-xs visible-sm visible-md visible-lg" style="text-align:right">Total:</div>
             <div class="col-xs-12 visible-xs hidden-sm hidden-md hidden-lg" style="text-align:left">Total:</div>
-            <div class="col-xs-12 col-sm-2">@Model.Sum(s => s.Price)</div>
+            <div id="basket-total" class="col-xs-12 col-sm-2"></div>
         </div>
     }
 
