@@ -26,6 +26,19 @@ namespace JoelScottFitness.Test.Mappers
                     Price = 20.99,
                     PlanId = 12,
                     Id = 34,
+                    Plan = new Plan()
+                    {
+                        Active = true,
+                        BannerHeader = "Test Banner Header",
+                        CreatedDate = DateTime.UtcNow,
+                        Description = "Test Description",
+                        Id = 123,
+                        ImagePathLarge = "Test Image Path",
+                        ImagePathMedium = "Test Image Path Medium",
+                        ModifiedDate = DateTime.UtcNow,
+                        Name = "Test Name",
+                        TargetGender = Gender.Male,
+                    },
                 };
 
                 var mapper = new Map.PlanOptionMapper();
@@ -48,8 +61,21 @@ namespace JoelScottFitness.Test.Mappers
                     Price = 20.99,
                     PlanId = 12,
                     Id = 34,
+                    Plan = new Plan()
+                    {
+                        Active = true,
+                        BannerHeader = "Test Banner Header",
+                        CreatedDate = DateTime.UtcNow,
+                        Description = "Test Description",
+                        Id = 123,
+                        ImagePathLarge = "Test Image Path",
+                        ImagePathMedium = "Test Image Path Medium",
+                        ModifiedDate = DateTime.UtcNow,
+                        Name = "Test Name",
+                        TargetGender = Gender.Male,
+                    },
                 };
-                
+
                 PlanOptionViewModel toObject = new PlanOptionViewModel();
 
                 var mapper = new Map.PlanOptionMapper();
@@ -70,6 +96,18 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.PlanId, webObject.PlanId);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
+
+                // check plan is mapped
+                Assert.AreEqual(repoObject.Plan.Active, webObject.Plan.Active);
+                Assert.AreEqual(repoObject.Plan.BannerHeader, webObject.Plan.BannerHeader);
+                Assert.AreEqual(repoObject.Plan.CreatedDate, webObject.Plan.CreatedDate);
+                Assert.AreEqual(repoObject.Plan.Description, webObject.Plan.Description);
+                Assert.AreEqual(repoObject.Plan.Id, webObject.Plan.Id);
+                Assert.AreEqual(repoObject.Plan.ImagePathLarge, webObject.Plan.ImagePathLarge);
+                Assert.AreEqual(repoObject.Plan.ImagePathMedium, webObject.Plan.ImagePathMedium);
+                Assert.AreEqual(repoObject.Plan.ModifiedDate, webObject.Plan.ModifiedDate);
+                Assert.AreEqual(repoObject.Plan.Name, webObject.Plan.Name);
+                Assert.AreEqual(repoObject.Plan.TargetGender, webObject.Plan.TargetGender);
             }
         }
 
@@ -89,6 +127,19 @@ namespace JoelScottFitness.Test.Mappers
                     Price = 20.99,
                     PlanId = 12,
                     Id = 34,
+                    Plan = new PlanViewModel()
+                    {
+                        Active = true,
+                        BannerHeader = "Test Banner Header",
+                        CreatedDate = DateTime.UtcNow,
+                        Description = "Test Description",
+                        Id = 123,
+                        ImagePathLarge = "Test Image Path",
+                        ImagePathMedium = "Test Image Path Medium",
+                        ModifiedDate = DateTime.UtcNow,
+                        Name = "Test Name",
+                        TargetGender = Gender.Male,
+                    },
                 };
 
                 var mapper = new Map.PlanOptionMapper();
@@ -111,6 +162,19 @@ namespace JoelScottFitness.Test.Mappers
                     Price = 20.99,
                     PlanId = 12,
                     Id = 34,
+                    Plan = new PlanViewModel()
+                    {
+                        Active = true,
+                        BannerHeader = "Test Banner Header",
+                        CreatedDate = DateTime.UtcNow,
+                        Description = "Test Description",
+                        Id = 123,
+                        ImagePathLarge = "Test Image Path",
+                        ImagePathMedium = "Test Image Path Medium",
+                        ModifiedDate = DateTime.UtcNow,
+                        Name = "Test Name",
+                        TargetGender = Gender.Male,
+                    },
                 };
 
                 PlanOption toObject = new PlanOption();
@@ -133,6 +197,18 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.PlanId, webObject.PlanId);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
+
+                // check plan is mapped
+                Assert.AreEqual(repoObject.Plan.Active, webObject.Plan.Active);
+                Assert.AreEqual(repoObject.Plan.BannerHeader, webObject.Plan.BannerHeader);
+                Assert.AreEqual(repoObject.Plan.CreatedDate, webObject.Plan.CreatedDate);
+                Assert.AreEqual(repoObject.Plan.Description, webObject.Plan.Description);
+                Assert.AreEqual(repoObject.Plan.Id, webObject.Plan.Id);
+                Assert.AreEqual(repoObject.Plan.ImagePathLarge, webObject.Plan.ImagePathLarge);
+                Assert.AreEqual(repoObject.Plan.ImagePathMedium, webObject.Plan.ImagePathMedium);
+                Assert.AreEqual(repoObject.Plan.ModifiedDate, webObject.Plan.ModifiedDate);
+                Assert.AreEqual(repoObject.Plan.Name, webObject.Plan.Name);
+                Assert.AreEqual(repoObject.Plan.TargetGender, webObject.Plan.TargetGender);
             }
         }
     }

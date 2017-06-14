@@ -766,6 +766,7 @@ a:hover {
     right: 0px;
     top: 100px;
     display: none;
+    text-decoration: none;
 }
 
 .basket-link {
@@ -799,6 +800,7 @@ a:hover {
     font-family: 'Bebas Neue';
     font-size: 14px;
     margin-right: 10px;
+    border-radius: 10px !important;
 }
 
 .basket-cart {
@@ -807,3 +809,13 @@ a:hover {
 }
 
 /* BASKET LABEL STYLES END */
+
+/* BASKET STYLES START */
+
+.basket-value{
+    width:100%;
+    max-width:100%;
+    border:none;
+}
+
+/* BASKET STYLES END */

@@ -193,5 +193,11 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.UpdateMailingList(repoMailingListItem);
         }
+        public async Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids)
+        {
+            var repoPlanOptions = await repository.GetBasketItems(ids);
+
+            return mapper.MapEnumerable<PlanOption, PlanOptionViewModel>(repoPlanOptions);
+        }
     }
 }

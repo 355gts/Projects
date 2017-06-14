@@ -43,5 +43,7 @@ namespace JoelScottFitness.Data
         Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId);
 
         Task<bool> UpdateMailingList(MailingListItem mailingListItem);
+
+        Task<IEnumerable<PlanOption>> GetBasketItems(IEnumerable<long> ids);
     }
 }

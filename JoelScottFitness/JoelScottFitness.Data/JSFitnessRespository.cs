@@ -287,5 +287,14 @@ namespace JoelScottFitness.Data
 
             return await SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<PlanOption>> GetBasketItems(IEnumerable<long> ids)
+        {
+            return await dbContext.PlanOptions
+                                  .Include(p => p.Plan)
+                                  .Where(p => ids.Contains(p.Id))
+                                  .ToListAsync();
+
+        }
     }
 }

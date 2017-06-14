@@ -136,7 +136,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult GetBasketItemCount()
         {
-            var numberOfItems = GetBasket().Count();
+            var numberOfItems = GetBasketItems().Count();
 
             return new JsonResult()
             {
@@ -146,6 +146,16 @@ namespace JoelScottFitness.Web.Controllers
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Basket()
+        {
+            var basket = GetBasketItems();
+
+            var basketItems = await jsfService.GetBasketItems(basket.ToList());
+
+            return View(basketItems);
         }
 
         [HttpPost]
@@ -197,7 +207,7 @@ namespace JoelScottFitness.Web.Controllers
 
         private void AddItemToBasket(long id)
         {
-            var basket = GetBasket();
+            var basket = GetBasketItems();
 
             if (!basket.Contains(id))
             {
@@ -209,7 +219,7 @@ namespace JoelScottFitness.Web.Controllers
 
         private void RemoveItemFromBasket(long id)
         {
-            var basket = GetBasket();
+            var basket = GetBasketItems();
 
             if (!basket.Contains(id))
             {
@@ -219,7 +229,7 @@ namespace JoelScottFitness.Web.Controllers
             Session[basketKey] = basket;
         }
 
-        private ICollection<long> GetBasket()
+        private ICollection<long> GetBasketItems()
         {
             if (Session[basketKey] == null)
             {

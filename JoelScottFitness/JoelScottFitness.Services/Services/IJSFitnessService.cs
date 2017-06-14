@@ -47,5 +47,7 @@ namespace JoelScottFitness.Services.Services
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
 
         Task<bool> UpdateMailingList(MailingListItemViewModel mailingListItem);
+        
+        Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids);
     }
 }
