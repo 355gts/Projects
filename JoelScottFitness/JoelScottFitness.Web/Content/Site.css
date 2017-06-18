@@ -26,6 +26,7 @@ body {
     overflow-x: hidden;
 }
 
+
 a:hover {
     cursor: pointer;
 }
@@ -611,7 +612,7 @@ a:hover {
     background-color:black;
 }
 
-.footer-subscribe-container{
+.footer-subscribe-container {
     padding: 10px 20px;
 }
 .footer-logo-wrapper {
@@ -791,6 +792,11 @@ a:hover {
     display: inline-block;
     vertical-align: middle;
     height: 100%;
+    text-decoration:none;
+}
+
+.basket-icon-container:hover {
+    text-decoration: none;
 }
 
 .basket-badge {
@@ -801,21 +807,122 @@ a:hover {
     font-size: 14px;
     margin-right: 10px;
     border-radius: 10px !important;
+    margin-left:16px;
 }
 
 .basket-cart {
     color: white;
     margin-right: 10px;
+    text-decoration:none;
+}
+
+.basket-cart:before {
+    text-decoration: none;
 }
 
 /* BASKET LABEL STYLES END */
 
 /* BASKET STYLES START */
 
+.basket {
+    font-family: 'Bebas Neue';
+    font-size: 16px;
+}
+
 .basket-value{
     width:100%;
     max-width:100%;
     border:none;
+
+
 }
 
+@media (max-width:576px) {
+    .basket-value {
+        text-align: center;
+    }
+
+    .basket-item-row {
+        border-style: solid;
+        border-width: 2px;
+        border-color: grey;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .basket-value-total {
+        text-align: right;
+    }
+
+    .basket-value-price {
+        text-align: right;
+    }
+
+    .basket-button-spacing {
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+
+    .basket-next-button{
+        width:100%;
+    }
+    
+    .basket-next-button-wrapper {
+        text-align: center;
+        padding-bottom:40px;
+    }
+}
+
+@media (min-width:577px){
+    .basket-value{
+        text-align:left;
+    }
+
+    .basket-value-total {
+        text-align: center;
+    }
+
+    .basket-value-price {
+        text-align: center;
+        padding-left:60px;
+    }
+
+
+    .basket-next-button {
+        width: 100px;
+    }
+
+    .basket-next-button-wrapper {
+        text-align: right;
+        padding-bottom: 40px;
+        padding-right:80px;
+    }
+}
+
+
+.basket-item-row{
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.basket-button {
+    background-color: gray;
+    color: black;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+}
+
+.basket-button:active {
+    background-color: gray;
+    color: black;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+}
+
+.basket-button:hover{
+    background-color:black;
+    color:white;
+}
 /* BASKET STYLES END */

@@ -181,7 +181,7 @@ function calculateTotal() {
         type: 'GET',
         url: '/Home/CalculateTotal',
         success: function (data) {
-            $('#basket-total').text(data.TotalPrice);
+            $('#basket-total').text("£"+data.TotalPrice);
         }
     });
 }
