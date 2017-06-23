@@ -5,14 +5,14 @@
     ViewBag.Title = "Basket";
 }
 
-<div class="container" style="font-family: 'Bebas Neue';font-size:14px;color:black">
+<div class="container" style="font-family: 'Bebas Neue';font-size:16px;color:black;min-height:600px">
     <div class="row">
         <div class="col-xs-12 title-format">
             BASKET
         </div>
         <div style="clear:both"></div>
     </div>
-    <div class="basket">
+    <div class="basket" style="padding-top:40px">
         @{
             <div class="row hidden-xs visible-sm visible-md visible-lg">
                 <div class="col-sm-2">Plan</div>
@@ -53,7 +53,7 @@
                 <div id="basket-total" class="col-xs-6 col-sm-2 basket-value-total"></div>
             </div>
             <div class="row basket-next-button-wrapper" style="padding-top:10px">
-                <button class="btn btn-default basket-next-button basket-button" type="button">Next</button>
+                <a href="/Home/Lobby" class="btn btn-default basket-next-button basket-button" type="button">Next</a>
             </div>
             }
 

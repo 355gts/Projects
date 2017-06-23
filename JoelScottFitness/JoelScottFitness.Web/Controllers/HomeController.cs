@@ -119,6 +119,25 @@ namespace JoelScottFitness.Web.Controllers
             return View(plans);
         }
 
+        [HttpGet]
+        public ActionResult Lobby()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("CustomerDetails","Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Home/CustomerDetails" });
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CustomerDetails()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task AddToBasket(long id)
