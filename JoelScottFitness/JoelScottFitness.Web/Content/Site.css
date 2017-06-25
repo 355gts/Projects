@@ -40,6 +40,7 @@ a:hover {
     padding-top: 0;
     padding-right: 20px;
     display: inline-block;
+    color:black;
 }
 
 .content-format {
@@ -304,11 +305,17 @@ a:hover {
     text-decoration-style: none;
 }
 
+.section-title-wrapper {
+    padding-top: 50px;
+    font-family: 'Bebas Neue';
+    color: black;
+}
+
 .section-title {
     width: 100%;
     text-align: center;
     align-content: center;
-    margin:0px;
+    margin: 0px;
 }
 
 .plan-row-container {
@@ -761,7 +768,7 @@ a:hover {
 
 /* BASKET LABEL STYLES START */
 
-.basket-container {
+.basket-cart-container {
     z-index: 20;
     position: fixed;
     right: 0px;
@@ -823,6 +830,13 @@ a:hover {
 /* BASKET LABEL STYLES END */
 
 /* BASKET STYLES START */
+
+.basket-container {
+    font-family: 'Bebas Neue';
+    font-size: 16px;
+    color: black;
+    min-height: 600px;
+}
 
 .basket {
     font-family: 'Bebas Neue';

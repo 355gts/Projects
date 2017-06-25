@@ -53,9 +53,10 @@ namespace JoelScottFitness.Web.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, bool showGuest = false)
         {
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ShowGuest = showGuest;
             return View();
         }
 

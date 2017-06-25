@@ -50,6 +50,8 @@
             }
         </div>
     </div>
+    @if (ViewBag.ShowGuest)
+    {
         <div class="login-option-container hidden-xs" style="width:20%">
         </div>
         <div class="login-option-container" @*style="background-color:yellow"*@>
@@ -62,6 +64,7 @@
                 <a href="/Home/CustomerDetails" class="btn btn-default basket-next-button basket-button" style="width:100%;font-size:18px">CONTINUE</a>
             </div>
         </div>
+    }
 </div>
 
 

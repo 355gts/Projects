@@ -125,12 +125,12 @@ function getBasketItems() {
                 // populate the items badge and show the basket div
                 $('#basket-badge').text(data.items);
 
-                if (!$('#basket-container').is(":visible")) {
-                    $('#basket-container').animate({ width: 'toggle' }, "slow");
+                if (!$('#basket-cart-container').is(":visible")) {
+                    $('#basket-cart-container').animate({ width: 'toggle' }, "slow");
                 }
             }
-            else if (data.items <= 0 && $('#basket-container').is(":visible")) {
-                $('#basket-container').animate({ width: 'toggle' }, "slow");
+            else if (data.items <= 0 && $('#basket-cart-container').is(":visible")) {
+                $('#basket-cart-container').animate({ width: 'toggle' }, "slow");
             }
         }
     });
@@ -181,7 +181,13 @@ function calculateTotal() {
         type: 'GET',
         url: '/Home/CalculateTotal',
         success: function (data) {
-            $('#basket-total').text("£"+data.TotalPrice);
+            if (data.TotalPrice == 0) {
+                $('#basket-wrapper').hide();
+                $('#no-items').show();
+            }
+            else {
+                $('#basket-total').text("£" + data.TotalPrice);
+            }
         }
     });
 }

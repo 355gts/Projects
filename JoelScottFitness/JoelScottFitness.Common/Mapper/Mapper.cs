@@ -35,6 +35,10 @@ namespace JoelScottFitness.Common.Mapper
 
         public TTo Map<TFrom, TTo>(TFrom fromObject, TTo toObject = null) where TFrom : class where TTo : class
         {
+            
+            if (fromObject == null)
+                return default(TTo);
+
             var mapper = GetMapper(fromObject, toObject);
 
             if (mapper == null)
@@ -45,6 +49,9 @@ namespace JoelScottFitness.Common.Mapper
 
         public IEnumerable<TTo> MapEnumerable<TFrom, TTo>(IEnumerable<TFrom> fromObjects) where TFrom : class where TTo : class
         {
+            if (fromObjects == null || !fromObjects.Any())
+                return Enumerable.Empty<TTo>();
+
             var mapper = GetMapper<TFrom, TTo>(fromObjects.First());
 
             if (mapper == null)

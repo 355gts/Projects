@@ -11,7 +11,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 
-<body>
+<body id="home">
     <div id="full-page-image" class="header">
         <div class="logo">
             <img src="~/Content/Logos/jsf-white.svg" />
@@ -28,11 +28,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div style="width:100px;position:absolute;"><a href="/Home/Index#nav" class="navbar-left"><img class="nav-logo" src="~/Content/Logos/jsf-white.svg"></a></div>
+                <div style="width:100px;position:absolute;"><a href="/Home/Index#home" class="navbar-left"><img class="nav-logo" src="~/Content/Logos/jsf-white.svg"></a></div>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/Home/Index#nav">Home</a></li>
+                    <li><a href="/Home/Index#home">Home</a></li>
                     <li>@Html.ActionLink("Blog", "Blogs", "Home")</li>
                     <li><a href="/Home/Index#plans">Plans</a></li>
                 </ul>

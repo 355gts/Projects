@@ -128,7 +128,7 @@ namespace JoelScottFitness.Web.Controllers
             }
             else
             {
-                return RedirectToAction("Login", "Account", new { returnUrl = "/Home/CustomerDetails" });
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Home/CustomerDetails", showGuest = true });
             }
         }
 
