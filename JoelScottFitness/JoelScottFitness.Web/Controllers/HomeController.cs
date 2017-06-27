@@ -252,6 +252,8 @@ namespace JoelScottFitness.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var customerDetails = await jsfService.GetCustomerDetails(User.Identity.Name);
+                //ensure this is defaulted to true
+                customerDetails.JoinMailingList = true;
 
                 return View(customerDetails);
             }

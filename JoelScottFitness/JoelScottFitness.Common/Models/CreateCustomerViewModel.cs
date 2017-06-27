@@ -34,7 +34,5 @@ namespace JoelScottFitness.Common.Models
         public bool RegisterAccount { get; set; }
 
         public bool JoinMailingList { get; set; }
-
-
     }
 }
