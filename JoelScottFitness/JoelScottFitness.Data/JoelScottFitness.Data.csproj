@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201706041845380_Added mailing list.Designer.cs">
       <DependentUpon>201706041845380_Added mailing list.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706252002249_Added foreign key to billing address.cs" />
+    <Compile Include="Migrations\201706252002249_Added foreign key to billing address.Designer.cs">
+      <DependentUpon>201706252002249_Added foreign key to billing address.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BaseRecord.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706041845380_Added mailing list.resx">
       <DependentUpon>201706041845380_Added mailing list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706252002249_Added foreign key to billing address.resx">
+      <DependentUpon>201706252002249_Added foreign key to billing address.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

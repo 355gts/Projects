@@ -330,7 +330,9 @@
     <Content Include="Views\Shared\_BasketIndicator.cshtml" />
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
-    <Content Include="Views\Home\CustomerDetails.cshtml" />
+    <Content Include="Views\Home\NewCustomerDetails.cshtml" />
+    <Content Include="Views\Home\ConfirmPurchase.cshtml" />
+    <Content Include="Views\Home\ExistingCustomerDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

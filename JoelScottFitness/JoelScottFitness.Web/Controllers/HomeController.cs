@@ -1,23 +1,55 @@
-﻿using JoelScottFitness.Common.Enumerations;
+﻿using JoelScottFitness.Common.Constants;
+using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
+using JoelScottFitness.Common.Results;
+using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.YouTube.Client;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace JoelScottFitness.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
         private readonly IJSFitnessService jsfService;
         private readonly IHelper helper;
         private readonly IYouTubeClient youTubeClient;
 
         private const string basketKey = "Basket";
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         public HomeController(IJSFitnessService jsfService, 
                               IHelper helper,
@@ -35,6 +67,8 @@ namespace JoelScottFitness.Web.Controllers
             this.jsfService = jsfService;
             this.helper = helper;
             this.youTubeClient = youTubeClient;
+            this.SignInManager = _signInManager;
+            this.UserManager = _userManager;
         }
 
         [HttpGet]
@@ -124,18 +158,153 @@ namespace JoelScottFitness.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("CustomerDetails","Home");
+                return RedirectToAction("ExistingCustomerDetails","Home");
             }
             else
             {
-                return RedirectToAction("Login", "Account", new { returnUrl = "/Home/CustomerDetails", showGuest = true });
+                return RedirectToAction("Login", "Account", new { returnUrl = "/Home/ExistingCustomerDetails", showGuest = true });
             }
         }
 
         [HttpGet]
-        public ActionResult CustomerDetails()
+        public ActionResult NewCustomerDetails()
         {
             return View();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> NewCustomerDetails(CreateCustomerViewModel customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
+            
+            var user = await jsfService.GetUser(customer.EmailAddress);
+
+            if (customer.RegisterAccount)
+            {
+                if (user != null)
+                {
+                    ModelState.AddModelError(string.Empty, "Email addresses is already registered");
+                    customer.RegisterAccount = false;
+                    customer.ConfirmEmailAddress = string.Empty;
+                    customer.Password = string.Empty;
+                    customer.ConfirmPassword = string.Empty;
+                    return View(customer);
+                }
+
+                if (string.IsNullOrEmpty(customer.ConfirmEmailAddress) || customer.EmailAddress != customer.ConfirmEmailAddress)
+                {
+                    ModelState.AddModelError(string.Empty, "Email addresses must match to register for account");
+                }
+
+                if (string.IsNullOrEmpty(customer.Password) || customer.Password != customer.ConfirmPassword)
+                {
+                    ModelState.AddModelError(string.Empty, "Passwords must match to register for account");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(customer);
+                }
+                
+                if (user == null)
+                {
+                    var newUser = new AuthUser { UserName = customer.EmailAddress, Email = customer.EmailAddress };
+                    var accountResult = await UserManager.CreateAsync(newUser, customer.Password);
+                    if (accountResult.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                        customer.UserId = newUser.Id;
+
+                        await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.AccountHolder);
+                    }
+                    else
+                    {
+                        accountResult.Errors.ToList().ForEach(e => ModelState.AddModelError(string.Empty, e));
+
+                        return View(customer);
+                    }
+                }
+            }
+
+            if (customer.JoinMailingList)
+            {
+                await UpdateMailingList(customer.EmailAddress);
+            }
+
+            var customerResult = await jsfService.CreateCustomer(customer);
+
+            if (!customerResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, "An error occured saving customer details please try again.");
+                return View(customer);
+            }
+
+            return RedirectToAction("ConfirmPurchase", "Home", new { customerId = customerResult.Result });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ExistingCustomerDetails()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var customerDetails = await jsfService.GetCustomerDetails(User.Identity.Name);
+
+                return View(customerDetails);
+            }
+
+            return RedirectToAction("NewCustomerDetails", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ExistingCustomerDetails(CustomerViewModel customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
+
+            var user = await jsfService.GetUser(customer.EmailAddress);
+
+            if (customer.JoinMailingList)
+            {
+                await UpdateMailingList(customer.EmailAddress);
+            }
+
+            var customerResult = await jsfService.UpdateCustomer(customer);
+
+            if (!customerResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, "An error occured saving customer details please try again.");
+                return View(customer);
+            }
+
+            return RedirectToAction("ConfirmPurchase", "Home", new { customerId = customerResult.Result });
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ConfirmPurchase(long customerId)
+        {
+            var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
+
+            var basket = GetBasketItems();
+
+            var basketItems = await jsfService.GetBasketItems(basket.Keys.ToList());
+
+            // map the quantities to the items
+            foreach (var basketItem in basketItems)
+            {
+                basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : 1;
+            }
+
+            confirmPurchaseViewModel.CustomerDetails = await jsfService.GetCustomerDetails(customerId);
+            confirmPurchaseViewModel.BasketItems = basketItems;
+
+            return View(confirmPurchaseViewModel);
         }
 
         [HttpPost]
@@ -258,13 +427,7 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<bool> SubscribeToMailingList(string emailAddress)
         {
-            var mailingListItemViewModel = new MailingListItemViewModel()
-            {
-                Active = true,
-                Email = emailAddress,
-            };
-
-            return await jsfService.UpdateMailingList(mailingListItemViewModel);
+            return await UpdateMailingList(emailAddress);
         }
 
         private async Task AddItemToBasket(long id)
@@ -352,6 +515,17 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             return Math.Round(total, 2);
+        }
+
+        private async Task<bool> UpdateMailingList(string emailAddress)
+        {
+            var mailingListItemViewModel = new MailingListItemViewModel()
+            {
+                Active = true,
+                Email = emailAddress,
+            };
+
+            return await jsfService.UpdateMailingList(mailingListItemViewModel);
         }
     }
 }

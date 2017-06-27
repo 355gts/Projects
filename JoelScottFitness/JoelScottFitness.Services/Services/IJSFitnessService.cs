@@ -16,9 +16,13 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> DeactivateBlog(long id);
 
-        Task<AsyncResult<long>> CreateOrUpdateCustomer(CustomerViewModel customer);
+        Task<AsyncResult<long>> CreateCustomer(CreateCustomerViewModel customer);
+
+        Task<AsyncResult<long>> UpdateCustomer(CustomerViewModel customer);
 
         Task<CustomerViewModel> GetCustomerDetails(long id);
+
+        Task<CustomerViewModel> GetCustomerDetails(string userName);
 
         Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCodeViewModel discountCode);
 
@@ -51,5 +55,7 @@ namespace JoelScottFitness.Services.Services
         Task<bool> UpdateMailingList(MailingListItemViewModel mailingListItem);
         
         Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids);
+
+        Task<UserViewModel> GetUser(string userName);
     }
 }

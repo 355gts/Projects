@@ -191,3 +191,20 @@ function calculateTotal() {
         }
     });
 }
+
+// show-hide account registration inputs
+$(document).ready(function () {
+    $('.register-checkbox').change(function () {
+        console.log($('.registration-element').length);
+        if (this.checked) {
+            $('.registration-element').each(function (i, obj) {
+                $(obj).removeClass('element-hidden');
+            });
+        }
+        else {
+            $('.registration-element').each(function (i, obj) {
+                $(obj).addClass('element-hidden');
+            });
+        }
+    });
+});

@@ -1,6 +1,7 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.Identity.Models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -45,21 +46,45 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateCustomerAsync(Customer customer)
+        public async Task<AsyncResult<long>> CreateCustomerAsync(Customer customer)
+        {
+            var existingCustomer = await dbContext.Customers.FirstOrDefaultAsync(c => c.Id == customer.Id);
+
+            if (existingCustomer != null)
+                return new AsyncResult<long>() { Success = false, ErrorMessage = "User already exists" };
+
+            customer.CreatedDate = DateTime.UtcNow;
+            dbContext.Customers.Add(customer);
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingCustomer != null ? existingCustomer.Id : customer.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<AsyncResult<long>> UpdateCustomerAsync(Customer customer)
         {
             var existingCustomer = await dbContext.Customers.Include(c => c.BillingAddress).FirstOrDefaultAsync(c => c.Id == customer.Id);
 
-            if (existingCustomer != null)
-            {
-                dbContext.SetValues(existingCustomer, customer);
-                dbContext.SetValues(existingCustomer.BillingAddress, customer.BillingAddress);
-                dbContext.SetModified(existingCustomer);
-                dbContext.SetModified(existingCustomer.BillingAddress);
-            }
-            else
-            {
-                dbContext.Customers.Add(customer);
-            }
+            if (existingCustomer == null)
+                return new AsyncResult<long>() { Success = false, ErrorMessage = $"User {customer.EmailAddress} does not exist." };
+
+            customer.ModifiedDate = DateTime.UtcNow;
+
+            existingCustomer.BillingAddress.AddressLine1 = customer.BillingAddress.AddressLine1;
+            existingCustomer.BillingAddress.AddressLine2 = customer.BillingAddress.AddressLine2;
+            existingCustomer.BillingAddress.AddressLine3 = customer.BillingAddress.AddressLine3;
+            existingCustomer.BillingAddress.City = customer.BillingAddress.City;
+            existingCustomer.BillingAddress.Country = customer.BillingAddress.Country;
+            existingCustomer.BillingAddress.CountryCode = customer.BillingAddress.CountryCode;
+            existingCustomer.BillingAddress.PostCode = customer.BillingAddress.PostCode;
+            existingCustomer.BillingAddress.Region = customer.BillingAddress.Region;
+
+            dbContext.SetValues(existingCustomer, customer);
+            dbContext.SetModified(existingCustomer);
 
             if (await SaveChangesAsync())
             {
@@ -200,6 +225,19 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<Customer> GetCustomerDetailsAsync(string userName)
+        {
+            var user = await dbContext.Users
+                                      .FirstOrDefaultAsync(c => c.UserName.ToLower() == userName.ToLower());
+
+            if (user == null)
+                return null;
+
+                return await dbContext.Customers
+                                      .Include(c => c.BillingAddress)
+                                      .FirstOrDefaultAsync(c => c.UserId == user.Id);
+        }
+
         public async Task<DiscountCode> GetDiscountCodeAsync(long id)
         {
             return await dbContext.DiscountCodes.FindAsync(id);
@@ -301,6 +339,12 @@ namespace JoelScottFitness.Data
                                   .Where(p => ids.Contains(p.Id))
                                   .ToListAsync();
 
+        }
+
+        public async Task<AuthUser> GetUser(string userName)
+        {
+            return await dbContext.Users
+                                  .FirstOrDefaultAsync(u => u.UserName.ToLower() == userName.ToLower());
         }
     }
 }

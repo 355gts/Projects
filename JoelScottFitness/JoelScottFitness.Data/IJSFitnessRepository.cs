@@ -1,6 +1,7 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.Identity.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,9 +17,13 @@ namespace JoelScottFitness.Data
 
         Task<bool> DeactivateBlogAsync(long id);
 
-        Task<AsyncResult<long>> CreateOrUpdateCustomerAsync(Customer customer);
+        Task<AsyncResult<long>> CreateCustomerAsync(Customer customer);
+
+        Task<AsyncResult<long>> UpdateCustomerAsync(Customer customer);
 
         Task<Customer> GetCustomerDetailsAsync(long id);
+
+        Task<Customer> GetCustomerDetailsAsync(string userName);
 
         Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCode discountCode);
 
@@ -47,5 +52,7 @@ namespace JoelScottFitness.Data
         Task<bool> UpdateMailingList(MailingListItem mailingListItem);
 
         Task<IEnumerable<PlanOption>> GetBasketItems(IEnumerable<long> ids);
+
+        Task<AuthUser> GetUser(string userName);
     }
 }

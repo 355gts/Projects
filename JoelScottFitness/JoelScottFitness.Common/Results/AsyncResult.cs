@@ -6,9 +6,6 @@
 
         public TType Result { get; set; }
 
-        public AsyncResult()
-        {
-            
-        }
+        public string ErrorMessage { get; set; }
     }
 }

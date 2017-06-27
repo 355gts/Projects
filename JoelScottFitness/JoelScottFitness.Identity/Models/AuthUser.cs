@@ -16,6 +16,18 @@ namespace JoelScottFitness.Identity.Models
             set => base.Id = value;
         }
 
+        public override string Email
+        {
+            get => base.Email;
+            set => base.Email = value;
+        }
+
+        public override string UserName
+        {
+            get => base.UserName;
+            set => base.UserName = value;
+        }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AuthUser, long> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

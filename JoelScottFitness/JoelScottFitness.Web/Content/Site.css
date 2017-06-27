@@ -831,7 +831,7 @@ a:hover {
 
 /* BASKET STYLES START */
 
-.basket-container {
+.page-container {
     font-family: 'Bebas Neue';
     font-size: 16px;
     color: black;
@@ -878,7 +878,7 @@ a:hover {
     }
 
     .basket-next-button{
-        width:100%;
+        min-width:100%;
     }
     
     .basket-next-button-wrapper {
@@ -977,3 +977,11 @@ a:hover {
 }
 
 /* LOGIN STYLES END */
+
+/* CUSTOMER STYLES START */
+
+.element-hidden {
+    display: none;
+}
+
+/* CUSTOMER STYLES END*/

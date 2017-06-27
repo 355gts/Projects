@@ -21,7 +21,10 @@ namespace JoelScottFitness.Data.Models
         public DateTime CreatedDate { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
-        
+
+        [ForeignKey("BillingAddress")]
+        public long BillingAddressId { get; set; }
+
         [Required]
         public Address BillingAddress { get; set; }
 

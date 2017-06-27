@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\JsfRoles.cs" />
     <Compile Include="Enumerations\CreditCardType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
     <Compile Include="Enumerations\ItemType.cs" />
@@ -58,6 +59,8 @@
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\ConfirmPurchaseViewModel.cs" />
+    <Compile Include="Models\CreateCustomerViewModel.cs" />
     <Compile Include="Models\CreditCardViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DiscountCodeViewModel.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\PurchasedItemViewModel.cs" />
     <Compile Include="Models\PurchaseViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Modules\CommonModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\AsyncResult.cs" />

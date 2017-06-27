@@ -1,5 +1,7 @@
-﻿using JoelScottFitness.Common.Enumerations;
+﻿using JoelScottFitness.Common.Constants;
+using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.Identity.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -427,6 +429,23 @@ namespace JoelScottFitness.Data
                 context.SaveChanges();
             }
 
+            if (!context.Roles.Any())
+            {
+                var userRole = new AuthRole()
+                {
+                    Name = JsfRoles.AccountHolder
+                };
+
+                var adminRole = new AuthRole()
+                {
+                    Name = JsfRoles.Administrator
+                };
+                
+                context.Roles.Add(userRole);
+                context.Roles.Add(adminRole);
+                context.SaveChanges();
+            }
+            
             base.Seed(context);
         }
     }

@@ -1,7 +1,6 @@
 ﻿using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
-using System;
 using System.Collections.Generic;
 
 namespace JoelScottFitness.Services.Mappers
@@ -10,6 +9,7 @@ namespace JoelScottFitness.Services.Mappers
     {
         AddressMapper addressMapper = new AddressMapper();
         PurchaseMapper purchaseMapper = new PurchaseMapper();
+        UserMapper userMapper = new UserMapper();
 
         public Customer Map(CustomerViewModel fromObject, Customer toObject = null)
         {
@@ -22,11 +22,12 @@ namespace JoelScottFitness.Services.Mappers
             customer.ModifiedDate = fromObject.ModifiedDate;
             customer.Surname = fromObject.Surname;
             customer.UserId = fromObject.UserId;
+            customer.BillingAddressId = fromObject.BillingAddressId;
 
             if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);
 
-            if (customer.PurchaseHistory != null)
+            if (fromObject.PurchaseHistory != null)
             {
                 var purchases = new List<Purchase>();
                 foreach (var item in fromObject.PurchaseHistory)
@@ -51,9 +52,13 @@ namespace JoelScottFitness.Services.Mappers
             customer.ModifiedDate = fromObject.ModifiedDate;
             customer.Surname = fromObject.Surname;
             customer.UserId = fromObject.UserId;
+            customer.BillingAddressId = fromObject.BillingAddressId;
 
             if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);
+
+            if (fromObject.User != null)
+                customer.User = userMapper.Map(fromObject.User);
 
             if (fromObject.PurchaseHistory != null)
             {

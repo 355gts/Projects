@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\BlogMapper.cs" />
+    <Compile Include="Mappers\CreateCustomerMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
     <Compile Include="Mappers\ITypeMapper.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Mappers\PlanOptionMapper.cs" />
     <Compile Include="Mappers\PurchasedItemMapper.cs" />
     <Compile Include="Mappers\PurchaseMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Modules\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IJSFitnessService.cs" />
@@ -89,6 +91,10 @@
     <ProjectReference Include="..\JoelScottFitness.Data\JoelScottFitness.Data.csproj">
       <Project>{c4825771-d9c6-4b84-9284-3eb4f1e05222}</Project>
       <Name>JoelScottFitness.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JoelScottFitness.Identity\JoelScottFitness.Identity.csproj">
+      <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
+      <Name>JoelScottFitness.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\JoelScottFitness.PayPal\JoelScottFitness.PayPal.csproj">
       <Project>{22b6eafe-ffa4-419f-8cc0-138581a1ac95}</Project>

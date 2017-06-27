@@ -4,6 +4,7 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.Identity.Models;
 using JoelScottFitness.PayPal.Services;
 using log4net;
 using Ninject;
@@ -38,11 +39,18 @@ namespace JoelScottFitness.Services.Services
             return await repository.CreateOrUpdateBlogAsync(repoBlog);
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateCustomer(CustomerViewModel customer)
+        public async Task<AsyncResult<long>> CreateCustomer(CreateCustomerViewModel customer)
+        {
+            var repoCustomer = mapper.Map<CreateCustomerViewModel, Customer>(customer);
+
+            return await repository.CreateCustomerAsync(repoCustomer);
+        }
+
+        public async Task<AsyncResult<long>> UpdateCustomer(CustomerViewModel customer)
         {
             var repoCustomer = mapper.Map<CustomerViewModel, Customer>(customer);
 
-            return await repository.CreateOrUpdateCustomerAsync(repoCustomer);
+            return await repository.UpdateCustomerAsync(repoCustomer);
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCodeViewModel discountCode)
@@ -99,6 +107,16 @@ namespace JoelScottFitness.Services.Services
         public async Task<CustomerViewModel> GetCustomerDetails(long id)
         {
             var customer = await repository.GetCustomerDetailsAsync(id);
+
+            if (customer == null)
+                return null;
+
+            return mapper.Map<Customer, CustomerViewModel>(customer);
+        }
+
+        public async Task<CustomerViewModel> GetCustomerDetails(string userName)
+        {
+            var customer = await repository.GetCustomerDetailsAsync(userName);
 
             if (customer == null)
                 return null;
@@ -208,6 +226,13 @@ namespace JoelScottFitness.Services.Services
             var repoPlanOptions = await repository.GetBasketItems(ids);
 
             return mapper.MapEnumerable<PlanOption, PlanOptionViewModel>(repoPlanOptions);
+        }
+
+        public async Task<UserViewModel> GetUser(string userName)
+        {
+            var user = await repository.GetUser(userName);
+
+            return mapper.Map<AuthUser, UserViewModel>(user);
         }
     }
 }
