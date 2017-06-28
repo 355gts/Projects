@@ -611,10 +611,17 @@ a:hover {
     height: 40px;
 }
 
-/* PLAN PAGE STYLES END */
+.plan-main-options-dropdown:hover {
+    cursor:pointer;
+}
 
-/* FOOTER STYLES START */
-.footer-container {
+.plan-main-options-dropdown:hover option:hover {
+    cursor: pointer;
+}
+
+    /* PLAN PAGE STYLES END */
+    /* FOOTER STYLES START */
+    .footer-container {
     padding-top:60px;
     background-color:black;
 }

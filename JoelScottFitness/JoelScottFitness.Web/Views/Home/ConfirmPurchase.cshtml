@@ -16,137 +16,153 @@
     {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(model => model.CustomerDetails.UserId, new { htmlAttributes = new { @style = "Display:none" } })
+
         <div class="form-horizontal">
 
-            @Html.HiddenFor(model => model.CustomerDetails.UserId, new { htmlAttributes = new { @style = "Display:none" } })
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.Firstname, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.Firstname, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.Surname, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.Surname, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.AddressLine1, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.AddressLine2, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.AddressLine3, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.AddressLine3, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.City, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.City, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.Region, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.Region, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.PostCode, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.PostCode, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.BillingAddress.Country, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayFor(model => model.CustomerDetails.BillingAddress.Country, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CustomerDetails.EmailAddress, htmlAttributes: new { @class = "col-md-2", @style = "text-align:right" })
-                <div class="col-md-10">
-                    @Html.DisplayTextFor(model => model.CustomerDetails.EmailAddress)
-                </div>
-            </div>
-            
-            <div class="basket" style="padding-top:40px">
-                @{
-
-                    <div id="no-items" class="row col-xs-12" style="margin:0px;display:none">
-                        <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
-                            NO ITEMS IN BASKET
-                        </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="Firstname">Forename</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.Firstname, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
                     </div>
+                </div>
 
-                    <div id="basket-wrapper">
-                        <div class="row hidden-xs visible-sm visible-md visible-lg">
-                            <div class="col-sm-2">Plan</div>
-                            <div class="col-sm-4">Description</div>
-                            <div class="col-sm-3" style="text-align:center;padding-right:30px">Quantity</div>
-                            <div class="col-sm-2" style="text-align:center">Price</div>
-                            <div class="col-sm-1"></div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="Surname">Surname</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.Surname, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="EmailAddress">Email Address</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.EmailAddress, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_AddressLine1">Address Line 1</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.AddressLine1, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_AddressLine2">Address Line 2</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.AddressLine2, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_AddressLine3">Address Line 3</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.AddressLine3, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_City">City</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.City, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_Region">Region</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.Region, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_PostCode">Post Code</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.PostCode, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="BillingAddress_Country">Country</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.Country, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div style="clear:both"></div>
+
+            <div class="row" style="padding:20px">
+                <div class="basket" style="padding-top:40px">
+                    @{
+
+                        <div id="no-items" class="row col-xs-12" style="margin:0px;display:none">
+                            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                                NO ITEMS IN BASKET
+                            </div>
                         </div>
 
-                        @{
-                            var itemCount = 0;
+                        <div id="basket-wrapper">
+                            <div class="row hidden-xs visible-sm visible-md visible-lg">
+                                <div class="col-sm-2">Plan</div>
+                                <div class="col-sm-4">Description</div>
+                                <div class="col-sm-3" style="text-align:center;padding-right:30px">Quantity</div>
+                                <div class="col-sm-2" style="text-align:center">Price</div>
+                                <div class="col-sm-1"></div>
+                            </div>
 
-                            foreach (var planOption in Model.BasketItems)
-                            {
-                                <div id="basket-item-row-@itemCount" class="row basket-item-row">
-                                    <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Plan:</div>
-                                    <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Plan.Name, new { @readonly = true, @class = "basket-value" })</div>
-                                    <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Description:</div>
-                                    <div class="col-xs-12 col-sm-4">@Html.TextBoxFor(s => planOption.Description, new { @readonly = true, @class = "basket-value" })</div>
-                                    <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Quantity:</div>
-                                    <div class="row col-xs-12 col-sm-3 basket-button-spacing" style="display:inline-block;text-align:center;position:relative;padding-left:30px;">
-                                        <label class="basket-value" id="basket-item-quantity-@itemCount" style="text-align:center;width:auto;padding-left:10px;padding-right:10px;">@planOption.Quantity</label>
-                                    </div>
-                                    <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Price:</div>
-                                    <div class="col-xs-6 col-sm-2">@Html.TextBoxFor(s => planOption.Price, "{0:£0.00}", new { @readonly = true, @class = "basket-value basket-value-price" })</div>
+                            @{
+                                var itemCount = 0;
 
+                                foreach (var planOption in Model.BasketItems)
+                                {
+                            <div id="basket-item-row-@itemCount" class="row basket-item-row">
+                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Plan:</div>
+                                <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Plan.Name, new { @readonly = true, @class = "basket-value" })</div>
+                                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Description:</div>
+                                <div class="col-xs-12 col-sm-4">@Html.TextBoxFor(s => planOption.Description, new { @readonly = true, @class = "basket-value" })</div>
+                                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Quantity:</div>
+                                <div class="row col-xs-12 col-sm-3 basket-button-spacing" style="display:inline-block;text-align:center;position:relative;padding-left:30px;">
+                                    <label class="basket-value" id="basket-item-quantity-@itemCount" style="text-align:center;width:auto;padding-left:10px;padding-right:10px;">@planOption.Quantity</label>
                                 </div>
+                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Price:</div>
+                                <div class="col-xs-6 col-sm-2">@Html.TextBoxFor(s => planOption.Price, "{0:£0.00}", new { @readonly = true, @class = "basket-value basket-value-price" })</div>
 
-                                itemCount++;
+                            </div>
+
+                                    itemCount++;
+                                }
                             }
-                        }
 
-                        <div class="row" style="padding-top:20px">
-                            <div class="col-sm-9 hidden-xs visible-sm visible-md visible-lg" style="text-align:right">Total:</div>
-                            <div class="col-xs-6 visible-xs hidden-sm hidden-md hidden-lg" style="text-align:left">Total:</div>
-                            <div id="basket-total" class="col-xs-6 col-sm-2 basket-value-total"></div>
+                            <div class="row" style="padding-top:20px">
+                                <div class="col-sm-9 hidden-xs visible-sm visible-md visible-lg" style="text-align:right">Total:</div>
+                                <div class="col-xs-6 visible-xs hidden-sm hidden-md hidden-lg" style="text-align:left">Total:</div>
+                                <div id="basket-total" class="col-xs-6 col-sm-2 basket-value-total"></div>
+                            </div>
                         </div>
-                    </div>
 
-                }
+                    }
 
-            </div>
-
-            <div class="form-group">
-                <div class="row basket-next-button-wrapper" style="padding-top:10px">
-                    <input type="submit" value="Confirm Purchase" class="btn btn-default basket-next-button basket-button" />
                 </div>
+
             </div>
+
+
         </div>
-    }
+        <div class="row">
+            <div class="col-xs-12 visible-xs hidden-sm hidden-md hidden-lg basket-next-button-wrapper " style="padding:0px;padding-right:0px;text-align:center">
+                <input type="submit" value="Confirm Purchase" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" />
+            </div>
+            <div class="col-xs-12 hidden-xs visible-sm visible-md visible-lg basket-next-button-wrapper" style="padding:0px;padding-right:0px;text-align:right;padding-right:8%">
+                <input type="submit" value="Confirm Purchase" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" />
+            </div>
+
+        </div>
+                                }
 
 </div>
