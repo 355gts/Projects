@@ -393,7 +393,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Checkout()
+        public ActionResult Checkout(ConfirmPurchaseViewModel confirmPurchaseViewModel)
         {
             // method used to initiate the paypal payment transaction
             string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +

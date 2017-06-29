@@ -1,14 +1,17 @@
 ﻿// nav menu scroll event handlers
 $(window).scroll(function () {
     OffsetMenu();
+    return true;
 });
 
 $(window).resize(function () {
     OffsetMenu();
+    return true;
 });
 
 $(function () {
     OffsetMenu();
+    return true;
 });
 
 // checks whether the nav menu should anchor to the top of the screen
