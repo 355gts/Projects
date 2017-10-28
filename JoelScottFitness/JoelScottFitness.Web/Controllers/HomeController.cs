@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
+using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.YouTube.Client;
@@ -393,36 +394,71 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Checkout(ConfirmPurchaseViewModel confirmPurchaseViewModel)
+        public async Task<ActionResult> Checkout(ConfirmPurchaseViewModel confirmPurchaseViewModel)
         {
             // method used to initiate the paypal payment transaction
             string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +
                         "/Home/CompletePayment?";
 
-            var paymentInitiationResult = jsfService.InitiatePayPalPayment(baseUri);
+            var plans = await jsfService.GetPlans();
+
+            // map the plans back to the items
+            confirmPurchaseViewModel.BasketItems.ToList().ForEach(i => i.Plan = plans.First(p => p.Id == i.PlanId));
+
+            var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
 
             Session.Add("PaymentId", paymentInitiationResult.PaymentId);
+            Session.Add("TransactionId", paymentInitiationResult.TransactionId);
+
+            confirmPurchaseViewModel.PayPalReference = paymentInitiationResult.PaymentId;
+            confirmPurchaseViewModel.TransactionId = paymentInitiationResult.TransactionId;
+
+            // save the pending purchase details in the database
+            var savePurchaseResult = await jsfService.SavePurchase(confirmPurchaseViewModel);
+            
+            if (!savePurchaseResult.Success)
+            {
+                // cancel the purchase
+            }
 
             return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CompletePayment(string guid)
+        [HttpGet]
+        public async Task<ActionResult> CompletePayment()
         {
             // need to define a model to return with the success invoice number or failure reason
             string payerId = Request.Params["PayerID"];
             string paymentId = (string)Session["PaymentId"];
+            string transactionId = (string)Session["TransactionId"];
 
             var paymentResult = jsfService.CompletePayPalPayment(paymentId, payerId);
 
             if (!paymentResult.Success)
             {
+                await jsfService.UpdatePurchaseStatus(transactionId, PurchaseStatus.Failed);
                 // return error
             }
 
+            await jsfService.UpdatePurchaseStatus(transactionId, PurchaseStatus.Complete);
+
+            // clear the users basket
+            Session.Clear();
+
+            // redirect them to a normal Get method incase they refresh
+            return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });
+
+        }
+
+        public ActionResult PaymentConfirmation(string transactionId)
+        {
+            var completePaymentViewModel = new PaymentConfirmationViewModel()
+            {
+                TransactionId = transactionId,
+            };
+
             // method used to complete the paypal payment transaction
-            return View();
+            return View(completePaymentViewModel);
         }
 
         [HttpPost]
@@ -430,6 +466,32 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<bool> SubscribeToMailingList(string emailAddress)
         {
             return await UpdateMailingList(emailAddress);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> CustomerQuestionnaire(string transactionId)
+        {
+            var purchaseId = await jsfService.GetPurchaseIdByTransactionId(transactionId);
+
+            if (!purchaseId.HasValue)
+            {
+                // TBC - need to redirect to error view or something
+                return View();
+            }
+
+            var questionnaire = new QuestionnaireViewModel()
+            {
+                PurchaseId = purchaseId.Value
+            };
+
+            return View(questionnaire);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CustomerQuestionnaire(CreateQuestionnaireViewModel questionnaire)
+        {
+            return View();
         }
 
         private async Task AddItemToBasket(long id)

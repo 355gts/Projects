@@ -156,7 +156,7 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<PurchaseViewModel>(),
+                    PurchaseHistory = new List<PurchaseHistoryViewModel>(),
                 };
 
                 var mapper = new Map.CustomerMapper();
@@ -191,7 +191,7 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<PurchaseViewModel>(),
+                    PurchaseHistory = new List<PurchaseHistoryViewModel>(),
                 };
 
                 Customer toObject = new Customer();

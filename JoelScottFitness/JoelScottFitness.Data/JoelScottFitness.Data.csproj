@@ -59,16 +59,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\PurchaseStatus.cs" />
     <Compile Include="IJSFitnessContext.cs" />
     <Compile Include="IJSFitnessRepository.cs" />
     <Compile Include="JSFitnessContext.cs" />
     <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BaseRecord.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DataContractAttribute.cs" />
     <Compile Include="Models\DiscountCode.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MailingListItem.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Models\Plan.cs" />
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Models\PurchasedItem.cs" />
+    <Compile Include="Models\Questionnaire.cs" />
     <Compile Include="Modules\DataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

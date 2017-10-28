@@ -17,6 +17,6 @@ namespace JoelScottFitness.Common.Models
         
         public DateTime? ModifiedDate { get; set; }
 
-        public ICollection<PurchaseViewModel> PurchaseHistory { get; set; }
+        public ICollection<PurchaseHistoryViewModel> PurchaseHistory { get; set; }
     }
 }

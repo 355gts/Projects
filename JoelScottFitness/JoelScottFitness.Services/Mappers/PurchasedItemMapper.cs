@@ -4,31 +4,31 @@ using JoelScottFitness.Data.Models;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class PurchasedItemMapper : ITypeMapper<PurchasedItem, PurchasedItemViewModel>, ITypeMapper<PurchasedItemViewModel, PurchasedItem>
+    sealed class PurchasedItemMapper : ITypeMapper<PurchasedItem, PurchasedHistoryItemViewModel>, ITypeMapper<PurchasedHistoryItemViewModel, PurchasedItem>
     {
-        public PurchasedItemViewModel Map(PurchasedItem fromObject, PurchasedItemViewModel toObject = null)
+        public PurchasedHistoryItemViewModel Map(PurchasedItem fromObject, PurchasedHistoryItemViewModel toObject = null)
         {
-            var item = toObject ?? new PurchasedItemViewModel();
+            var item = toObject ?? new PurchasedHistoryItemViewModel();
             
-            item.Description = fromObject.Description;
-            item.Id = fromObject.Id;
+            item.Description = fromObject.Item.Description;
+            item.Id = fromObject.Item.Id;
             item.ItemId = fromObject.ItemId;
-            item.ItemType = fromObject.ItemType;
-            item.Price = fromObject.Price;
+            item.ItemType = fromObject.Item.ItemType;
+            item.Price = fromObject.Item.Price;
             item.Quantity = fromObject.Quantity;
 
             return item;
         }
 
-        public PurchasedItem Map(PurchasedItemViewModel fromObject, PurchasedItem toObject = null)
+        public PurchasedItem Map(PurchasedHistoryItemViewModel fromObject, PurchasedItem toObject = null)
         {
             var item = toObject ?? new PurchasedItem();
 
-            item.Description = fromObject.Description;
-            item.Id = fromObject.Id;
+            item.Item.Description = fromObject.Description;
+            item.Item.Id = fromObject.Id;
             item.ItemId = fromObject.ItemId;
-            item.ItemType = fromObject.ItemType;
-            item.Price = fromObject.Price;
+            item.Item.ItemType = fromObject.ItemType;
+            item.Item.Price = fromObject.Price;
             item.Quantity = fromObject.Quantity;
 
             return item;

@@ -1,0 +1,24 @@
+﻿@model JoelScottFitness.Common.Models.PaymentConfirmationViewModel
+@{
+    ViewBag.Title = "CompletePayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container page-container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            PURCHASE COMPLETE
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div>
+        Purchase successful, transaction number: @Model.TransactionId
+        <br />
+        <br /> 
+        A confirmation email will be sent shortly.
+        <br />
+        <br />
+        Please complete your customer insight @Html.ActionLink("here", "CustomerQuestionnaire", new { transactionId = Model.TransactionId })
+    </div>
+</div>
+

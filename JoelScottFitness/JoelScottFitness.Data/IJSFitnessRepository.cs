@@ -1,5 +1,6 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Results;
+using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using System.Collections.Generic;
@@ -43,16 +44,21 @@ namespace JoelScottFitness.Data
 
         Task<bool> DeactivatePlanAsync(long id);
 
-        Task<AsyncResult<long>> CreatePurchaseAsync(Purchase purchase);
-
         Task<Purchase> GetPurchaseAsync(long id);
 
         Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId);
 
-        Task<bool> UpdateMailingList(MailingListItem mailingListItem);
+        Task<bool> UpdateMailingListAsync(MailingListItem mailingListItem);
 
-        Task<IEnumerable<PlanOption>> GetBasketItems(IEnumerable<long> ids);
+        Task<IEnumerable<PlanOption>> GetBasketItemsAsync(IEnumerable<long> ids);
 
-        Task<AuthUser> GetUser(string userName);
+        Task<AuthUser> GetUserAsync(string userName);
+
+        Task<AsyncResult<long>> SavePurchaseAsync(Purchase purchase);
+
+        Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status);
+
+        Task<long?> GetPurchaseIdByTransactionId(string transactionId);
+
     }
 }

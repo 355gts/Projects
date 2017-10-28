@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
+using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.PayPal.Services;
@@ -65,13 +66,6 @@ namespace JoelScottFitness.Services.Services
             var repoPlan = mapper.Map<PlanViewModel, Plan>(plan);
 
             return await repository.CreateOrUpdatePlanAsync(repoPlan);
-        }
-
-        public async Task<AsyncResult<long>> CreatePurchase(PurchaseViewModel purchase)
-        {
-            var repoPurchase = mapper.Map<PurchaseViewModel, Purchase>(purchase);
-
-            return await repository.CreatePurchaseAsync(repoPurchase);
         }
 
         public async Task<bool> DeactivateBlog(long id)
@@ -184,29 +178,29 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<PlanOption, PlanOptionViewModel>(planOption);
         }
 
-        public async Task<PurchaseViewModel> GetPurchase(long id)
+        public async Task<PurchaseHistoryViewModel> GetPurchase(long id)
         {
             var purchase = await repository.GetPurchaseAsync(id);
 
             if (purchase == null)
                 return null;
 
-            return mapper.Map<Purchase, PurchaseViewModel>(purchase);
+            return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
         }
 
-        public async Task<IEnumerable<PurchaseViewModel>> GetPurchases(long customerId)
+        public async Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchases(long customerId)
         {
             var purchases = await repository.GetPurchasesAsync(customerId);
 
             if (purchases == null || !purchases.Any())
-                return Enumerable.Empty<PurchaseViewModel>();
+                return Enumerable.Empty<PurchaseHistoryViewModel>();
 
-            return mapper.MapEnumerable<Purchase, PurchaseViewModel>(purchases);
+            return mapper.MapEnumerable<Purchase, PurchaseHistoryViewModel>(purchases);
         }
 
-        public PaymentInitiationResult InitiatePayPalPayment(string baseUri)
+        public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)
         {
-            return paypalService.InitiatePayPalPayment(baseUri);
+            return paypalService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
         }
 
 
@@ -219,20 +213,37 @@ namespace JoelScottFitness.Services.Services
         {
             var repoMailingListItem = mapper.Map<MailingListItemViewModel, MailingListItem>(mailingListItem);
 
-            return await repository.UpdateMailingList(repoMailingListItem);
+            return await repository.UpdateMailingListAsync(repoMailingListItem);
         }
         public async Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids)
         {
-            var repoPlanOptions = await repository.GetBasketItems(ids);
+            var repoPlanOptions = await repository.GetBasketItemsAsync(ids);
 
             return mapper.MapEnumerable<PlanOption, PlanOptionViewModel>(repoPlanOptions);
         }
 
         public async Task<UserViewModel> GetUser(string userName)
         {
-            var user = await repository.GetUser(userName);
+            var user = await repository.GetUserAsync(userName);
 
             return mapper.Map<AuthUser, UserViewModel>(user);
+        }
+
+        public async Task<AsyncResult<long>> SavePurchase(ConfirmPurchaseViewModel confirmPurchaseViewModel)
+        {
+            var purchase = mapper.Map<ConfirmPurchaseViewModel, Purchase>(confirmPurchaseViewModel);
+
+            return await repository.SavePurchaseAsync(purchase);
+        }
+
+        public async Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status)
+        {
+            return await repository.UpdatePurchaseStatus(transactionId, status);
+        }
+
+        public async Task<long?> GetPurchaseIdByTransactionId(string transactionId)
+        {
+            return await repository.GetPurchaseIdByTransactionId(transactionId);
         }
     }
 }

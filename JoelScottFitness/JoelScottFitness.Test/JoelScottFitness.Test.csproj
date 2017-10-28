@@ -58,6 +58,7 @@
     <Compile Include="Mappers\PlanOptionMapper.cs" />
     <Compile Include="Mappers\PurchasedItemMapper.cs" />
     <Compile Include="Mappers\PurchaseMapper.cs" />
+    <Compile Include="Mappers\QuestionnaireMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

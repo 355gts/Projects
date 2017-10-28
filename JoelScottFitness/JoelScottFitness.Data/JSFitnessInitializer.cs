@@ -102,8 +102,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "12 Week Daily Trainer",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 12,
                             ItemType = ItemType.Plan,
                             Price = 28.99,
@@ -112,8 +110,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "18 Week Daily Trainer",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 18,
                             ItemType = ItemType.Plan,
                             Price = 38.99,
@@ -122,8 +118,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "24 Week Daily Trainer",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 24,
                             ItemType = ItemType.Plan,
                             Price = 45.99,
@@ -145,8 +139,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "6 Week Shred",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 18.99,
@@ -154,8 +146,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "12 Week Shred",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 12,
                             ItemType = ItemType.Plan,
                             Price = 25.99,
@@ -163,8 +153,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "24 Week Shred",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 24,
                             ItemType = ItemType.Plan,
                             Price = 45.99,
@@ -186,8 +174,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "28 Day Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 4,
                             ItemType = ItemType.Plan,
                             Price = 18.99,
@@ -195,8 +181,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "42 Day Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 25.99,
@@ -204,8 +188,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "58 Day Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 8,
                             ItemType = ItemType.Plan,
                             Price = 30.99,
@@ -227,8 +209,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "14 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 14,
                             ItemType = ItemType.Plan,
                             Price = 45.99,
@@ -236,8 +216,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "21 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 60.99,
@@ -245,8 +223,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "28 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 8,
                             ItemType = ItemType.Plan,
                             Price = 65.99,
@@ -268,8 +244,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "4 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 4,
                             ItemType = ItemType.Plan,
                             Price = 20.99,
@@ -277,8 +251,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "8 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 30.99,
@@ -286,8 +258,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "12 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 12,
                             ItemType = ItemType.Plan,
                             Price = 27.99,
@@ -309,8 +279,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "4 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 4,
                             ItemType = ItemType.Plan,
                             Price = 20.99,
@@ -318,8 +286,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "8 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 30.99,
@@ -327,8 +293,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "12 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 12,
                             ItemType = ItemType.Plan,
                             Price = 27.99,
@@ -350,8 +314,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "4 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 4,
                             ItemType = ItemType.Plan,
                             Price = 20.99,
@@ -359,8 +321,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "8 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 30.99,
@@ -368,8 +328,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "12 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 12,
                             ItemType = ItemType.Plan,
                             Price = 27.99,
@@ -391,8 +349,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "4 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 4,
                             ItemType = ItemType.Plan,
                             Price = 20.99,
@@ -400,8 +356,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "8 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 6,
                             ItemType = ItemType.Plan,
                             Price = 30.99,
@@ -409,8 +363,6 @@ namespace JoelScottFitness.Data
                         new PlanOption()
                         {
                             Description = "12 Week Plan",
-                            ActiveFrom = DateTime.UtcNow,
-                            ActiveTo = DateTime.UtcNow.AddYears(1),
                             Duration = 12,
                             ItemType = ItemType.Plan,
                             Price = 27.99,

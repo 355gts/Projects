@@ -19,8 +19,6 @@ namespace JoelScottFitness.Test.Mappers
                 var repoObject = new PlanOption()
                 {
                     Description = "4 Week Plan",
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Duration = 4,
                     ItemType = ItemType.Plan,
                     Price = 20.99,
@@ -54,8 +52,6 @@ namespace JoelScottFitness.Test.Mappers
                 var repoObject = new PlanOption()
                 {
                     Description = "4 Week Plan",
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Duration = 4,
                     ItemType = ItemType.Plan,
                     Price = 20.99,
@@ -87,12 +83,9 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(PlanOption repoObject, PlanOptionViewModel webObject)
             {
-                Assert.AreEqual(repoObject.ActiveFrom, webObject.ActiveFrom);
-                Assert.AreEqual(repoObject.ActiveTo, webObject.ActiveTo);
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(repoObject.Duration, webObject.Duration);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
-                Assert.AreEqual(repoObject.ItemDiscontinued, webObject.ItemDiscontinued);
                 Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.PlanId, webObject.PlanId);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
@@ -188,12 +181,9 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(PlanOptionViewModel webObject, PlanOption repoObject)
             {
-                Assert.AreEqual(repoObject.ActiveFrom, webObject.ActiveFrom);
-                Assert.AreEqual(repoObject.ActiveTo, webObject.ActiveTo);
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(repoObject.Duration, webObject.Duration);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
-                Assert.AreEqual(repoObject.ItemDiscontinued, webObject.ItemDiscontinued);
                 Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.PlanId, webObject.PlanId);
                 Assert.AreEqual(repoObject.Price, webObject.Price);

@@ -1,6 +1,7 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
+using JoelScottFitness.Data.Enumerations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -41,14 +42,12 @@ namespace JoelScottFitness.Services.Services
         Task<PlanOptionViewModel> GetPlanOptionAsync(long id);
 
         Task<bool> DeactivatePlan(long id);
+        
+        Task<PurchaseHistoryViewModel> GetPurchase(long id);
 
-        Task<AsyncResult<long>> CreatePurchase(PurchaseViewModel purchase);
+        Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchases(long customerId);
 
-        Task<PurchaseViewModel> GetPurchase(long id);
-
-        Task<IEnumerable<PurchaseViewModel>> GetPurchases(long customerId);
-
-        PaymentInitiationResult InitiatePayPalPayment(string baseUri);
+        PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
 
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
 
@@ -57,5 +56,12 @@ namespace JoelScottFitness.Services.Services
         Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids);
 
         Task<UserViewModel> GetUser(string userName);
+
+        Task<AsyncResult<long>> SavePurchase(ConfirmPurchaseViewModel confirmPurchaseViewModel);
+
+        Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status);
+
+        Task<long?> GetPurchaseIdByTransactionId(string transactionId);
+
     }
 }

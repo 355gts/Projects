@@ -62,7 +62,7 @@ namespace JoelScottFitness.Services.Mappers
 
             if (fromObject.PurchaseHistory != null)
             {
-                var purchases = new List<PurchaseViewModel>();
+                var purchases = new List<PurchaseHistoryViewModel>();
                 foreach (var item in fromObject.PurchaseHistory)
                 {
                     purchases.Add(purchaseMapper.Map(item));

@@ -25,17 +25,14 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 789,
                     PayPalReference = "PayPalReference",
                     PurchaseDate = DateTime.UtcNow,
-                    SalesReference = "SalesReference",
+                    TransactionId = "SalesReference",
                     TotalAmount = 1234,
                     Items = new List<PurchasedItem>()
                     {
                         new PurchasedItem()
                         {
-                            Description = "Description",
-                            Id = 123,
                             ItemId = 456,
-                            ItemType = ItemType.Plan,
-                            Price = 12.34,
+                            Quantity= 23
                         }
                     }
                 };
@@ -57,22 +54,19 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 789,
                     PayPalReference = "PayPalReference",
                     PurchaseDate = DateTime.UtcNow,
-                    SalesReference = "SalesReference",
+                    TransactionId = "TransactionId",
                     TotalAmount = 1234,
                     Items = new List<PurchasedItem>()
                     {
                         new PurchasedItem()
                         {
-                            Description = "Description",
-                            Id = 123,
                             ItemId = 456,
-                            ItemType = ItemType.Plan,
-                            Price = 12.34,
+                            Quantity = 23,
                         }
                     }
                 };
 
-                PurchaseViewModel toObject = new PurchaseViewModel();
+                PurchaseHistoryViewModel toObject = new PurchaseHistoryViewModel();
 
                 var mapper = new Map.PurchaseMapper();
 
@@ -81,26 +75,23 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(repoObject, toObject);
             }
 
-            private void AssertAreEqual(Purchase repoObject, PurchaseViewModel webObject)
+            private void AssertAreEqual(Purchase repoObject, PurchaseHistoryViewModel webObject)
             {
                 Assert.AreEqual(repoObject.CustomerId, webObject.CustomerId);
                 Assert.AreEqual(repoObject.DiscountCodeId, webObject.DiscountCodeId);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.PayPalReference, webObject.PayPalReference);
                 Assert.AreEqual(repoObject.PurchaseDate, webObject.PurchaseDate);
-                Assert.AreEqual(repoObject.SalesReference, webObject.SalesReference);
+                Assert.AreEqual(repoObject.TransactionId, webObject.TransactionId);
                 Assert.AreEqual(repoObject.TotalAmount, webObject.TotalAmount);
 
                 Assert.IsNotNull(webObject.Items);
 
                 var repoItem = repoObject.Items.First();
                 var webItem = webObject.Items.First();
-
-                Assert.AreEqual(repoItem.Description, webItem.Description);
-                Assert.AreEqual(repoItem.Id, webItem.Id);
+                
                 Assert.AreEqual(repoItem.ItemId, webItem.ItemId);
-                Assert.AreEqual(repoItem.ItemType, webItem.ItemType);
-                Assert.AreEqual(repoItem.Price, webItem.Price);
+                Assert.AreEqual(repoItem.Quantity, webItem.Quantity);
 
             }
         }
@@ -111,18 +102,18 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var webObject = new PurchaseViewModel()
+                var webObject = new PurchaseHistoryViewModel()
                 {
                     CustomerId = 123,
                     DiscountCodeId = 456,
                     Id = 789,
                     PayPalReference = "PayPalReference",
                     PurchaseDate = DateTime.UtcNow,
-                    SalesReference = "SalesReference",
+                    TransactionId = "TransactionId",
                     TotalAmount = 1234,
-                    Items = new List<PurchasedItemViewModel>()
+                    Items = new List<PurchasedHistoryItemViewModel>()
                     {
-                        new PurchasedItemViewModel()
+                        new PurchasedHistoryItemViewModel()
                         {
                             Description = "Description",
                             Id = 123,
@@ -143,18 +134,18 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var webObject = new PurchaseViewModel()
+                var webObject = new PurchaseHistoryViewModel()
                 {
                     CustomerId = 123,
                     DiscountCodeId = 456,
                     Id = 789,
                     PayPalReference = "PayPalReference",
                     PurchaseDate = DateTime.UtcNow,
-                    SalesReference = "SalesReference",
+                    TransactionId = "TransactionId",
                     TotalAmount = 1234,
-                    Items = new List<PurchasedItemViewModel>()
+                    Items = new List<PurchasedHistoryItemViewModel>()
                     {
-                        new PurchasedItemViewModel()
+                        new PurchasedHistoryItemViewModel()
                         {
                             Description = "Description",
                             Id = 123,
@@ -174,26 +165,23 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(webObject, toObject);
             }
 
-            private void AssertAreEqual(PurchaseViewModel repoObject, Purchase webObject)
+            private void AssertAreEqual(PurchaseHistoryViewModel repoObject, Purchase webObject)
             {
                 Assert.AreEqual(webObject.CustomerId, repoObject.CustomerId);
                 Assert.AreEqual(webObject.DiscountCodeId, repoObject.DiscountCodeId);
                 Assert.AreEqual(webObject.Id, repoObject.Id);
                 Assert.AreEqual(webObject.PayPalReference, repoObject.PayPalReference);
                 Assert.AreEqual(webObject.PurchaseDate, repoObject.PurchaseDate);
-                Assert.AreEqual(webObject.SalesReference, repoObject.SalesReference);
+                Assert.AreEqual(webObject.TransactionId, repoObject.TransactionId);
                 Assert.AreEqual(webObject.TotalAmount, repoObject.TotalAmount);
 
                 Assert.IsNotNull(repoObject.Items);
 
                 var repoItem = webObject.Items.First();
                 var webItem = repoObject.Items.First();
-
-                Assert.AreEqual(repoItem.Description, webItem.Description);
-                Assert.AreEqual(repoItem.Id, webItem.Id);
+                
                 Assert.AreEqual(repoItem.ItemId, webItem.ItemId);
-                Assert.AreEqual(repoItem.ItemType, webItem.ItemType);
-                Assert.AreEqual(repoItem.Price, webItem.Price);
+                Assert.AreEqual(repoItem.Quantity, webItem.Quantity);
 
             }
         }

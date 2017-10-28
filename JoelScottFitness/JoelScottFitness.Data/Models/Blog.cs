@@ -26,6 +26,8 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public string ImagePath { get; set; }
 
+        public string  test { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public bool Active
         {

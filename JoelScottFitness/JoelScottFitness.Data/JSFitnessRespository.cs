@@ -1,5 +1,6 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Results;
+using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using log4net;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -159,16 +161,6 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreatePurchaseAsync(Purchase purchase)
-        {
-            dbContext.Purchases.Add(purchase);
-
-            if (await SaveChangesAsync())
-                return new AsyncResult<long>() { Success = true, Result = purchase.Id };
-
-            return new AsyncResult<long>() { Success = false };
-        }
-
         public async Task<bool> DeactivatePlanAsync(long id)
         {
             var plan = await dbContext.Plans.FindAsync(id);
@@ -309,11 +301,15 @@ namespace JoelScottFitness.Data
             {
                 logger.Warn($"An exception occured update the database, details - '{ex.Message}'.");
             }
+            catch (DbEntityValidationException ex)
+            {
+                logger.Warn($"An exception occured update the database, details - '{ex.Message}'.");
+            }
 
             return success;
         }
 
-        public async Task<bool> UpdateMailingList(MailingListItem mailingListItem)
+        public async Task<bool> UpdateMailingListAsync(MailingListItem mailingListItem)
         {
             var existingEntry = await dbContext.MailingList
                                                .Where(e => e.Email == mailingListItem.Email)
@@ -332,7 +328,7 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PlanOption>> GetBasketItems(IEnumerable<long> ids)
+        public async Task<IEnumerable<PlanOption>> GetBasketItemsAsync(IEnumerable<long> ids)
         {
             return await dbContext.PlanOptions
                                   .Include(p => p.Plan)
@@ -341,10 +337,47 @@ namespace JoelScottFitness.Data
 
         }
 
-        public async Task<AuthUser> GetUser(string userName)
+        public async Task<AuthUser> GetUserAsync(string userName)
         {
             return await dbContext.Users
                                   .FirstOrDefaultAsync(u => u.UserName.ToLower() == userName.ToLower());
+        }
+
+        public async Task<AsyncResult<long>> SavePurchaseAsync(Purchase purchase)
+        {
+            dbContext.Purchases.Add(purchase);
+
+            if (await SaveChangesAsync())
+                return new AsyncResult<long>() { Success = true, Result = purchase.Id };
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status)
+        {
+            bool success = false;
+
+            var purchase = await dbContext.Purchases.FirstOrDefaultAsync(p => p.TransactionId == transactionId);
+
+            if (purchase != null)
+            {
+                purchase.Status = status;
+
+                if (await SaveChangesAsync())
+                    success = true;
+            }
+
+            return success;
+        }
+
+        public async Task<long?> GetPurchaseIdByTransactionId(string transactionId)
+        {
+            var purchase = await dbContext.Purchases.FirstOrDefaultAsync(p => p.TransactionId == transactionId);
+
+            if (purchase != null)
+                return purchase.Id;
+
+            return null;
         }
     }
 }

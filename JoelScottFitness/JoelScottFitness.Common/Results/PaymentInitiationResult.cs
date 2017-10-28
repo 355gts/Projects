@@ -7,5 +7,7 @@
         public string PaymentId { get; set; }
 
         public string PayPalRedirectUrl { get; set; }
+
+        public string TransactionId { get; set; }
     }
 }

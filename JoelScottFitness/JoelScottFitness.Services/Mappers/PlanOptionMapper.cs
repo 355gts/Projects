@@ -9,9 +9,7 @@ namespace JoelScottFitness.Services.Mappers
         public PlanOption Map(PlanOptionViewModel fromObject, PlanOption toObject = null)
         {
             var plan = toObject ?? new PlanOption();
-
-            plan.ActiveFrom = fromObject.ActiveFrom;
-            plan.ActiveTo = fromObject.ActiveTo;
+            
             plan.Description = fromObject.Description;
             plan.Duration = fromObject.Duration;
             plan.Id = fromObject.Id;
@@ -40,9 +38,7 @@ namespace JoelScottFitness.Services.Mappers
         public PlanOptionViewModel Map(PlanOption fromObject, PlanOptionViewModel toObject = null)
         {
             var plan = toObject ?? new PlanOptionViewModel();
-
-            plan.ActiveFrom = fromObject.ActiveFrom;
-            plan.ActiveTo = fromObject.ActiveTo;
+            
             plan.Description = fromObject.Description;
             plan.Duration = fromObject.Duration;
             plan.Id = fromObject.Id;

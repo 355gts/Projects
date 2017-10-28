@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class PurchaseMapper : ITypeMapper<PurchaseViewModel, Purchase>, ITypeMapper<Purchase, PurchaseViewModel>
+    sealed class PurchaseMapper : ITypeMapper<PurchaseHistoryViewModel, Purchase>, ITypeMapper<Purchase, PurchaseHistoryViewModel>
     {
         PurchasedItemMapper purchasedItemMapper = new PurchasedItemMapper();
 
-        public Purchase Map(PurchaseViewModel fromObject, Purchase toObject = null)
+        public Purchase Map(PurchaseHistoryViewModel fromObject, Purchase toObject = null)
         {
             var purchase = toObject ?? new Purchase();
 
@@ -18,8 +18,8 @@ namespace JoelScottFitness.Services.Mappers
             purchase.DiscountCodeId = fromObject.DiscountCodeId;
             purchase.Id = fromObject.Id;
             purchase.PayPalReference = fromObject.PayPalReference;
+            purchase.TransactionId = fromObject.TransactionId;
             purchase.PurchaseDate = fromObject.PurchaseDate;
-            purchase.SalesReference = fromObject.SalesReference;
             purchase.TotalAmount = fromObject.TotalAmount;
 
             if (fromObject.Items != null && fromObject.Items.Any())
@@ -35,21 +35,21 @@ namespace JoelScottFitness.Services.Mappers
             return purchase;
         }
 
-        public PurchaseViewModel Map(Purchase fromObject, PurchaseViewModel toObject = null)
+        public PurchaseHistoryViewModel Map(Purchase fromObject, PurchaseHistoryViewModel toObject = null)
         {
-            var purchase = toObject ?? new PurchaseViewModel();
+            var purchase = toObject ?? new PurchaseHistoryViewModel();
 
             purchase.CustomerId = fromObject.CustomerId;
             purchase.DiscountCodeId = fromObject.DiscountCodeId;
             purchase.Id = fromObject.Id;
             purchase.PayPalReference = fromObject.PayPalReference;
             purchase.PurchaseDate = fromObject.PurchaseDate;
-            purchase.SalesReference = fromObject.SalesReference;
+            purchase.TransactionId = fromObject.TransactionId;
             purchase.TotalAmount = fromObject.TotalAmount;
 
             if (fromObject.Items != null && fromObject.Items.Any())
             {
-                var items = new List<PurchasedItemViewModel>();
+                var items = new List<PurchasedHistoryItemViewModel>();
                 foreach (var item in fromObject.Items)
                 {
                     items.Add(purchasedItemMapper.Map(item));

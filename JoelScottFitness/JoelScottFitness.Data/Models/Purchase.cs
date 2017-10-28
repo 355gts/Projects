@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JoelScottFitness.Data.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,19 +18,21 @@ namespace JoelScottFitness.Data.Models
         public string PayPalReference { get; set; }
 
         [Required]
-        public string SalesReference { get; set; }
-
+        public string TransactionId { get; set; }
+        
         [ForeignKey("DiscountCode")]
-        public long DiscountCodeId { get; set; }
+        public long? DiscountCodeId { get; set; }
 
         public DiscountCode DiscountCode { get; set; }
         
         [ForeignKey("Customer")]
         [Required]
         public long CustomerId { get; set; }
+        
+        public Customer Customer { get; set; }
 
         [Required]
-        public Customer Customer { get; set; }
+        public PurchaseStatus Status { get; set; }
 
         public ICollection<PurchasedItem> Items { get; set; }
     }
