@@ -232,7 +232,7 @@ p{
 }
 
 .sect2 {
-    background-image: url('Images/section2.JPG');
+    background-image: url('Images/section2.PNG');
     background-size: cover;
     background-position: center center;
 }
@@ -992,3 +992,7 @@ a:hover {
 }
 
 /* CUSTOMER STYLES END*/
+
+.textAreaSize {
+    width:100%;
+}

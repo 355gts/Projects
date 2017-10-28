@@ -491,7 +491,12 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CustomerQuestionnaire(CreateQuestionnaireViewModel questionnaire)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View(questionnaire);
         }
 
         private async Task AddItemToBasket(long id)
