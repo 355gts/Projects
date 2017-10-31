@@ -20,14 +20,13 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var repoObject = new Questionnaire()
                 {
+                    Id = 123,
                     Age = 12,
-                    IsCompleted = true,
                     CurrentGym = "CurrentGym",
                     WorkoutTypeId = 3,
                     DietDetails = "DietDetails",
                     DietTypeId = 3,
                     Height = 97,
-                    Id = 123,
                     IsMemberOfGym = true,
                     PurchaseId = 456,
                     TrainingGoals = "TrainingGoals",
@@ -47,14 +46,13 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var repoObject = new Questionnaire()
                 {
+                    Id = 123,
                     Age = 12,
-                    IsCompleted = true,
                     CurrentGym = "CurrentGym",
                     WorkoutTypeId = 3,
                     DietDetails = "DietDetails",
                     DietTypeId = 3,
                     Height = 97,
-                    Id = 123,
                     IsMemberOfGym = true,
                     PurchaseId = 456,
                     TrainingGoals = "TrainingGoals",
@@ -73,6 +71,7 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(Questionnaire repoObject, QuestionnaireViewModel webObject)
             {
+                Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.Age, webObject.Age);
                 Assert.AreEqual(repoObject.CurrentGym, webObject.CurrentGym);
                 Assert.AreEqual(repoObject.WorkoutTypeId, webObject.WorkoutTypeId);
@@ -94,18 +93,19 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var webObject = new CreateQuestionnaireViewModel()
+                var webObject = new QuestionnaireViewModel()
                 {
-                    Age = 12,
+                    Id = 123,
+                    Age = "12",
                     CurrentGym = "CurrentGym",
                     WorkoutTypeId = 3,
                     DietDetails = "DietDetails",
                     DietTypeId = 3,
-                    Height = 97,
+                    Height = "97",
                     IsMemberOfGym = true,
                     PurchaseId = 456,
                     TrainingGoals = "TrainingGoals",
-                    Weight = 345,
+                    Weight = "345",
                     WorkoutDescription = "WorkoutDescription",
                 };
 
@@ -119,18 +119,19 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var webObject = new CreateQuestionnaireViewModel()
+                var webObject = new QuestionnaireViewModel()
                 {
-                    Age = 12,
+                    Id = 123,
+                    Age = "12",
                     CurrentGym = "CurrentGym",
                     WorkoutTypeId = 3,
                     DietDetails = "DietDetails",
                     DietTypeId = 3,
-                    Height = 97,
+                    Height = "97",
                     IsMemberOfGym = true,
                     PurchaseId = 456,
                     TrainingGoals = "TrainingGoals",
-                    Weight = 345,
+                    Weight = "345",
                     WorkoutDescription = "WorkoutDescription",
                 };
 
@@ -143,18 +144,19 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(webObject, toObject);
             }
 
-            private void AssertAreEqual(CreateQuestionnaireViewModel repoObject, Questionnaire webObject)
+            private void AssertAreEqual(QuestionnaireViewModel repoObject, Questionnaire webObject)
             {
-                Assert.AreEqual(webObject.Age, repoObject.Age);
+                Assert.AreEqual(webObject.Id, repoObject.Id);
+                Assert.AreEqual(webObject.Age, repoObject.Age.ToString());
                 Assert.AreEqual(webObject.CurrentGym, repoObject.CurrentGym);
                 Assert.AreEqual(webObject.WorkoutTypeId, repoObject.WorkoutTypeId);
                 Assert.AreEqual(webObject.DietDetails, repoObject.DietDetails);
                 Assert.AreEqual(webObject.DietTypeId, repoObject.DietTypeId);
-                Assert.AreEqual(webObject.Height, repoObject.Height);
+                Assert.AreEqual(webObject.Height, repoObject.Height.ToString());
                 Assert.AreEqual(webObject.IsMemberOfGym, repoObject.IsMemberOfGym);
                 Assert.AreEqual(webObject.PurchaseId, repoObject.PurchaseId);
                 Assert.AreEqual(webObject.TrainingGoals, repoObject.TrainingGoals);
-                Assert.AreEqual(webObject.Weight, repoObject.Weight);
+                Assert.AreEqual(webObject.Weight, repoObject.Weight.ToString());
                 Assert.AreEqual(webObject.WorkoutDescription, repoObject.WorkoutDescription);
             }
         }

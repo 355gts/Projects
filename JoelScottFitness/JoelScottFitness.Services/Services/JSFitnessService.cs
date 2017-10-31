@@ -245,5 +245,19 @@ namespace JoelScottFitness.Services.Services
         {
             return await repository.GetPurchaseIdByTransactionId(transactionId);
         }
+
+        public async Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaireViewModel)
+        {
+            var questionnaire = mapper.Map<QuestionnaireViewModel, Questionnaire>(questionnaireViewModel);
+
+            return await repository.CreateOrUpdateQuestionnaireAsync(questionnaire);
+        }
+
+        public async Task<QuestionnaireViewModel> GetQuestionnaireAsync(long questionnaireId)
+        {
+            var questionnaire = await repository.GetQuestionnaireAsync(questionnaireId);
+
+            return mapper.Map<Questionnaire, QuestionnaireViewModel>(questionnaire);
+        }
     }
 }

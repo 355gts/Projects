@@ -60,5 +60,10 @@ namespace JoelScottFitness.Data
 
         Task<long?> GetPurchaseIdByTransactionId(string transactionId);
 
+        Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire);
+
+        Task<Questionnaire> GetQuestionnaireAsync(long questionnaireId);
+
+
     }
 }

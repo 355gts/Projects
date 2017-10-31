@@ -76,7 +76,6 @@
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\PurchasedHistoryItemViewModel.cs" />
     <Compile Include="Models\PurchaseHistoryViewModel.cs" />
-    <Compile Include="Models\CreateQuestionnaireViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Modules\CommonModule.cs" />

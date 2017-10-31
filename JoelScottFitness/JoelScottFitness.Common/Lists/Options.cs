@@ -33,15 +33,14 @@ namespace JoelScottFitness.Common.OptionLists
             }
         }
 
-        public static List<KeyValuePair<bool?, string>> TrueFalseTypes
+        public static List<KeyValuePair<bool, string>> TrueFalseTypes
         {
             get
             {
-                return new List<KeyValuePair<bool?, string>>()
+                return new List<KeyValuePair<bool, string>>()
                 {
-                    new KeyValuePair<bool?, string>(null, string.Empty),
-                    new KeyValuePair<bool?, string>(true, "Yes"),
-                    new KeyValuePair<bool?, string>(false, "No"),
+                    new KeyValuePair<bool, string>(false, "No"),
+                    new KeyValuePair<bool, string>(true, "Yes"),
                 };
             }
         }

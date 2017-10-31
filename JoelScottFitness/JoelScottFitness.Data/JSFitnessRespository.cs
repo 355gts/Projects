@@ -379,5 +379,33 @@ namespace JoelScottFitness.Data
 
             return null;
         }
+
+        public async Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire)
+        {
+            var existingQuestionnaire = await dbContext.Questionnaires.FindAsync(questionnaire.Id);
+
+            if (existingQuestionnaire != null)
+            {
+                dbContext.SetValues(existingQuestionnaire, questionnaire);
+                dbContext.SetModified(existingQuestionnaire);
+            }
+            else
+            {
+                dbContext.Questionnaires.Add(questionnaire);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingQuestionnaire != null ? existingQuestionnaire.Id : questionnaire.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<Questionnaire> GetQuestionnaireAsync(long questionnaireId)
+        {
+            return await dbContext.Questionnaires.FirstOrDefaultAsync(q => q.Id == questionnaireId);
+        }
     }
 }

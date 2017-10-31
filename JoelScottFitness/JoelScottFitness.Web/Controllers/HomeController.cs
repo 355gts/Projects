@@ -472,31 +472,44 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> CustomerQuestionnaire(string transactionId)
         {
             var purchaseId = await jsfService.GetPurchaseIdByTransactionId(transactionId);
-
             if (!purchaseId.HasValue)
             {
-                // TBC - need to redirect to error view or something
+                ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please Contact Us.";
                 return View();
             }
 
-            var questionnaire = new QuestionnaireViewModel()
+            var questionnaire = await jsfService.GetQuestionnaireAsync(purchaseId.Value);
+            if (questionnaire != null)
+            {
+                    ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please Contact Us.";
+                    return View();
+            }
+
+            var questionnaireViewModel = new QuestionnaireViewModel()
             {
                 PurchaseId = purchaseId.Value
             };
 
-            return View(questionnaire);
+            return View(questionnaireViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CustomerQuestionnaire(CreateQuestionnaireViewModel questionnaire)
+        public async Task<ActionResult> CustomerQuestionnaire(QuestionnaireViewModel questionnaire)
         {
-            if (ModelState.IsValid)
-            {
+            if (!ModelState.IsValid)
+                return View(questionnaire);
 
+            var questionnaireResult = await jsfService.CreateOrUpdateQuestionnaireAsync(questionnaire);
+
+            if (!questionnaireResult.Success)
+            {
+                // TODO throw error
             }
 
-            return View(questionnaire);
+            ViewBag.Message = $"Thanks, your tailored workout plan will be delivered within the next 24 hours.";
+
+            return View();
         }
 
         private async Task AddItemToBasket(long id)

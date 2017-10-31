@@ -16,10 +16,13 @@
     {
         @Html.AntiForgeryToken()
 
+
         @Html.HiddenFor(model => model.CustomerDetails.Id, new { @style = "display:none" })
         @Html.HiddenFor(model => model.CustomerDetails.BillingAddressId, new { @style = "display:none" })
         @Html.HiddenFor(model => model.CustomerDetails.UserId, new { @style = "display:none" })
         @Html.HiddenFor(model => model.CustomerDetails.CreatedDate, new { @style = "display:none" })
+        <br /><br />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
         <div class="form-horizontal">
 
@@ -143,7 +146,9 @@
                                     @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Quantity" })
                                 </div>
                                 <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Price:</div>
-                                <div class="col-xs-6 col-sm-2">@Html.TextBoxFor(model => planOption.Price, "{0:£0.00}", new { @readonly = true, @class = "basket-value basket-value-price", @id = "BasketItems[" + @itemCount + "].Price" })</div>
+                                <div class="col-xs-6 col-sm-2">
+                                    <input class="basket-value basket-value-price" name="Price" readonly="True" type="text" value="£@planOption.Price">
+                                </div>
                             </div>
 
                                     itemCount++;

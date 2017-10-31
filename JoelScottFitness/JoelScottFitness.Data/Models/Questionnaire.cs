@@ -12,13 +12,13 @@ namespace JoelScottFitness.Data.Models
         public Purchase Purchase { get; set; }
 
         [Required]
-        public string Age { get; set; }
+        public int Age { get; set; }
 
         [Required]
-        public string Weight { get; set; }
+        public int Weight { get; set; }
 
         [Required]
-        public string Height { get; set; }
+        public int Height { get; set; }
 
         [Required]
         public bool IsMemberOfGym { get; set; }
@@ -36,8 +36,5 @@ namespace JoelScottFitness.Data.Models
         public string DietDetails { get; set; }
 
         public string TrainingGoals { get; set; }
-
-        [Required]
-        public bool IsCompleted { get; set; }
     }
 }
