@@ -33,52 +33,57 @@ namespace JoelScottFitness.Services.Services
             this.paypalService = paypalService ?? throw new ArgumentNullException(nameof(paypalService));
         }
         
-        public async Task<AsyncResult<long>> CreateOrUpdateBlog(BlogViewModel blog)
+        public async Task<AsyncResult<long>> CreateBlogAsync(CreateBlogViewModel blog)
+        {
+            var repoBlog = mapper.Map<CreateBlogViewModel, Blog>(blog);
+
+            return await repository.CreateOrUpdateBlogAsync(repoBlog);
+        }
+
+        public async Task<AsyncResult<long>> UpdateBlogAsync(BlogViewModel blog)
         {
             var repoBlog = mapper.Map<BlogViewModel, Blog>(blog);
 
             return await repository.CreateOrUpdateBlogAsync(repoBlog);
         }
 
-        public async Task<AsyncResult<long>> CreateCustomer(CreateCustomerViewModel customer)
+
+        public async Task<AsyncResult<long>> CreateCustomerAsync(CreateCustomerViewModel customer)
         {
             var repoCustomer = mapper.Map<CreateCustomerViewModel, Customer>(customer);
 
             return await repository.CreateCustomerAsync(repoCustomer);
         }
 
-        public async Task<AsyncResult<long>> UpdateCustomer(CustomerViewModel customer)
+        public async Task<AsyncResult<long>> UpdateCustomerAsync(CustomerViewModel customer)
         {
             var repoCustomer = mapper.Map<CustomerViewModel, Customer>(customer);
 
             return await repository.UpdateCustomerAsync(repoCustomer);
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCodeViewModel discountCode)
+        public async Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCodeViewModel discountCode)
         {
             var repoDiscountCode = mapper.Map<DiscountCodeViewModel, DiscountCode>(discountCode);
 
             return await repository.CreateOrUpdateDiscountCodeAsync(repoDiscountCode);
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdatePlan(PlanViewModel plan)
+        public async Task<AsyncResult<long>> CreatePlanAsync(CreatePlanViewModel plan)
+        {
+            var repoPlan = mapper.Map<CreatePlanViewModel, Plan>(plan);
+
+            return await repository.CreateOrUpdatePlanAsync(repoPlan);
+        }
+
+        public async Task<AsyncResult<long>> UpdatePlanAsync(PlanViewModel plan)
         {
             var repoPlan = mapper.Map<PlanViewModel, Plan>(plan);
 
             return await repository.CreateOrUpdatePlanAsync(repoPlan);
         }
-
-        public async Task<bool> DeactivateBlog(long id)
-        {
-            return await repository.DeactivateBlogAsync(id);
-        }
-
-        public async Task<bool> DeactivatePlan(long id)
-        {
-            return await repository.DeactivatePlanAsync(id);
-        }
-
-        public async Task<BlogViewModel> GetBlog(long id)
+        
+        public async Task<BlogViewModel> GetBlogAsync(long id)
         {
             var blog = await repository.GetBlogAsync(id);
 
@@ -88,9 +93,9 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<Blog, BlogViewModel>(blog);
         }
 
-        public async Task<IEnumerable<BlogViewModel>> GetBlogs(int number = 0, bool activeOnly = true)
+        public async Task<IEnumerable<BlogViewModel>> GetBlogsAsync(int number = 0)
         {
-            var blogs = await repository.GetBlogsAsync(number, activeOnly);
+            var blogs = await repository.GetBlogsAsync(number);
 
             if (blogs == null || !blogs.Any())
                 return Enumerable.Empty<BlogViewModel>();
@@ -98,7 +103,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Blog, BlogViewModel>(blogs);
         }
 
-        public async Task<CustomerViewModel> GetCustomerDetails(long id)
+        public async Task<CustomerViewModel> GetCustomerDetailsAsync(long id)
         {
             var customer = await repository.GetCustomerDetailsAsync(id);
 
@@ -108,7 +113,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<Customer, CustomerViewModel>(customer);
         }
 
-        public async Task<CustomerViewModel> GetCustomerDetails(string userName)
+        public async Task<CustomerViewModel> GetCustomerDetailsAsync(string userName)
         {
             var customer = await repository.GetCustomerDetailsAsync(userName);
 
@@ -118,7 +123,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<Customer, CustomerViewModel>(customer);
         }
 
-        public async Task<DiscountCodeViewModel> GetDiscountCode(long id)
+        public async Task<DiscountCodeViewModel> GetDiscountCodeAsync(long id)
         {
             var discountCode = await repository.GetDiscountCodeAsync(id);
 
@@ -128,7 +133,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<DiscountCode, DiscountCodeViewModel>(discountCode);
         }
 
-        public async Task<IEnumerable<DiscountCodeViewModel>> GetDiscountCodes()
+        public async Task<IEnumerable<DiscountCodeViewModel>> GetDiscountCodesAsync()
         {
             var discountCodes = await repository.GetDiscountCodesAsync();
 
@@ -138,7 +143,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<DiscountCode, DiscountCodeViewModel>(discountCodes);
         }
 
-        public async Task<PlanViewModel> GetPlan(long id)
+        public async Task<PlanViewModel> GetPlanAsync(long id)
         {
             var plan = await repository.GetPlanAsync(id);
 
@@ -148,7 +153,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<Plan, PlanViewModel>(plan);
         }
 
-        public async Task<IEnumerable<PlanViewModel>> GetPlans()
+        public async Task<IEnumerable<PlanViewModel>> GetPlansAsync()
         {
             var plans = await repository.GetPlansAsync();
 
@@ -158,14 +163,14 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Plan, PlanViewModel>(plans);
         }
 
-        public async Task<IEnumerable<PlanViewModel>> GetPlansByGender(Gender gender)
+        public async Task<IEnumerable<UiPlanViewModel>> GetPlansByGenderAsync(Gender gender)
         {
             var plans = await repository.GetPlansByGenderAsync(gender);
 
             if (plans == null || !plans.Any())
-                return Enumerable.Empty<PlanViewModel>();
+                return Enumerable.Empty<UiPlanViewModel>();
 
-            return mapper.MapEnumerable<Plan, PlanViewModel>(plans);
+            return mapper.MapEnumerable<Plan, UiPlanViewModel>(plans);
         }
 
         public async Task<PlanOptionViewModel> GetPlanOptionAsync(long id)
@@ -178,7 +183,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<PlanOption, PlanOptionViewModel>(planOption);
         }
 
-        public async Task<PurchaseHistoryViewModel> GetPurchase(long id)
+        public async Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id)
         {
             var purchase = await repository.GetPurchaseAsync(id);
 
@@ -188,7 +193,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
         }
 
-        public async Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchases(long customerId)
+        public async Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchasesAsync(long customerId)
         {
             var purchases = await repository.GetPurchasesAsync(customerId);
 
@@ -209,39 +214,39 @@ namespace JoelScottFitness.Services.Services
             return paypalService.CompletePayPalPayment(paymentId, payerId);
         }
 
-        public async Task<bool> UpdateMailingList(MailingListItemViewModel mailingListItem)
+        public async Task<bool> UpdateMailingListAsync(MailingListItemViewModel mailingListItem)
         {
             var repoMailingListItem = mapper.Map<MailingListItemViewModel, MailingListItem>(mailingListItem);
 
             return await repository.UpdateMailingListAsync(repoMailingListItem);
         }
-        public async Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids)
+        public async Task<IEnumerable<SelectedPlanOptionViewModel>> GetBasketItemsAsync(IEnumerable<long> ids)
         {
             var repoPlanOptions = await repository.GetBasketItemsAsync(ids);
 
-            return mapper.MapEnumerable<PlanOption, PlanOptionViewModel>(repoPlanOptions);
+            return mapper.MapEnumerable<PlanOption, SelectedPlanOptionViewModel>(repoPlanOptions);
         }
 
-        public async Task<UserViewModel> GetUser(string userName)
+        public async Task<UserViewModel> GetUserAsync(string userName)
         {
             var user = await repository.GetUserAsync(userName);
 
             return mapper.Map<AuthUser, UserViewModel>(user);
         }
 
-        public async Task<AsyncResult<long>> SavePurchase(ConfirmPurchaseViewModel confirmPurchaseViewModel)
+        public async Task<AsyncResult<long>> SavePurchaseAsync(ConfirmPurchaseViewModel confirmPurchaseViewModel)
         {
             var purchase = mapper.Map<ConfirmPurchaseViewModel, Purchase>(confirmPurchaseViewModel);
 
             return await repository.SavePurchaseAsync(purchase);
         }
 
-        public async Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status)
+        public async Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status)
         {
             return await repository.UpdatePurchaseStatus(transactionId, status);
         }
 
-        public async Task<long?> GetPurchaseIdByTransactionId(string transactionId)
+        public async Task<long?> GetPurchaseIdByTransactionIdAsync(string transactionId)
         {
             return await repository.GetPurchaseIdByTransactionId(transactionId);
         }
@@ -258,6 +263,16 @@ namespace JoelScottFitness.Services.Services
             var questionnaire = await repository.GetQuestionnaireAsync(questionnaireId);
 
             return mapper.Map<Questionnaire, QuestionnaireViewModel>(questionnaire);
+        }
+
+        public async Task<bool> UpdatePlanStatusAsync(long planId, bool status)
+        {
+            return await repository.UpdatePlanStatusAsync(planId, status);
+        }
+
+        public async Task<bool> UpdateBlogStatusAsync(long blogId, bool status)
+        {
+            return await repository.UpdateBlogStatusAsync(blogId, status);
         }
     }
 }

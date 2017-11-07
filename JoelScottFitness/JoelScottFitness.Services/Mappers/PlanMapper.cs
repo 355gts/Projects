@@ -1,6 +1,7 @@
 ﻿using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
+using System;
 using System.Collections.Generic;
 
 namespace JoelScottFitness.Services.Mappers
@@ -12,8 +13,7 @@ namespace JoelScottFitness.Services.Mappers
         public PlanViewModel Map(Plan fromObject, PlanViewModel toObject = null)
         {
             var plan = toObject ?? new PlanViewModel();
-
-            plan.Active = fromObject.Active;
+            
             plan.BannerHeader = fromObject.BannerHeader;
             plan.CreatedDate = fromObject.CreatedDate;
             plan.Description = fromObject.Description;
@@ -23,6 +23,8 @@ namespace JoelScottFitness.Services.Mappers
             plan.ModifiedDate = fromObject.ModifiedDate;
             plan.Name = fromObject.Name;
             plan.TargetGender = fromObject.TargetGender;
+            plan.Active = fromObject.Active;
+            plan.ModifiedDate = DateTime.UtcNow;
 
             var planOptions = new List<PlanOptionViewModel>();
 
@@ -39,8 +41,7 @@ namespace JoelScottFitness.Services.Mappers
         public Plan Map(PlanViewModel fromObject, Plan toObject = null)
         {
             var plan = toObject ?? new Plan();
-
-            plan.Active = fromObject.Active;
+            
             plan.BannerHeader = fromObject.BannerHeader;
             plan.CreatedDate = fromObject.CreatedDate;
             plan.Description = fromObject.Description;
@@ -50,6 +51,7 @@ namespace JoelScottFitness.Services.Mappers
             plan.ModifiedDate = fromObject.ModifiedDate;
             plan.Name = fromObject.Name;
             plan.TargetGender = fromObject.TargetGender;
+            plan.Active = fromObject.Active;
 
             var planOptions = new List<PlanOption>();
 

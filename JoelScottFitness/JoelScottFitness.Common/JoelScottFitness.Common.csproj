@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\JsfRoles.cs" />
+    <Compile Include="Enumerations\BlogCaptionTextColour.cs" />
     <Compile Include="Enumerations\CreditCardType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
     <Compile Include="Enumerations\ItemType.cs" />
@@ -60,7 +61,14 @@
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BlogImageViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\CreateAddressViewModel.cs" />
+    <Compile Include="Models\CreateBlogImageViewModel.cs" />
+    <Compile Include="Models\CreateBlogViewModel.cs" />
+    <Compile Include="Models\CreateItemViewModel.cs" />
+    <Compile Include="Models\CreatePlanOptionViewModel.cs" />
+    <Compile Include="Models\CreatePlanViewModel.cs" />
     <Compile Include="Models\PaymentConfirmationViewModel.cs" />
     <Compile Include="Models\ConfirmPurchaseViewModel.cs" />
     <Compile Include="Models\CreateCustomerViewModel.cs" />
@@ -77,6 +85,8 @@
     <Compile Include="Models\PurchasedHistoryItemViewModel.cs" />
     <Compile Include="Models\PurchaseHistoryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
+    <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
+    <Compile Include="Models\UiPlanViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Modules\CommonModule.cs" />
     <Compile Include="Lists\Options.cs" />

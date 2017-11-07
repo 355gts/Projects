@@ -89,6 +89,8 @@ namespace JoelScottFitness.Data
 
         public DbSet<Blog> Blogs { get; set; }
 
+        public DbSet<BlogImage> BlogImages { get; set; }
+
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<DiscountCode> DiscountCodes { get; set; }

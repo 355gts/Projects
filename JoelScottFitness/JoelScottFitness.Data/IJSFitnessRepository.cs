@@ -14,10 +14,8 @@ namespace JoelScottFitness.Data
 
         Task<Blog> GetBlogAsync(long id);
 
-        Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0, bool activeOnly = true);
-
-        Task<bool> DeactivateBlogAsync(long id);
-
+        Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0);
+        
         Task<AsyncResult<long>> CreateCustomerAsync(Customer customer);
 
         Task<AsyncResult<long>> UpdateCustomerAsync(Customer customer);
@@ -41,9 +39,7 @@ namespace JoelScottFitness.Data
         Task<IEnumerable<Plan>> GetPlansAsync();
 
         Task<IEnumerable<Plan>> GetPlansByGenderAsync(Gender gender);
-
-        Task<bool> DeactivatePlanAsync(long id);
-
+        
         Task<Purchase> GetPurchaseAsync(long id);
 
         Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId);
@@ -63,6 +59,10 @@ namespace JoelScottFitness.Data
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire);
 
         Task<Questionnaire> GetQuestionnaireAsync(long questionnaireId);
+
+        Task<bool> UpdatePlanStatusAsync(long planId, bool status);
+
+        Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
 
 
     }

@@ -63,8 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\AddressMapper.cs" />
+    <Compile Include="Mappers\BlogImageMapper.cs" />
     <Compile Include="Mappers\BlogMapper.cs" />
+    <Compile Include="Mappers\CreateBlogImageMapper.cs" />
+    <Compile Include="Mappers\CreateBlogMapper.cs" />
     <Compile Include="Mappers\CreateCustomerMapper.cs" />
+    <Compile Include="Mappers\CreatePlanMapper.cs" />
+    <Compile Include="Mappers\CreatePlanOptionMapper.cs" />
     <Compile Include="Mappers\CreatePurchaseItemMapper.cs" />
     <Compile Include="Mappers\CreatePurchaseMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
@@ -76,6 +81,7 @@
     <Compile Include="Mappers\PurchasedItemMapper.cs" />
     <Compile Include="Mappers\PurchaseMapper.cs" />
     <Compile Include="Mappers\QuestionnaireMapper.cs" />
+    <Compile Include="Mappers\UiPlanMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Modules\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

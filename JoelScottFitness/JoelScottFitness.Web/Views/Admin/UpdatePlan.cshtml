@@ -1,0 +1,171 @@
+﻿@model JoelScottFitness.Common.Models.PlanViewModel
+
+@{
+    ViewBag.Title = "UpdatePlan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            PLAN
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+
+        @using (Html.BeginForm("UpdatePlan", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.Id, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.CreatedDate, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.ModifiedDate, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.Active, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.TargetGender, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.ImagePathLarge, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.ImagePathMedium, new { @style = "display:none" })
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BannerHeader, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BannerHeader, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.BannerHeader, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TargetGender, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.TargetGender, Model.GenderTypes.Select(o => new SelectListItem() { Text = o.Key, Value = o.Value.ToString(), Selected = true }).ToList(), new { @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Image</label>
+                    <div class="col-md-10">
+                        <input type="file" name="postedFile" />
+                    </div>
+                </div>
+
+                @if (@Model != null && @Model.Options != null)
+                {
+                    <input type="hidden" id="plan-option-count" name="plan-option-count" value="@Model.Options.Count()" class="plan-option-count" style="display:none" />
+                }
+                else
+                {
+                    <input type="hidden" id="plan-option-count" name="plan-option-count" value="0" class="plan-option-count" style="display:none" />
+                }
+                <table class="table">
+                    <tr>
+
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Duration (Weeks)
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @{
+                        if (Model != null && @Model.Options != null && @Model.Options.Any())
+                        {
+                            var itemCount = 0;
+                            foreach (var item in Model.Options)
+                            {
+                                <tr>
+                                    @Html.Hidden("Options[" + @itemCount + "].Id", item.Id, new { @class = "basket-value", @id = "Options[" + @itemCount + "].Id" })
+                                    @Html.Hidden("Options[" + @itemCount + "].ItemType", item.ItemType, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ItemType" })
+                                    @Html.Hidden("Options[" + @itemCount + "].PlanId", item.PlanId, new { @class = "basket-value", @id = "Options[" + @itemCount + "].PlanId" })
+                                    @Html.Hidden("Options[" + @itemCount + "].CreatedDate", item.CreatedDate, new { @class = "basket-value", @id = "Options[" + @itemCount + "].CreatedDate" })
+                                    @Html.Hidden("Options[" + @itemCount + "].ModifiedDate", item.ModifiedDate, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ModifiedDate" })
+                                    <td>
+                                        @Html.TextBox("Options[" + @itemCount + "].Description", item.Description, new { @id = "Options[" + @itemCount + "].Description" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("Options[" + @itemCount + "].Duration", item.Duration, new { @id = "Options[" + @itemCount + "].Duration" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("Options[" + @itemCount + "].Price", item.Price, new { @id = "Options[" + @itemCount + "].Price" })
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                itemCount++;
+                            }
+                        }
+                    }
+
+                    <tfoot>
+
+                        <tr>
+                            <td>
+                                <input type="text" id="add-description" name="add-description" class="add-description" />
+                            </td>
+                            <td>
+                                <input type="text" id="add-duration" name="add-duration" class="add-duration" />
+                            </td>
+                            <td>
+                                <input type="text" id="add-price" name="add-price" class="add-price" />
+                            </td>
+                            <td>
+                                <input type="button" class="add-row" value="Add" onclick="addPlanOption(@Model.Id)">
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+                        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Plans", "Admin")
+        </div>
+    </div>
+</div>

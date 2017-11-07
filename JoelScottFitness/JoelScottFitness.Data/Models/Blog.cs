@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Data.Models
 {
@@ -15,10 +15,7 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public DateTime CreatedDate { get; set; }
 
-        [Required]
-        public DateTime ActiveFrom { get; set; }
-
-        public DateTime ActiveTo { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         [Required]
         public string Content { get; set; }
@@ -26,16 +23,10 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public string ImagePath { get; set; }
 
-        public string  test { get; set; }
+        [Required]
+        public bool Active { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public bool Active
-        {
-            get
-            {
-                var currentDate = DateTime.UtcNow;
-                return ActiveFrom <= currentDate && currentDate <= ActiveTo;
-            }
-        }
+        public ICollection<BlogImage> BlogImages {get; set;}
+
     }
 }

@@ -2,12 +2,10 @@
 using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
-using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.YouTube.Client;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -75,7 +73,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            var blogs = await jsfService.GetBlogs(6);
+            var blogs = await jsfService.GetBlogsAsync(6);
             var videos = youTubeClient.GetVideos(3);
 
             var videoViewModel = videos.Select(v => new MediaViewModel()
@@ -112,14 +110,14 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Blogs()
         {
-            var blogs = await jsfService.GetBlogs();
-            return View(blogs);
+            var blogs = await jsfService.GetBlogsAsync();
+            return View(blogs.Where(b => b.Active).OrderByDescending(b => b.CreatedDate));
         }
 
         [HttpGet]
         public async Task<ActionResult> Blog(long id)
         {
-            var blog = await jsfService.GetBlog(id);
+            var blog = await jsfService.GetBlogAsync(id);
 
             return new JsonResult() {
                 Data = new
@@ -150,8 +148,8 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Plans(Gender gender)
         {
-            var plans = await jsfService.GetPlansByGender(gender);
-            return View(plans);
+            var plans = await jsfService.GetPlansByGenderAsync(gender);
+            return View(plans.Where(p => p.Active).OrderByDescending(p => p.CreatedDate));
         }
 
         [HttpGet]
@@ -182,7 +180,7 @@ namespace JoelScottFitness.Web.Controllers
                 return View(customer);
             }
             
-            var user = await jsfService.GetUser(customer.EmailAddress);
+            var user = await jsfService.GetUserAsync(customer.EmailAddress);
 
             if (customer.RegisterAccount)
             {
@@ -236,7 +234,7 @@ namespace JoelScottFitness.Web.Controllers
                 await UpdateMailingList(customer.EmailAddress);
             }
 
-            var customerResult = await jsfService.CreateCustomer(customer);
+            var customerResult = await jsfService.CreateCustomerAsync(customer);
 
             if (!customerResult.Success)
             {
@@ -252,7 +250,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var customerDetails = await jsfService.GetCustomerDetails(User.Identity.Name);
+                var customerDetails = await jsfService.GetCustomerDetailsAsync(User.Identity.Name);
                 //ensure this is defaulted to true
                 customerDetails.JoinMailingList = true;
 
@@ -271,14 +269,14 @@ namespace JoelScottFitness.Web.Controllers
                 return View(customer);
             }
 
-            var user = await jsfService.GetUser(customer.EmailAddress);
+            var user = await jsfService.GetUserAsync(customer.EmailAddress);
 
             if (customer.JoinMailingList)
             {
                 await UpdateMailingList(customer.EmailAddress);
             }
 
-            var customerResult = await jsfService.UpdateCustomer(customer);
+            var customerResult = await jsfService.UpdateCustomerAsync(customer);
 
             if (!customerResult.Success)
             {
@@ -296,7 +294,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var basket = GetBasketItems();
 
-            var basketItems = await jsfService.GetBasketItems(basket.Keys.ToList());
+            var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
 
             // map the quantities to the items
             foreach (var basketItem in basketItems)
@@ -304,7 +302,7 @@ namespace JoelScottFitness.Web.Controllers
                 basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : 1;
             }
 
-            confirmPurchaseViewModel.CustomerDetails = await jsfService.GetCustomerDetails(customerId);
+            confirmPurchaseViewModel.CustomerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
             confirmPurchaseViewModel.BasketItems = basketItems;
 
             return View(confirmPurchaseViewModel);
@@ -381,7 +379,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var basket = GetBasketItems();
             
-            var basketItems = await jsfService.GetBasketItems(basket.Keys.ToList());
+            var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
 
             // map the quantities to the items
             foreach (var basketItem in basketItems)
@@ -400,7 +398,7 @@ namespace JoelScottFitness.Web.Controllers
             string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +
                         "/Home/CompletePayment?";
 
-            var plans = await jsfService.GetPlans();
+            var plans = await jsfService.GetPlansAsync();
 
             // map the plans back to the items
             confirmPurchaseViewModel.BasketItems.ToList().ForEach(i => i.Plan = plans.First(p => p.Id == i.PlanId));
@@ -414,7 +412,7 @@ namespace JoelScottFitness.Web.Controllers
             confirmPurchaseViewModel.TransactionId = paymentInitiationResult.TransactionId;
 
             // save the pending purchase details in the database
-            var savePurchaseResult = await jsfService.SavePurchase(confirmPurchaseViewModel);
+            var savePurchaseResult = await jsfService.SavePurchaseAsync(confirmPurchaseViewModel);
             
             if (!savePurchaseResult.Success)
             {
@@ -436,11 +434,11 @@ namespace JoelScottFitness.Web.Controllers
 
             if (!paymentResult.Success)
             {
-                await jsfService.UpdatePurchaseStatus(transactionId, PurchaseStatus.Failed);
+                await jsfService.UpdatePurchaseStatusAsync(transactionId, PurchaseStatus.Failed);
                 // return error
             }
 
-            await jsfService.UpdatePurchaseStatus(transactionId, PurchaseStatus.Complete);
+            await jsfService.UpdatePurchaseStatusAsync(transactionId, PurchaseStatus.Complete);
 
             // clear the users basket
             Session.Clear();
@@ -471,7 +469,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> CustomerQuestionnaire(string transactionId)
         {
-            var purchaseId = await jsfService.GetPurchaseIdByTransactionId(transactionId);
+            var purchaseId = await jsfService.GetPurchaseIdByTransactionIdAsync(transactionId);
             if (!purchaseId.HasValue)
             {
                 ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please Contact Us.";
@@ -607,7 +605,7 @@ namespace JoelScottFitness.Web.Controllers
                 Email = emailAddress,
             };
 
-            return await jsfService.UpdateMailingList(mailingListItemViewModel);
+            return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
         }
     }
 }

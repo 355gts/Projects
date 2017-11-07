@@ -2,39 +2,65 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace JoelScottFitness.Common.Models
 {
-    public class PlanViewModel : BaseViewModel
+    public class PlanViewModel
     {
         [Required]
+        [DataMember(IsRequired = true)]
+        public long Id { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        public DateTime CreatedDate { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public DateTime? ModifiedDate { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public string Name { get; set; }
 
         [Required]
+        [DataMember(IsRequired = true)]
         public string Description { get; set; }
 
         [Required]
+        [DataMember(IsRequired = true)]
         public string BannerHeader { get; set; }
 
         [Required]
+        [DataMember(IsRequired = true)]
         public string ImagePathMedium { get; set; }
 
         [Required]
+        [DataMember(IsRequired = true)]
         public string ImagePathLarge { get; set; }
 
         [Required]
+        [DataMember(IsRequired = true)]
         public Gender TargetGender { get; set; }
 
+        public List<KeyValuePair<string, int>> GenderTypes
+        {
+            get
+            {
+                return new List<KeyValuePair<string, int>>()
+                {
+                    new KeyValuePair<string, int>(Gender.Male.ToString(), (int)Gender.Male),
+                    new KeyValuePair<string, int>(Gender.Female.ToString(), (int)Gender.Female),
+                };
+            }
+        }
+
         [Required]
-        public DateTime CreatedDate { get; set; }
-
-        public DateTime? ModifiedDate { get; set; }
-
-        public long SelectedOptionId { get; set; }
-
-        [Required]
+        [DataMember(IsRequired = true)]
         public bool Active { get; set; }
 
+        [Required]
+        [DataMember(IsRequired = true)]
         public ICollection<PlanOptionViewModel> Options { get; set; }
     }
 }

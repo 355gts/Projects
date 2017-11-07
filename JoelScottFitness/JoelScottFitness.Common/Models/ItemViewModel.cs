@@ -1,29 +1,21 @@
-﻿using JoelScottFitness.Common.Enumerations;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace JoelScottFitness.Common.Models
 {
-    public class ItemViewModel : BaseViewModel
+    [DataContract]
+    public class ItemViewModel : CreateItemViewModel
     {
         [Required]
-        public string Description { get; set; }
+        public long Id { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        [DataMember(IsRequired = true)]
+        public DateTime CreatedDate { get; set; }
 
-        [Required]
-        public long Quantity { get; set; }
+        [DataMember(IsRequired = false)]
+        public DateTime? ModifiedDate { get; set; }
 
-        [Required]
-        public ItemType ItemType { get; set; }
-
-        [Required]
-        public DateTime ActiveFrom { get; set; }
-
-        public DateTime ActiveTo { get; set; }
-
-        [Required]
-        public bool ItemDiscontinued { get; set; }
     }
 }

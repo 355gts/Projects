@@ -211,3 +211,28 @@ $(document).ready(function () {
         }
     });
 });
+
+function addPlanOption(planId) {
+    var description = $("#add-description").val();
+    var duration = $("#add-duration").val();
+    var price = $("#add-price").val();
+    var index = parseInt($("#plan-option-count").val());
+    var markup = "<tr>" +
+    "<input class='basket-value' id='Options[" + index + "].ItemType' name='Options[" + index + "].ItemType' type='hidden' value='Plan' > " +
+    "<input class='basket-value' id='Options[" + index + "].PlanId' name='Options[" + index + "].PlanId' type='hidden' value='" + planId + "' > " +
+    "<td>" +
+    "<input id='Options[" + index + "].Description' name='Options[" + index + "].Description' type='text' value='" + description + "' > " +
+    "</td>" +
+    "<td>" +
+    "<input id='Options[" + index + "].Duration' name='Options[" + index + "].Duration' type='text' value='" + duration + "' > " +
+    "</td>" +
+    "<td>" +
+    "<input id='Options[" + index + "].Price' name='Options[" + index + "].Price' type='text' value='" + price + "' > " +
+    "</td>" +
+    "</tr>";
+    $("table tbody").append(markup);
+    $("#add-description").val('');
+    $("#add-duration").val('');
+    $("#add-price").val('');
+    $("#plan-option-count").val(index+1);
+}

@@ -13,7 +13,7 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
-        public IEnumerable<PlanOptionViewModel> BasketItems { get; set; }
+        public IEnumerable<SelectedPlanOptionViewModel> BasketItems { get; set; }
 
         [DataMember(IsRequired = false)]
         public long? DiscountCodeId { get; set; }

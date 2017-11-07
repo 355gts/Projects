@@ -17,63 +17,83 @@ namespace JoelScottFitness.Data
             {
                 var blog1 = new Blog()
                 {
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.",
                     CreatedDate = DateTime.UtcNow,
                     ImagePath = "/Content/Images/Desert.jpg",
                     SubHeader = "Welcome to Joel Scott Fitness",
                     Title = "My First Blog",
+                    Active = true,
+                    BlogImages = new List<BlogImage>()
+                    {
+                        new BlogImage()
+                        {
+                            Caption = "Welcome to my first blog image",
+                            CaptionColour = BlogCaptionTextColour.White,
+                            CaptionTitle = "My First Blog Image",
+                            ImagePath = "~/Content/Images/ladies1.jpg",
+                        },
+
+                        new BlogImage()
+                        {
+                            Caption = "Welcome to my second blog image",
+                            CaptionColour = BlogCaptionTextColour.White,
+                            CaptionTitle = "My Second Blog Image",
+                            ImagePath = "~/Content/Images/ladies2.jpg",
+                        },
+
+                        new BlogImage()
+                        {
+                            Caption = "This was interesting",
+                            CaptionColour = BlogCaptionTextColour.White,
+                            CaptionTitle = "My Third Blog Image",
+                            ImagePath = "~/Content/Images/ladies3.jpg",
+                        },
+                    },
                 };
                 var blog2 = new Blog()
                 {
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.",
                     CreatedDate = DateTime.UtcNow,
                     ImagePath = "/Content/Images/Chrys.jpg",
                     SubHeader = "My Second Blog",
                     Title = "Here We Go Again!",
+                    Active = true,
                 };
                 var blog3 = new Blog()
                 {
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.",
                     CreatedDate = DateTime.UtcNow,
                     ImagePath = "/Content/Images/Desert.jpg",
                     SubHeader = "Welcome to Joel Scott Fitness",
                     Title = "My First Blog",
+                    Active = true,
                 };
                 var blog4 = new Blog()
                 {
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.",
                     CreatedDate = DateTime.UtcNow,
                     ImagePath = "/Content/Images/Chrys.jpg",
                     SubHeader = "My Second Blog",
                     Title = "Here We Go Again!",
+                    Active = true,
                 };
                 var blog5 = new Blog()
                 {
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.",
                     CreatedDate = DateTime.UtcNow,
                     ImagePath = "/Content/Images/Desert.jpg",
                     SubHeader = "Welcome to Joel Scott Fitness",
                     Title = "My First Blog",
+                    Active = true,
                 };
                 var blog6 = new Blog()
                 {
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.",
                     CreatedDate = DateTime.UtcNow,
                     ImagePath = "/Content/Images/Chrys.jpg",
                     SubHeader = "My Second Blog",
                     Title = "Here We Go Again!",
+                    Active = true,
                 };
 
                 context.Blogs.Add(blog1);

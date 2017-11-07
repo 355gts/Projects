@@ -4,10 +4,9 @@ using JoelScottFitness.Data.Models;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class CreatePurchaseItemMapper : ITypeMapper<PlanOptionViewModel, PurchasedItem>
+    sealed class CreatePurchaseItemMapper : ITypeMapper<SelectedPlanOptionViewModel, PurchasedItem>
     {
-
-        public PurchasedItem Map(PlanOptionViewModel fromObject, PurchasedItem toObject = null)
+        public PurchasedItem Map(SelectedPlanOptionViewModel fromObject, PurchasedItem toObject = null)
         {
             var item = toObject ?? new PurchasedItem();
             

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.PlanViewModel>
+
+@{
+    ViewBag.Title = "Plans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            PLANS
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+
+        <p>
+            @Html.ActionLink("Create New", "CreatePlan", "Admin")
+        </p>
+        <table class="table">
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TargetGender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BannerHeader)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TargetGender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BannerHeader)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "UpdatePlan", "Admin", new { planId = item.Id }, null)
+                    </td>
+                    <td>
+                        @if (item.Active)
+                        {
+                            using (Html.BeginForm("UpdatePlanStatus", "Admin", new { planId = item.Id, status = false }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Disable" class="btn btn-default" />
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("UpdatePlanStatus", "Admin", new { planId = item.Id, status = true }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Enable" class="btn btn-default" />
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+        </div>
+    </div>

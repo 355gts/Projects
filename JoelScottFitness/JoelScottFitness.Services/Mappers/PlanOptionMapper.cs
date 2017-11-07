@@ -20,7 +20,6 @@ namespace JoelScottFitness.Services.Mappers
             if (fromObject.Plan != null)
             {
                 plan.Plan = new Plan();
-                plan.Plan.Active = fromObject.Plan.Active;
                 plan.Plan.BannerHeader = fromObject.Plan.BannerHeader;
                 plan.Plan.CreatedDate = fromObject.Plan.CreatedDate;
                 plan.Plan.Description = fromObject.Plan.Description;
@@ -49,7 +48,6 @@ namespace JoelScottFitness.Services.Mappers
             if (fromObject.Plan != null)
             {
                 plan.Plan = new PlanViewModel();
-                plan.Plan.Active = fromObject.Plan.Active;
                 plan.Plan.BannerHeader = fromObject.Plan.BannerHeader;
                 plan.Plan.CreatedDate = fromObject.Plan.CreatedDate;
                 plan.Plan.Description = fromObject.Plan.Description;

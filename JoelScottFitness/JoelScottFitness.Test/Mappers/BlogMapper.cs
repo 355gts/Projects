@@ -17,14 +17,14 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var repoObject = new Blog()
                 {
-                    ActiveFrom = new DateTime(2017, 05, 03, 13, 14, 15),
-                    ActiveTo = new DateTime(2017, 05, 04, 13, 14, 15),
                     Content = "Content",
                     CreatedDate = new DateTime(2017, 05, 02, 14, 14, 15),
                     Id = 123,
                     ImagePath = "ImagePath",
                     SubHeader = "SubHeader",
                     Title = "Title",
+                    Active = true,
+                    ModifiedDate = new DateTime(2017, 06, 02, 14, 14, 15),
                 };
 
                 var mapper = new Map.BlogMapper();
@@ -39,14 +39,14 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var repoObject = new Blog()
                 {
-                    ActiveFrom = new DateTime(2017, 05, 03, 13, 14, 15),
-                    ActiveTo = new DateTime(2017, 05, 04, 13, 14, 15),
                     Content = "Content",
                     CreatedDate = new DateTime(2017, 05, 02, 14, 14, 15),
                     Id = 123,
                     ImagePath = "ImagePath",
                     SubHeader = "SubHeader",
                     Title = "Title",
+                    Active = true,
+                    ModifiedDate = new DateTime(2017, 06, 02, 14, 14, 15),
                 };
 
                 BlogViewModel toObject = new BlogViewModel();
@@ -60,15 +60,14 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(Blog repoObject, BlogViewModel webObject)
             {
-                Assert.AreEqual(repoObject.Active, webObject.Active);
-                Assert.AreEqual(repoObject.ActiveFrom, webObject.ActiveFrom);
-                Assert.AreEqual(repoObject.ActiveTo, webObject.ActiveTo);
                 Assert.AreEqual(repoObject.Content, webObject.Content);
                 Assert.AreEqual(repoObject.CreatedDate, webObject.CreatedDate);
+                Assert.AreEqual(repoObject.ModifiedDate, webObject.ModifiedDate);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.ImagePath, webObject.ImagePath);
                 Assert.AreEqual(repoObject.SubHeader, webObject.SubHeader);
                 Assert.AreEqual(repoObject.Title, webObject.Title);
+                Assert.AreEqual(repoObject.Active, webObject.Active);
             }
         }
 
@@ -80,8 +79,6 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var webObject = new BlogViewModel()
                 {
-                    ActiveFrom = DateTime.UtcNow.AddMinutes(-1),
-                    ActiveTo = DateTime.UtcNow.AddMinutes(1),
                     Content = "Content",
                     CreatedDate = new DateTime(2017, 05, 02, 14, 14, 15),
                     Id = 123,
@@ -103,8 +100,6 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var webObject = new BlogViewModel()
                 {
-                    ActiveFrom = DateTime.UtcNow.AddMinutes(-1),
-                    ActiveTo = DateTime.UtcNow.AddMinutes(1),
                     Content = "Content",
                     CreatedDate = new DateTime(2017, 05, 02, 14, 14, 15),
                     Id = 123,
@@ -125,15 +120,14 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(BlogViewModel webObject, Blog repoObject)
             {
-                Assert.AreEqual(webObject.Active, repoObject.Active);
-                Assert.AreEqual(webObject.ActiveFrom, repoObject.ActiveFrom);
-                Assert.AreEqual(webObject.ActiveTo, repoObject.ActiveTo);
                 Assert.AreEqual(webObject.Content, repoObject.Content);
                 Assert.AreEqual(webObject.CreatedDate, repoObject.CreatedDate);
+                Assert.IsNotNull(repoObject.ModifiedDate);
                 Assert.AreEqual(webObject.Id, repoObject.Id);
                 Assert.AreEqual(webObject.ImagePath, repoObject.ImagePath);
                 Assert.AreEqual(webObject.SubHeader, repoObject.SubHeader);
                 Assert.AreEqual(webObject.Title, repoObject.Title);
+                Assert.AreEqual(repoObject.Active, webObject.Active);
             }
         }
     }

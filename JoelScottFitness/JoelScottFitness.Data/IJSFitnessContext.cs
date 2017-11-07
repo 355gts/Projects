@@ -28,6 +28,8 @@ namespace JoelScottFitness.Data
 
         DbSet<Blog> Blogs { get; set; }
 
+        DbSet<BlogImage> BlogImages { get; set; }
+
         DbSet<Customer> Customers { get; set; }
     
         DbSet<DiscountCode> DiscountCodes { get; set; }

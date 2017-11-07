@@ -68,7 +68,6 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(Plan repoObject, PlanViewModel webObject)
             {
-                Assert.AreEqual(repoObject.Active, webObject.Active);
                 Assert.AreEqual(repoObject.BannerHeader, webObject.BannerHeader);
                 Assert.AreEqual(repoObject.CreatedDate, webObject.CreatedDate);
                 Assert.AreEqual(repoObject.Description, webObject.Description);
@@ -90,7 +89,6 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var webObject = new PlanViewModel()
                 {
-                    Active = true,
                     BannerHeader = "Test Banner",
                     CreatedDate = DateTime.UtcNow,
                     Description = "Test Description",
@@ -115,7 +113,6 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var webObject = new PlanViewModel()
                 {
-                    Active = true,
                     BannerHeader = "Test Banner",
                     CreatedDate = DateTime.UtcNow,
                     Description = "Test Description",
@@ -137,19 +134,19 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(webObject, toObject);
             }
 
-            private void AssertAreEqual(PlanViewModel repoObject, Plan webObject)
+            private void AssertAreEqual(PlanViewModel webObject, Plan repoObject)
             {
-                Assert.AreEqual(repoObject.Active, webObject.Active);
-                Assert.AreEqual(repoObject.BannerHeader, webObject.BannerHeader);
-                Assert.AreEqual(repoObject.CreatedDate, webObject.CreatedDate);
-                Assert.AreEqual(repoObject.Description, webObject.Description);
-                Assert.AreEqual(repoObject.Id, webObject.Id);
-                Assert.AreEqual(repoObject.ImagePathLarge, webObject.ImagePathLarge);
-                Assert.AreEqual(repoObject.ImagePathMedium, webObject.ImagePathMedium);
-                Assert.AreEqual(repoObject.ModifiedDate, webObject.ModifiedDate);
-                Assert.AreEqual(repoObject.Name, webObject.Name);
-                Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
-                Assert.AreEqual(0, webObject.Options.Count);
+                Assert.AreEqual(webObject.BannerHeader, repoObject.BannerHeader);
+                Assert.AreEqual(webObject.CreatedDate, repoObject.CreatedDate);
+                Assert.IsNotNull(webObject.ModifiedDate);
+                Assert.AreEqual(webObject.Description, repoObject.Description);
+                Assert.AreEqual(webObject.Id, repoObject.Id);
+                Assert.AreEqual(webObject.ImagePathLarge, repoObject.ImagePathLarge);
+                Assert.AreEqual(webObject.ImagePathMedium, repoObject.ImagePathMedium);
+                Assert.AreEqual(webObject.ModifiedDate, repoObject.ModifiedDate);
+                Assert.AreEqual(webObject.Name, repoObject.Name);
+                Assert.AreEqual(webObject.TargetGender, repoObject.TargetGender);
+                Assert.AreEqual(0, repoObject.Options.Count);
             }
         }
     }

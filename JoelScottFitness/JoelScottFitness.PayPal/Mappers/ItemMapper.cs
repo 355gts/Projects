@@ -4,9 +4,9 @@ using PayPal.Api;
 
 namespace JoelScottFitness.PayPal.Mappers
 {
-    sealed class ItemMapper : ITypeMapper<PlanOptionViewModel, Item>
+    sealed class ItemMapper : ITypeMapper<SelectedPlanOptionViewModel, Item>
     {
-        public Item Map(PlanOptionViewModel fromObject, Item toObject = null)
+        public Item Map(SelectedPlanOptionViewModel fromObject, Item toObject = null)
         {
             var item = toObject ?? new Item();
 

@@ -122,7 +122,9 @@ namespace JoelScottFitness.Data
 
         public async Task<AsyncResult<long>> CreateOrUpdatePlanAsync(Plan plan)
         {
-            var existingPlan = await dbContext.Plans.FindAsync(plan.Id);
+            var existingPlan = await dbContext.Plans
+                                              .Include(p => p.Options)
+                                              .FirstOrDefaultAsync(p => p.Id == plan.Id);
 
             if (existingPlan != null)
             {
@@ -131,7 +133,7 @@ namespace JoelScottFitness.Data
 
                 var newOptions = plan.Options.Where(p => p.Id == 0).ToList();
                 var removedOptions = existingPlan.Options.Where(ep => !plan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
-                var updatedOptions = existingPlan.Options.Where(ep => plan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
+                var updatedOptions = plan.Options.Where(ep => existingPlan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
                 
                 dbContext.PlanOptions.RemoveRange(removedOptions);
                 dbContext.PlanOptions.AddRange(newOptions);
@@ -161,48 +163,18 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<bool> DeactivatePlanAsync(long id)
-        {
-            var plan = await dbContext.Plans.FindAsync(id);
-
-            if (plan == null)
-                return false;
-            
-            plan.Active = false;
-
-            dbContext.SetModified(plan);
-
-            return await SaveChangesAsync();
-        }
-
-        public async Task<bool> DeactivateBlogAsync(long id)
-        {
-            var blog = await dbContext.Blogs.FindAsync(id);
-
-            if (blog == null)
-                return false;
-
-            blog.ActiveTo = DateTime.UtcNow;
-
-            dbContext.SetModified(blog);
-
-            return await SaveChangesAsync();
-        }
-
         public async Task<Blog> GetBlogAsync(long id)
         {
             return await dbContext.Blogs.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0, bool activeOnly = true)
+        public async Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0)
         {
             var currentDate = DateTime.UtcNow;
 
             var blogQuery = dbContext.Blogs
-                                     .Where(b => !activeOnly 
-                                        || (b.ActiveFrom <= currentDate 
-                                        && currentDate <= b.ActiveTo))
-                                     .OrderByDescending(b => b.ActiveFrom);
+                                     .Include(b => b.BlogImages)
+                                     .OrderByDescending(b => b.CreatedDate);
 
             if (number > 0)
                 blogQuery.Take(number);
@@ -406,6 +378,34 @@ namespace JoelScottFitness.Data
         public async Task<Questionnaire> GetQuestionnaireAsync(long questionnaireId)
         {
             return await dbContext.Questionnaires.FirstOrDefaultAsync(q => q.Id == questionnaireId);
+        }
+
+        public async Task<bool> UpdatePlanStatusAsync(long planId, bool status)
+        {
+            var plan = await dbContext.Plans.FindAsync(planId);
+
+            if (plan == null)
+                return false;
+
+            plan.Active = status;
+
+            dbContext.SetModified(plan);
+
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateBlogStatusAsync(long blogId, bool status)
+        {
+            var blog = await dbContext.Blogs.FindAsync(blogId);
+
+            if (blog == null)
+                return false;
+
+            blog.Active = status;
+
+            dbContext.SetModified(blog);
+
+            return await SaveChangesAsync();
         }
     }
 }

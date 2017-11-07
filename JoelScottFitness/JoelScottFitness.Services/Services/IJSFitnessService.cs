@@ -9,63 +9,66 @@ namespace JoelScottFitness.Services.Services
 {
     public interface IJSFitnessService
     {
-        Task<AsyncResult<long>> CreateOrUpdateBlog(BlogViewModel blog);
+        Task<AsyncResult<long>> CreateBlogAsync(CreateBlogViewModel blog);
 
-        Task<BlogViewModel> GetBlog(long id);
+        Task<AsyncResult<long>> UpdateBlogAsync(BlogViewModel blog);
 
-        Task<IEnumerable<BlogViewModel>> GetBlogs(int number = 0, bool activeOnly = true);
+        Task<BlogViewModel> GetBlogAsync(long id);
 
-        Task<bool> DeactivateBlog(long id);
+        Task<IEnumerable<BlogViewModel>> GetBlogsAsync(int number = 0);
+        
+        Task<AsyncResult<long>> CreateCustomerAsync(CreateCustomerViewModel customer);
 
-        Task<AsyncResult<long>> CreateCustomer(CreateCustomerViewModel customer);
+        Task<AsyncResult<long>> UpdateCustomerAsync(CustomerViewModel customer);
 
-        Task<AsyncResult<long>> UpdateCustomer(CustomerViewModel customer);
+        Task<CustomerViewModel> GetCustomerDetailsAsync(long id);
 
-        Task<CustomerViewModel> GetCustomerDetails(long id);
+        Task<CustomerViewModel> GetCustomerDetailsAsync(string userName);
 
-        Task<CustomerViewModel> GetCustomerDetails(string userName);
+        Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCodeViewModel discountCode);
 
-        Task<AsyncResult<long>> CreateOrUpdateDiscountCode(DiscountCodeViewModel discountCode);
+        Task<DiscountCodeViewModel> GetDiscountCodeAsync(long id);
 
-        Task<DiscountCodeViewModel> GetDiscountCode(long id);
+        Task<IEnumerable<DiscountCodeViewModel>> GetDiscountCodesAsync();
 
-        Task<IEnumerable<DiscountCodeViewModel>> GetDiscountCodes();
+        Task<AsyncResult<long>> CreatePlanAsync(CreatePlanViewModel plan);
 
-        Task<AsyncResult<long>> CreateOrUpdatePlan(PlanViewModel plan);
+        Task<AsyncResult<long>> UpdatePlanAsync(PlanViewModel plan);
+        
+        Task<PlanViewModel> GetPlanAsync(long id);
 
-        Task<PlanViewModel> GetPlan(long id);
+        Task<IEnumerable<PlanViewModel>> GetPlansAsync();
 
-        Task<IEnumerable<PlanViewModel>> GetPlans();
-
-        Task<IEnumerable<PlanViewModel>> GetPlansByGender(Gender gender);
+        Task<IEnumerable<UiPlanViewModel>> GetPlansByGenderAsync(Gender gender);
 
         Task<PlanOptionViewModel> GetPlanOptionAsync(long id);
+                
+        Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id);
 
-        Task<bool> DeactivatePlan(long id);
-        
-        Task<PurchaseHistoryViewModel> GetPurchase(long id);
-
-        Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchases(long customerId);
+        Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchasesAsync(long customerId);
 
         PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
 
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
 
-        Task<bool> UpdateMailingList(MailingListItemViewModel mailingListItem);
+        Task<bool> UpdateMailingListAsync(MailingListItemViewModel mailingListItem);
         
-        Task<IEnumerable<PlanOptionViewModel>> GetBasketItems(IEnumerable<long> ids);
+        Task<IEnumerable<SelectedPlanOptionViewModel>> GetBasketItemsAsync(IEnumerable<long> ids);
 
-        Task<UserViewModel> GetUser(string userName);
+        Task<UserViewModel> GetUserAsync(string userName);
 
-        Task<AsyncResult<long>> SavePurchase(ConfirmPurchaseViewModel confirmPurchaseViewModel);
+        Task<AsyncResult<long>> SavePurchaseAsync(ConfirmPurchaseViewModel confirmPurchaseViewModel);
 
-        Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status);
+        Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status);
 
-        Task<long?> GetPurchaseIdByTransactionId(string transactionId);
+        Task<long?> GetPurchaseIdByTransactionIdAsync(string transactionId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaire);
 
         Task<QuestionnaireViewModel> GetQuestionnaireAsync(long questionnaireId);
 
+        Task<bool> UpdatePlanStatusAsync(long planId, bool status);
+
+        Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
     }
 }

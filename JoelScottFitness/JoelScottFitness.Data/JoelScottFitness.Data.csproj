@@ -68,6 +68,7 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BaseRecord.cs" />
     <Compile Include="Models\Blog.cs" />
+    <Compile Include="Models\BlogImage.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DataContractAttribute.cs" />
     <Compile Include="Models\DiscountCode.cs" />

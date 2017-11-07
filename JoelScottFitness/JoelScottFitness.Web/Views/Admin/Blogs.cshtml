@@ -1,0 +1,73 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.BlogViewModel>
+
+@{
+    ViewBag.Title = "Blogs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            BLOGS
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+
+        <p>
+            @Html.ActionLink("Create New", "CreateBlog", "Admin")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubHeader)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubHeader)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "UpdateBlog", "Admin", new { blogId = item.Id }, null)
+                    </td>
+                    <td>
+                        @if (item.Active)
+                        {
+                            using (Html.BeginForm("UpdateBlogStatus", "Admin", new { blogId = item.Id, status = false }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Disable" class="btn btn-default" />
+                            }
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("UpdateBlogStatus", "Admin", new { blogId = item.Id, status = true }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Enable" class="btn btn-default" />
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+    </div>

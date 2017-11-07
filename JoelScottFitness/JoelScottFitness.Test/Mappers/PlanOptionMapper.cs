@@ -91,7 +91,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Price, webObject.Price);
 
                 // check plan is mapped
-                Assert.AreEqual(repoObject.Plan.Active, webObject.Plan.Active);
                 Assert.AreEqual(repoObject.Plan.BannerHeader, webObject.Plan.BannerHeader);
                 Assert.AreEqual(repoObject.Plan.CreatedDate, webObject.Plan.CreatedDate);
                 Assert.AreEqual(repoObject.Plan.Description, webObject.Plan.Description);
@@ -113,8 +112,6 @@ namespace JoelScottFitness.Test.Mappers
                 var webObject = new PlanOptionViewModel()
                 {
                     Description = "4 Week Plan",
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Duration = 4,
                     ItemType = ItemType.Plan,
                     Price = 20.99,
@@ -122,7 +119,6 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 34,
                     Plan = new PlanViewModel()
                     {
-                        Active = true,
                         BannerHeader = "Test Banner Header",
                         CreatedDate = DateTime.UtcNow,
                         Description = "Test Description",
@@ -148,8 +144,6 @@ namespace JoelScottFitness.Test.Mappers
                 var webObject = new PlanOptionViewModel()
                 {
                     Description = "4 Week Plan",
-                    ActiveFrom = DateTime.UtcNow,
-                    ActiveTo = DateTime.UtcNow.AddYears(1),
                     Duration = 4,
                     ItemType = ItemType.Plan,
                     Price = 20.99,
@@ -157,7 +151,6 @@ namespace JoelScottFitness.Test.Mappers
                     Id = 34,
                     Plan = new PlanViewModel()
                     {
-                        Active = true,
                         BannerHeader = "Test Banner Header",
                         CreatedDate = DateTime.UtcNow,
                         Description = "Test Description",
@@ -189,7 +182,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Price, webObject.Price);
 
                 // check plan is mapped
-                Assert.AreEqual(repoObject.Plan.Active, webObject.Plan.Active);
                 Assert.AreEqual(repoObject.Plan.BannerHeader, webObject.Plan.BannerHeader);
                 Assert.AreEqual(repoObject.Plan.CreatedDate, webObject.Plan.CreatedDate);
                 Assert.AreEqual(repoObject.Plan.Description, webObject.Plan.Description);

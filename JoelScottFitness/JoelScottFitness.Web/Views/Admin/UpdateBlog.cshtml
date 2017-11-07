@@ -1,0 +1,89 @@
+﻿@model JoelScottFitness.Common.Models.BlogViewModel
+
+@{
+    ViewBag.Title = "UpdateBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            BLOG
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+
+        @using (Html.BeginForm("UpdateBlog", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.Id, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.CreatedDate, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.ModifiedDate, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.Active, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.ImagePath, new { @style = "display:none" })
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SubHeader, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SubHeader, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SubHeader, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Image</label>
+                    <div class="col-md-10">
+                        <input type="file" name="postedFile" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @style = "width:100%;max-width:100% !important" } })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Back to List", "Blogs", "Admin")
+        </div>
+        </div>
+</div>
