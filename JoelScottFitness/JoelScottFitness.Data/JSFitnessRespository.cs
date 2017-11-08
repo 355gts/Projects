@@ -165,7 +165,9 @@ namespace JoelScottFitness.Data
 
         public async Task<Blog> GetBlogAsync(long id)
         {
-            return await dbContext.Blogs.FindAsync(id);
+            return await dbContext.Blogs
+                                  .Include(b => b.BlogImages)
+                                  .Where(b => b.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0)

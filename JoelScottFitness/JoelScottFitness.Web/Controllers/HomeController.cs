@@ -123,9 +123,10 @@ namespace JoelScottFitness.Web.Controllers
                 Data = new
                 {
                     title = blog.Title,
-                    date = string.Format(blog.CreatedDate.ToString("dd{0} MMMM yyyy"), helper.GetSuffix(blog.CreatedDate.Day.ToString())),
+                    date = string.Format(blog.CreatedDate.ToString("d{0} MMMM yyyy"), helper.GetSuffix(blog.CreatedDate.Day.ToString())),
                     subTitle = blog.SubHeader,
                     content = blog.Content,
+                    images = blog.BlogImages,
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
             };

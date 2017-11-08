@@ -1,7 +1,10 @@
-﻿using JoelScottFitness.Common.Models;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Map = JoelScottFitness.Services.Mappers;
 
 namespace JoelScottFitness.Test.Mappers
@@ -25,6 +28,18 @@ namespace JoelScottFitness.Test.Mappers
                     Title = "Title",
                     Active = true,
                     ModifiedDate = new DateTime(2017, 06, 02, 14, 14, 15),
+                    BlogImages = new List<BlogImage>()
+                    {
+                        new BlogImage()
+                        {
+                            BlogId = 123,
+                            Caption = "Caption",
+                            CaptionColour = BlogCaptionTextColour.Black,
+                            CaptionTitle = "CaptionTitle",
+                            Id = 333,
+                            ImagePath = "ImagePath",
+                        },
+                    },
                 };
 
                 var mapper = new Map.BlogMapper();
@@ -47,6 +62,18 @@ namespace JoelScottFitness.Test.Mappers
                     Title = "Title",
                     Active = true,
                     ModifiedDate = new DateTime(2017, 06, 02, 14, 14, 15),
+                    BlogImages = new List<BlogImage>()
+                    {
+                        new BlogImage()
+                        {
+                            BlogId = 123,
+                            Caption = "Caption",
+                            CaptionColour = BlogCaptionTextColour.Black,
+                            CaptionTitle = "CaptionTitle",
+                            Id = 333,
+                            ImagePath = "ImagePath",
+                        },
+                    },
                 };
 
                 BlogViewModel toObject = new BlogViewModel();
@@ -68,6 +95,18 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.SubHeader, webObject.SubHeader);
                 Assert.AreEqual(repoObject.Title, webObject.Title);
                 Assert.AreEqual(repoObject.Active, webObject.Active);
+
+                Assert.IsNotNull(webObject.BlogImages);
+                Assert.AreEqual(1, webObject.BlogImages.Count());
+
+                var blogImage = webObject.BlogImages.First();
+                
+                Assert.AreEqual(123, blogImage.BlogId);
+                Assert.AreEqual("Caption", blogImage.Caption);
+                Assert.AreEqual(BlogCaptionTextColour.Black, blogImage.CaptionColour);
+                Assert.AreEqual("CaptionTitle", blogImage.CaptionTitle);
+                Assert.AreEqual(333, blogImage.Id);
+                Assert.AreEqual("ImagePath", blogImage.ImagePath);
             }
         }
 
@@ -86,6 +125,18 @@ namespace JoelScottFitness.Test.Mappers
                     SubHeader = "SubHeader",
                     Title = "Title",
                     Active = true,
+                    BlogImages = new List<BlogImageViewModel>()
+                    {
+                        new BlogImageViewModel()
+                        {
+                            BlogId = 123,
+                            Caption = "Caption",
+                            CaptionColour = BlogCaptionTextColour.Black,
+                            CaptionTitle = "CaptionTitle",
+                            Id = 333,
+                            ImagePath = "ImagePath",
+                        },
+                    },
                 };
 
                 var mapper = new Map.BlogMapper();
@@ -107,6 +158,18 @@ namespace JoelScottFitness.Test.Mappers
                     SubHeader = "SubHeader",
                     Title = "Title",
                     Active = true,
+                    BlogImages = new List<BlogImageViewModel>()
+                    {
+                        new BlogImageViewModel()
+                        {
+                            BlogId = 123,
+                            Caption = "Caption",
+                            CaptionColour = BlogCaptionTextColour.Black,
+                            CaptionTitle = "CaptionTitle",
+                            Id = 333,
+                            ImagePath = "ImagePath",
+                        },
+                    },
                 };
 
                 Blog toObject = new Blog();
@@ -128,6 +191,18 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.SubHeader, repoObject.SubHeader);
                 Assert.AreEqual(webObject.Title, repoObject.Title);
                 Assert.AreEqual(repoObject.Active, webObject.Active);
+
+                Assert.IsNotNull(repoObject.BlogImages);
+                Assert.AreEqual(1, repoObject.BlogImages.Count());
+
+                var blogImage = repoObject.BlogImages.First();
+
+                Assert.AreEqual(123, blogImage.BlogId);
+                Assert.AreEqual("Caption", blogImage.Caption);
+                Assert.AreEqual(BlogCaptionTextColour.Black, blogImage.CaptionColour);
+                Assert.AreEqual("CaptionTitle", blogImage.CaptionTitle);
+                Assert.AreEqual(333, blogImage.Id);
+                Assert.AreEqual("ImagePath", blogImage.ImagePath);
             }
         }
     }

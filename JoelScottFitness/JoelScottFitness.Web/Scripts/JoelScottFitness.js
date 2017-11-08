@@ -66,7 +66,84 @@ function getBlog(id) {
             $('#blog-sub-title').text(data.subTitle);
             $('#blog-date').text(data.date);
             $('#blog-content').text(data.content);
-            $("#blog-modal").modal();
+
+            var indicators = '';
+            var entries = '';
+            var active = 'active item-active';
+
+            $('#blog-modal-carousel-wrapper').empty();
+            //$('#carousel-indicators').empty();
+            //$('#carousel-inner').empty();
+            //$('#blog-modal-carousel-wrapper').addClass('element-hidden');
+
+            if (data.images !== undefined) {
+                $.each(data.images, function (index, entry) {
+                    if (index === 0) {
+                        indicators = "<li data-target='#blog-modal-carousel' data-slide-to='" + index + "' class='active'></li>\n";
+                    } else {
+                        indicators = indicators + "<li data-target='#blog-modal-carousel' data-slide-to='" + index + "'></li>\n";
+                        active = '';
+                    }               
+
+                    entries = entries + "<div class='item " + active + " blog-modal-carousel-item'>" +
+                        "<img src='" + entry.ImagePath + "' class='blog-modal-carousel-item-image' />" +
+                        "<div class='carousel-caption blog-modal-carousel-item-caption'>";
+
+                    if (entry.Caption !== '' && entry.CaptionTitle !== '') {
+                        entries = entries + "<h3>Los Angeles</h3>" +
+                            "<p>LA is always so much fun!</p>";
+
+                        var logoClass = "blog-modal-carousel-item-caption-logo-black";
+                        if (entry.CaptionColour == 1) {
+                            logoClass = "blog-modal-carousel-item-caption-logo-white";
+                        }  
+                        entries = entries + "<div class='logo blog-modal-carousel-item-caption-logo " + logoClass+"'></div>";
+                    }
+                    
+                    entries = entries + "</div>" +
+                                        "</div>";
+
+                });
+            }
+
+            if ((indicators !== '') && (entries !== '')) {
+
+                indicators = "<ol id='carousel-indicators' class='carousel-indicators'>"+indicators+"</ol>";
+                entries = "<div id='carousel-inner' class='carousel-inner'>" + entries + "</div>";
+
+                var leftArrow = "<a class='left carousel-control' href='#blog-modal-carousel' data-slide='prev'> " +
+                    "<span class='glyphicon glyphicon-chevron-left'></span>" +
+                    "<span class='sr-only'>Previous</span>" +
+                    "</a>";
+                var rightArrow = "<a class='right carousel-control' href='#blog-modal-carousel' data-slide='next'>" +
+                    "<span class='glyphicon glyphicon-chevron-right'></span>" +
+                    "<span class='sr-only'>Next</span>" +
+                    "</a>";
+
+
+                var carousel = "<div id='blog-modal-carousel' class='carousel slide blog-modal-carousel-wrapper' data-ride='carousel'>" +
+                    indicators +
+                    entries +
+                    leftArrow +
+                    rightArrow +
+                    "</div>";
+                //$('#carousel-indicators').append(indicators);
+                $('#blog-modal-carousel-wrapper').append(carousel);
+                //$('#carousel-inner').append(entries);
+                //$('#blog-modal-carousel').append(entries);
+
+                //$('#blog-modal-carousel').append("<a class='left carousel-control' href= '#blog-modal-carousel' data- slide='prev' > " +
+                //                                 "<span class='glyphicon glyphicon-chevron-left'></span>" +
+                //                                 "<span class='sr-only'>Previous</span>" +
+                //                                 "</a>" +
+                //                                 "<a class='right carousel-control' href='#blog-modal-carousel' data-slide='next'>" +
+                //                                 "<span class='glyphicon glyphicon-chevron-right'></span>" +
+                //                                 "<span class='sr-only'>Next</span>" +
+                //                                 "</a>");
+                //$('#blog-modal-carousel-wrapper').removeClass('element-hidden');
+            }
+            
+            $('#blog-modal').modal();
             return false;
         }
     });

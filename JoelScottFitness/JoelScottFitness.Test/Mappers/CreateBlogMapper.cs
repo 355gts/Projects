@@ -1,6 +1,9 @@
-﻿using JoelScottFitness.Common.Models;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 using Map = JoelScottFitness.Services.Mappers;
 
 namespace JoelScottFitness.Test.Mappers
@@ -20,6 +23,16 @@ namespace JoelScottFitness.Test.Mappers
                     ImagePath = "ImagePath",
                     SubHeader = "SubHeader",
                     Title = "Title",
+                    BlogImages = new List<CreateBlogImageViewModel>()
+                    {
+                        new CreateBlogImageViewModel()
+                        {
+                            Caption = "Caption",
+                            CaptionColour = BlogCaptionTextColour.Black,
+                            CaptionTitle = "CaptionTitle",
+                            ImagePath = "ImagePath",
+                        },
+                    },
                 };
 
                 var mapper = new Map.CreateBlogMapper();
@@ -38,6 +51,16 @@ namespace JoelScottFitness.Test.Mappers
                     ImagePath = "ImagePath",
                     SubHeader = "SubHeader",
                     Title = "Title",
+                    BlogImages = new List<CreateBlogImageViewModel>()
+                    {
+                        new CreateBlogImageViewModel()
+                        {
+                            Caption = "Caption",
+                            CaptionColour = BlogCaptionTextColour.Black,
+                            CaptionTitle = "CaptionTitle",
+                            ImagePath = "ImagePath",
+                        },
+                    },
                 };
 
                 Blog toObject = new Blog();
@@ -59,6 +82,18 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.SubHeader, repoObject.SubHeader);
                 Assert.AreEqual(webObject.Title, repoObject.Title);
                 Assert.IsFalse(repoObject.Active);
+
+                Assert.IsNotNull(repoObject.BlogImages);
+                Assert.AreEqual(1, repoObject.BlogImages.Count());
+
+                var blogImage = repoObject.BlogImages.First();
+
+                Assert.AreEqual(0, blogImage.BlogId);
+                Assert.AreEqual("Caption", blogImage.Caption);
+                Assert.AreEqual(BlogCaptionTextColour.Black, blogImage.CaptionColour);
+                Assert.AreEqual("CaptionTitle", blogImage.CaptionTitle);
+                Assert.AreEqual(0, blogImage.Id);
+                Assert.AreEqual("ImagePath", blogImage.ImagePath);
             }
         }
     }

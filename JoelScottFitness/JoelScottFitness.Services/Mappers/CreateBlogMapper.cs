@@ -22,7 +22,7 @@ namespace JoelScottFitness.Services.Mappers
             blog.CreatedDate = DateTime.UtcNow;
             
             var blogImages = new List<BlogImage>();
-            if (blog.BlogImages != null)
+            if (fromObject.BlogImages != null)
             {
                 foreach (var blogImage in fromObject.BlogImages)
                 {

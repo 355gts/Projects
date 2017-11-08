@@ -25,7 +25,7 @@ namespace JoelScottFitness.Services.Mappers
             blog.Active = fromObject.Active;
 
             var blogImages = new List<BlogImageViewModel>();
-            if (blog.BlogImages != null)
+            if (fromObject.BlogImages != null)
             {
                 foreach (var blogImage in fromObject.BlogImages)
                 {
@@ -51,7 +51,7 @@ namespace JoelScottFitness.Services.Mappers
             blog.Active = fromObject.Active;
 
             var blogImages = new List<BlogImage>();
-            if (blog.BlogImages != null)
+            if (fromObject.BlogImages != null)
             {
                 foreach (var blogImage in fromObject.BlogImages)
                 {

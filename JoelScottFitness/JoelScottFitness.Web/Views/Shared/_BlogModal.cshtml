@@ -1,103 +1,43 @@
-﻿@model  JoelScottFitness.Common.Models.BlogViewModel
-    <div class="modal blog-modal-container" id="blog-modal">
-        <div class="modal-dialog blog-modal-dialog">
-            <div class="modal-content blog-modal-content">
-                <div class="modal-header blog-modal-header">
-                    <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i></button>
-                    <h2 id="blog-title" class="modal-title blog-modal-title"></h2>
-                    <br />
-                    <div id="blog-sub-title" class=" blog-modal-sub-title"></div>
-                </div>
-                <div class="modal-body blog-modal-body">
-                    <div id="blog-date" class="blog-modal-date"></div>
-                    <p id="blog-content">
-                    </p>
-                </div>
+﻿<div class="modal blog-modal-container" id="blog-modal">
+    <div class="modal-dialog blog-modal-dialog">
+        <div class="modal-content blog-modal-content">
+            <div class="modal-header blog-modal-header">
+                <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+                <h2 id="blog-title" class="modal-title blog-modal-title"></h2>
+                <br />
+                <div id="blog-sub-title" class=" blog-modal-sub-title"></div>
+            </div>
+            <div class="modal-body blog-modal-body">
+                <div id="blog-date" class="blog-modal-date"></div>
+                <p id="blog-content">
+                </p>
+            </div>
+            @*<div style="clear:both"></div>*@
+            <div id="blog-modal-carousel-wrapper" class="row">
+                <div id="blog-modal-carousel" class="carousel slide blog-modal-carousel-wrapper" data-ride="carousel">
+                    <!-- Indicators -->
+                    @*<ol id="carousel-indicators" class="carousel-indicators"></ol>*@
 
-                @Html.Partial("_BlogCarousel", Model.BlogImages)
-
-                @*<div id="blog-modal-carousel" class="carousel slide blog-modal-carousel-wrapper" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#blog-modal-carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#blog-modal-carousel" data-slide-to="1"></li>
-                            <li data-target="#blog-modal-carousel" data-slide-to="2"></li>
-                            <li data-target="#blog-modal-carousel" data-slide-to="3"></li>
-                            <li data-target="#blog-modal-carousel" data-slide-to="4"></li>
-                            <li data-target="#blog-modal-carousel" data-slide-to="5"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active blog-modal-carousel-item">
-                                <img src="~/Content/Images/ladies1.jpg" class="blog-modal-carousel-item-image" />
-                                <div class="carousel-caption blog-modal-carousel-item-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>LA is always so much fun!</p>
-                                    <div class="logo blog-modal-carousel-item-caption-logo"></div>
-                                </div>
-                            </div>
-
-                            <div class="item blog-modal-carousel-item">
-                                <img src="~/Content/Images/ladies2.jpg" class="blog-modal-carousel-item-image" />
-                                <div class="carousel-caption blog-modal-carousel-item-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>LA is always so much fun!</p>
-                                    <div class="logo blog-modal-carousel-item-caption-logo"></div>
-                                </div>
-                            </div>
-
-                            <div class="item blog-modal-carousel-item">
-                                <img src="~/Content/Images/ladies3.jpg" class="blog-modal-carousel-item-image" />
-                                <div class="carousel-caption blog-modal-carousel-item-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>LA is always so much fun!</p>
-                                    <div class="logo blog-modal-carousel-item-caption-logo"></div>
-                                </div>
-                            </div>
-                            <div class="item blog-modal-carousel-item">
-                                <img src="~/Content/Images/ladies1.jpg" class="blog-modal-carousel-item-image" />
-                                <div class="carousel-caption blog-modal-carousel-item-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>LA is always so much fun!</p>
-                                    <div class="logo blog-modal-carousel-item-caption-logo"></div>
-                                </div>
-                            </div>
-
-                            <div class="item blog-modal-carousel-item">
-                                <img src="~/Content/Images/ladies2.jpg" class="blog-modal-carousel-item-image" />
-                                <div class="carousel-caption blog-modal-carousel-item-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>LA is always so much fun!</p>
-                                    <div class="logo blog-modal-carousel-item-caption-logo"></div>
-                                </div>
-                            </div>
-
-                            <div class="item blog-modal-carousel-item">
-                                <img src="~/Content/Images/ladies3.jpg" class="blog-modal-carousel-item-image" />
-                                <div class="carousel-caption blog-modal-carousel-item-caption">
-                                    <h3>Los Angeles</h3>
-                                    <p>LA is always so much fun!</p>
-                                    <div style="background-image:url(../Content/Logos/jsf-white.svg);" class="logo blog-modal-carousel-item-caption-logo"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#blog-modal-carousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#blog-modal-carousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                    <!-- Wrapper for slides -->
+                    @*<div id="carousel-inner" class="carousel-inner">
                     </div>*@
 
-                <div class="modal-footer blog-modal-footer">
-                    <img src="~/Content/Logos/jsf-black.svg" class="blog-modal-footer-logo" />
-                    <div style="clear:both"></div>
+                    <!-- Left and right controls -->
+                    @*<a class="left carousel-control" href="#blog-modal-carousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#blog-modal-carousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>*@
                 </div>
+            </div>
+
+            <div class="modal-footer blog-modal-footer">
+                <img src="~/Content/Logos/jsf-black.svg" class="blog-modal-footer-logo" />
+                <div style="clear:both"></div>
             </div>
         </div>
     </div>
+</div>
