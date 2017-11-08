@@ -43,6 +43,7 @@ $(function () {
     $('#subscribe').click(function () {
         $.ajax({
             type: 'POST',
+            cache: false,
             url: '/Home/SubscribeToMailingList',
             data: {
                 emailAddress: $('#emailAddress').val(),
@@ -72,9 +73,6 @@ function getBlog(id) {
             var active = 'active item-active';
 
             $('#blog-modal-carousel-wrapper').empty();
-            //$('#carousel-indicators').empty();
-            //$('#carousel-inner').empty();
-            //$('#blog-modal-carousel-wrapper').addClass('element-hidden');
 
             if (data.images !== undefined) {
                 $.each(data.images, function (index, entry) {
@@ -127,20 +125,8 @@ function getBlog(id) {
                     leftArrow +
                     rightArrow +
                     "</div>";
-                //$('#carousel-indicators').append(indicators);
-                $('#blog-modal-carousel-wrapper').append(carousel);
-                //$('#carousel-inner').append(entries);
-                //$('#blog-modal-carousel').append(entries);
 
-                //$('#blog-modal-carousel').append("<a class='left carousel-control' href= '#blog-modal-carousel' data- slide='prev' > " +
-                //                                 "<span class='glyphicon glyphicon-chevron-left'></span>" +
-                //                                 "<span class='sr-only'>Previous</span>" +
-                //                                 "</a>" +
-                //                                 "<a class='right carousel-control' href='#blog-modal-carousel' data-slide='next'>" +
-                //                                 "<span class='glyphicon glyphicon-chevron-right'></span>" +
-                //                                 "<span class='sr-only'>Next</span>" +
-                //                                 "</a>");
-                //$('#blog-modal-carousel-wrapper').removeClass('element-hidden');
+                $('#blog-modal-carousel-wrapper').append(carousel);
             }
             
             $('#blog-modal').modal();
@@ -154,6 +140,7 @@ function addToBasket(dropdownId) {
     
     $.ajax({
         type: 'POST',
+        cache: false,
         url: '/Home/AddToBasket',
         data: {
             id: $('#' + dropdownId + ' option:selected').val(),
@@ -172,6 +159,7 @@ function removeFromBasket(id, controlId) {
 
     $.ajax({
         type: 'POST',
+        cache: false,
         url: '/Home/RemoveFromBasket',
         data: {
             id: id,
@@ -199,6 +187,7 @@ function getBasketItems() {
 
     $.ajax({
         type: 'GET',
+        cache: false,
         url: '/Home/GetBasketItemCount',
         success: function (data) {
             if (data.items > 0) {
@@ -236,6 +225,7 @@ function changeQuantity(id, controlId, action) {
 
     $.ajax({
         type: 'POST',
+        cache: false,
         url: '/Home/' + action,
         data: {
             id: id,
@@ -259,6 +249,7 @@ function calculateTotal() {
     
     $.ajax({
         type: 'GET',
+        cache: false,
         url: '/Home/CalculateTotal',
         success: function (data) {
             if (data.TotalPrice == 0) {
@@ -275,7 +266,6 @@ function calculateTotal() {
 // show-hide account registration inputs
 $(document).ready(function () {
     $('.register-checkbox').change(function () {
-        console.log($('.registration-element').length);
         if (this.checked) {
             $('.registration-element').each(function (i, obj) {
                 $(obj).removeClass('element-hidden');
