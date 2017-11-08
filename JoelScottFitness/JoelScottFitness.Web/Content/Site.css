@@ -794,6 +794,17 @@ a:hover {
 .blog-modal-carousel-item-caption-logo-black {
     background-image: url(../Content/Logos/jsf-black.svg);
 }
+
+.hide-caption {
+    display: none;
+}
+
+@media (min-width:400px) {
+    .hide-caption {
+        display: block;
+    }
+}
+
 /* MEDIA STYLES START */
 
 .video-container{

@@ -88,15 +88,15 @@ function getBlog(id) {
                         "<div class='carousel-caption blog-modal-carousel-item-caption'>";
 
                     if (entry.Caption !== '' && entry.CaptionTitle !== '') {
-                        entries = entries + "<h3>Los Angeles</h3>" +
-                            "<p>LA is always so much fun!</p>";
-
-                        var logoClass = "blog-modal-carousel-item-caption-logo-black";
-                        if (entry.CaptionColour == 1) {
-                            logoClass = "blog-modal-carousel-item-caption-logo-white";
-                        }  
-                        entries = entries + "<div class='logo blog-modal-carousel-item-caption-logo " + logoClass+"'></div>";
+                        entries = entries + "<h3 class='hide-caption'>" + entry.CaptionTitle+"</h3>" +
+                            "<p class='hide-caption'>" + entry.Caption+"</p>";
                     }
+
+                    var logoClass = "blog-modal-carousel-item-caption-logo-black";
+                    if (entry.CaptionColour == 1) {
+                        logoClass = "blog-modal-carousel-item-caption-logo-white";
+                    }  
+                    entries = entries + "<div class='logo blog-modal-carousel-item-caption-logo " + logoClass+"'></div>";
                     
                     entries = entries + "</div>" +
                                         "</div>";
