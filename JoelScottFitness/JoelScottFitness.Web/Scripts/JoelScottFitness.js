@@ -87,7 +87,7 @@ function getBlog(id) {
                         "<img src='" + entry.ImagePath + "' class='blog-modal-carousel-item-image' />" +
                         "<div class='carousel-caption blog-modal-carousel-item-caption'>";
 
-                    if (entry.Caption !== '' && entry.CaptionTitle !== '') {
+                    if (entry.Caption !== null && entry.CaptionTitle !== null) {
                         entries = entries + "<h3 class='hide-caption'>" + entry.CaptionTitle+"</h3>" +
                             "<p class='hide-caption'>" + entry.Caption+"</p>";
                     }
@@ -130,9 +130,20 @@ function getBlog(id) {
             }
             
             $('#blog-modal').modal();
+            triggerCarousel();
             return false;
         }
     });
+}
+
+function triggerCarousel() {
+    if (document.querySelector('.carousel') !== null) {
+        $('.carousel').carousel({
+            interval: 3000
+        });
+
+        $('.carousel').carousel('cycle');
+    }
 }
 
 // add item to shopping basket
@@ -302,4 +313,57 @@ function addPlanOption(planId) {
     $("#add-duration").val('');
     $("#add-price").val('');
     $("#plan-option-count").val(index+1);
+}
+
+function addBlogImage(blogId) {
+    var file = $("#add-file").val();
+    var imagePath = $("#add-image-path").val();
+    var captionTitle = $("#add-caption-title").val();
+    var caption = $("#add-caption").val();
+    var logoColour = $("#add-logo-colour").val();
+    var index = parseInt($("#blog-image-count").val());
+
+    if (file === undefined) {
+        file = '';
+    }
+    var markup = "<tr>" +
+        "<input class='basket-value' id='BlogImages[" + index + "].BlogId' name='BlogImages[" + index + "].BlogId' type='hidden' value='" + blogId + "' > " +
+        "<td>" +
+        "<input class='basket-value' id='BlogImages[" + index + "].PostedFile' name='BlogImages[" + index + "].PostedFile' type='file' value='" + file + "' > " +
+        "</td>";
+    if (blogId > 0) {
+        markup = markup + "<td>" +
+            "<input id='BlogImages[" + index + "].ImagePath' name='BlogImages[" + index + "].ImagePath' type='text' value='' readonly='readonly'> " +
+            "</td>";
+    }
+    markup = markup +"<td>" +
+        "<input id='BlogImages[" + index + "].CaptionTitle' name='BlogImages[" + index + "].CaptionTitle' type='text' value='" + captionTitle + "' > " +
+        "</td>" +
+        "<td>" +
+        "<input id='BlogImages[" + index + "].Caption' name='BlogImages[" + index + "].Caption' type='text' value='" + caption + "' > " +
+        "</td>" +
+        "<td>" +
+        "<select id='BlogImages[" + index + "].CaptionColour' name='BlogImages[" + index + "].CaptionColour' data-val='true' data-val-required='The Logo Colour field is required.' style='width:100%'>" +
+        "<option selectedBlack value='Black'>Black</option>" +
+        "<option selectedWhite value='White'>White</option>" +
+        "</select>"
+        "</td>" +
+        "</tr>";
+
+        if (logoColour === 'Black') {
+            markup = markup.replace("selectedBlack", "selected='selected'");
+            markup = markup.replace("selectedWhite", "");
+        } else {
+            markup = markup.replace("selectedWhite", "selected='selected'");
+            markup = markup.replace("selectedBlack", "");
+        }
+
+
+    $("table tbody").append(markup);
+    $("#add-file").val('');
+    $("#add-image-path").val('');
+    $("#add-caption-title").val('');
+    $("#add-caption").val('');
+    $("#add-logo-colour").val('Black');
+    $("#blog-image-count").val(index + 1);
 }

@@ -49,12 +49,17 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="control-label col-md-2">Current</label>
+                    <div class="col-md-10">
+                        @Html.TextBox("ImagePath", Model.ImagePath != null  ? Model.ImagePath.Substring(Model.ImagePath.LastIndexOf("/")+1) : null, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                    </div>
+                </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                        @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -62,7 +67,6 @@
                     @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
-                        @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
@@ -74,16 +78,105 @@
                     </div>
                 </div>
 
+                @if (@Model != null && @Model.BlogImages != null)
+                {
+                    <input type="hidden" id="blog-image-count" name="blog-image-count" value="@Model.BlogImages.Count()" class="plan-option-count" style="display:none" />
+                }
+                else
+                {
+                    <input type="hidden" id="blog-image-count" name="blog-image-count" value="0" class="blog-image-count" style="display:none" />
+                }
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Current
+                        </th>
+                        <th>
+                            Caption Title
+                        </th>
+                        <th>
+                            Caption
+                        </th>
+                        <th>
+                            Logo Colour
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @{
+                        if (Model != null && @Model.BlogImages != null && @Model.BlogImages.Any())
+                        {
+                            var itemCount = 0;
+                            foreach (var item in Model.BlogImages)
+                            {
+                                <tr>
+                                    @Html.Hidden("BlogImages[" + @itemCount + "].Id", item.Id, new { @class = "basket-value", @id = "BlogImages[" + @itemCount + "].Id" })
+                                    @Html.Hidden("BlogImages[" + @itemCount + "].BlogId", item.BlogId, new { @class = "basket-value", @id = "BlogImages[" + @itemCount + "].BlogId" })
+                                    @Html.Hidden("BlogImages[" + @itemCount + "].ImagePath", item.ImagePath, new { @class = "basket-value", @id = "BlogImages[" + @itemCount + "].ImagePath" })
+                                    <td>
+                                        <input type="file" id="BlogImages[@itemCount].PostedFile" name="BlogImages[@itemCount].PostedFile" />
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("ImagePath[" + @itemCount + "]", item.ImagePath != null ? item.ImagePath.Substring(item.ImagePath.LastIndexOf("/")+1) : null, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("BlogImages[" + @itemCount + "].CaptionTitle", item.CaptionTitle, new { @id = "BlogImages[" + @itemCount + "].CaptionTitle" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBox("BlogImages[" + @itemCount + "].Caption", item.Caption, new { @id = "BlogImages[" + @itemCount + "].Caption" })
+                                    </td>
+                                    <td>
+                                        @Html.DropDownList("BlogImages[" + @itemCount + "].CaptionColour", item.CaptionColours.Select(o => new SelectListItem() { Text = o.Key, Value = o.Value, Selected = o.Key == item.CaptionColour.ToString() }).ToList(), new { @style = "width:100%", @id = "BlogImages[" + @itemCount + "].CaptionColour" })
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                itemCount++;
+                            }
+
+                        }
+
+                    }
+
+                    <tfoot>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <input type="text" id="add-caption-title" name="add-caption-title" class="add-caption-title" />
+                            </td>
+                            <td>
+                                <input type="text" id="add-caption" name="add-caption" class="add-caption" />
+                            </td>
+                            <td>
+                                <select id='add-logo-colour' name='add-logo-colour' style='width:100%'>
+                                    <option selected='selected' value='Black'>Black</option>
+                                    <option value='White'>White</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="button" class="add-row" value="Add" onclick="addBlogImage(@Model.Id)">
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
                     </div>
                 </div>
             </div>
+            
         }
 
         <div>
             @Html.ActionLink("Back to List", "Blogs", "Admin")
         </div>
-        </div>
+    </div>
 </div>

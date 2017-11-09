@@ -56,9 +56,20 @@ namespace JoelScottFitness.Web.Controllers
             if (postedFile == null)
                 ModelState.AddModelError("NoImage", "You must select an image");
 
+            if (blog.BlogImages != null && blog.BlogImages.Any(b => b.PostedFile == null))
+                ModelState.AddModelError("NoBlogImages", "Please select an image for each entry");
+
             if (ModelState.IsValid)
             {
                 blog.ImagePath = UploadImage(postedFile, "Content/Images");
+
+                if (blog.BlogImages != null && blog.BlogImages.Any())
+                {
+                    foreach (var blogImage in blog.BlogImages)
+                    {
+                        blogImage.ImagePath = UploadImage(blogImage.PostedFile, "Content/Images");
+                    }
+                }
 
                 var result = await jsfService.CreateBlogAsync(blog);
 
@@ -81,11 +92,22 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdateBlog(BlogViewModel blog, HttpPostedFileBase postedFile)
         {
+            if (blog.BlogImages != null && blog.BlogImages.Any(b => (b.PostedFile == null && string.IsNullOrEmpty(b.ImagePath))))
+                ModelState.AddModelError("NoBlogImages", "Please select an image for new entries");
+
             if (ModelState.IsValid)
             {
                 if (postedFile != null)
                 {
                     blog.ImagePath = UploadImage(postedFile, "Content/Images");
+                }
+
+                if (blog.BlogImages != null && blog.BlogImages.Any())
+                {
+                    foreach (var blogImage in blog.BlogImages.Where(i => i.PostedFile != null).ToList())
+                    {
+                        blogImage.ImagePath = UploadImage(blogImage.PostedFile, "Content/Images");
+                    }
                 }
 
                 var result = await jsfService.UpdateBlogAsync(blog);

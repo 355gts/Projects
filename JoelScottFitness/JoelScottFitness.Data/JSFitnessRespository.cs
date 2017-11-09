@@ -27,12 +27,33 @@ namespace JoelScottFitness.Data
 
         public async Task<AsyncResult<long>> CreateOrUpdateBlogAsync(Blog blog)
         {
-            var existingBlog = await dbContext.Blogs.FindAsync(blog.Id);
+            var existingBlog = await dbContext.Blogs
+                                              .Include(b => b.BlogImages)
+                                              .Where(b => b.Id == blog.Id)
+                                              .FirstOrDefaultAsync();
 
             if (existingBlog != null)
             {
                 dbContext.SetValues(existingBlog, blog);
                 dbContext.SetModified(existingBlog);
+
+                var newBlogImages = blog.BlogImages.Where(p => p.Id == 0).ToList();
+                var removedBlogImages = existingBlog.BlogImages.Where(ep => !blog.BlogImages.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
+                var updatedBlogImages = blog.BlogImages.Where(ep => existingBlog.BlogImages.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
+
+                dbContext.BlogImages.RemoveRange(removedBlogImages);
+                dbContext.BlogImages.AddRange(newBlogImages);
+
+                updatedBlogImages.ForEach(updatedBlogImage =>
+                {
+                    var existingBlogImage = existingBlog.BlogImages.FirstOrDefault(eo => eo.Id == updatedBlogImage.Id);
+
+                    if (existingBlogImage != null)
+                    {
+                        dbContext.SetValues(existingBlogImage, updatedBlogImage);
+                        dbContext.SetModified(existingBlogImage);
+                    }
+                });
             }
             else
             {

@@ -22,7 +22,7 @@
         @Html.HiddenFor(model => model.CustomerDetails.UserId, new { @style = "display:none" })
         @Html.HiddenFor(model => model.CustomerDetails.CreatedDate, new { @style = "display:none" })
         <br /><br />
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-horizontal">
 

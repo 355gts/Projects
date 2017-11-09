@@ -52,8 +52,59 @@
                     </div>
                 </div>
 
+                @if (@Model != null && @Model.BlogImages != null)
+                {
+                    <input type="hidden" id="blog-image-count" name="blog-image-count" value="@Model.BlogImages.Count()" class="plan-option-count" style="display:none" />
+                }
+                else
+                {
+                    <input type="hidden" id="blog-image-count" name="blog-image-count" value="0" class="blog-image-count" style="display:none" />
+                }
+                <table class="table">
+                    <tr>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Caption Title
+                        </th>
+                        <th>
+                            Caption
+                        </th>
+                        <th>
+                            Logo Colour
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    <tfoot>
+
+                        <tr>
+                            <td>
+                                
+                            </td>
+                            <td>
+                                <input type="text" id="add-caption-title" name="add-caption-title" class="add-caption-title" />
+                            </td>
+                            <td>
+                                <input type="text" id="add-caption" name="add-caption" class="add-caption" />
+                            </td>
+                            <td>
+                                <select id='add-logo-colour' name='add-logo-colour' style='width:100%'>
+                                    <option selected='selected' value='Black'>Black</option>
+                                    <option value='White'>White</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="button" class="add-row" value="Add" onclick="addBlogImage(0)">
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-10">
                         <input type="submit" value="Create" class="btn btn-default" />
                     </div>
                 </div>
