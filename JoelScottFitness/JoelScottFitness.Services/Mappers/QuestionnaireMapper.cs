@@ -19,7 +19,6 @@ namespace JoelScottFitness.Services.Mappers
             questionnaire.DietDetails = fromObject.DietDetails;
             questionnaire.Height = Convert.ToInt32(fromObject.Height);
             questionnaire.IsMemberOfGym = fromObject.IsMemberOfGym;
-            questionnaire.PurchaseId = fromObject.PurchaseId;
             questionnaire.TrainingGoals = fromObject.TrainingGoals;
             questionnaire.Weight = Convert.ToInt32(fromObject.Weight);
             questionnaire.WorkoutDescription = fromObject.WorkoutDescription;
@@ -40,7 +39,6 @@ namespace JoelScottFitness.Services.Mappers
             questionnaire.Height = fromObject.Height.ToString();
             questionnaire.Id = fromObject.Id;
             questionnaire.IsMemberOfGym = fromObject.IsMemberOfGym;
-            questionnaire.PurchaseId = fromObject.PurchaseId;
             questionnaire.TrainingGoals = fromObject.TrainingGoals;
             questionnaire.Weight = fromObject.Weight.ToString();
             questionnaire.WorkoutDescription = fromObject.WorkoutDescription;

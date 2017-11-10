@@ -44,6 +44,8 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId);
 
+        Task<IEnumerable<Purchase>> GetPurchasesAsync();
+
         Task<bool> UpdateMailingListAsync(MailingListItem mailingListItem);
 
         Task<IEnumerable<PlanOption>> GetBasketItemsAsync(IEnumerable<long> ids);
@@ -54,7 +56,7 @@ namespace JoelScottFitness.Data
 
         Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status);
 
-        Task<long?> GetPurchaseIdByTransactionId(string transactionId);
+        Task<Purchase> GetPurchaseByTransactionId(string transactionId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire);
 
@@ -63,6 +65,7 @@ namespace JoelScottFitness.Data
         Task<bool> UpdatePlanStatusAsync(long planId, bool status);
 
         Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
+        Task<bool> AssociateQuestionnaireToPurchase(long purchaseId, long questionnaireId);
 
 
     }

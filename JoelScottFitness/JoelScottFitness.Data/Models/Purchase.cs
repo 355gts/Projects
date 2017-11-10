@@ -35,5 +35,10 @@ namespace JoelScottFitness.Data.Models
         public PurchaseStatus Status { get; set; }
 
         public ICollection<PurchasedItem> Items { get; set; }
+
+        [ForeignKey("Questionnaire")]
+        public long? QuestionnareId { get; set; }
+
+        public Questionnaire Questionnaire { get; set; }
     }
 }

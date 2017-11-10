@@ -196,6 +196,16 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Purchase, PurchaseHistoryViewModel>(purchases);
         }
 
+        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync()
+        {
+            var purchases = await repository.GetPurchasesAsync();
+
+            if (purchases == null || !purchases.Any())
+                return Enumerable.Empty<PurchaseSummaryViewModel>();
+
+            return mapper.MapEnumerable<Purchase, PurchaseSummaryViewModel>(purchases);
+        }
+
         public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)
         {
             return paypalService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
@@ -239,16 +249,23 @@ namespace JoelScottFitness.Services.Services
             return await repository.UpdatePurchaseStatus(transactionId, status);
         }
 
-        public async Task<long?> GetPurchaseIdByTransactionIdAsync(string transactionId)
+        public async Task<PurchaseHistoryViewModel> GetPurchaseByTransactionIdAsync(string transactionId)
         {
-            return await repository.GetPurchaseIdByTransactionId(transactionId);
+            var purchase = await repository.GetPurchaseByTransactionId(transactionId);
+            
+            return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaireViewModel)
         {
             var questionnaire = mapper.Map<QuestionnaireViewModel, Questionnaire>(questionnaireViewModel);
 
-            return await repository.CreateOrUpdateQuestionnaireAsync(questionnaire);
+            var result = await repository.CreateOrUpdateQuestionnaireAsync(questionnaire);
+
+            // associate the questionnaire to the purchase
+            await repository.AssociateQuestionnaireToPurchase(questionnaireViewModel.PurchaseId, result.Result);
+
+            return result;
         }
 
         public async Task<QuestionnaireViewModel> GetQuestionnaireAsync(long questionnaireId)

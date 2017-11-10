@@ -13,6 +13,8 @@ namespace JoelScottFitness.Data
 
         void SetModified(object entity);
 
+        void SetPropertyModified(object entity, string propertyName);
+
         void SetValues<TEntity>(TEntity oldEntity, TEntity newEntity) where TEntity : class;
 
         Database Database { get; }

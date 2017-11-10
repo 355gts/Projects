@@ -478,23 +478,22 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> CustomerQuestionnaire(string transactionId)
         {
-            var purchaseId = await jsfService.GetPurchaseIdByTransactionIdAsync(transactionId);
-            if (!purchaseId.HasValue)
+            var purchase = await jsfService.GetPurchaseByTransactionIdAsync(transactionId);
+            if (purchase == null)
             {
                 ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please Contact Us.";
                 return View();
             }
 
-            var questionnaire = await jsfService.GetQuestionnaireAsync(purchaseId.Value);
-            if (questionnaire != null)
+            if (purchase.QuestionnaireId.HasValue)
             {
-                    ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please Contact Us.";
-                    return View();
+                ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please Contact Us.";
+                return View();
             }
 
             var questionnaireViewModel = new QuestionnaireViewModel()
             {
-                PurchaseId = purchaseId.Value
+                PurchaseId = purchase.Id
             };
 
             return View(questionnaireViewModel);
@@ -511,7 +510,7 @@ namespace JoelScottFitness.Web.Controllers
 
             if (!questionnaireResult.Success)
             {
-                errorMessage = "Oh ohhh, damn it!";
+                //errorMessage = "Oh ohhh, damn it!";
                 return RedirectToAction("Error", "Home");
             }
 

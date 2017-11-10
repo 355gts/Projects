@@ -19,5 +19,8 @@ namespace JoelScottFitness.Data.Models
         public long PurchaseId { get; set; }
 
         public Purchase Purchase { get; set; }
+        
+        [Required]
+        public bool RequiresAction { get; set; }
     }
 }

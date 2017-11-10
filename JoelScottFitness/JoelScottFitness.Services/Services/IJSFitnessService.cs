@@ -49,6 +49,8 @@ namespace JoelScottFitness.Services.Services
 
         Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchasesAsync(long customerId);
 
+        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync();
+
         PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
 
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
@@ -63,7 +65,7 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status);
 
-        Task<long?> GetPurchaseIdByTransactionIdAsync(string transactionId);
+        Task<PurchaseHistoryViewModel> GetPurchaseByTransactionIdAsync(string transactionId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaire);
 

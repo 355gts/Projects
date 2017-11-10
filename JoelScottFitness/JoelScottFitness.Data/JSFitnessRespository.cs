@@ -270,15 +270,33 @@ namespace JoelScottFitness.Data
         public async Task<Purchase> GetPurchaseAsync(long id)
         {
             return await dbContext.Purchases
+                                  .Include(p => p.Customer)
+                                  .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
+                                  .Include("Items.Item")
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId)
         {
             return await dbContext.Purchases
+                                  .Include(p => p.Customer)
+                                  .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
+                                  .Include("Items.Item")
                                   .Where(p => p.CustomerId == customerId)
+                                  .OrderByDescending(p => p.PurchaseDate)
+                                  .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Purchase>> GetPurchasesAsync()
+        {
+            return await dbContext.Purchases
+                                  .Include(p => p.Customer)
+                                  .Include(p => p.DiscountCode)
+                                  .Include(p => p.Items)
+                                  .Include("Items.Item")
+                                  .Include(p => p.Questionnaire)
                                   .OrderByDescending(p => p.PurchaseDate)
                                   .ToListAsync();
         }
@@ -352,11 +370,13 @@ namespace JoelScottFitness.Data
         {
             bool success = false;
 
-            var purchase = await dbContext.Purchases.FirstOrDefaultAsync(p => p.TransactionId == transactionId);
+            var purchase = await dbContext.Purchases
+                                          .FirstOrDefaultAsync(p => p.TransactionId == transactionId);
 
             if (purchase != null)
             {
                 purchase.Status = status;
+                dbContext.SetPropertyModified(purchase, nameof(purchase.Status));
 
                 if (await SaveChangesAsync())
                     success = true;
@@ -365,14 +385,28 @@ namespace JoelScottFitness.Data
             return success;
         }
 
-        public async Task<long?> GetPurchaseIdByTransactionId(string transactionId)
+        public async Task<bool> AssociateQuestionnaireToPurchase(long purchaseId, long questionnaireId)
         {
-            var purchase = await dbContext.Purchases.FirstOrDefaultAsync(p => p.TransactionId == transactionId);
+            bool success = false;
 
+            var purchase = await dbContext.Purchases.FindAsync(purchaseId);
+            
             if (purchase != null)
-                return purchase.Id;
+            {
+                purchase.QuestionnareId = questionnaireId;
+                dbContext.SetPropertyModified(purchase, nameof(purchase.QuestionnareId));
 
-            return null;
+                if (await SaveChangesAsync())
+                    success = true;
+            }
+
+            return success;
+        }
+
+        public async Task<Purchase> GetPurchaseByTransactionId(string transactionId)
+        {
+            return await dbContext.Purchases
+                                  .FirstOrDefaultAsync(p => p.TransactionId == transactionId);
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire)

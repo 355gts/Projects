@@ -33,7 +33,13 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public long CustomerId { get; set; }
-        
+
+        [DataMember(IsRequired = true)]
+        public CustomerViewModel Customer { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public long? QuestionnaireId { get; set; }
+
         public ICollection<PurchasedHistoryItemViewModel> Items { get; set; }
     }
 }

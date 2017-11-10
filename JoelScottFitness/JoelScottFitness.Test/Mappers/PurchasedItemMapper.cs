@@ -19,6 +19,7 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     ItemId = 456,
                     Quantity = 2,
+                    RequiresAction = true,
                     Item = new Item()
                     {
                         ItemType = ItemType.Plan,
@@ -42,6 +43,7 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     ItemId = 456,
                     Quantity = 2,
+                    RequiresAction = true,
                     Item = new Item()
                     {
                         ItemType = ItemType.Plan,
@@ -68,6 +70,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Item.ItemType, webObject.ItemType);
                 Assert.AreEqual(repoObject.Item.Price, webObject.Price);
                 Assert.AreEqual(repoObject.Quantity, webObject.Quantity);
+                Assert.AreEqual(repoObject.RequiresAction, webObject.RequiresAction);
             }
         }
 
@@ -85,6 +88,7 @@ namespace JoelScottFitness.Test.Mappers
                     ItemType = ItemType.Plan,
                     Price = 12.34,
                     Quantity = 2,
+                    RequiresAction = true,
                 };
 
                 var mapper = new Map.PurchasedItemMapper();
@@ -105,6 +109,7 @@ namespace JoelScottFitness.Test.Mappers
                     ItemType = ItemType.Plan,
                     Price = 12.34,
                     Quantity = 2,
+                    RequiresAction = true,
                 };
 
                 PurchasedItem toObject = new PurchasedItem();
@@ -116,15 +121,12 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(webObject, toObject);
             }
 
-            private void AssertAreEqual(PurchasedHistoryItemViewModel repoObject, PurchasedItem webObject)
+            private void AssertAreEqual(PurchasedHistoryItemViewModel webObject, PurchasedItem repoObject)
             {
-                Assert.AreEqual(repoObject.Description, webObject.Item.Description);
-                Assert.AreEqual(repoObject.Id, webObject.Item.Id);
-                Assert.AreEqual(repoObject.ItemId, webObject.ItemId);
-                Assert.AreEqual(repoObject.ItemType, webObject.Item.ItemType);
-                Assert.AreEqual(repoObject.Price, webObject.Item.Price);
-                Assert.AreEqual(repoObject.Quantity, webObject.Quantity);
-
+                Assert.AreEqual(webObject.Id, repoObject.Id);
+                Assert.AreEqual(webObject.ItemId, repoObject.ItemId);
+                Assert.AreEqual(webObject.Quantity, repoObject.Quantity);
+                Assert.AreEqual(webObject.RequiresAction, repoObject.RequiresAction);
             }
         }
     }

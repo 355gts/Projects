@@ -156,7 +156,6 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<PurchaseHistoryViewModel>(),
                 };
 
                 var mapper = new Map.CustomerMapper();
@@ -191,7 +190,6 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<PurchaseHistoryViewModel>(),
                 };
 
                 Customer toObject = new Customer();
@@ -223,8 +221,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.BillingAddress.Id, repoObject.BillingAddress.Id);
                 Assert.AreEqual(webObject.BillingAddress.PostCode, repoObject.BillingAddress.PostCode);
                 Assert.AreEqual(webObject.BillingAddress.Region, repoObject.BillingAddress.Region);
-                
-                Assert.AreEqual(webObject.PurchaseHistory.Count(), repoObject.PurchaseHistory.Count());
             }
         }
     }

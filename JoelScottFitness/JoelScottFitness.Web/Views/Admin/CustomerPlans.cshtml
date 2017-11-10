@@ -1,0 +1,92 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.PurchaseSummaryViewModel>
+
+@{
+    ViewBag.Title = "CustomerPlans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            SALES
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TransactionId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PayPalReference)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiscountCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.QuestionnaireComplete)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RequiresAction)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(modelItem => item.Id, new { @style = "display:none" })
+                    @Html.HiddenFor(modelItem => item.CustomerId, new { @style = "display:none" })
+                    @Html.HiddenFor(modelItem => item.DiscountCodeId, new { @style = "display:none" })
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PayPalReference)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalAmount)
+                    </td>
+                    <td style="text-align:center">
+                        @if (item.QuestionnaireComplete)
+                        {
+                            <i class="fa fa-check fa-2x" aria-hidden="true" style="color:green"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times fa-2x" aria-hidden="true" style="color:red"></i>
+                        }
+                    </td>
+                    <td style="text-align:center">
+                        @if (item.RequiresAction)
+                        {
+                            <i class="fa fa-exclamation fa-2x" aria-hidden="true" style="color:red"></i>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) 
+                    </td>
+                </tr>
+            }
+
+        </table>
+        </div>
+    </div>

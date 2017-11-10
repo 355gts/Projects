@@ -30,7 +30,7 @@ namespace JoelScottFitness.Data
                             Caption = "Welcome to my first blog image",
                             CaptionColour = BlogCaptionTextColour.White,
                             CaptionTitle = "My First Blog Image",
-                            ImagePath = "~/Content/Images/ladies1.jpg",
+                            ImagePath = "/Content/Images/ladies1.jpg",
                         },
 
                         new BlogImage()
@@ -38,7 +38,7 @@ namespace JoelScottFitness.Data
                             Caption = "Welcome to my second blog image",
                             CaptionColour = BlogCaptionTextColour.White,
                             CaptionTitle = "My Second Blog Image",
-                            ImagePath = "~/Content/Images/ladies2.jpg",
+                            ImagePath = "/Content/Images/ladies2.jpg",
                         },
 
                         new BlogImage()
@@ -46,7 +46,7 @@ namespace JoelScottFitness.Data
                             Caption = "This was interesting",
                             CaptionColour = BlogCaptionTextColour.White,
                             CaptionTitle = "My Third Blog Image",
-                            ImagePath = "~/Content/Images/ladies3.jpg",
+                            ImagePath = "/Content/Images/ladies3.jpg",
                         },
                     },
                 };

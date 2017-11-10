@@ -211,29 +211,8 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
-        private string UploadImage(HttpPostedFileBase postedFile, string directory)
-        {
-            string uploadPath = null;
-            try
-            {
-                string path = Server.MapPath($"~/{directory}/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                uploadPath = $"/{directory}/{Path.GetFileName(postedFile.FileName)}";
-            }
-            catch(Exception ex)
-            {
-                // TODO log exception
-            }
-
-            return uploadPath;
-        }
-
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> DiscountCodes()
         {
             var discountCodes = await jsfService.GetDiscountCodesAsync();
@@ -242,6 +221,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public ActionResult CreateDiscountCode()
         {
             return View();
@@ -249,6 +229,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> CreateDiscountCode(CreateDiscountCodeViewModel discountCode)
         {
             if (ModelState.IsValid)
@@ -263,6 +244,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdateDiscountCode(long discountCodeId)
         {
             var discountCode = await jsfService.GetDiscountCodeAsync(discountCodeId);
@@ -272,6 +254,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdateDiscountCode(DiscountCodeViewModel discountCode)
         {
             if (ModelState.IsValid)
@@ -284,5 +267,38 @@ namespace JoelScottFitness.Web.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> CustomerPlans()
+        {
+            var purchases = await jsfService.GetPurchasesAsync();
+
+            return View(purchases);
+        }
+
+        private string UploadImage(HttpPostedFileBase postedFile, string directory)
+        {
+            string uploadPath = null;
+            try
+            {
+                string path = Server.MapPath($"~/{directory}/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
+                uploadPath = $"/{directory}/{Path.GetFileName(postedFile.FileName)}";
+            }
+            catch (Exception ex)
+            {
+                // TODO log exception
+            }
+
+            return uploadPath;
+        }
+
+
     }
 }

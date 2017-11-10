@@ -6,12 +6,6 @@ namespace JoelScottFitness.Data.Models
     public class Questionnaire : BaseRecord
     {
         [Required]
-        [ForeignKey("Purchase")]
-        public long PurchaseId { get; set; }
-
-        public Purchase Purchase { get; set; }
-
-        [Required]
         public int Age { get; set; }
 
         [Required]

@@ -85,6 +85,7 @@
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\PurchasedHistoryItemViewModel.cs" />
     <Compile Include="Models\PurchaseHistoryViewModel.cs" />
+    <Compile Include="Models\PurchaseSummaryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
     <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
     <Compile Include="Models\UiPlanViewModel.cs" />

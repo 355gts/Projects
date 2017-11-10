@@ -16,6 +16,7 @@ namespace JoelScottFitness.Services.Mappers
             item.ItemType = fromObject.Item.ItemType;
             item.Price = fromObject.Item.Price;
             item.Quantity = fromObject.Quantity;
+            item.RequiresAction = fromObject.RequiresAction;
 
             return item;
         }
@@ -23,13 +24,11 @@ namespace JoelScottFitness.Services.Mappers
         public PurchasedItem Map(PurchasedHistoryItemViewModel fromObject, PurchasedItem toObject = null)
         {
             var item = toObject ?? new PurchasedItem();
-
-            item.Item.Description = fromObject.Description;
-            item.Item.Id = fromObject.Id;
+            
+            item.Id = fromObject.Id;
             item.ItemId = fromObject.ItemId;
-            item.Item.ItemType = fromObject.ItemType;
-            item.Item.Price = fromObject.Price;
             item.Quantity = fromObject.Quantity;
+            item.RequiresAction = fromObject.RequiresAction;
 
             return item;
         }

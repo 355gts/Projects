@@ -27,17 +27,6 @@ namespace JoelScottFitness.Services.Mappers
             if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);
 
-            if (fromObject.PurchaseHistory != null)
-            {
-                var purchases = new List<Purchase>();
-                foreach (var item in fromObject.PurchaseHistory)
-                {
-                    purchases.Add(purchaseMapper.Map(item));
-                }
-
-                customer.PurchaseHistory = purchases;
-            }
-
             return customer;
         }
 

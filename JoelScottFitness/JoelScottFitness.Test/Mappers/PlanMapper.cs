@@ -21,12 +21,12 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     Active = true,
                     BannerHeader = "Test Banner",
-                    CreatedDate = DateTime.UtcNow,
+                    CreatedDate = new DateTime(2017, 11, 11, 19, 03, 32),
                     Description = "Test Description",
                     Id = 123,
                     ImagePathLarge = "Image Large",
                     ImagePathMedium = "Image Medium",
-                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOption>(),
@@ -46,12 +46,12 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     Active = true,
                     BannerHeader = "Test Banner",
-                    CreatedDate = DateTime.UtcNow,
+                    CreatedDate = new DateTime(2017, 11, 11, 19, 03, 32),
                     Description = "Test Description",
                     Id = 123,
                     ImagePathLarge = "Image Large",
                     ImagePathMedium = "Image Medium",
-                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOption>(),
@@ -74,7 +74,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.ImagePathLarge, webObject.ImagePathLarge);
                 Assert.AreEqual(repoObject.ImagePathMedium, webObject.ImagePathMedium);
-                Assert.AreEqual(repoObject.ModifiedDate, webObject.ModifiedDate);
+                Assert.IsNotNull(webObject.ModifiedDate);
                 Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
                 Assert.AreEqual(0, webObject.Options.Count);

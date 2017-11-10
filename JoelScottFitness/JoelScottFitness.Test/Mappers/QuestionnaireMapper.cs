@@ -1,10 +1,7 @@
 ﻿using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
-using JoelScottFitness.Identity.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Map = JoelScottFitness.Services.Mappers;
 
 namespace JoelScottFitness.Test.Mappers
@@ -28,7 +25,6 @@ namespace JoelScottFitness.Test.Mappers
                     DietTypeId = 3,
                     Height = 97,
                     IsMemberOfGym = true,
-                    PurchaseId = 456,
                     TrainingGoals = "TrainingGoals",
                     Weight = 345,
                     WorkoutDescription = "WorkoutDescription",
@@ -54,7 +50,6 @@ namespace JoelScottFitness.Test.Mappers
                     DietTypeId = 3,
                     Height = 97,
                     IsMemberOfGym = true,
-                    PurchaseId = 456,
                     TrainingGoals = "TrainingGoals",
                     Weight = 345,
                     WorkoutDescription = "WorkoutDescription",
@@ -72,17 +67,16 @@ namespace JoelScottFitness.Test.Mappers
             private void AssertAreEqual(Questionnaire repoObject, QuestionnaireViewModel webObject)
             {
                 Assert.AreEqual(repoObject.Id, webObject.Id);
-                Assert.AreEqual(repoObject.Age, webObject.Age);
+                Assert.AreEqual(repoObject.Age.ToString(), webObject.Age);
                 Assert.AreEqual(repoObject.CurrentGym, webObject.CurrentGym);
                 Assert.AreEqual(repoObject.WorkoutTypeId, webObject.WorkoutTypeId);
                 Assert.AreEqual(repoObject.DietDetails, webObject.DietDetails);
                 Assert.AreEqual(repoObject.DietTypeId, webObject.DietTypeId);
-                Assert.AreEqual(repoObject.Height, webObject.Height);
+                Assert.AreEqual(repoObject.Height.ToString(), webObject.Height);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.IsMemberOfGym, webObject.IsMemberOfGym);
-                Assert.AreEqual(repoObject.PurchaseId, webObject.PurchaseId);
                 Assert.AreEqual(repoObject.TrainingGoals, webObject.TrainingGoals);
-                Assert.AreEqual(repoObject.Weight, webObject.Weight);
+                Assert.AreEqual(repoObject.Weight.ToString(), webObject.Weight);
                 Assert.AreEqual(repoObject.WorkoutDescription, webObject.WorkoutDescription);
             }
         }
@@ -147,16 +141,15 @@ namespace JoelScottFitness.Test.Mappers
             private void AssertAreEqual(QuestionnaireViewModel repoObject, Questionnaire webObject)
             {
                 Assert.AreEqual(webObject.Id, repoObject.Id);
-                Assert.AreEqual(webObject.Age, repoObject.Age.ToString());
+                Assert.AreEqual(webObject.Age.ToString(), repoObject.Age);
                 Assert.AreEqual(webObject.CurrentGym, repoObject.CurrentGym);
                 Assert.AreEqual(webObject.WorkoutTypeId, repoObject.WorkoutTypeId);
                 Assert.AreEqual(webObject.DietDetails, repoObject.DietDetails);
                 Assert.AreEqual(webObject.DietTypeId, repoObject.DietTypeId);
-                Assert.AreEqual(webObject.Height, repoObject.Height.ToString());
+                Assert.AreEqual(webObject.Height.ToString(), repoObject.Height);
                 Assert.AreEqual(webObject.IsMemberOfGym, repoObject.IsMemberOfGym);
-                Assert.AreEqual(webObject.PurchaseId, repoObject.PurchaseId);
                 Assert.AreEqual(webObject.TrainingGoals, repoObject.TrainingGoals);
-                Assert.AreEqual(webObject.Weight, repoObject.Weight.ToString());
+                Assert.AreEqual(webObject.Weight.ToString(), repoObject.Weight);
                 Assert.AreEqual(webObject.WorkoutDescription, repoObject.WorkoutDescription);
             }
         }
