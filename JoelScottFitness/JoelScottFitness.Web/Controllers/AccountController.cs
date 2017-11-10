@@ -65,10 +65,11 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, bool showGuest = false)
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.ShowGuest = showGuest;
                 return View(model);
             }
 
@@ -86,6 +87,7 @@ namespace JoelScottFitness.Web.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
+                    ViewBag.ShowGuest = showGuest;
                     return View(model);
             }
         }
@@ -390,6 +392,8 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            // clear the users basket
+            Session.Clear();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
