@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">Current</label>
                     <div class="col-md-10">
-                        @Html.TextBox("ImagePath", Model.ImagePath != null  ? Model.ImagePath.Substring(Model.ImagePath.LastIndexOf("/")+1) : null, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                        @Html.TextBox("ImagePath", Model.ImagePath != null ? Model.ImagePath.Substring(Model.ImagePath.LastIndexOf("/") + 1) : null, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
                     </div>
                 </div>
 
@@ -121,7 +121,7 @@
                                         <input type="file" id="BlogImages[@itemCount].PostedFile" name="BlogImages[@itemCount].PostedFile" />
                                     </td>
                                     <td>
-                                        @Html.TextBox("ImagePath[" + @itemCount + "]", item.ImagePath != null ? item.ImagePath.Substring(item.ImagePath.LastIndexOf("/")+1) : null, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.TextBox("ImagePath[" + @itemCount + "]", item.ImagePath != null ? item.ImagePath.Substring(item.ImagePath.LastIndexOf("/") + 1) : null, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                     </td>
                                     <td>
                                         @Html.TextBox("BlogImages[" + @itemCount + "].CaptionTitle", item.CaptionTitle, new { @id = "BlogImages[" + @itemCount + "].CaptionTitle" })
@@ -166,17 +166,18 @@
                     </tfoot>
 
                 </table>
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            @Html.ActionLink("Back to List", "Blogs", "Admin", new { @class = "btn btn-default" })
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" value="Save" class="btn btn-default" style="float:right" />
+                        </div>
                     </div>
                 </div>
             </div>
-            
-        }
+    }
 
-        <div>
-            @Html.ActionLink("Back to List", "Blogs", "Admin")
-        </div>
     </div>
 </div>

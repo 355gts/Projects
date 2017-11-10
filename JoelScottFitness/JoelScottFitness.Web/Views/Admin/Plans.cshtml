@@ -15,7 +15,7 @@
     <div class="row">
 
         <p>
-            @Html.ActionLink("Create New", "CreatePlan", "Admin")
+            @Html.ActionLink("Create New", "CreatePlan", "Admin", new { @class = "btn btn-default" })
         </p>
         <table class="table">
             <tr>
@@ -52,7 +52,7 @@
                         @Html.DisplayFor(modelItem => item.CreatedDate)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "UpdatePlan", "Admin", new { planId = item.Id }, null)
+                        @Html.ActionLink("Edit", "UpdatePlan", "Admin", new { planId = item.Id }, new { @class = "btn btn-default" })
                     </td>
                     <td>
                         @if (item.Active)

@@ -1,14 +1,7 @@
-﻿using JoelScottFitness.Common.Constants;
-using JoelScottFitness.Common.Enumerations;
-using JoelScottFitness.Common.Helpers;
+﻿using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
-using JoelScottFitness.Data.Enumerations;
-using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
-using JoelScottFitness.YouTube.Client;
-using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -225,6 +218,58 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             return uploadPath;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DiscountCodes()
+        {
+            var discountCodes = await jsfService.GetDiscountCodesAsync();
+
+            return View(discountCodes.OrderByDescending(d => d.ValidFrom).ToList());
+        }
+
+        [HttpGet]
+        public ActionResult CreateDiscountCode()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateDiscountCode(CreateDiscountCodeViewModel discountCode)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await jsfService.CreateDiscountCodeAsync(discountCode);
+
+                if (result.Success)
+                    return RedirectToAction("DiscountCodes","Admin");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UpdateDiscountCode(long discountCodeId)
+        {
+            var discountCode = await jsfService.GetDiscountCodeAsync(discountCodeId);
+
+            return View(discountCode);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateDiscountCode(DiscountCodeViewModel discountCode)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await jsfService.UpdateDiscountCodeAsync(discountCode);
+
+                if (result.Success)
+                    return RedirectToAction("DiscountCodes", "Admin");
+            }
+
+            return View();
         }
     }
 }

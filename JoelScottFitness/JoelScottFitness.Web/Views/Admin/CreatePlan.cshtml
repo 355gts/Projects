@@ -128,17 +128,18 @@
                         </tfoot>
 
                     </table>
-                
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                @Html.ActionLink("Back to List", "Plans", "Admin", new { @class = "btn btn-default" })
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" value="Create" class="btn btn-default" style="float:right" />
+                            </div>
                         </div>
                     </div>
-</div>
+                </div>
         }
 
-        <div>
-            @Html.ActionLink("Back to List", "Plans", "Admin")
-        </div>
         </div>
     </div>

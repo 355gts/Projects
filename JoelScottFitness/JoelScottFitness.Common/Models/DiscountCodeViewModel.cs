@@ -1,22 +1,23 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace JoelScottFitness.Common.Models
 {
-    public class DiscountCodeViewModel : BaseViewModel
+    [DataContract]
+    public class DiscountCodeViewModel : CreateDiscountCodeViewModel
     {
         [Required]
-        public string Code { get; set; }
+        [DataMember(IsRequired = true)]
+        public long Id { get; set; }
 
-        [Required]
-        public int PercentDiscount { get; set; }
-
-        [Required]
-        public DateTime ValidFrom { get; set; }
-
-        [Required]
-        public DateTime ValidTo { get; set; }
-        
-        public bool Active { get; set; }
+        public bool Active
+        {
+            get
+            {
+                return ValidFrom <= DateTime.UtcNow 
+                    && DateTime.UtcNow <= ValidTo;
+            }
+        }
     }
 }

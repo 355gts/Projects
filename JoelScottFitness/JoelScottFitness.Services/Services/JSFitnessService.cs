@@ -61,14 +61,7 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.UpdateCustomerAsync(repoCustomer);
         }
-
-        public async Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCodeViewModel discountCode)
-        {
-            var repoDiscountCode = mapper.Map<DiscountCodeViewModel, DiscountCode>(discountCode);
-
-            return await repository.CreateOrUpdateDiscountCodeAsync(repoDiscountCode);
-        }
-
+        
         public async Task<AsyncResult<long>> CreatePlanAsync(CreatePlanViewModel plan)
         {
             var repoPlan = mapper.Map<CreatePlanViewModel, Plan>(plan);
@@ -273,6 +266,20 @@ namespace JoelScottFitness.Services.Services
         public async Task<bool> UpdateBlogStatusAsync(long blogId, bool status)
         {
             return await repository.UpdateBlogStatusAsync(blogId, status);
+        }
+
+        public async Task<AsyncResult<long>> CreateDiscountCodeAsync(CreateDiscountCodeViewModel discountCode)
+        {
+            var repoDiscountCode = mapper.Map<CreateDiscountCodeViewModel, DiscountCode>(discountCode);
+
+            return await repository.CreateOrUpdateDiscountCodeAsync(repoDiscountCode);
+        }
+
+        public async Task<AsyncResult<long>> UpdateDiscountCodeAsync(DiscountCodeViewModel discountCode)
+        {
+            var repoDiscountCode = mapper.Map<DiscountCodeViewModel, DiscountCode>(discountCode);
+
+            return await repository.CreateOrUpdateDiscountCodeAsync(repoDiscountCode);
         }
     }
 }

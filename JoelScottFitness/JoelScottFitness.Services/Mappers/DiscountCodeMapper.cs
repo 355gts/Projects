@@ -1,11 +1,6 @@
 ﻿using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JoelScottFitness.Services.Mappers
 {
@@ -14,8 +9,7 @@ namespace JoelScottFitness.Services.Mappers
         public DiscountCodeViewModel Map(DiscountCode fromObject, DiscountCodeViewModel toObject = null)
         {
             var discountCode = toObject ?? new DiscountCodeViewModel();
-
-            discountCode.Active = fromObject.Active;
+            
             discountCode.Code = fromObject.Code;
             discountCode.Id = fromObject.Id;
             discountCode.PercentDiscount = fromObject.PercentDiscount;

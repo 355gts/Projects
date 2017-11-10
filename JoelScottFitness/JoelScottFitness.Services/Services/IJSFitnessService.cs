@@ -25,7 +25,9 @@ namespace JoelScottFitness.Services.Services
 
         Task<CustomerViewModel> GetCustomerDetailsAsync(string userName);
 
-        Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCodeViewModel discountCode);
+        Task<AsyncResult<long>> CreateDiscountCodeAsync(CreateDiscountCodeViewModel discountCode);
+
+        Task<AsyncResult<long>> UpdateDiscountCodeAsync(DiscountCodeViewModel discountCode);
 
         Task<DiscountCodeViewModel> GetDiscountCodeAsync(long id);
 

@@ -152,6 +152,11 @@ p{
     z-index:10;
 }
 
+.navbar-font {
+    font-family: 'Bebas-Neue';
+    font-size: 14pt;
+}
+
 @media (min-width:0px) and (max-width: 767px) {
     .navbar-collapse {
         margin-left: 200px;
@@ -159,8 +164,15 @@ p{
         opacity: 0.8;
     }
     div.navbar-collapse.collapse {
-        margin-left: 0px;
+        margin-left:0px;
     }
+}
+
+.navbar-container {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @media (min-width: 768px) {
@@ -169,6 +181,12 @@ p{
     }
     .navbar-right {
         margin: 0px;
+    }
+    .navbar-container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
     }
 }
 
@@ -182,6 +200,7 @@ p{
     margin: 0px;
     background-color: black;
     opacity: 0.8;
+    padding-left:15px;
 }
 
 .sticky{
@@ -1046,4 +1065,36 @@ a:hover {
 
 .textAreaSize {
     width:100%;
+}
+
+/* ADMIN MENU STYLES START */
+.admin-menu {
+    margin-top: 8px !important;
+    background-color: black;
+    font-family: 'Bebas-Neue';
+    font-size: 14pt;
+}
+
+.admin-menu li {
+    text-align: left;
+}
+
+@media (min-width:767px) {
+    .admin-menu li {
+        text-align: right;
+    }
+}
+
+.admin-menu li a {
+    color: gray;
+}
+
+.admin-menu li a:hover {
+    color: white;
+    background-color: black;
+}
+/* ADMIN MENU STYLES END */
+
+datepicker-z-index{
+    z-index:20;
 }

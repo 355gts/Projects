@@ -367,3 +367,7 @@ function addBlogImage(blogId) {
     $("#add-logo-colour").val('Black');
     $("#blog-image-count").val(index + 1);
 }
+
+$(function () {
+    $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
+});

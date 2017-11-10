@@ -1,21 +1,44 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a class="dropdown-toggle navbar-font" data-toggle="dropdown">Admin <span class="caret"></span></a>
+        <ul class="dropdown-menu admin-menu">
+            <li>@Html.ActionLink("Blogs", "Blogs", "Admin")</li>
+            <li>@Html.ActionLink("Plans", "Plans", "Admin")</li>
+            <li>@Html.ActionLink("Discount Codes", "DiscountCodes", "Admin")</li>
+        </ul>
+    </li>
+
+    @if (Request.IsAuthenticated)
+    {
+        //if (User.IsInRole("Admin"))
+        //{
+            @*<li class="dropdown">
+                <a class="dropdown-toggle navbar-font" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                <ul class="dropdown-menu admin-menu">
+                    <li>@Html.ActionLink("Blogs", "Blogs", "Admin")</li>
+                    <li>@Html.ActionLink("Plans", "Plans", "Admin")</li>
+                    <li>@Html.ActionLink("Discount Codes", "DiscountCodes", "Admin")</li>
+                </ul>
+            </li>*@
+        //}
+
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+                <li>
+                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @style = "font-family:'Bebas-Neue';font-size:14pt;" })
+                </li>
+                <li>
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                </li>
+        }
     }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+    else
+    {
+        <li>
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "navbar-font" })
+        </li>
+    }
+</ul>
