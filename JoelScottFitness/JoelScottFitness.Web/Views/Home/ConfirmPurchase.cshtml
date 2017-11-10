@@ -128,8 +128,6 @@
                                 foreach (var planOption in Model.BasketItems)
                                 {
                             <div id="basket-item-row-@itemCount" class="row basket-item-row">
-                                @Html.Hidden("BasketItems[" + @itemCount + "].ActiveFrom", planOption.ActiveFrom, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ActiveFrom" })
-                                @Html.Hidden("BasketItems[" + @itemCount + "].ActiveTo", planOption.ActiveTo, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ActiveTo" })
                                 @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
                                 @Html.Hidden("BasketItems[" + @itemCount + "].Id", planOption.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
                                 @Html.Hidden("BasketItems[" + @itemCount + "].ItemDiscontinued", planOption.ItemDiscontinued, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemDiscontinued" })

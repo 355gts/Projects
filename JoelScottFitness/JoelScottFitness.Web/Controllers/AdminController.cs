@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Common.Helpers;
+﻿using JoelScottFitness.Common.Constants;
+using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using System;
@@ -29,6 +30,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> Blogs()
         {
             var blogs = await jsfService.GetBlogsAsync();
@@ -37,6 +39,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public ActionResult CreateBlog()
         {
             return View();
@@ -44,6 +47,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> CreateBlog(CreateBlogViewModel blog, HttpPostedFileBase postedFile)
         {
             if (postedFile == null)
@@ -74,6 +78,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdateBlog(long blogId)
         {
             var blog = await jsfService.GetBlogAsync(blogId);
@@ -83,6 +88,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdateBlog(BlogViewModel blog, HttpPostedFileBase postedFile)
         {
             if (blog.BlogImages != null && blog.BlogImages.Any(b => (b.PostedFile == null && string.IsNullOrEmpty(b.ImagePath))))
@@ -113,6 +119,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> Plans()
         {
             var plans = await jsfService.GetPlansAsync();
@@ -121,6 +128,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public ActionResult CreatePlan()
         {
             return View(new CreatePlanViewModel());
@@ -128,6 +136,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> CreatePlan(CreatePlanViewModel plan, HttpPostedFileBase postedFile)
         {
             if (postedFile == null)
@@ -147,6 +156,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdatePlan(long planId)
         {
             var plan = await jsfService.GetPlanAsync(planId);
@@ -156,6 +166,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdatePlan(PlanViewModel plan, HttpPostedFileBase postedFile)
         {
             if (ModelState.IsValid)
@@ -176,6 +187,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdateBlogStatus(long blogId, bool status)
         {
             var result = await jsfService.UpdateBlogStatusAsync(blogId, status);
@@ -188,6 +200,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UpdatePlanStatus(long planId, bool status)
         {
             var result = await jsfService.UpdatePlanStatusAsync(planId, status);

@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container page-container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            OOPS!
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+    @{
+        if (ViewBag.Message != null)
+        {
+            <div>
+                <br />
+                <br />
+                @ViewBag.Message
+            </div>
+        }
+        else
+        {
+            <div>
+                <br />
+                <br />
+                Ooops, something has gone wrong, please try again later.
+            </div>
+        }
+    }
+        
+</div>
+

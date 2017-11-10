@@ -1095,6 +1095,20 @@ a:hover {
 }
 /* ADMIN MENU STYLES END */
 
-datepicker-z-index{
-    z-index:20;
+.logoutForm {
+    padding-top: 0px;
+}
+
+.logoutForm li ul {
+
+}
+
+.account-options li {
+    display: block;
+}
+
+@media (min-width:767px) {
+    .account-options li {
+        display: inline;
+    }
 }

@@ -8,9 +8,9 @@ namespace JoelScottFitness.PayPal.Services
     {
         void InitialisePayment();
 
-        void AddItems(IEnumerable<PlanOptionViewModel> items);
+        void AddItems(IEnumerable<SelectedPlanOptionViewModel> items);
 
-        void AddItem(PlanOptionViewModel item);
+        void AddItem(SelectedPlanOptionViewModel item);
 
         void RemoveItem(PlanOptionViewModel item);
 

@@ -405,12 +405,12 @@ namespace JoelScottFitness.Data
             {
                 var userRole = new AuthRole()
                 {
-                    Name = JsfRoles.AccountHolder
+                    Name = JsfRoles.User
                 };
 
                 var adminRole = new AuthRole()
                 {
-                    Name = JsfRoles.Administrator
+                    Name = JsfRoles.Admin
                 };
                 
                 context.Roles.Add(userRole);

@@ -73,15 +73,15 @@ namespace JoelScottFitness.PayPal.Services
             payer.payment_method = "credit_card";
         }
 
-        public void AddItem(PlanOptionViewModel item)
+        public void AddItem(SelectedPlanOptionViewModel item)
         {
-            var paypalItem = mapper.Map<PlanOptionViewModel, Item>(item);
+            var paypalItem = mapper.Map<SelectedPlanOptionViewModel, Item>(item);
 
             if (!itemList.items.Contains(paypalItem))
                 itemList.items.Add(paypalItem);
         }
 
-        public void AddItems(IEnumerable<PlanOptionViewModel> items)
+        public void AddItems(IEnumerable<SelectedPlanOptionViewModel> items)
         {
             foreach (var item in items)
             {

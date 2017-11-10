@@ -26,6 +26,8 @@ namespace JoelScottFitness.Web.Controllers
 
         private const string basketKey = "Basket";
 
+        private string errorMessage;
+
         public ApplicationSignInManager SignInManager
         {
             get
@@ -219,7 +221,13 @@ namespace JoelScottFitness.Web.Controllers
                         await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
                         customer.UserId = newUser.Id;
 
-                        await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.AccountHolder);
+                        await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.User);
+
+                        // TODO remove this logic when released
+                        if (customer.EmailAddress.ToLower() == "blackmore__s@hotmail.com")
+                        {
+                            await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.Admin);
+                        }
                     }
                     else
                     {
@@ -503,10 +511,22 @@ namespace JoelScottFitness.Web.Controllers
 
             if (!questionnaireResult.Success)
             {
-                // TODO throw error
+                errorMessage = "Oh ohhh, damn it!";
+                return RedirectToAction("Error", "Home");
             }
 
-            ViewBag.Message = $"Thanks, your tailored workout plan will be delivered within the next 24 hours.";
+            ViewBag.Message = $"Thanks, your tailored workout plan will be with you in the next 24 hours.";
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Error()
+        {
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                ViewBag.Message = errorMessage;
+            }
 
             return View();
         }

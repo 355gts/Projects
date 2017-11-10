@@ -8,58 +8,58 @@ namespace JoelScottFitness.Services.Mappers
     {
         public PlanOption Map(PlanOptionViewModel fromObject, PlanOption toObject = null)
         {
-            var plan = toObject ?? new PlanOption();
+            var planOption = toObject ?? new PlanOption();
             
-            plan.Description = fromObject.Description;
-            plan.Duration = fromObject.Duration;
-            plan.Id = fromObject.Id;
-            plan.ItemType = fromObject.ItemType;
-            plan.PlanId = fromObject.PlanId;
-            plan.Price = fromObject.Price;
+            planOption.Description = fromObject.Description;
+            planOption.Duration = fromObject.Duration;
+            planOption.Id = fromObject.Id;
+            planOption.ItemType = fromObject.ItemType;
+            planOption.PlanId = fromObject.PlanId;
+            planOption.Price = fromObject.Price;
 
             if (fromObject.Plan != null)
             {
-                plan.Plan = new Plan();
-                plan.Plan.BannerHeader = fromObject.Plan.BannerHeader;
-                plan.Plan.CreatedDate = fromObject.Plan.CreatedDate;
-                plan.Plan.Description = fromObject.Plan.Description;
-                plan.Plan.Id = fromObject.Plan.Id;
-                plan.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
-                plan.Plan.ImagePathMedium = fromObject.Plan.ImagePathMedium;
-                plan.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
-                plan.Plan.Name = fromObject.Plan.Name;
-                plan.Plan.TargetGender = fromObject.Plan.TargetGender;
+                planOption.Plan = new Plan();
+                planOption.Plan.BannerHeader = fromObject.Plan.BannerHeader;
+                planOption.Plan.CreatedDate = fromObject.Plan.CreatedDate;
+                planOption.Plan.Description = fromObject.Plan.Description;
+                planOption.Plan.Id = fromObject.Plan.Id;
+                planOption.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
+                planOption.Plan.ImagePathMedium = fromObject.Plan.ImagePathMedium;
+                planOption.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
+                planOption.Plan.Name = fromObject.Plan.Name;
+                planOption.Plan.TargetGender = fromObject.Plan.TargetGender;
             }
 
-            return plan;
+            return planOption;
         }
 
         public PlanOptionViewModel Map(PlanOption fromObject, PlanOptionViewModel toObject = null)
         {
-            var plan = toObject ?? new PlanOptionViewModel();
-            
-            plan.Description = fromObject.Description;
-            plan.Duration = fromObject.Duration;
-            plan.Id = fromObject.Id;
-            plan.ItemType = fromObject.ItemType;
-            plan.PlanId = fromObject.PlanId;
-            plan.Price = fromObject.Price;
+            var planOption = toObject ?? new SelectedPlanOptionViewModel();
+
+            planOption.Description = fromObject.Description;
+            planOption.Duration = fromObject.Duration;
+            planOption.Id = fromObject.Id;
+            planOption.ItemType = fromObject.ItemType;
+            planOption.PlanId = fromObject.PlanId;
+            planOption.Price = fromObject.Price;
 
             if (fromObject.Plan != null)
             {
-                plan.Plan = new PlanViewModel();
-                plan.Plan.BannerHeader = fromObject.Plan.BannerHeader;
-                plan.Plan.CreatedDate = fromObject.Plan.CreatedDate;
-                plan.Plan.Description = fromObject.Plan.Description;
-                plan.Plan.Id = fromObject.Plan.Id;
-                plan.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
-                plan.Plan.ImagePathMedium = fromObject.Plan.ImagePathMedium;
-                plan.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
-                plan.Plan.Name = fromObject.Plan.Name;
-                plan.Plan.TargetGender = fromObject.Plan.TargetGender;
+                planOption.Plan = new PlanViewModel();
+                planOption.Plan.BannerHeader = fromObject.Plan.BannerHeader;
+                planOption.Plan.CreatedDate = fromObject.Plan.CreatedDate;
+                planOption.Plan.Description = fromObject.Plan.Description;
+                planOption.Plan.Id = fromObject.Plan.Id;
+                planOption.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
+                planOption.Plan.ImagePathMedium = fromObject.Plan.ImagePathMedium;
+                planOption.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
+                planOption.Plan.Name = fromObject.Plan.Name;
+                planOption.Plan.TargetGender = fromObject.Plan.TargetGender;
             }
 
-            return plan;
+            return planOption;
         }
     }
 }
