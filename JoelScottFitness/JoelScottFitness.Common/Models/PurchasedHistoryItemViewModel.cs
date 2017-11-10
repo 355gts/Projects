@@ -11,9 +11,15 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = true)]
         public long ItemId { get; set; }
 
+        public ItemViewModel Item { get; set; }
+
         [Required]
         [DataMember(IsRequired = true)]
         public long Quantity { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        public string Name { get; set; }
 
         [Required]
         [DataMember(IsRequired = true)]

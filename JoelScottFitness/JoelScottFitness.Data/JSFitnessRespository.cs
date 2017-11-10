@@ -273,6 +273,7 @@ namespace JoelScottFitness.Data
                                   .Include(p => p.Customer)
                                   .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
+                                  .Include(p => p.Questionnaire)
                                   .Include("Items.Item")
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }

@@ -277,6 +277,15 @@ namespace JoelScottFitness.Web.Controllers
             return View(purchases);
         }
 
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> CustomerPlan(long purchaseId)
+        {
+            var purchase = await jsfService.GetPurchaseAsync(purchaseId);
+
+            return View(purchase);
+        }
+
         private string UploadImage(HttpPostedFileBase postedFile, string directory)
         {
             string uploadPath = null;

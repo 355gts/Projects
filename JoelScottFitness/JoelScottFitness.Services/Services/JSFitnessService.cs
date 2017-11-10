@@ -183,7 +183,32 @@ namespace JoelScottFitness.Services.Services
             if (purchase == null)
                 return null;
 
-            return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
+            var purchaseViewModel = mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
+
+            // map these objects like this to avoid circular mapper dependency
+            if (purchase.Customer != null)
+            {
+                purchaseViewModel.Customer = mapper.Map<Customer, CustomerViewModel>(purchase.Customer);
+            }
+            
+            if (purchase.DiscountCode != null)
+            {
+                purchaseViewModel.DiscountCode = mapper.Map<DiscountCode, DiscountCodeViewModel>(purchase.DiscountCode);
+            }
+
+            if (purchase.Questionnaire != null)
+            {
+                purchaseViewModel.Questionnaire = mapper.Map<Questionnaire, QuestionnaireViewModel>(purchase.Questionnaire);
+            }
+
+            var plans = await repository.GetPlansAsync();
+
+            purchaseViewModel.Items.ToList().ForEach(p => 
+            {
+                p.Name = plans.Where(plan => plan.Options.Select(s => s.Id).Contains(p.Id)).FirstOrDefault().Name;
+            });
+            
+            return purchaseViewModel;
         }
 
         public async Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchasesAsync(long customerId)

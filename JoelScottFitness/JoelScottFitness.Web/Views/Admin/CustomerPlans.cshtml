@@ -4,7 +4,7 @@
     ViewBag.Title = "CustomerPlans";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container">
+<div class="container" style="font-family:'Bebas-Neue';font-size:12pt">
     <div class="row">
         <div class="col-xs-12 title-format">
             SALES
@@ -13,30 +13,30 @@
     </div>
     <div class="row">
         <table class="table">
-            <tr>
+            <tr style="font-size:14pt">
                 <th>
-                    @Html.DisplayNameFor(model => model.CustomerName)
+                    <label>Customer Name</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TransactionId)
+                    <label>Transaction Id</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PayPalReference)
+                    <label>PayPal Reference</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PurchaseDate)
+                    <label>Purchase Date</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DiscountCode)
+                    <label>Discount Code</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TotalAmount)
+                    <label>Total Amount</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.QuestionnaireComplete)
+                    <label>Questionnaire Complete</label>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RequiresAction)
+                    <label>Requires Action</label>
                 </th>
                 <th></th>
             </tr>
@@ -57,13 +57,13 @@
                         @Html.DisplayFor(modelItem => item.PayPalReference)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PurchaseDate)
+                        @item.PurchaseDate.ToString("dd/MM/yyyy")
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DiscountCode)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TotalAmount)
+                        £@item.TotalAmount
                     </td>
                     <td style="text-align:center">
                         @if (item.QuestionnaireComplete)
@@ -82,10 +82,22 @@
                         }
                     </td>
                     <td>
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) 
+                        @Html.ActionLink("Details", "CustomerPlan", "Admin", new { purchaseId = item.Id }, new { @class = "btn btn-default" })
                     </td>
                 </tr>
             }
+            <tfoot>
+
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Total Sales:</td>
+                    <td>
+                        £@Model.Select(s => s.TotalAmount).Sum().ToString($"{0:0.00}")
+                    </td>
+                    <td colspan="3"></td>
+                </tr>
+                
+            </tfoot>
 
         </table>
         </div>

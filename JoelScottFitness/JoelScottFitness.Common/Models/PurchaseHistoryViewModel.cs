@@ -40,6 +40,8 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = false)]
         public long? QuestionnaireId { get; set; }
 
+        public QuestionnaireViewModel Questionnaire { get; set; }
+
         public ICollection<PurchasedHistoryItemViewModel> Items { get; set; }
     }
 }
