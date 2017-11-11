@@ -173,6 +173,12 @@ will truncate terms that are too long to fit in the left column
         overflow-y: visible;
     }
 
+@media (min-width:0px) and (max-width: 767px) {
+    .nav-logo {
+        margin-left:22px;
+    }
+    }
+
     .nav-logo:after {
         content: '';
         display: block;
