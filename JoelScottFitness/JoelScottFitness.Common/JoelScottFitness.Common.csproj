@@ -67,9 +67,12 @@
     <Compile Include="Models\CreateBlogImageViewModel.cs" />
     <Compile Include="Models\CreateBlogViewModel.cs" />
     <Compile Include="Models\CreateDiscountCodeViewModel.cs" />
+    <Compile Include="Models\ImageConfigurationViewModel.cs" />
     <Compile Include="Models\CreateItemViewModel.cs" />
     <Compile Include="Models\CreatePlanOptionViewModel.cs" />
     <Compile Include="Models\CreatePlanViewModel.cs" />
+    <Compile Include="Models\ImageListViewModel.cs" />
+    <Compile Include="Models\ImageViewModel.cs" />
     <Compile Include="Models\PaymentConfirmationViewModel.cs" />
     <Compile Include="Models\ConfirmPurchaseViewModel.cs" />
     <Compile Include="Models\CreateCustomerViewModel.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="Models\PurchaseHistoryViewModel.cs" />
     <Compile Include="Models\PurchaseSummaryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
+    <Compile Include="Models\SectionImageViewModel.cs" />
     <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
     <Compile Include="Models\UiPlanViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />

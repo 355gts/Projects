@@ -49,5 +49,9 @@ namespace JoelScottFitness.Data
         DbSet<MailingListItem> MailingList { get; set; }
 
         DbSet<Questionnaire> Questionnaires { get; set; }
+
+        DbSet<Image> Images { get; set; }
+
+        DbSet<ImageConfiguration> ImageConfigurations { get; set; }
     }
 }

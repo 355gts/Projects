@@ -58,13 +58,13 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                blog.ImagePath = UploadImage(postedFile, "Content/Images");
+                blog.ImagePath = SaveImage(postedFile, "Content/Images");
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages)
                     {
-                        blogImage.ImagePath = UploadImage(blogImage.PostedFile, "Content/Images");
+                        blogImage.ImagePath = SaveImage(blogImage.PostedFile, "Content/Images");
                     }
                 }
 
@@ -98,14 +98,14 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    blog.ImagePath = UploadImage(postedFile, "Content/Images");
+                    blog.ImagePath = SaveImage(postedFile, "Content/Images");
                 }
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages.Where(i => i.PostedFile != null).ToList())
                     {
-                        blogImage.ImagePath = UploadImage(blogImage.PostedFile, "Content/Images");
+                        blogImage.ImagePath = SaveImage(blogImage.PostedFile, "Content/Images");
                     }
                 }
 
@@ -144,7 +144,7 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                plan.ImagePathLarge = UploadImage(postedFile, "Content/Images");
+                plan.ImagePathLarge = SaveImage(postedFile, "Content/Images");
 
                 var result = await jsfService.CreatePlanAsync(plan);
 
@@ -173,7 +173,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    plan.ImagePathLarge = UploadImage(postedFile, "Content/Images");
+                    plan.ImagePathLarge = SaveImage(postedFile, "Content/Images");
                 }
 
                 var result = await jsfService.UpdatePlanAsync(plan);
@@ -286,7 +286,59 @@ namespace JoelScottFitness.Web.Controllers
             return View(purchase);
         }
 
-        private string UploadImage(HttpPostedFileBase postedFile, string directory)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UploadImage(HttpPostedFileBase[] postedFile)
+        {
+            var postedFiles = postedFile.ToList();
+
+            foreach (var file in postedFile)
+            {
+                string imagePath = SaveImage(file, "Content/Images");
+
+                var result = await jsfService.AddImage(imagePath);
+
+                if (!result.Success)
+                {
+                    // TODO log error
+                }
+
+            }
+            
+            return RedirectToAction("ImageConfiguration", "Admin");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> ImageConfiguration(string imageConfigurationError = null)
+        {
+            var imageList = await jsfService.GetImages();
+
+            if (!string.IsNullOrEmpty(imageConfigurationError))
+                ViewBag.ImageConfigurationError = imageConfigurationError;
+
+            //imageList.Images.ToList().ForEach(i => i.ImagePath = i.ImagePath.Replace("/", @"%2F"));
+
+            return View(imageList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ConfigureImages(ImageConfigurationViewModel imageConfiguration)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await jsfService.CreateOrUpdateImageConfiguration(imageConfiguration);
+
+                if (!result.Success)
+                    return RedirectToAction("ImageConfiguration", "Admin", new { imageConfigurationError = "An error occured configuring images." });
+
+                return RedirectToAction("ImageConfiguration", "Admin");
+            }
+
+            return View("ImageConfiguration");
+        }
+
+        private string SaveImage(HttpPostedFileBase postedFile, string directory)
         {
             string uploadPath = null;
             try

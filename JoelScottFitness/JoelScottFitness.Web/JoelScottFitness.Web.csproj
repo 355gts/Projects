@@ -396,6 +396,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Admin\CustomerPlans.cshtml" />
     <Content Include="Views\Admin\CustomerPlan.cshtml" />
+    <Content Include="Views\Admin\ImageConfiguration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

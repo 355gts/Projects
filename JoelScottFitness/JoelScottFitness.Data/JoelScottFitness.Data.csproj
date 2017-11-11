@@ -66,12 +66,14 @@
     <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\BaseRecord.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\BlogImage.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DataContractAttribute.cs" />
     <Compile Include="Models\DiscountCode.cs" />
+    <Compile Include="Models\ImageConfiguration.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\MailingListItem.cs" />
     <Compile Include="Models\PlanOption.cs" />

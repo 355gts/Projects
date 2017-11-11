@@ -36,7 +36,7 @@ namespace JoelScottFitness.Data
         {
             if (modelBuilder == null)
                 throw new ArgumentNullException(nameof(modelBuilder));
-
+            
             base.OnModelCreating(modelBuilder);
 
             //modelBuilder.HasDefaultSchema(Settings.Default.DefaultSchema);
@@ -85,28 +85,32 @@ namespace JoelScottFitness.Data
             this.Entry<TEntity>(oldEntity).CurrentValues.SetValues(newEntity);
         }
 
-        public DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
 
-        public DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
 
-        public DbSet<BlogImage> BlogImages { get; set; }
+        public virtual DbSet<BlogImage> BlogImages { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
 
-        public DbSet<DiscountCode> DiscountCodes { get; set; }
+        public virtual DbSet<DiscountCode> DiscountCodes { get; set; }
 
-        public DbSet<Item> Items { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
 
-        public DbSet<Plan> Plans { get; set; }
+        public virtual DbSet<Plan> Plans { get; set; }
 
-        public DbSet<PlanOption> PlanOptions { get; set; }
+        public virtual DbSet<PlanOption> PlanOptions { get; set; }
 
-        public DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Purchase> Purchases { get; set; }
 
-        public DbSet<PurchasedItem> PurchasedItems { get; set; }
+        public virtual DbSet<PurchasedItem> PurchasedItems { get; set; }
 
-        public DbSet<MailingListItem> MailingList { get; set; }
+        public virtual DbSet<MailingListItem> MailingList { get; set; }
 
-        public DbSet<Questionnaire> Questionnaires { get; set; }
+        public virtual DbSet<Questionnaire> Questionnaires { get; set; }
+
+        public virtual DbSet<Image> Images { get; set; }
+
+        public virtual DbSet<ImageConfiguration> ImageConfigurations { get; set; }
     }
 }

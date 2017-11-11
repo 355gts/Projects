@@ -74,5 +74,11 @@ namespace JoelScottFitness.Services.Services
         Task<bool> UpdatePlanStatusAsync(long planId, bool status);
 
         Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
+
+        Task<AsyncResult<long>> AddImage(string imagePath);
+
+        Task<ImageListViewModel> GetImages();
+
+        Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfigurationViewModel imageConfiguration);
     }
 }

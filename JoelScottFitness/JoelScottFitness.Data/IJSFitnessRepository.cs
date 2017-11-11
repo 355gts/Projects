@@ -65,8 +65,13 @@ namespace JoelScottFitness.Data
         Task<bool> UpdatePlanStatusAsync(long planId, bool status);
 
         Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
+
         Task<bool> AssociateQuestionnaireToPurchase(long purchaseId, long questionnaireId);
 
+        Task<AsyncResult<long>> AddImage(Image image);
 
+        Task<IEnumerable<Image>> GetImages();
+
+        Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfiguration imageConfiguration);
     }
 }

@@ -465,5 +465,56 @@ namespace JoelScottFitness.Data
 
             return await SaveChangesAsync();
         }
+
+        public async Task<AsyncResult<long>> AddImage(Image image)
+        {
+            var existingImage = await dbContext.Images.FirstOrDefaultAsync(i => i.ImagePath == image.ImagePath);
+
+            if (existingImage != null)
+                return new AsyncResult<long>() { Success = true, Result = existingImage.Id };
+
+            dbContext.Images.Add(image);
+
+            if (await SaveChangesAsync())
+            {
+                return new AsyncResult<long>() { Success = true, Result = image.Id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<IEnumerable<Image>> GetImages()
+        {
+            return await dbContext.Images
+                                  .ToListAsync();
+        }
+
+        public async Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfiguration imageConfiguration)
+        {
+            var existingImageConfiguration = await dbContext.ImageConfigurations.FirstOrDefaultAsync();
+
+            if (existingImageConfiguration != null)
+            {
+                existingImageConfiguration.Randomize = imageConfiguration.Randomize;
+                existingImageConfiguration.SectionImage1Id = imageConfiguration.SectionImage1Id;
+                existingImageConfiguration.SectionImage2Id = imageConfiguration.SectionImage2Id;
+                existingImageConfiguration.SectionImage3Id = imageConfiguration.SectionImage3Id;
+                existingImageConfiguration.SplashImageId = imageConfiguration.SplashImageId;
+
+                dbContext.SetModified(existingImageConfiguration);
+            }
+            else
+            {
+                dbContext.ImageConfigurations.Add(imageConfiguration);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingImageConfiguration != null ? existingImageConfiguration.Id : imageConfiguration.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
     }
 }

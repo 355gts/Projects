@@ -323,5 +323,33 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.CreateOrUpdateDiscountCodeAsync(repoDiscountCode);
         }
+
+        public async Task<AsyncResult<long>> AddImage(string imagePath)
+        {
+            var image = new Image() { ImagePath = imagePath };
+
+            return await repository.AddImage(image);
+        }
+
+        public async Task<ImageListViewModel> GetImages()
+        {
+            var images = await repository.GetImages();
+
+            var imageListViewModel = new ImageListViewModel();
+
+            if (images == null || !images.Any())
+                imageListViewModel.Images = Enumerable.Empty<ImageViewModel>();
+
+            imageListViewModel.Images = mapper.MapEnumerable<Image, ImageViewModel>(images);
+
+            return imageListViewModel;
+        }
+
+        public async Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfigurationViewModel imageConfiguration)
+        {
+            var repoImageConfiguration = mapper.Map<ImageConfigurationViewModel, ImageConfiguration>(imageConfiguration);
+
+            return await repository.CreateOrUpdateImageConfiguration(repoImageConfiguration);
+        }
     }
 }
