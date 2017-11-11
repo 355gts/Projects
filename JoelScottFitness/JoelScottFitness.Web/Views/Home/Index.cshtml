@@ -34,8 +34,14 @@
 </div>
 
 <div class="sectContainer">
-    <div class="sect sect1" style="z-index:-10">
-    </div>
+    @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage1))
+    {
+        <div class="sect" style="z-index:-10;background-image: url('@Model.SectionImages.SectionImage1');"></div>
+    }
+    else
+    {
+        <div class="sect sect1" style="z-index:-10"></div>
+    }
     <div class="subSect">
         <div class="container section-title-wrapper">
             <div id="media" class="row col-xs-12 section-title">
@@ -54,8 +60,14 @@
         </div>
         <div style="clear:both"></div>
     </div>
-<div class="sect sect3">
-</div>
+    @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage2))
+    {
+        <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage2');"></div>
+    }
+    else
+    {
+        <div class="sect sect2"></div>
+    }
 <div id="plans" class="subSect">
     <div class="container section-title-wrapper">
         <div class="row col-xs-12 section-title">
@@ -85,7 +97,15 @@
             <div style="clear:both"></div>
         </div>
     </div>
-    <div class="sect sect2"></div>
+
+    @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage3))
+    {
+        <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage3');"></div>
+    }
+    else
+    {
+        <div class="sect sect3"></div>
+    }
     <div class="subSect">
         <div class="container section-title-wrapper">
             <div class="row col-xs-12 section-title">

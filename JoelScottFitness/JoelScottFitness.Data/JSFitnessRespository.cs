@@ -485,8 +485,13 @@ namespace JoelScottFitness.Data
 
         public async Task<IEnumerable<Image>> GetImages()
         {
-            return await dbContext.Images
-                                  .ToListAsync();
+            var images = await dbContext.Images
+                                        .ToListAsync();
+
+            if (images == null || !images.Any())
+                return Enumerable.Empty<Image>();
+
+            return images;
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfiguration imageConfiguration)
@@ -515,6 +520,12 @@ namespace JoelScottFitness.Data
             }
 
             return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<ImageConfiguration> GetImageConfiguration()
+        {
+            return await dbContext.ImageConfigurations
+                                  .FirstOrDefaultAsync();
         }
     }
 }

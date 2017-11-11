@@ -73,5 +73,7 @@ namespace JoelScottFitness.Data
         Task<IEnumerable<Image>> GetImages();
 
         Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfiguration imageConfiguration);
+
+        Task<ImageConfiguration> GetImageConfiguration();
     }
 }

@@ -351,5 +351,39 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.CreateOrUpdateImageConfiguration(repoImageConfiguration);
         }
+
+        public async Task<ImageConfigurationViewModel> GetImageConfiguration()
+        {
+            var imageConfiguration = await repository.GetImageConfiguration();
+
+            var images = await repository.GetImages();
+            
+            var imageConfigurationViewModel = imageConfiguration != null 
+                                                ? mapper.Map<ImageConfiguration, ImageConfigurationViewModel>(imageConfiguration) 
+                                                : new ImageConfigurationViewModel();
+
+            if (images != null)
+            {
+                imageConfigurationViewModel.Images = mapper.MapEnumerable<Image, ImageViewModel>(images);
+            }
+
+            return imageConfigurationViewModel;
+        }
+
+        public async Task<SectionImageViewModel> GetSectionImages()
+        {
+            var imageConfiguration = await repository.GetImageConfiguration();
+
+            var images = await repository.GetImages();
+
+            if (imageConfiguration != null)
+            {
+                imageConfiguration.Images = images != null 
+                                                ? images 
+                                                : Enumerable.Empty<Image>();
+            }
+
+            return mapper.Map<ImageConfiguration, SectionImageViewModel>(imageConfiguration);
+        }
     }
 }

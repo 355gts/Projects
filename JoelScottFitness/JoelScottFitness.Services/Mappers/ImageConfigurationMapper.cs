@@ -6,11 +6,24 @@ using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class ImageConfigurationMapper : ITypeMapper<ImageConfigurationViewModel, ImageConfiguration>, ITypeMapper<ImageConfiguration, SectionImageViewModel>
+    sealed class ImageConfigurationMapper : ITypeMapper<ImageConfigurationViewModel, ImageConfiguration>, ITypeMapper<ImageConfiguration, SectionImageViewModel>, ITypeMapper<ImageConfiguration, ImageConfigurationViewModel>
     {
         public ImageConfiguration Map(ImageConfigurationViewModel fromObject, ImageConfiguration toObject = null)
         {
             var imageConfiguration = toObject ?? new ImageConfiguration();
+
+            imageConfiguration.Randomize = fromObject.Randomize;
+            imageConfiguration.SectionImage1Id = fromObject.SectionImage1Id;
+            imageConfiguration.SectionImage2Id = fromObject.SectionImage2Id;
+            imageConfiguration.SectionImage3Id = fromObject.SectionImage3Id;
+            imageConfiguration.SplashImageId = fromObject.SplashImageId;
+
+            return imageConfiguration;
+        }
+
+        public ImageConfigurationViewModel Map(ImageConfiguration fromObject, ImageConfigurationViewModel toObject = null)
+        {
+            var imageConfiguration = toObject ?? new ImageConfigurationViewModel();
 
             imageConfiguration.Randomize = fromObject.Randomize;
             imageConfiguration.SectionImage1Id = fromObject.SectionImage1Id;
@@ -29,7 +42,7 @@ namespace JoelScottFitness.Services.Mappers
             if (fromObject.Randomize)
             {
                 Random randomSelector = new Random();
-                int imageCount = fromObject.Images.Count;
+                int imageCount = fromObject.Images.Count();
                 var imageArray = fromObject.Images.ToArray();
 
                 sectionImageConfiguration.SectionImage1 = imageArray[randomSelector.Next(0, imageCount)].ImagePath;

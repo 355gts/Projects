@@ -1,9 +1,16 @@
-﻿@model JoelScottFitness.Common.Models.ImageListViewModel
+﻿@model JoelScottFitness.Common.Models.ImageConfigurationViewModel
 
 @{
     ViewBag.Title = "ImageConfiguration";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@* Leave this style here so it just applies to this carousel *@
+<style>
+    .carousel-indicators li {
+        visibility: hidden;
+    }
+</style>
 
 <div class="container">
     <div class="row">
@@ -14,17 +21,11 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            @using (Html.BeginForm("UploadImage", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-
-                <table class="table">
-                    <tr>
-                        <th>
-                            Image
-                        </th>
-                        <th></th>
-                    </tr>
+            <table class="table">
+                @using (Html.BeginForm("UploadImage", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    
                     <tr>
                         <td>
                             <input type="file" id="postedFile" name="postedFile" />
@@ -33,102 +34,142 @@
                             <input type="submit" value="Upload" class="btn btn-default" style="float:right" />
                         </td>
                     </tr>
-                </table>
-            }
+                }
+
+                @using (Html.BeginForm("ImageConfiguration", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td colspan="2">
+                            <label>Configure Images</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Splash Image Id</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SplashImageId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SplashImageId, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>Section Image 1</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SectionImage1Id, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SectionImage1Id, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>Section Image 2:</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SectionImage2Id, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SectionImage2Id, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Section Image 3:</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.SectionImage3Id, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SectionImage3Id, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Randomize:</label>
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(model => model.Randomize, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Randomize, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            <input type="submit" value="Save" class="btn btn-default" style="float:right" />
+                        </td>
+                    </tr>
+                }
+
+            </table>
         </div>
         <div class="col-md-6">
 
-    @if (Model.Images == null || !Model.Images.Any())
-    {
-        <div>
-            <br />
-            <br />
-            <label>No Images Available</label>
-        </div>
-    }
-    else
-    {
-
-        string listElements = null;
-        string imageElements = null;
-        HtmlString htmlListElements = null;
-        HtmlString htmlImageElements = null;
-        string itemActive = "active item-active";
-        int imageCount = 0;
-
-        foreach (var image in Model.Images)
-        {
-            if (imageCount == 0)
+            @if (Model == null || Model.Images == null || !Model.Images.Any())
             {
-                listElements = "<li data-target='#myCarousel' data-slide-to='" + imageCount + "' class='active'></li>";
+                <div style="text-align:center">
+                    <br />
+                    <br />
+                    <label>No Images Available</label>
+                </div>
             }
             else
             {
-                listElements = listElements + "<li data-target='#myCarousel' data-slide-to='" + imageCount + "'></li>";
-                itemActive = null;
-            }
+                string listElements = null;
+                string imageElements = null;
+                HtmlString htmlListElements = null;
+                HtmlString htmlImageElements = null;
+                string itemActive = "active item-active";
+                int imageCount = 0;
 
-            imageElements = imageElements + "<div class='item "+ itemActive + "'>" +
-                                                "<div style=\"background-image: url('"+image.ImagePath+"');\" class='image-config-carousel-item'>" +
-                                                    "<h3>Image Id: " + image.Id + "</h3>" +
-                                                "</div>" +
-                                            "</div>";
+                foreach (var image in Model.Images)
+                {
+                    if (imageCount == 0)
+                    {
+                        listElements = "<li data-target='#myCarousel' data-slide-to='" + imageCount + "' class='active'></li>";
+                    }
+                    else
+                    {
+                        listElements = listElements + "<li data-target='#myCarousel' data-slide-to='" + imageCount + "'></li>";
+                        itemActive = null;
+                    }
 
-            imageCount++;
-        }
+                    imageElements = imageElements + "<div class='item "+ itemActive + "'>" +
+                                                        "<div style=\"background-image: url('"+image.ImagePath+"');\" class='image-config-carousel-item'>" +
+                                                            "<h3>Image Id: " + image.Id + "</h3>" +
+                                                        "</div>" +
+                                                    "</div>";
 
-        htmlListElements = new HtmlString(listElements);
-        htmlImageElements = new HtmlString(imageElements);
+                    imageCount++;
+                }
 
-        <style>
-            .image-config-carousel-item {
-                width: 100%;
-                height: 400px;
-                width: 100%;
-                background-size: cover;
-                background-position: center top;
-            }
-
-            .image-config-carousel-item h3 {
-                margin: 0px;
-                font-family: 'Bebas-Neue';
-                font-weight: bold;
-                font-size: 22pt;
-                color: white;
-            }
-
-            .carousel-indicators li {
-                visibility: hidden;
-            }
-        </style>
+                htmlListElements = new HtmlString(listElements);
+                htmlImageElements = new HtmlString(imageElements);
         
-            
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="width:100%;height:400px;overflow:hidden">
-            <!-- Indicators -->
-            <ol id="carousel-indicators" class="carousel-indicators">
-                @htmlListElements
-            </ol>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="width:100%;height:400px;overflow:hidden">
+                    <!-- Indicators -->
+                    <ol id="carousel-indicators" class="carousel-indicators">
+                        @htmlListElements
+                    </ol>
 
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner">
-                @htmlImageElements
-            </div>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        @htmlImageElements
+                    </div>
 
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+             }
         </div>
-
-            }
-
-        </div>
-
     </div>
     <div class="row" style="height:60px">
 

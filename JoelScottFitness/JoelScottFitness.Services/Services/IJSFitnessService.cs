@@ -80,5 +80,9 @@ namespace JoelScottFitness.Services.Services
         Task<ImageListViewModel> GetImages();
 
         Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfigurationViewModel imageConfiguration);
+
+        Task<ImageConfigurationViewModel> GetImageConfiguration();
+
+        Task<SectionImageViewModel> GetSectionImages();
     }
 }

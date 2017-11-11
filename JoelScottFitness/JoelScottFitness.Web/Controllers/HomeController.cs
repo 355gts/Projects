@@ -77,6 +77,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var blogs = await jsfService.GetBlogsAsync(6);
             var videos = youTubeClient.GetVideos(3);
+            var sectionImages = await jsfService.GetSectionImages();
 
             var videoViewModel = videos.Select(v => new MediaViewModel()
             {
@@ -88,6 +89,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 Blogs = blogs,
                 Videos = videoViewModel,
+                SectionImages = sectionImages,
             };
 
             return View(indexViewModel);

@@ -14,5 +14,9 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public IEnumerable<MediaViewModel> Videos { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        public SectionImageViewModel SectionImages { get; set; }
     }
 }

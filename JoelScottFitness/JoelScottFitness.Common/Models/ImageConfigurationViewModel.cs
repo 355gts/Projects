@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace JoelScottFitness.Common.Models
@@ -25,5 +26,7 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public bool Randomize { get; set; }
+
+        public IEnumerable<ImageViewModel> Images { get; set; }
     }
 }

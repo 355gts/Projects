@@ -20,6 +20,6 @@ namespace JoelScottFitness.Data.Models
         [Required]
         public bool Randomize { get; set; }
 
-        public ICollection<Image> Images { get; set; }
+        public IEnumerable<Image> Images { get; set; }
     }
 }

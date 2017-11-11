@@ -311,19 +311,14 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> ImageConfiguration(string imageConfigurationError = null)
         {
-            var imageList = await jsfService.GetImages();
-
-            if (!string.IsNullOrEmpty(imageConfigurationError))
-                ViewBag.ImageConfigurationError = imageConfigurationError;
-
-            //imageList.Images.ToList().ForEach(i => i.ImagePath = i.ImagePath.Replace("/", @"%2F"));
-
-            return View(imageList);
+            var imageConfiguration = await jsfService.GetImageConfiguration();
+            
+            return View(imageConfiguration);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ConfigureImages(ImageConfigurationViewModel imageConfiguration)
+        public async Task<ActionResult> ImageConfiguration(ImageConfigurationViewModel imageConfiguration)
         {
             if (ModelState.IsValid)
             {
@@ -335,7 +330,7 @@ namespace JoelScottFitness.Web.Controllers
                 return RedirectToAction("ImageConfiguration", "Admin");
             }
 
-            return View("ImageConfiguration");
+            return View();
         }
 
         private string SaveImage(HttpPostedFileBase postedFile, string directory)

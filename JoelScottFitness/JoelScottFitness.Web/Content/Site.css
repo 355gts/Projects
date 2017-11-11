@@ -235,9 +235,10 @@ p{
 
 .sect {
     height: 100vh;
-    width:100%;
-    background-color: red;
-    background-attachment:fixed;
+    width: 100%;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center top;
 }
 
 .subSect {
@@ -246,19 +247,14 @@ p{
 
 .sect1 {
     background-image: url('Images/section1.PNG');
-    background-size: cover;
-    background-position: center center;
 }
 
 .sect2 {
     background-image: url('Images/section2.PNG');
-    background-size: cover;
-    background-position: center center;
 }
+
 .sect3 {
     background-image: url('Images/section3.PNG');
-    background-size: cover;
-    background-position: center center;
 }
 
 .believe-achieve-background-wrapper{
@@ -1112,3 +1108,23 @@ a:hover {
         display: inline;
     }
 }
+
+/* IMAGE CONFIGURATION STYLES START*/
+
+.image-config-carousel-item {
+    width: 100%;
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center top;
+}
+
+.image-config-carousel-item h3 {
+    margin: 0px;
+    font-family: 'Bebas-Neue';
+    font-weight: bold;
+    font-size: 22pt;
+    color: white;
+}
+
+/* IMAGE CONFIGURATION STYLES END*/
