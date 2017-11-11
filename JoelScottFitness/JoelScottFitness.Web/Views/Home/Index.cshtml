@@ -5,35 +5,39 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row" style="margin:20px;vertical-align:bottom;padding-bottom:140px;color:black">
-    <div class="col-xs-12 col-sm-6 col-md-offset-1 col-md-5 col-lg-offset-2 col-lg-4 text-nowrap" style="font-family:'Bebas-Neue';font-size:100px;margin-top:0;padding-top:0;">
-        WELCOME TO
+<div style="position:relative;z-index:2;background-color:white">
+    <div class="row" style="margin:20px;vertical-align:bottom;padding-bottom:140px;color:black">
+        <div class="col-xs-12 col-sm-6 col-md-offset-1 col-md-5 col-lg-offset-2 col-lg-4 text-nowrap" style="font-family:'Bebas-Neue';font-size:100px;margin-top:0;padding-top:0;">
+            WELCOME TO
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-nowrap home-row home-logo" style="vertical-align:bottom">
+            <img style="width:440px;" src="~/Content/Logos/jsf-black.svg" />
+        </div>
+        <div style="clear:both"></div>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-nowrap home-row home-logo" style="vertical-align:bottom">
-        <img style="width:440px;" src="~/Content/Logos/jsf-black.svg" />
-    </div>
-    <div style="clear:both"></div>
-</div>
-<div class="row" style="padding: 0px 20px;">
-    <div class="col-xs-12" style="padding-bottom:120px">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
-        </p>
-    </div>
+    <div class="row" style="padding: 0px 20px;">
+        <div class="col-xs-12" style="padding-bottom:120px">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
+            </p>
+        </div>
 
-    <div style="clear:both"></div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="believe-achieve-logo-wrapper">
-            <div class="believe-achieve-logo believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
-                <img src="~/Content/Logos/believe-achieve-black.svg" />
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="believe-achieve-logo-wrapper">
+                <div class="believe-achieve-logo believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
+                    <img src="~/Content/Logos/believe-achieve-black.svg" />
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <input id="splash-image" type="hidden" style="display:none" value="@Model.SectionImages.SplashImage" />
+
+<div class="believe-achieve-background-footer"></div>
+<div class="joel-scott-fitness-background-logo-footer"></div>
 
 <div class="sectContainer">
     @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage1))
@@ -70,14 +74,15 @@
     {
         <div class="sect sect2"></div>
     }
-<div id="plans" class="subSect">
-    <div class="container section-title-wrapper">
-        <div class="row col-xs-12 section-title">
-            <div class="home-row home-welcome sect-header">
-                PLANS
+    <div class="subSect">
+        <div class="container section-title-wrapper">
+            <div id="plans" class="row col-xs-12 section-title">
+                <div class="home-row home-welcome sect-header">
+                    PLANS
+                </div>
             </div>
-        </div>
-        <div class="row col-xs-12 plan-row-container">
+
+            <div class="row col-xs-12 plan-row-container">
             <div class="plan-index-container">
                 <a href=@Url.Action("Plans", "Home", new { gender = "Female" }, Request.Url.Scheme) class="plan-index-link">
                     <div class="plan-index-image" style="background-image: url('../../Content/Images/ladies3.jpg');">
@@ -99,15 +104,16 @@
             <div style="clear:both"></div>
         </div>
     </div>
-
+        </div>
     @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage3))
     {
         <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage3');"></div>
     }
     else
     {
-        <div class="sect sect3"></div>
+        <div class="sect sect2"></div>
     }
+
     <div class="subSect">
         <div class="container section-title-wrapper">
             <div class="row col-xs-12 section-title">
@@ -131,5 +137,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

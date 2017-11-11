@@ -18,9 +18,6 @@
         <div class="logo">
             <img src="~/Content/Logos/jsf-white.svg" />
         </div>
-        <div class="believe-achieve-logo believe-achieve-logo-bottom-right believe-achieve-logo-absolute">
-            <img src="~/Content/Logos/believe-achieve-white.svg" />
-        </div>
     </div>
     <div id="nav" class="navbar navbar-inverse menu">
         <div class="container navbar-container">
@@ -44,9 +41,11 @@
     </div>
     <div id="nav-back-mask"></div>
 
-        
-    @RenderBody()
+    <div style="z-index:2">
+        @RenderBody()
+    </div>
     <div class="clearfix"></div>
+
     @Html.Partial("_Footer")
 
     <div class="clearfix"></div>
