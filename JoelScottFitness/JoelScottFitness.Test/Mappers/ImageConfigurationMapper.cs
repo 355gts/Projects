@@ -24,23 +24,23 @@ namespace JoelScottFitness.Test.Mappers
                     SplashImageId = 444,
                     Images = new List<Image>()
                     {
-                        new Image(){ ImagePath = "RandomImage1" },
-                        new Image(){ ImagePath = "RandomImage2" },
-                        new Image(){ ImagePath = "RandomImage3" },
-                        new Image(){ ImagePath = "RandomImage4" },
-                        new Image(){ ImagePath = "RandomImage5" },
+                        new Image(){ Id = 1, ImagePath = "RandomImage1" },
+                        new Image(){ Id = 2, ImagePath = "RandomImage2" },
+                        new Image(){ Id = 3, ImagePath = "RandomImage3" },
+                        new Image(){ Id = 4, ImagePath = "RandomImage4" },
+                        new Image(){ Id = 5, ImagePath = "RandomImage5" },
+                        new Image(){ Id = 111 ,ImagePath = "SectionImage1Id" },
+                        new Image(){ Id = 222 ,ImagePath = "SectionImage2Id" },
+                        new Image(){ Id = 333 ,ImagePath = "SectionImage3Id" },
+                        new Image(){ Id = 444 ,ImagePath = "SplashImageId" },
                     },
-                    SectionImage1 = new Image() { ImagePath = "SectionImage1" },
-                    SectionImage2 = new Image() { ImagePath = "SectionImage2" },
-                    SectionImage3 = new Image() { ImagePath = "SectionImage3" },
-                    SplashImage = new Image() { ImagePath = "SplashImage" },
                 };
 
                 var mapper = new Map.ImageConfigurationMapper();
 
                 var result = mapper.Map(repoObject);
 
-                AssertAreEqual(repoObject, result, true);
+                AssertAreEqual(repoObject, result);
             }
 
             [TestMethod]
@@ -55,25 +55,25 @@ namespace JoelScottFitness.Test.Mappers
                     SplashImageId = 444,
                     Images = new List<Image>()
                     {
-                        new Image(){ ImagePath = "RandomImage1" },
-                        new Image(){ ImagePath = "RandomImage2" },
-                        new Image(){ ImagePath = "RandomImage3" },
-                        new Image(){ ImagePath = "RandomImage4" },
-                        new Image(){ ImagePath = "RandomImage5" },
+                        new Image(){ Id = 1, ImagePath = "RandomImage1" },
+                        new Image(){ Id = 2, ImagePath = "RandomImage2" },
+                        new Image(){ Id = 3, ImagePath = "RandomImage3" },
+                        new Image(){ Id = 4, ImagePath = "RandomImage4" },
+                        new Image(){ Id = 5, ImagePath = "RandomImage5" },
+                        new Image(){ Id = 111 ,ImagePath = "SectionImage1Id" },
+                        new Image(){ Id = 222 ,ImagePath = "SectionImage2Id" },
+                        new Image(){ Id = 333 ,ImagePath = "SectionImage3Id" },
+                        new Image(){ Id = 444 ,ImagePath = "SplashImageId" },
                     },
-                    SectionImage1 = new Image() { ImagePath = "SectionImage1" },
-                    SectionImage2 = new Image() { ImagePath = "SectionImage2" },
-                    SectionImage3 = new Image() { ImagePath = "SectionImage3" },
-                    SplashImage = new Image() { ImagePath = "SplashImage" },
                 };
 
-                SectionImageViewModel webOject = new SectionImageViewModel();
+                ImageConfigurationViewModel webOject = new ImageConfigurationViewModel();
 
                 var mapper = new Map.ImageConfigurationMapper();
 
                 mapper.Map(repoObject, webOject);
 
-                AssertAreEqual(repoObject, webOject, true);
+                AssertAreEqual(repoObject, webOject);
             }
 
 
@@ -89,23 +89,23 @@ namespace JoelScottFitness.Test.Mappers
                     SplashImageId = 444,
                     Images = new List<Image>()
                     {
-                        new Image(){ ImagePath = "RandomImage1" },
-                        new Image(){ ImagePath = "RandomImage2" },
-                        new Image(){ ImagePath = "RandomImage3" },
-                        new Image(){ ImagePath = "RandomImage4" },
-                        new Image(){ ImagePath = "RandomImage5" },
+                        new Image(){ Id = 1, ImagePath = "RandomImage1" },
+                        new Image(){ Id = 2, ImagePath = "RandomImage2" },
+                        new Image(){ Id = 3, ImagePath = "RandomImage3" },
+                        new Image(){ Id = 4, ImagePath = "RandomImage4" },
+                        new Image(){ Id = 5, ImagePath = "RandomImage5" },
+                        new Image(){ Id = 111 ,ImagePath = "SectionImage1Id" },
+                        new Image(){ Id = 222 ,ImagePath = "SectionImage2Id" },
+                        new Image(){ Id = 333 ,ImagePath = "SectionImage3Id" },
+                        new Image(){ Id = 444 ,ImagePath = "SplashImageId" },
                     },
-                    SectionImage1 = new Image() { ImagePath = "SectionImage1" },
-                    SectionImage2 = new Image() { ImagePath = "SectionImage2" },
-                    SectionImage3 = new Image() { ImagePath = "SectionImage3" },
-                    SplashImage = new Image() { ImagePath = "SplashImage" },
                 };
 
                 var mapper = new Map.ImageConfigurationMapper();
 
                 var result = mapper.Map(repoObject);
 
-                AssertAreEqual(repoObject, result, false);
+                AssertAreEqual(repoObject, result);
             }
 
             [TestMethod]
@@ -120,43 +120,34 @@ namespace JoelScottFitness.Test.Mappers
                     SplashImageId = 444,
                     Images = new List<Image>()
                     {
-                        new Image(){ ImagePath = "RandomImage1" },
-                        new Image(){ ImagePath = "RandomImage2" },
-                        new Image(){ ImagePath = "RandomImage3" },
-                        new Image(){ ImagePath = "RandomImage4" },
-                        new Image(){ ImagePath = "RandomImage5" },
+                        new Image(){ Id = 1, ImagePath = "RandomImage1" },
+                        new Image(){ Id = 2, ImagePath = "RandomImage2" },
+                        new Image(){ Id = 3, ImagePath = "RandomImage3" },
+                        new Image(){ Id = 4, ImagePath = "RandomImage4" },
+                        new Image(){ Id = 5, ImagePath = "RandomImage5" },
+                        new Image(){ Id = 111 ,ImagePath = "SectionImage1Id" },
+                        new Image(){ Id = 222 ,ImagePath = "SectionImage2Id" },
+                        new Image(){ Id = 333 ,ImagePath = "SectionImage3Id" },
+                        new Image(){ Id = 444 ,ImagePath = "SplashImageId" },
                     },
-                    SectionImage1 = new Image() { ImagePath = "SectionImage1" },
-                    SectionImage2 = new Image() { ImagePath = "SectionImage2" },
-                    SectionImage3 = new Image() { ImagePath = "SectionImage3" },
-                    SplashImage = new Image() { ImagePath = "SplashImage" },
                 };
 
-                SectionImageViewModel webOject = new SectionImageViewModel();
+                ImageConfigurationViewModel webOject = new ImageConfigurationViewModel();
 
                 var mapper = new Map.ImageConfigurationMapper();
 
                 mapper.Map(repoObject, webOject);
 
-                AssertAreEqual(repoObject, webOject, false);
+                AssertAreEqual(repoObject, webOject);
             }
 
-            private void AssertAreEqual(ImageConfiguration repoObject, SectionImageViewModel webObject, bool random)
+            private void AssertAreEqual(ImageConfiguration repoObject, ImageConfigurationViewModel webObject)
             {
-                if (random)
-                {
-                    Assert.IsTrue(webObject.SectionImage1.Contains("Random"));
-                    Assert.IsTrue(webObject.SectionImage2.Contains("Random"));
-                    Assert.IsTrue(webObject.SectionImage3.Contains("Random"));
-                    Assert.IsTrue(webObject.SplashImage.Contains("Random"));
-                }
-                else
-                {
-                    Assert.AreEqual(repoObject.SectionImage1.ImagePath, webObject.SectionImage1);
-                    Assert.AreEqual(repoObject.SectionImage2.ImagePath, webObject.SectionImage2);
-                    Assert.AreEqual(repoObject.SectionImage3.ImagePath, webObject.SectionImage3);
-                    Assert.AreEqual(repoObject.SplashImage.ImagePath, webObject.SplashImage);
-                }
+                Assert.AreEqual(repoObject.Randomize, webObject.Randomize);
+                Assert.AreEqual(repoObject.SectionImage1Id, webObject.SectionImage1Id);
+                Assert.AreEqual(repoObject.SectionImage2Id, webObject.SectionImage2Id);
+                Assert.AreEqual(repoObject.SectionImage3Id, webObject.SectionImage3Id);
+                Assert.AreEqual(repoObject.SplashImageId, webObject.SplashImageId);
             }
         }
         

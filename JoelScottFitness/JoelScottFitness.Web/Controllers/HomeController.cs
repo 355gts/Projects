@@ -5,6 +5,7 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
+using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -78,6 +79,17 @@ namespace JoelScottFitness.Web.Controllers
             var blogs = await jsfService.GetBlogsAsync(6);
             var videos = youTubeClient.GetVideos(3);
             var sectionImages = await jsfService.GetSectionImages();
+
+            if (sectionImages == null)
+            {
+                sectionImages = new SectionImageViewModel()
+                {
+                    SectionImage1 = Settings.Default.DefaultSectionImage1,
+                    SectionImage2 = Settings.Default.DefaultSectionImage2,
+                    SectionImage3 = Settings.Default.DefaultSectionImage3,
+                    SplashImage = Settings.Default.DefaultSplashImage,
+                };
+            }
 
             var videoViewModel = videos.Select(v => new MediaViewModel()
             {
@@ -519,6 +531,32 @@ namespace JoelScottFitness.Web.Controllers
             ViewBag.Message = $"Thanks, your tailored workout plan will be with you in the next 24 hours.";
 
             return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.User)]
+        public async Task<ActionResult> MyAccount()
+        {
+            var userId = User.Identity.Name;
+
+            var customerDetails = await jsfService.GetCustomerDetailsAsync(userId);
+
+            // TODO handle this error i.e. no user
+            if (customerDetails == null)
+                return RedirectToAction("Error", "Home");
+
+            var purchases = await jsfService.GetPurchasesAsync(customerDetails.Id);
+
+            return View(purchases);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.User)]
+        public async Task<ActionResult> MyPlan(long purchaseId)
+        {
+            var purchase = await jsfService.GetPurchaseAsync(purchaseId);
+
+            return View(purchase);
         }
 
         [HttpGet]

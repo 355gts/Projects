@@ -12,7 +12,6 @@ namespace JoelScottFitness.Services.Mappers
             
             item.ItemId = fromObject.Id;
             item.Quantity = fromObject.Quantity;
-            item.RequiresAction = true;
 
             return item;
         }

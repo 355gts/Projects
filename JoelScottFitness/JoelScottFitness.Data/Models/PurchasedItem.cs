@@ -21,6 +21,12 @@ namespace JoelScottFitness.Data.Models
         public Purchase Purchase { get; set; }
         
         [Required]
-        public bool RequiresAction { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public bool RequiresAction
+        {
+            get { return string.IsNullOrEmpty(PlanPath); }
+        }
+
+        public string PlanPath { get; set; }
     }
 }

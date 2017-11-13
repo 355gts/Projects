@@ -11,12 +11,13 @@ namespace JoelScottFitness.Services.Mappers
             var item = toObject ?? new PurchasedHistoryItemViewModel();
             
             item.Description = fromObject.Item.Description;
-            item.Id = fromObject.Item.Id;
+            item.Id = fromObject.Id;
             item.ItemId = fromObject.ItemId;
             item.ItemType = fromObject.Item.ItemType;
             item.Price = fromObject.Item.Price;
             item.Quantity = fromObject.Quantity;
             item.RequiresAction = fromObject.RequiresAction;
+            item.PlanPath = fromObject.PlanPath;
 
             return item;
         }
@@ -28,7 +29,6 @@ namespace JoelScottFitness.Services.Mappers
             item.Id = fromObject.Id;
             item.ItemId = fromObject.ItemId;
             item.Quantity = fromObject.Quantity;
-            item.RequiresAction = fromObject.RequiresAction;
 
             return item;
         }

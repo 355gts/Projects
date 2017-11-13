@@ -1,0 +1,77 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.PurchaseSummaryViewModel>
+
+@{
+    ViewBag.Title = "CustomerPlans";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container" style="font-family:'Bebas-Neue';font-size:12pt">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            MY ACCOUNT
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr style="font-size:14pt">
+                <th>
+                    <label>Transaction Id</label>
+                </th>
+                <th class="hidden-xs visible-sm visible-md visible-lg" >
+                    <label>Purchase Date</label>
+                </th>
+                <th class="hidden-xs visible-sm visible-md visible-lg">
+                    <label>Total Amount</label>
+                </th>
+                <th>
+                    <label>Questionnaire Complete</label>
+                </th>
+                <th>
+                    <label>Plans Ready</label>
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(modelItem => item.Id, new { @style = "display:none" })
+                    @Html.HiddenFor(modelItem => item.CustomerId, new { @style = "display:none" })
+                    @Html.HiddenFor(modelItem => item.DiscountCodeId, new { @style = "display:none" })
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionId)
+                    </td>
+                    <td class="hidden-xs visible-sm visible-md visible-lg">
+                        @item.PurchaseDate.ToString("dd/MM/yyyy")
+                    </td>
+                    <td class="hidden-xs visible-sm visible-md visible-lg">
+                        £@item.TotalAmount
+                    </td>
+                    <td style="text-align:center">
+                        @if (item.QuestionnaireComplete)
+                        {
+                            <i class="fa fa-check fa-2x" aria-hidden="true" style="color:green"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times fa-2x" aria-hidden="true" style="color:red"></i>
+                        }
+                    </td>
+                    <td style="text-align:center">
+                        @if (item.RequiresAction)
+                        {
+                            <i class="fa fa-exclamation fa-2x" aria-hidden="true" style="color:red"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-check fa-2x" aria-hidden="true" style="color:green"></i>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "MyPlan", "Home", new { purchaseId = item.Id }, new { @class = "btn btn-default" })
+                    </td>
+                </tr>
+            }
+        </table>
+        </div>
+    </div>

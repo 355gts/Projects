@@ -36,7 +36,7 @@
                     <label>Questionnaire Complete</label>
                 </th>
                 <th>
-                    <label>Requires Action</label>
+                    <label>Plans Uploaded</label>
                 </th>
                 <th></th>
             </tr>
@@ -79,6 +79,10 @@
                         @if (item.RequiresAction)
                         {
                             <i class="fa fa-exclamation fa-2x" aria-hidden="true" style="color:red"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-check fa-2x" aria-hidden="true" style="color:green"></i>
                         }
                     </td>
                     <td>

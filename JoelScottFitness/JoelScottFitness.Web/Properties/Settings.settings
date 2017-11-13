@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.Web.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefaultSectionImage1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/section1.PNG</Value>
+    </Setting>
+    <Setting Name="DefaultSectionImage2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/section2.PNG</Value>
+    </Setting>
+    <Setting Name="DefaultSectionImage3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/section3.PNG</Value>
+    </Setting>
+    <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/banner.PNG</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

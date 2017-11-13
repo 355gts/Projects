@@ -58,13 +58,13 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                blog.ImagePath = SaveImage(postedFile, "Content/Images");
+                blog.ImagePath = SaveFile(postedFile, "Content/Images");
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages)
                     {
-                        blogImage.ImagePath = SaveImage(blogImage.PostedFile, "Content/Images");
+                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, "Content/Images");
                     }
                 }
 
@@ -98,14 +98,14 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    blog.ImagePath = SaveImage(postedFile, "Content/Images");
+                    blog.ImagePath = SaveFile(postedFile, "Content/Images");
                 }
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages.Where(i => i.PostedFile != null).ToList())
                     {
-                        blogImage.ImagePath = SaveImage(blogImage.PostedFile, "Content/Images");
+                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, "Content/Images");
                     }
                 }
 
@@ -144,7 +144,7 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                plan.ImagePathLarge = SaveImage(postedFile, "Content/Images");
+                plan.ImagePathLarge = SaveFile(postedFile, "Content/Images");
 
                 var result = await jsfService.CreatePlanAsync(plan);
 
@@ -173,7 +173,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    plan.ImagePathLarge = SaveImage(postedFile, "Content/Images");
+                    plan.ImagePathLarge = SaveFile(postedFile, "Content/Images");
                 }
 
                 var result = await jsfService.UpdatePlanAsync(plan);
@@ -294,7 +294,7 @@ namespace JoelScottFitness.Web.Controllers
 
             foreach (var file in postedFile)
             {
-                string imagePath = SaveImage(file, "Content/Images");
+                string imagePath = SaveFile(file, "Content/Images");
 
                 var result = await jsfService.AddImage(imagePath);
 
@@ -333,7 +333,24 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
-        private string SaveImage(HttpPostedFileBase postedFile, string directory)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UploadPlan(UploadPlanViewModel uploadPlanViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
+
+                string fileName = $"{customer.Firstname} {customer.Surname} - {uploadPlanViewModel.Name} - {uploadPlanViewModel.Description} - {DateTime.UtcNow.ToString("yyyyMMdd")}.pdf";
+                var planPath = SaveFile(uploadPlanViewModel.PostedFile, "Content/Plans", fileName);
+
+                var result = await jsfService.AssociatePlanToPurchase(uploadPlanViewModel.PurchasedItemId, planPath);
+            }
+
+            return RedirectToAction("CustomerPlan", "Admin", new { purchaseId = uploadPlanViewModel.PurchaseId });
+        }
+
+        private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
         {
             string uploadPath = null;
             try
@@ -344,8 +361,12 @@ namespace JoelScottFitness.Web.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                uploadPath = $"/{directory}/{Path.GetFileName(postedFile.FileName)}";
+                string fileName = !string.IsNullOrEmpty(name) 
+                                    ? name 
+                                    : Path.GetFileName(postedFile.FileName);
+
+                postedFile.SaveAs(path + fileName);
+                uploadPath = $"/{directory}/{fileName}";
             }
             catch (Exception ex)
             {

@@ -93,6 +93,7 @@
     <Compile Include="Models\SectionImageViewModel.cs" />
     <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
     <Compile Include="Models\UiPlanViewModel.cs" />
+    <Compile Include="Models\UploadPlanViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Modules\CommonModule.cs" />
     <Compile Include="Lists\Options.cs" />

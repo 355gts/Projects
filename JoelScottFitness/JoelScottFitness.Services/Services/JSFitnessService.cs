@@ -205,20 +205,20 @@ namespace JoelScottFitness.Services.Services
 
             purchaseViewModel.Items.ToList().ForEach(p => 
             {
-                p.Name = plans.Where(plan => plan.Options.Select(s => s.Id).Contains(p.Id)).FirstOrDefault().Name;
+                p.Name = plans.Where(plan => plan.Options.Select(s => s.Id).Contains(p.ItemId)).FirstOrDefault().Name;
             });
             
             return purchaseViewModel;
         }
 
-        public async Task<IEnumerable<PurchaseHistoryViewModel>> GetPurchasesAsync(long customerId)
+        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync(long customerId)
         {
             var purchases = await repository.GetPurchasesAsync(customerId);
 
             if (purchases == null || !purchases.Any())
-                return Enumerable.Empty<PurchaseHistoryViewModel>();
+                return Enumerable.Empty<PurchaseSummaryViewModel>();
 
-            return mapper.MapEnumerable<Purchase, PurchaseHistoryViewModel>(purchases);
+            return mapper.MapEnumerable<Purchase, PurchaseSummaryViewModel>(purchases);
         }
 
         public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync()
@@ -384,6 +384,11 @@ namespace JoelScottFitness.Services.Services
             }
 
             return mapper.Map<ImageConfiguration, SectionImageViewModel>(imageConfiguration);
+        }
+
+        public async Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath)
+        {
+            return await repository.AssociatePlanToPurchase(purchasedItemId, planPath);
         }
     }
 }

@@ -284,6 +284,7 @@ namespace JoelScottFitness.Data
                                   .Include(p => p.Customer)
                                   .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
+                                  .Include(p => p.Questionnaire)
                                   .Include("Items.Item")
                                   .Where(p => p.CustomerId == customerId)
                                   .OrderByDescending(p => p.PurchaseDate)
@@ -447,7 +448,7 @@ namespace JoelScottFitness.Data
 
             plan.Active = status;
 
-            dbContext.SetModified(plan);
+            dbContext.SetPropertyModified(plan, nameof(plan.Active));
 
             return await SaveChangesAsync();
         }
@@ -461,7 +462,7 @@ namespace JoelScottFitness.Data
 
             blog.Active = status;
 
-            dbContext.SetModified(blog);
+            dbContext.SetPropertyModified(blog, nameof(blog.Active));
 
             return await SaveChangesAsync();
         }
@@ -526,6 +527,20 @@ namespace JoelScottFitness.Data
         {
             return await dbContext.ImageConfigurations
                                   .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath)
+        {
+            var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+
+            if (purchasedItem == null)
+                return false;
+
+            purchasedItem.PlanPath = planPath;
+
+            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.PlanPath));
+
+            return await SaveChangesAsync();
         }
     }
 }

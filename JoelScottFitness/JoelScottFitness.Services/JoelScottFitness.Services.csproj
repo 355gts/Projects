@@ -85,6 +85,7 @@
     <Compile Include="Mappers\PurchaseMapper.cs" />
     <Compile Include="Mappers\PurchaseSummaryMapper.cs" />
     <Compile Include="Mappers\QuestionnaireMapper.cs" />
+    <Compile Include="Mappers\SectionImageConfigurationMapper.cs" />
     <Compile Include="Mappers\SelectedPlanOptionMapper.cs" />
     <Compile Include="Mappers\UiPlanMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />

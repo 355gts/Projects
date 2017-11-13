@@ -214,7 +214,9 @@
                     <label>Item Type</label>
                 </th>
                 <th>
-                    <label>Requires Action</label>
+                    <label>Plan Uploaded</label>
+                </th>
+                <th colspan="2"><label>Plans</label>
                 </th>
             </tr>
         
@@ -237,8 +239,41 @@
                         @Html.DisplayFor(modelItem => item.ItemType)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.RequiresAction)
+                        @if (item.RequiresAction)
+                        {
+                            <i class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
+                        }
                     </td>
+                    
+                        @if (!string.IsNullOrEmpty(item.PlanPath))
+                        {
+                            <td colspan="2">
+                                <a href="@item.PlanPath" target="_blank">Plan</a>
+                            </td>
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("UploadPlan", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <td>
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("PurchaseId", Model.Id, new { @style = "display:none" })
+                                    @Html.Hidden("PurchasedItemId", item.Id, new { @style = "display:none" })
+                                    @Html.Hidden("CustomerId", Model.CustomerId, new { @style = "display:none" })
+                                    @Html.Hidden("Name", item.Name, new { @style = "display:none" })
+                                    @Html.Hidden("Description", item.Description, new { @style = "display:none" })
+                                    <input type="file" id="postedFile" name="PostedFile" />
+                                </td>
+                                <td>
+                                    <input type="submit" value="Upload" class="btn btn-default" />
+                                </td>
+                            }
+                        }                        
+                    
                 </tr>
             }
 
