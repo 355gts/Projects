@@ -108,6 +108,21 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult Countdown()
+        {
+            var goLive = new DateTime(2017, 12, 01, 18, 00, 00);
+            DateTime nowTime = DateTime.Now;
+
+            double result = (goLive - DateTime.Now).TotalSeconds;
+            if (result <= 0)
+                result += TimeSpan.FromHours(24).TotalSeconds;
+
+            ViewBag.CountDownMilliseconds = result;
+
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

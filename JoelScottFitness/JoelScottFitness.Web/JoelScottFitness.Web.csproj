@@ -229,6 +229,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Countdown.css" />
+    <Content Include="Content\flipclock.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\banner.JPG" />
@@ -318,6 +320,7 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\flipclock.min.js" />
     <Content Include="Scripts\JoelScottFitness.js" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -408,6 +411,7 @@
     <Content Include="Views\Admin\ImageConfiguration.cshtml" />
     <Content Include="Views\Home\MyPlan.cshtml" />
     <Content Include="Views\Home\MyAccount.cshtml" />
+    <Content Include="Views\Home\Countdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

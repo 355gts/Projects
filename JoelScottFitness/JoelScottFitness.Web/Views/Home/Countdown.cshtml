@@ -1,0 +1,107 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel Scott Fitness</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Countdown.css" rel="stylesheet" />
+    <link href="~/Content/flipclock.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="logo-wrapper">
+        <img src="~/Content/Logos/jsf-white.svg" class="logo" />
+    </div>
+    <div class="strap-line-wrapper">
+        <label>THE COUNTDOWN HAS BEGUN</label>
+    </div>
+
+    <div class="daily-counter-wrapper" style="text-align:center">
+        <div id="daily-clock" class="flip-counter daily-clock flip-clock-wrapper" style="margin:0 auto;width:auto;position:relative;display:inline-block!important"></div>
+    </div>
+    <div class="hourly-counter-wrapper" style="text-align:center;">
+        <div id="hourly-clock" class="flip-counter hourly-clock flip-clock-wrapper" style="margin:0 auto;width:auto;position:relative;display:inline-block!important"></div>
+    </div>
+
+    <div style="clear:both"></div>
+    <div class="social-footer-container">
+        <div class="social-footer-column-wrapper">
+            <div class="social-footer-icon-wrapper">
+                <div class="social-footer-icon">
+                    <a href="http://www.facebook.com/Joelscottfitness-346355882365048/" target="_blank" id="facebook"><i class="fa fa-facebook-square fa-4x"></i></a>
+                </div>
+            </div>
+            <div class="social-footer-icon-wrapper">
+                <div class="social-footer-icon">
+                    <a href="https://twitter.com/JoelSFitness/" target="_blank"><i class="fa fa-twitter fa-4x"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="social-footer-column-wrapper">
+            <div class="social-footer-icon-wrapper">
+                <div class="social-footer-icon">
+                    <a href="https://www.youtube.com/user/JoelScottFitness/" target="_blank"><i class="fa fa-youtube fa-4x"></i></a>
+                </div>
+            </div>
+            <div class="social-footer-icon-wrapper">
+                <div class="social-footer-icon">
+                    <a href="https://www.instagram.com/joelscottfitness/" target="_blank"><i class="fa fa-instagram fa-4x"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/flipclock.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dailyClock;
+
+            dailyClock = $('.daily-clock').FlipClock({
+                clockFace: 'DailyCounter',
+                autoStart: false,
+                callbacks: {
+                    stop: function () {
+                        $('.message').html('The clock has stopped!')
+                    }
+                }
+            });
+
+            dailyClock.setTime(@ViewBag.CountDownMilliseconds);
+            dailyClock.setCountdown(true);
+            dailyClock.start();
+
+        });
+
+        $(document).ready(function () {
+            var hourlyClock;
+
+            hourlyClock = $('.hourly-clock').FlipClock({
+                clockFace: 'HourlyCounter',
+                autoStart: false,
+                callbacks: {
+                    stop: function () {
+                        $('.message').html('The clock has stopped!')
+                    }
+                }
+            });
+
+            hourlyClock.setTime(@ViewBag.CountDownMilliseconds);
+            hourlyClock.setCountdown(true);
+            hourlyClock.start();
+
+        });
+
+    </script>
+</body>
+</html>
