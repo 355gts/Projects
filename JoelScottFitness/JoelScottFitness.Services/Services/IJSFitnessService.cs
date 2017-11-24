@@ -87,5 +87,6 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath);
         Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(long customerId);
+        Task<KaleidoscopeViewModel> GetKaleidoscopeImages();
     }
 }

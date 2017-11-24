@@ -18,5 +18,11 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public SectionImageViewModel SectionImages { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        public KaleidoscopeViewModel KaleidoscopeImages { get; set; }
+
+
     }
 }

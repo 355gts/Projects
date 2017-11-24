@@ -408,6 +408,22 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<ImageConfiguration, SectionImageViewModel>(imageConfiguration);
         }
 
+        public async Task<KaleidoscopeViewModel> GetKaleidoscopeImages()
+        {
+            var imageConfiguration = await repository.GetImageConfiguration();
+
+            var images = await repository.GetImages();
+
+            if (imageConfiguration != null)
+            {
+                imageConfiguration.Images = images != null
+                                                ? images
+                                                : Enumerable.Empty<Image>();
+            }
+
+            return mapper.Map<ImageConfiguration, KaleidoscopeViewModel>(imageConfiguration);
+        }
+
         public async Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath)
         {
             return await repository.AssociatePlanToPurchase(purchasedItemId, planPath);

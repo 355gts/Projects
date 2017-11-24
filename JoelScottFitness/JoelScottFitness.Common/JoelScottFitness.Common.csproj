@@ -73,6 +73,7 @@
     <Compile Include="Models\CreatePlanViewModel.cs" />
     <Compile Include="Models\ImageListViewModel.cs" />
     <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\KaleidoscopeViewModel.cs" />
     <Compile Include="Models\PaymentConfirmationViewModel.cs" />
     <Compile Include="Models\ConfirmPurchaseViewModel.cs" />
     <Compile Include="Models\CreateCustomerViewModel.cs" />
