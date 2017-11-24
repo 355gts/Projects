@@ -10,6 +10,7 @@ namespace JoelScottFitness.Services.Mappers
         {
             var item = toObject ?? new PurchasedHistoryItemViewModel();
             
+            
             item.Description = fromObject.Item.Description;
             item.Id = fromObject.Id;
             item.ItemId = fromObject.ItemId;
@@ -18,6 +19,7 @@ namespace JoelScottFitness.Services.Mappers
             item.Quantity = fromObject.Quantity;
             item.RequiresAction = fromObject.RequiresAction;
             item.PlanPath = fromObject.PlanPath;
+            item.PlanOptionId = fromObject.Item.Id;
 
             return item;
         }

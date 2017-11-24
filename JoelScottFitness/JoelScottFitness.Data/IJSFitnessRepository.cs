@@ -77,5 +77,6 @@ namespace JoelScottFitness.Data
         Task<ImageConfiguration> GetImageConfiguration();
 
         Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath);
+        Task<IEnumerable<PlanOption>> GetPlanOptionsAsync();
     }
 }

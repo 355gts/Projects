@@ -211,7 +211,7 @@ namespace JoelScottFitness.Services.Services
             return purchaseViewModel;
         }
 
-        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync(long customerId)
+        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(long customerId)
         {
             var purchases = await repository.GetPurchasesAsync(customerId);
 
@@ -229,6 +229,28 @@ namespace JoelScottFitness.Services.Services
                 return Enumerable.Empty<PurchaseSummaryViewModel>();
 
             return mapper.MapEnumerable<Purchase, PurchaseSummaryViewModel>(purchases);
+        }
+
+        public async Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(long customerId)
+        {
+            List<PurchasedHistoryItemViewModel> plansViewModel = new List<PurchasedHistoryItemViewModel>();
+            var planOptions = await repository.GetPlanOptionsAsync();
+            var purchases = await repository.GetPurchasesAsync(customerId);
+
+            foreach (var purchase in purchases)
+            {
+                var mappedPlans = mapper.MapEnumerable<PurchasedItem, PurchasedHistoryItemViewModel>(purchase.Items);
+                mappedPlans.ToList().ForEach(p => 
+                {
+                    p.QuestionnaireComplete = purchase.QuestionnareId.HasValue;
+                    p.TransactionId = purchase.TransactionId;
+                    p.Name = planOptions.FirstOrDefault(o => o.Id == p.PlanOptionId)?.Plan?.Name;
+                });
+
+                plansViewModel.AddRange(mappedPlans);
+            }
+            
+            return plansViewModel;
         }
 
         public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)

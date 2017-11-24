@@ -15,6 +15,10 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
+        public long PlanOptionId { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public long Quantity { get; set; }
 
         [Required]
@@ -39,5 +43,12 @@ namespace JoelScottFitness.Common.Models
 
         [DataMember(IsRequired = false)]
         public string PlanPath { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        public bool QuestionnaireComplete { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public string TransactionId { get; set; }
     }
 }

@@ -560,16 +560,24 @@ namespace JoelScottFitness.Web.Controllers
             if (customerDetails == null)
                 return RedirectToAction("Error", "Home");
 
-            var purchases = await jsfService.GetPurchasesAsync(customerDetails.Id);
+            var purchases = await jsfService.GetPurchaseSummaryAsync(customerDetails.Id);
 
             return View(purchases);
         }
 
         [HttpGet]
         [Authorize(Roles = JsfRoles.User)]
-        public async Task<ActionResult> MyPlan(long purchaseId)
+        public async Task<ActionResult> MyPlans()
         {
-            var purchase = await jsfService.GetPurchaseAsync(purchaseId);
+            var userId = User.Identity.Name;
+
+            var customerDetails = await jsfService.GetCustomerDetailsAsync(userId);
+
+            // TODO handle this error i.e. no user
+            if (customerDetails == null)
+                return RedirectToAction("Error", "Home");
+
+            var purchase = await jsfService.GetCustomerPlansAsync(customerDetails.Id);
 
             return View(purchase);
         }

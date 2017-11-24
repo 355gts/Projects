@@ -141,7 +141,7 @@
                                 <div class="col-xs-12 col-sm-4">@Html.TextBox("BasketItems[" + @itemCount + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Description" })</div>
                                 <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Quantity:</div>
                                 <div class="row col-xs-12 col-sm-3 basket-button-spacing" style="display:inline-block;text-align:center;position:relative;padding-left:30px;">
-                                    @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Quantity" })
+                                    @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center" })
                                 </div>
                                 <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Price:</div>
                                 <div class="col-xs-6 col-sm-2">

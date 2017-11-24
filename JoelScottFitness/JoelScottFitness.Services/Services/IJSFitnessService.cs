@@ -47,7 +47,7 @@ namespace JoelScottFitness.Services.Services
                 
         Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id);
 
-        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync(long customerId);
+        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(long customerId);
 
         Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync();
 
@@ -86,5 +86,6 @@ namespace JoelScottFitness.Services.Services
         Task<SectionImageViewModel> GetSectionImages();
 
         Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath);
+        Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(long customerId);
     }
 }

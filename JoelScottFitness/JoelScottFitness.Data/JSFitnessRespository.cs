@@ -243,6 +243,13 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }
 
+        public async Task<IEnumerable<PlanOption>> GetPlanOptionsAsync()
+        {
+            return await dbContext.PlanOptions
+                                  .Include(p => p.Plan)
+                                  .ToListAsync();
+        }
+
         public async Task<Plan> GetPlanAsync(long id)
         {
             return await dbContext.Plans

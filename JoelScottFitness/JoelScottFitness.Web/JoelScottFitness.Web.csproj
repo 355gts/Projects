@@ -409,7 +409,7 @@
     <Content Include="Views\Admin\CustomerPlans.cshtml" />
     <Content Include="Views\Admin\CustomerPlan.cshtml" />
     <Content Include="Views\Admin\ImageConfiguration.cshtml" />
-    <Content Include="Views\Home\MyPlan.cshtml" />
+    <Content Include="Views\Home\MyPlans.cshtml" />
     <Content Include="Views\Home\MyAccount.cshtml" />
     <Content Include="Views\Home\Countdown.cshtml" />
   </ItemGroup>
