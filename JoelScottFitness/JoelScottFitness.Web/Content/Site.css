@@ -1186,4 +1186,260 @@ a:hover {
 /* IMAGE CONFIGURATION STYLES END*/
 
 /* MY PLANS STYLES START */
+.plan-row-container {
+    text-align: center;
+    font-family: 'Bebas-Neue';
+    font-size: 100px;
+    line-height: 1;
+    margin-top: 0;
+    padding-top: 0;
+    padding-right: 20px;
+    display: inline-block;
+}
+
+.plan-container {
+    width: 300px;
+    height: 360px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    padding: 2px;
+    overflow: hidden;
+}
+
+.plan-format {
+    font-family: 'Bebas-Neue';
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.plan-name-format {
+    font-size: 60px;
+    text-align: center;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.plan-description-format {
+    text-align: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+.plan-download-format {
+    text-align: center;
+    width: 100%;
+}
+
+.plan-download-format a {
+    text-decoration: none;
+    color: white;
+}
+
+.plan-download-format a:hover {
+    text-decoration-line: underline;
+}
+
+.plan-preparing-format {
+    text-align: center;
+    width: 100%;
+}
+
+.plan-questionnaire-format {
+    text-align: center;
+    width: 100%;
+}
+
+.plan-questionnaire-format a {
+    text-decoration: none;
+    color: white;
+}
+
+.plan-questionnaire-format a:hover {
+    text-decoration-line: underline;
+}
+
+.plan-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    background-repeat: no-repeat;
+}
+
+.plan-image-greyscale {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+}
+
+.plan-upload-text {
+    position: relative;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 80%;
+    float: left;
+}
+
+.plan-upload-text-label {
+    margin-left: -56px;
+    font-size: 20px;
+}
+
+.plan-upload-icon-wrapper {
+    width: 100%;
+    height: 50px;
+    position: relative;
+    bottom: -90px
+}
+
+.plan-upload-icon {
+    text-align: left;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 20%;
+    float: left
+}
+
+.plan-upload-icon a {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    text-decoration: none;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+.plan-upload-icon a:hover {
+    display: inline-block;
+    position: relative;
+    -moz-animation: bounce 0.5s infinite linear;
+    -o-animation: bounce 0.5s infinite linear;
+    -webkit-animation: bounce 0.5s infinite linear;
+    animation: bounce 0.5s infinite linear;
+    color: white;
+}
+
+
+@-webkit-keyframes bounce {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -0.2em;
+    }
+
+    70% {
+        top: -0.3em;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+@-moz-keyframes bounce {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -0.2em;
+    }
+
+    70% {
+        top: -0.3em;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+@-o-keyframes bounce {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -0.2em;
+    }
+
+    70% {
+        top: -0.3em;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+@-ms-keyframes bounce {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -0.2em;
+    }
+
+    70% {
+        top: -0.3em;
+    }
+
+    100% {
+        top: 0;
+    }
+}
+
+@keyframes bounce {
+    0% {
+        top: 0;
+    }
+
+    50% {
+        top: -0.2em;
+    }
+
+    70% {
+        top: -0.3em;
+    }
+
+    100% {
+        top: 0;
+    }
+}
 /* MY PLANS STYLE END*/
+.kaleidoscope-wrapper {
+    background-color: white;
+    position: relative;
+    z-index: 1
+}
+
+.kaleidoscope-large {
+    min-height: 400px;
+    position: relative;
+    float: left;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.kaleidoscope-small {
+    min-height: 200px;
+    position: relative;
+    float: left;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
