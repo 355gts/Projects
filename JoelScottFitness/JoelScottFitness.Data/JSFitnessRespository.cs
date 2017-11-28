@@ -562,22 +562,57 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PurchasedItem>> GetHallOfFameEntries(bool onlyEnabled = true)
+        public async Task<IEnumerable<PurchasedItem>> GetHallOfFameEntriesAsync(bool onlyEnabled = true)
         {
             if (onlyEnabled)
                 return await dbContext.PurchasedItems
                                       .Include(p => p.Item)
                                       .Include(p => p.Purchase)
                                       .Include("Purchase.Customer")
-                                      .Where(p => p.HallOfFameEnabled)
+                                      .Where(p => p.HallOfFameEnabled && p.MemberOfHallOfFame)
                                       .OrderByDescending(p => p.Purchase.PurchaseDate).ToListAsync();
 
             return await dbContext.PurchasedItems
                                   .Include(p => p.Item)
                                   .Include(p => p.Purchase)
                                   .Include("Purchase.Customer")
+                                  .Where(p => p.MemberOfHallOfFame)
                                   .OrderByDescending(p => p.Purchase.PurchaseDate)
                                   .ToListAsync();
+        }
+
+        public async Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status)
+        {
+            var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+
+            if (purchasedItem == null)
+                return false;
+
+            purchasedItem.HallOfFameEnabled = status;
+
+            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.HallOfFameEnabled));
+
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId)
+        {
+            var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+
+            if (purchasedItem == null)
+                return false;
+
+            purchasedItem.MemberOfHallOfFame = false;
+            purchasedItem.BeforeImage = null;
+            purchasedItem.AfterImage = null;
+            purchasedItem.HallOfFameEnabled = false;
+
+            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.MemberOfHallOfFame));
+            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.BeforeImage));
+            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.AfterImage));
+            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.HallOfFameEnabled));
+
+            return await SaveChangesAsync();
         }
     }
 }

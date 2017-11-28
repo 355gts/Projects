@@ -288,6 +288,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UploadImage(HttpPostedFileBase[] postedFile)
         {
             var postedFiles = postedFile.ToList();
@@ -309,6 +310,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> ImageConfiguration(string imageConfigurationError = null)
         {
             var imageConfiguration = await jsfService.GetImageConfiguration();
@@ -318,6 +320,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> ImageConfiguration(ImageConfigurationViewModel imageConfiguration)
         {
             if (ModelState.IsValid)
@@ -335,6 +338,7 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UploadPlan(UploadPlanViewModel uploadPlanViewModel)
         {
             if (ModelState.IsValid)
@@ -351,11 +355,38 @@ namespace JoelScottFitness.Web.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> HallOfFame()
         {
             var hallOfFameEntries = await jsfService.GetHallOfFameEntries(false);
 
             return View(hallOfFameEntries);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> UpdateHallOfFameStatus(long purchasedItemId, bool status)
+        {
+            var result = await jsfService.UpdateHallOfFameStatusAsync(purchasedItemId, status);
+
+            if (result)
+                return RedirectToAction("HallOfFame", "Admin");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> DeleteHallOfFameStatus(long purchasedItemId)
+        {
+            var result = await jsfService.DeleteHallOfFameEntryAsync(purchasedItemId);
+
+            if (result)
+                return RedirectToAction("HallOfFame", "Admin");
+
+            return View();
         }
 
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)

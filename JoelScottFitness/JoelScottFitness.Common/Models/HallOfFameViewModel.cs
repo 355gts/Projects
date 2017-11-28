@@ -37,5 +37,9 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public string PlanDescription { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
+        public bool Enabled { get; set; }
     }
 }

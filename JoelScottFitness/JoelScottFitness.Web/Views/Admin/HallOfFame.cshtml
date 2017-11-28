@@ -1,0 +1,82 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.HallOfFameViewModel>
+@{
+    ViewBag.Title = "HallOfFame";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            HALL OF FAME
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    @{
+        if (Model == null || !Model.Any())
+        {
+            <div class="row col-xs-12" style="margin:0px">
+                <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                    SORRY NOT CURRENTLY AVAILABLE
+                </div>
+            </div>
+        }
+        else
+        {
+            foreach (var entry in Model)
+            {
+                <div class="row hof-title-wrapper-container">
+                    <div class="hof-title-wrapper">
+                        <p class="hof-title">@entry.Name</p>
+                        <p class="hof-title"> @entry.PlanName : @entry.PlanDescription</p>
+                    </div>
+                </div>
+                <div class="row hof-image-wrapper">
+                    <div class="hof-image" style="background-image:url(@entry.BeforeImagePath)">
+                        <div class="hof-image-label hof-image-label-left">
+                            BEFORE
+                        </div>
+                    </div>
+                    <div class="hof-image" style="background-image:url(@entry.AfterImagePath)">
+                        <div class="hof-image-label hof-image-label-right">
+                            AFTER
+                        </div>
+                    </div>
+                    <div style="clear:both"></div>
+                    <div class="col-xs-12 col-sm-10 col-md-6 col-sm-offset-1 col-md-offset-3 ">
+                        <p class="hof-comment">@entry.Comment</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-10 col-md-6 col-sm-offset-1 col-md-offset-3 " style="text-align:center;position:relative;display:inline-block">
+                        <div style="position:relative;display:inline-block">
+                            @if (entry.Enabled)
+                            {
+                                using (Html.BeginForm("UpdateHallOfFameStatus", "Admin", new { purchasedItemId = entry.PurchasedItemId, status = false }, FormMethod.Post, new { role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Disable" class="btn btn-default" />
+                                }
+                            }
+                            else
+                            {
+                                using (Html.BeginForm("UpdateHallOfFameStatus", "Admin", new { purchasedItemId = entry.PurchasedItemId, status = true }, FormMethod.Post, new { role = "form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Enable" class="btn btn-default" />
+                                }
+                            }
+                        </div>
+                        <div style="position:relative;display:inline-block">
+
+                            @using (Html.BeginForm("DeleteHallOfFameStatus", "Admin", new { purchasedItemId = entry.PurchasedItemId }, FormMethod.Post, new { role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="submit" value="Delete" class="btn btn-default" />
+                            }
+                        </div>
+                    </div>
+                </div>
+                    <hr />
+            }
+        }
+    }
+</div>

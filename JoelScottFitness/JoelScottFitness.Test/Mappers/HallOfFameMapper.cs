@@ -21,6 +21,7 @@ namespace JoelScottFitness.Test.Mappers
                     AfterImage = "AfterImage",
                     Comment = "Comment",
                     ItemId = 123,
+                    HallOfFameEnabled = true,
                     Item = new Item()
                     {
                         Description = "Description",
@@ -52,6 +53,7 @@ namespace JoelScottFitness.Test.Mappers
                     AfterImage = "AfterImage",
                     Comment = "Comment",
                     ItemId = 123,
+                    HallOfFameEnabled = true,
                     Item = new Item()
                     {
                         Description = "Description",
@@ -82,6 +84,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.BeforeImage, webObject.BeforeImagePath);
                 Assert.AreEqual(repoObject.BeforeImage, webObject.BeforeImagePath);
                 Assert.AreEqual(repoObject.ItemId, webObject.ItemId);
+                Assert.AreEqual(repoObject.HallOfFameEnabled, webObject.Enabled);
                 Assert.AreEqual($"{repoObject.Purchase.Customer.Firstname} {repoObject.Purchase.Customer.Surname}", webObject.Name);
                 Assert.AreEqual(repoObject.Item.Description, webObject.PlanDescription);
             }

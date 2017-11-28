@@ -451,7 +451,7 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntries(bool onlyEnabled = true)
         {
-            var purchasedItems = await repository.GetHallOfFameEntries(onlyEnabled);
+            var purchasedItems = await repository.GetHallOfFameEntriesAsync(onlyEnabled);
             var plans = await repository.GetPlansAsync();
 
             var mappedHallOfFameEntriesViewModel = mapper.MapEnumerable<PurchasedItem, HallOfFameViewModel>(purchasedItems);
@@ -462,6 +462,16 @@ namespace JoelScottFitness.Services.Services
             });
 
             return mappedHallOfFameEntriesViewModel;
+        }
+
+        public async Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status)
+        {
+            return await repository.UpdateHallOfFameStatusAsync(purchasedItemId, status);
+        }
+
+        public async Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId)
+        {
+            return await repository.DeleteHallOfFameEntryAsync(purchasedItemId);
         }
     }
 }
