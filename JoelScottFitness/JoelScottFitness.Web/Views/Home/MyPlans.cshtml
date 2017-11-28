@@ -24,39 +24,43 @@
                     {
                         greyscaleClass = "plan-image-greyscale";
                     }
-                <div class="plan-container plan-format">
-                    <div class="plan-image @greyscaleClass" style="background-image: url(../../Content/Images/ladies2.jpg);">
+                <div class="plan-container plan-format" style="position:relative">
+                    <div class="plan-image @greyscaleClass" style="background-image: url(@item.ImagePath);">
                         <div class="plan-name-format">@item.Name</div>
                         <div class="plan-description-format">@item.Description</div>
                         @if (!item.QuestionnaireComplete)
                         {
-                                <div class="plan-questionnaire-format">
-                                    @Html.ActionLink("Complete Questionnaire", "CustomerQuestionnaire", new { transactionId = item.TransactionId })
-                                </div>
-                            }
-                            else if (!string.IsNullOrEmpty(item.PlanPath))
-                            {
-                                <div class="plan-download-format">
-                                    <a href="@item.PlanPath" target="_blank">Download</a>
-                                </div>
-
-                                <div class="plan-upload-icon-wrapper">
-                                    <div class="plan-upload-icon">
-                                        <a><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
-                                    </div>
-                                    <div class="plan-upload-text">
-                                        <label class="plan-upload-text-label">Upload Before & After</label>
-                                    </div>
-                                    <div style="clear:both"></div>
-                                </div>
+                            <div class="plan-questionnaire-format">
+                                @Html.ActionLink("Complete Questionnaire", "CustomerQuestionnaire", new { transactionId = item.TransactionId })
+                            </div>
+                        }
+                        else if (!string.IsNullOrEmpty(item.PlanPath))
+                        {
+                            <div class="plan-download-format">
+                                <a href="@item.PlanPath" target="_blank">Download</a>
+                            </div>
                         }
                         else
                         {
-                                <div class="plan-preparing-format">
-                                    Preparing
+                            <div class="plan-preparing-format">
+                                Preparing
+                            </div>
+                            <div><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i></div>
+                        }
+                    </div>
+                    <div class="plan-upload-icon-wrapper-container">
+                        @if (!string.IsNullOrEmpty(item.PlanPath))
+                        {
+                            <div class="plan-upload-icon-wrapper">
+                                <div class="plan-upload-icon">
+                                    <a onclick="showUploadModal(@item.Id);"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
                                 </div>
-                                <div><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i></div>
-                            }
+                                <div class="plan-upload-text">
+                                    <label class="plan-upload-text-label">Upload Before & After</label>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+                        }
                     </div>
                     <div style="clear:both"></div>
                 </div>

@@ -1,0 +1,56 @@
+﻿<div class="modal upload-modal-container" id="upload-modal">
+    <div class="modal-dialog upload-modal-dialog" style="text-align:center">
+        <div class="modal-content upload-modal-content">
+            <div class="modal-header upload-modal-header">
+                <button class="close" type="button" data-dismiss="modal"><i class="fa fa-close"></i></button>
+                <h2 id="upload-title" class="modal-title upload-modal-title"></h2>
+                <br />
+                <div id="upload-sub-title" class=" upload-modal-sub-title"></div>
+            </div>
+            <div class="modal-body upload-modal-body">
+                @using (Html.BeginForm("BeforeAndAfter", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-horizontal">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <input type="hidden" id="PurchasedItemId" name="PurchasedItemId" />
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 upload-modal-label" for="BeforeFile">Before</label>
+                            <div class="col-xs-12" style="padding:0">
+                                <input type="file" id="BeforeFile" name="BeforeFile" class="upload-modal-file" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="BeforeFile" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 upload-modal-label" for="AfterFile">After</label>
+                            <div class="col-xs-12" style="padding:0">
+                                <input type="file" id="AfterFile" name="AfterFile" class="upload-modal-file" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="AfterFile" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 upload-modal-label" for="Comment">Comment</label>
+                            <div class="col-xs-12" style="padding:10px;padding-left:20px;padding-right:20px">
+                                <textarea class="form-control upload-modal-textarea" cols="20" id="Comment" name="Comment" rows="2"></textarea>
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Comment" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="Submit" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" />
+                            </div>
+                        </div>
+                        </div>
+                        }
+                    </div>
+
+
+            <div class="modal-footer upload-modal-footer">
+                <img src="~/Content/Logos/jsf-black.svg" class="upload-modal-footer-logo" />
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

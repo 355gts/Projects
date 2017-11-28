@@ -75,6 +75,7 @@
     <Compile Include="Mappers\CreatePurchaseMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
+    <Compile Include="Mappers\HallOfFameMapper.cs" />
     <Compile Include="Mappers\ImageConfigurationMapper.cs" />
     <Compile Include="Mappers\ImageMapper.cs" />
     <Compile Include="Mappers\ITypeMapper.cs" />

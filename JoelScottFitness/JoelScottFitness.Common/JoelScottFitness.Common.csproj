@@ -61,12 +61,14 @@
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BeforeAndAfterViewModel.cs" />
     <Compile Include="Models\BlogImageViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\CreateAddressViewModel.cs" />
     <Compile Include="Models\CreateBlogImageViewModel.cs" />
     <Compile Include="Models\CreateBlogViewModel.cs" />
     <Compile Include="Models\CreateDiscountCodeViewModel.cs" />
+    <Compile Include="Models\HallOfFameViewModel.cs" />
     <Compile Include="Models\ImageConfigurationViewModel.cs" />
     <Compile Include="Models\CreateItemViewModel.cs" />
     <Compile Include="Models\CreatePlanOptionViewModel.cs" />

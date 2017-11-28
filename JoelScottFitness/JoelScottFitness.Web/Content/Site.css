@@ -1291,11 +1291,18 @@ a:hover {
     font-size: 20px;
 }
 
+.plan-upload-icon-wrapper-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    bottom: 40px;
+    left: 0;
+}
+
 .plan-upload-icon-wrapper {
     width: 100%;
     height: 50px;
     position: relative;
-    bottom: -90px
 }
 
 .plan-upload-icon {
@@ -1419,7 +1426,9 @@ a:hover {
         top: 0;
     }
 }
-/* MY PLANS STYLE END*/
+/* MY PLANS STYLE END */
+
+/* KALEIDOSCOPE STYLE START */
 .kaleidoscope-wrapper {
     background-color: white;
     position: relative;
@@ -1443,3 +1452,148 @@ a:hover {
     background-position: center top;
     background-repeat: no-repeat;
 }
+/* KALEIDOSCOPE STYLE END */
+
+/* UPLOAD STYLE START */
+.upload-modal-container {
+    width: 100%;
+    text-align: center;
+    font-family: 'Bebas-Neue';
+    line-height: 1;
+}
+
+.upload-modal-dialog {
+    max-width: 540px;
+    margin-top: 20px !important;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.upload-modal-content {
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+}
+
+.upload-modal-header {
+    text-align: left;
+}
+
+.upload-modal-title {
+    font-size: 40pt;
+    text-align: center;
+}
+
+.upload-modal-sub-title {
+    font-size: 20pt;
+    text-align: center;
+    position: relative;
+}
+
+.upload-modal-body {
+    font-size: 14pt;
+}
+
+.upload-modal-body p {
+    text-align: justify;
+}
+
+.upload-modal-date {
+    font-size: 20pt;
+    text-align: right;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.upload-modal-footer {
+    text-align: center;
+}
+
+.upload-modal-footer-logo {
+    width: 200px;
+}
+
+.upload-modal-file {
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: 'Bebas-Neue';
+    font-size: 12pt;
+}
+
+.upload-modal-label {
+    text-align: left !important;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+.upload-modal-textarea {
+    text-align: left;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 100%;
+}
+/* UPLOAD STYLE END */
+
+/* HALL OF FAME STYLE START */
+.hof-title-wrapper-container {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}
+
+.hof-title-wrapper {
+    min-width: 300px;
+    position: relative;
+}
+
+.hof-title {
+    font-family: 'Bebas-Neue';
+    font-size: 16pt;
+    margin: 0;
+}
+
+.hof-image-wrapper {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}
+
+.hof-image {
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+    width: 300px;
+    height: 400px;
+    display: inline-block;
+    padding: 10px
+}
+
+.hof-image-label {
+    width: 30%;
+    position: absolute;
+    bottom: 20px;
+    background-color: black;
+    font-family: 'Bebas-Neue';
+    font-size: 16pt;
+    color: white;
+}
+
+.hof-image-label-left {
+    left: 0;
+}
+
+.hof-image-label-right {
+    right: 0;
+}
+
+.hof-comment {
+    font-family: 'Bebas-Neue';
+    font-size: 16pt;
+    color: black;
+}
+/* HALL OF FAME STYLE END */

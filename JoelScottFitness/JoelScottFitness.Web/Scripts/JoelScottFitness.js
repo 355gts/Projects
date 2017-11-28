@@ -146,6 +146,14 @@ function triggerCarousel() {
     }
 }
 
+// upload before and after images
+function showUploadModal(id) {
+    $('#PurchasedItemId').val(id);
+    $('#upload-title').text('Upload Before and After');
+    $('#upload-sub-title').text('Show the world your transformation!');
+    $('#upload-modal').modal();
+}
+
 // add item to shopping basket
 function addToBasket(dropdownId) {
     

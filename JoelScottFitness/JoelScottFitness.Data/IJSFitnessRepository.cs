@@ -78,5 +78,9 @@ namespace JoelScottFitness.Data
 
         Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath);
         Task<IEnumerable<PlanOption>> GetPlanOptionsAsync();
+        Task<PurchasedItem> GetPurchasedItemAsync(long purchasedItemId);
+        Task<bool> UpdatePurchasedItemAsync(PurchasedItem purchasedItem);
+
+        Task<IEnumerable<PurchasedItem>> GetHallOfFameEntries(bool onlyEnabled = true);
     }
 }

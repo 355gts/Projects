@@ -549,5 +549,35 @@ namespace JoelScottFitness.Data
 
             return await SaveChangesAsync();
         }
+
+        public async Task<PurchasedItem> GetPurchasedItemAsync(long purchasedItemId)
+        {
+            return await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+        }
+
+        public async Task<bool> UpdatePurchasedItemAsync(PurchasedItem purchasedItem)
+        {
+            dbContext.SetModified(purchasedItem);
+
+            return await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<PurchasedItem>> GetHallOfFameEntries(bool onlyEnabled = true)
+        {
+            if (onlyEnabled)
+                return await dbContext.PurchasedItems
+                                      .Include(p => p.Item)
+                                      .Include(p => p.Purchase)
+                                      .Include("Purchase.Customer")
+                                      .Where(p => p.HallOfFameEnabled)
+                                      .OrderByDescending(p => p.Purchase.PurchaseDate).ToListAsync();
+
+            return await dbContext.PurchasedItems
+                                  .Include(p => p.Item)
+                                  .Include(p => p.Purchase)
+                                  .Include("Purchase.Customer")
+                                  .OrderByDescending(p => p.Purchase.PurchaseDate)
+                                  .ToListAsync();
+        }
     }
 }

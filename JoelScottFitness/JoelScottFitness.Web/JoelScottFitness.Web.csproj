@@ -412,9 +412,12 @@
     <Content Include="Views\Home\MyPlans.cshtml" />
     <Content Include="Views\Home\MyAccount.cshtml" />
     <Content Include="Views\Home\Countdown.cshtml" />
+    <Content Include="Views\Shared\_BeforeAndAfterModal.cshtml" />
+    <Content Include="Views\Home\HallOfFame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\HallOfFame\" />
     <Folder Include="Content\Plans\" />
   </ItemGroup>
   <ItemGroup>

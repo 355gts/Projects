@@ -10,6 +10,7 @@ using JoelScottFitness.YouTube.Client;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -595,6 +596,29 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> BeforeAndAfter(BeforeAndAfterViewModel model)
+        {
+            var beforeImageFilename = $"{model.PurchasedItemId}_BEFORE_{Path.GetFileName(model.BeforeFile.FileName)}";
+            var afterImageFilename = $"{model.PurchasedItemId}_AFTER_{Path.GetFileName(model.AfterFile.FileName)}";
+
+            var beforeUploadPath = SaveFile(model.BeforeFile, "Content/Images/HallOfFame", beforeImageFilename);
+            var afterUploadPath = SaveFile(model.AfterFile, "Content/Images/HallOfFame", afterImageFilename);
+
+            var result = await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadPath, afterUploadPath, model.Comment);
+
+            return RedirectToAction("MyPlans", "Home");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> HallOfFame()
+        {
+            var hallOfFameEntries = await jsfService.GetHallOfFameEntries();
+
+            return View(hallOfFameEntries);
+        }
+
         private async Task AddItemToBasket(long id)
         {
             var basket = GetBasketItems();
@@ -691,6 +715,32 @@ namespace JoelScottFitness.Web.Controllers
             };
 
             return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
+        }
+
+        private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
+        {
+            string uploadPath = null;
+            try
+            {
+                string path = Server.MapPath($"~/{directory}/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fileName = !string.IsNullOrEmpty(name)
+                                    ? name
+                                    : Path.GetFileName(postedFile.FileName);
+
+                postedFile.SaveAs(path + fileName);
+                uploadPath = $"/{directory}/{fileName}";
+            }
+            catch (Exception ex)
+            {
+                // TODO log exception
+            }
+
+            return uploadPath;
         }
     }
 }

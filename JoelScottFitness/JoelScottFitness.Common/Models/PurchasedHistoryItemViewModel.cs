@@ -50,5 +50,8 @@ namespace JoelScottFitness.Common.Models
 
         [DataMember(IsRequired = false)]
         public string TransactionId { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public string ImagePath { get; set; }
     }
 }

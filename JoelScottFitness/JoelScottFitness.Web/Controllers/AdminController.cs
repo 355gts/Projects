@@ -349,6 +349,14 @@ namespace JoelScottFitness.Web.Controllers
 
             return RedirectToAction("CustomerPlan", "Admin", new { purchaseId = uploadPlanViewModel.PurchaseId });
         }
+        
+        [HttpGet]
+        public async Task<ActionResult> HallOfFame()
+        {
+            var hallOfFameEntries = await jsfService.GetHallOfFameEntries(false);
+
+            return View(hallOfFameEntries);
+        }
 
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
         {
@@ -375,7 +383,5 @@ namespace JoelScottFitness.Web.Controllers
 
             return uploadPath;
         }
-
-
     }
 }

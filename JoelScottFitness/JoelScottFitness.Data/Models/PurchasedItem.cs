@@ -28,5 +28,15 @@ namespace JoelScottFitness.Data.Models
         }
 
         public string PlanPath { get; set; }
+
+        public bool MemberOfHallOfFame { get; set; }
+
+        public string BeforeImage { get; set; }
+
+        public string AfterImage { get; set; }
+
+        public string Comment { get; set; }
+
+        public bool HallOfFameEnabled { get; set; }
     }
 }

@@ -242,9 +242,11 @@ namespace JoelScottFitness.Services.Services
                 var mappedPlans = mapper.MapEnumerable<PurchasedItem, PurchasedHistoryItemViewModel>(purchase.Items);
                 mappedPlans.ToList().ForEach(p => 
                 {
+                    var plan = planOptions.FirstOrDefault(o => o.Id == p.PlanOptionId)?.Plan;
                     p.QuestionnaireComplete = purchase.QuestionnareId.HasValue;
                     p.TransactionId = purchase.TransactionId;
-                    p.Name = planOptions.FirstOrDefault(o => o.Id == p.PlanOptionId)?.Plan?.Name;
+                    p.Name = plan.Name;
+                    p.ImagePath = plan.ImagePathLarge;
                 });
 
                 plansViewModel.AddRange(mappedPlans);
@@ -427,6 +429,39 @@ namespace JoelScottFitness.Services.Services
         public async Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath)
         {
             return await repository.AssociatePlanToPurchase(purchasedItemId, planPath);
+        }
+
+        public async Task<bool> UploadHallOfFameAsync(long purchasedItemId, string beforeImage, string afterImage, string comment)
+        {
+            bool success = false;
+
+            var purchasedItem = await repository.GetPurchasedItemAsync(purchasedItemId);
+            if (purchasedItem != null)
+            {
+                purchasedItem.BeforeImage = beforeImage;
+                purchasedItem.AfterImage = afterImage;
+                purchasedItem.Comment = comment;
+                purchasedItem.MemberOfHallOfFame = true;
+
+                success = await repository.UpdatePurchasedItemAsync(purchasedItem);
+            }
+
+            return success;
+        }
+
+        public async Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntries(bool onlyEnabled = true)
+        {
+            var purchasedItems = await repository.GetHallOfFameEntries(onlyEnabled);
+            var plans = await repository.GetPlansAsync();
+
+            var mappedHallOfFameEntriesViewModel = mapper.MapEnumerable<PurchasedItem, HallOfFameViewModel>(purchasedItems);
+
+            mappedHallOfFameEntriesViewModel.ToList().ForEach(p =>
+            {
+                p.PlanName = plans.Where(plan => plan.Options.Select(s => s.Id).Contains(p.ItemId)).FirstOrDefault().Name;
+            });
+
+            return mappedHallOfFameEntriesViewModel;
         }
     }
 }
