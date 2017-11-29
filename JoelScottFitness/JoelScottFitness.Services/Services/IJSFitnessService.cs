@@ -97,5 +97,6 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status);
         Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId);
+        Task<bool> SendEmail(string subject, string content, IEnumerable<string> receivers);
     }
 }

@@ -12,6 +12,7 @@ namespace JoelScottFitness.Services.Modules
             Bind<IMapper>().To<Mapper>().Named("ServiceMapper")
                            .WithConstructorArgument("assemblyWithMappers", Assembly.Load("JoelScottFitness.Services"));
             Bind<IJSFitnessService>().To<JSFitnessService>();
+            Bind<IEmailService>().To<EmailService>();
         }
     }
 }

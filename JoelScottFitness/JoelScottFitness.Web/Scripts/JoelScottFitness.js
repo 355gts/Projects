@@ -57,6 +57,17 @@ $(function () {
     });
 });
 
+// send email
+function sendEmail() {
+    $.ajax({
+        type: 'GET',
+        url: '/Admin/SendEmail',
+        success: function (data) {
+            var message = 'Email Sent';
+        }
+    });
+}
+
 // get blog post
 function getBlog(id) {
         $.ajax({

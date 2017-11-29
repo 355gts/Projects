@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -387,6 +388,17 @@ namespace JoelScottFitness.Web.Controllers
                 return RedirectToAction("HallOfFame", "Admin");
 
             return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task SendEmail()
+        {
+            TextReader tr = new StreamReader(@"D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Email.html");
+            string content = tr.ReadToEnd();
+            tr.Dispose();
+
+            await jsfService.SendEmail("Welcome to Joel Scott Fitness", content, new List<string>() { "Blackmore__s@hotmail.com", "Blackmore__s@hotmail.com", "Blackmore__s@hotmail.com" });
         }
 
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)

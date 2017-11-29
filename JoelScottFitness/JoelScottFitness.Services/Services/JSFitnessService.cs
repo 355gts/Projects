@@ -23,14 +23,29 @@ namespace JoelScottFitness.Services.Services
         private readonly IJSFitnessRepository repository;
         private readonly IMapper mapper;
         private readonly IPayPalService paypalService;
+        private readonly IEmailService emailService;
 
         public JSFitnessService(IJSFitnessRepository repository,
                                 [Named("ServiceMapper")] IMapper  mapper, 
-                                IPayPalService paypalService)
+                                IPayPalService paypalService,
+                                IEmailService emailService)
         {
-            this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            this.paypalService = paypalService ?? throw new ArgumentNullException(nameof(paypalService));
+            if (repository == null)
+                throw new ArgumentNullException(nameof(repository));
+
+            if (mapper == null)
+                throw new ArgumentNullException(nameof(mapper));
+
+            if (paypalService == null)
+                throw new ArgumentNullException(nameof(paypalService));
+
+            if (emailService == null)
+                throw new ArgumentNullException(nameof(paypalService));
+
+            this.repository = repository;
+            this.mapper = mapper;
+            this.paypalService = paypalService;
+            this.emailService = emailService;
         }
         
         public async Task<AsyncResult<long>> CreateBlogAsync(CreateBlogViewModel blog)
@@ -472,6 +487,11 @@ namespace JoelScottFitness.Services.Services
         public async Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId)
         {
             return await repository.DeleteHallOfFameEntryAsync(purchasedItemId);
+        }
+
+        public Task<bool> SendEmail(string subject, string content, IEnumerable<string> receivers)
+        {
+            return emailService.SendEmailAsync(subject, content, receivers);
         }
     }
 }
