@@ -394,11 +394,11 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task SendEmail()
         {
-            TextReader tr = new StreamReader(@"D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Email.html");
+            TextReader tr = new StreamReader(@"D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\EmailTemplate.html");
             string content = tr.ReadToEnd();
             tr.Dispose();
 
-            await jsfService.SendEmail("Welcome to Joel Scott Fitness", content, new List<string>() { "Blackmore__s@hotmail.com", "Blackmore__s@hotmail.com", "Blackmore__s@hotmail.com" });
+            await jsfService.SendEmail("Joel Scott Fitness Order #123923902 Confirmation", content, new List<string>() { "Blackmore__s@hotmail.com" });
         }
 
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
