@@ -1,7 +1,7 @@
 ﻿using JoelScottFitness.Common.Constants;
-using JoelScottFitness.Common.Helpers;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
+using JoelScottFitness.Web.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,19 +15,13 @@ namespace JoelScottFitness.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IJSFitnessService jsfService;
-        private readonly IHelper helper;
 
-        public AdminController(IJSFitnessService jsfService,
-                               IHelper helper)
+        public AdminController(IJSFitnessService jsfService)
         {
             if (jsfService == null)
                 throw new ArgumentNullException(nameof(jsfService));
 
-            if (helper == null)
-                throw new ArgumentNullException(nameof(helper));
-
             this.jsfService = jsfService;
-            this.helper = helper;
         }
 
         [HttpGet]
@@ -394,11 +388,19 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task SendEmail()
         {
-            TextReader tr = new StreamReader(@"D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\EmailTemplate.html");
-            string content = tr.ReadToEnd();
-            tr.Dispose();
+            var model = new OrderConfirmationViewModel()
+            {
+                OrderReference = "123923902",
+            };
 
-            await jsfService.SendEmail("Joel Scott Fitness Order #123923902 Confirmation", content, new List<string>() { "Blackmore__s@hotmail.com" });
+            var email = this.RenderRazorViewToString("_OrderConfirmation", model);
+
+
+            //TextReader tr = new StreamReader(@"D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\EmailTemplate.html");
+            //string content = tr.ReadToEnd();
+            //tr.Dispose();
+
+            await jsfService.SendEmail($"Joel Scott Fitness Order #{model.OrderReference} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
         }
 
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)

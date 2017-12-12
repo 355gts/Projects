@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Common.Mapper;
+﻿using JoelScottFitness.Common.Extensions;
+using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace JoelScottFitness.Services.Mappers
             purchase.Id = fromObject.Id;
             purchase.PayPalReference = fromObject.PayPalReference;
             purchase.PurchaseDate = fromObject.PurchaseDate;
+            purchase.PurchaseDateDisplayString = fromObject.PurchaseDate.DateTimeDisplayStringLong();
             purchase.TransactionId = fromObject.TransactionId;
             purchase.TotalAmount = fromObject.TotalAmount;
             purchase.QuestionnaireId = fromObject.QuestionnareId;

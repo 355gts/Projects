@@ -1,10 +1,11 @@
 ﻿using JoelScottFitness.Common.Constants;
 using JoelScottFitness.Common.Enumerations;
-using JoelScottFitness.Common.Helpers;
+using JoelScottFitness.Common.Extensions;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
+using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.AspNet.Identity.Owin;
@@ -23,7 +24,6 @@ namespace JoelScottFitness.Web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IJSFitnessService jsfService;
-        private readonly IHelper helper;
         private readonly IYouTubeClient youTubeClient;
 
         private const string basketKey = "Basket";
@@ -54,21 +54,16 @@ namespace JoelScottFitness.Web.Controllers
             }
         }
 
-        public HomeController(IJSFitnessService jsfService, 
-                              IHelper helper,
+        public HomeController(IJSFitnessService jsfService,
                               IYouTubeClient youTubeClient)
         {
             if (jsfService == null)
                 throw new ArgumentNullException(nameof(jsfService));
 
-            if (helper == null)
-                throw new ArgumentNullException(nameof(helper));
-
             if (youTubeClient == null)
                 throw new ArgumentNullException(nameof(youTubeClient));
 
             this.jsfService = jsfService;
-            this.helper = helper;
             this.youTubeClient = youTubeClient;
             this.SignInManager = _signInManager;
             this.UserManager = _userManager;
@@ -157,7 +152,7 @@ namespace JoelScottFitness.Web.Controllers
                 Data = new
                 {
                     title = blog.Title,
-                    date = string.Format(blog.CreatedDate.ToString("d{0} MMMM yyyy"), helper.GetSuffix(blog.CreatedDate.Day.ToString())),
+                    date = blog.CreatedDate.DateTimeDisplayStringLong(),
                     subTitle = blog.SubHeader,
                     content = blog.Content,
                     images = blog.BlogImages,
@@ -459,6 +454,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 // cancel the purchase
             }
+            Session.Add("PurchaseId", savePurchaseResult.Result);
 
             return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
@@ -470,6 +466,7 @@ namespace JoelScottFitness.Web.Controllers
             string payerId = Request.Params["PayerID"];
             string paymentId = (string)Session["PaymentId"];
             string transactionId = (string)Session["TransactionId"];
+            long purchaseId = (long)Session["PurchaseId"];
 
             var paymentResult = jsfService.CompletePayPalPayment(paymentId, payerId);
 
@@ -484,9 +481,15 @@ namespace JoelScottFitness.Web.Controllers
             // clear the users basket
             Session.Clear();
 
+            var purchaseViewModel = await jsfService.GetPurchaseAsync(purchaseId);
+
+            // send confirmation email
+            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel);
+            
+            await jsfService.SendEmail($"Joel Scott Fitness Order #{purchaseViewModel.TransactionId} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
+            
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });
-
         }
 
         public ActionResult PaymentConfirmation(string transactionId)

@@ -218,9 +218,11 @@ namespace JoelScottFitness.Services.Services
 
             var plans = await repository.GetPlansAsync();
 
-            purchaseViewModel.Items.ToList().ForEach(p => 
+            purchaseViewModel.Items.ToList().ForEach(pvm => 
             {
-                p.Name = plans.Where(plan => plan.Options.Select(s => s.Id).Contains(p.ItemId)).FirstOrDefault().Name;
+                var plan = plans.Where(p => p.Options.Select(s => s.Id).Contains(pvm.ItemId)).FirstOrDefault();
+                pvm.Name = plan?.Name;
+                pvm.ImagePath = plan?.ImagePathLarge;
             });
             
             return purchaseViewModel;

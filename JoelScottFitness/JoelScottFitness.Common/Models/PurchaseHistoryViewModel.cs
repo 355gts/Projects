@@ -14,6 +14,10 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
+        public string PurchaseDateDisplayString { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public double TotalAmount { get; set; }
 
         [Required]
@@ -40,8 +44,10 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = false)]
         public long? QuestionnaireId { get; set; }
 
+        [DataMember(IsRequired = false)]
         public QuestionnaireViewModel Questionnaire { get; set; }
 
+        [DataMember(IsRequired = true)]
         public ICollection<PurchasedHistoryItemViewModel> Items { get; set; }
     }
 }

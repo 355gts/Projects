@@ -209,6 +209,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Extensions\ControllerExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -415,6 +416,7 @@
     <Content Include="Views\Shared\_BeforeAndAfterModal.cshtml" />
     <Content Include="Views\Home\HallOfFame.cshtml" />
     <Content Include="Views\Admin\HallOfFame.cshtml" />
+    <Content Include="Views\Shared\EmailTemplates\_OrderConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
