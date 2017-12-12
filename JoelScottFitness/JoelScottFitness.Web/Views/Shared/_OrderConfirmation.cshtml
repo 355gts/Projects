@@ -252,35 +252,39 @@
         <div class="email-content-wrapper">
             <div class="email-content-container">
                 <h3 class="email-order-confirmation">ORDER CONFIRMATION</h3>
+                @{
+                    bool multiplePurchases = Model.Items.Count() > 1 || Model.Items.Any(i => i.Quantity > 1) ? true : false;
 
-                <label class="email-order-summary">@Model.PurchaseDateDisplayString</label>
-                <label class="email-order-summary">Hey @Model.Customer.Firstname,</label>
-                <label class="email-order-summary">Thank you for your purchase! Your order #@Model.TransactionId is confirmed.</label>
-                <label class="email-order-summary">While I prepare your fitness plan please double check the details below and let me know if anything needs changing.</label>
-                <label class="email-order-summary">I aim to create all plans within 48 hours of receiving your order, you will receive another email when they are ready.</label>
+                    <label class="email-order-summary">@Model.PurchaseDateDisplayString</label>
+                    <label class="email-order-summary">Hey @Model.Customer.Firstname,</label>
+                    <label class="email-order-summary">Thank you for your purchase! Your order #@Model.TransactionId is confirmed.</label>
+                    <label class="email-order-summary">If you haven't already, please complete your fitness questionnaire <a href="http://localhost:49910/Home/MyPlans" target="_blank" id="twitter" rel="noopener noreferrer" style="text-decoration:underline;color:blue">here</a>.</label>
+                    <label class="email-order-summary">While I prepare your fitness @string.Format(@"plan{0}", multiplePurchases ? "s" : string.Empty)  please double check the details below and let me know if anything needs changing.</label>
+                    <label class="email-order-summary">I aim to create all plans within 48 hours of receiving your order, you will receive another email when @string.Format(@" {0} ", multiplePurchases ? "they are" : "it is") ready.</label>
+                }
 
-                <hr style="margin-left:10%;margin-right:10%" />
+    <hr style="margin-left:10%;margin-right:10%" />
 
-                <table class="email-table" cellspacing="0" cellpadding="0">
-                    <thead>
-                        <tr>
-                            <td colspan="3" class="email-table-head">
-                                <label class="email-table-head-order">ORDER #@Model.TransactionId</label>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in @Model.Items)
-                        {
-                            <tr>
-                                <td colspan="3">
-                                    <div style="position:relative;margin-bottom:6px;margin-top:6px">
-                                        <div class="email-table-item-image" style='position:relative; background-image:url(@string.Format(@"http://localhost:49910/{0}", item.ImagePath)'>
-                                            <h2 class="email-table-item-title" style="margin:0">@item.Name</h2>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+    <table class="email-table" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <td colspan="3" class="email-table-head">
+                    <label class="email-table-head-order">ORDER #@Model.TransactionId</label>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model.Items)
+            {
+                <tr>
+                    <td colspan="3">
+                        <div style="position:relative;margin-bottom:6px;margin-top:6px">
+                            <div class="email-table-item-image" style='position:relative; background-image:url(@string.Format(@"http://localhost:49910/{0}", item.ImagePath)'>
+                                <h2 class="email-table-item-title" style="margin:0">@item.Name</h2>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                             <tr>
                                 <td class="email-table-item-element email-table-item-element-left">
                                     <label class="email-item-table-element-label">@item.Description</label>
@@ -292,43 +296,43 @@
                                     <label class="email-item-table-element-label">@string.Format(@"£{0}", item.Price)</label>
                                 </td>
                             </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">
-                                <label class="email-item-table-element-label email-table-item-element-left email-item-table-element-footer">Total</label>
-                            </td>
-                            <td>
-                                <label class="email-item-table-element-label email-table-item-element-right email-item-table-element-footer">@string.Format(@"£{0}", Model.TotalAmount)</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="text-align:center;">
-                                <hr />
-                                <label class="email-order-status">You can follow the status of your order by clicking the button below:</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="text-align:center">
-                                <a href="http://localhost:49910/Home/MyPlans" target="_blank" rel="noopener noreferrer" class="email-order-status-button" style="margin-bottom:30px;">
-                                    <span style="text-decoration:none;font-size:10pt;">View Order Status</span>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <label class="email-item-table-element-label email-table-item-element-left email-item-table-element-footer">Total</label>
+                </td>
+                <td>
+                    <label class="email-item-table-element-label email-table-item-element-right email-item-table-element-footer">@string.Format(@"£{0}", Model.TotalAmount)</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center;">
+                    <hr />
+                    <label class="email-order-status">You can follow the status of your order by clicking the button below:</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center">
+                    <a href="http://localhost:49910/Home/MyPlans" target="_blank" rel="noopener noreferrer" class="email-order-status-button" style="margin-bottom:30px;">
+                        <span style="text-decoration:none;font-size:10pt;">View Order Status</span>
 
-                                </a>
-                                <hr />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="text-align:center">
-                                <label class="email-order-summary">Please do not hesitate to send an email to customercare@joelscottfitness.com if you have any questions.</label>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
+                    </a>
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center">
+                    <label class="email-order-summary">Please do not hesitate to send an email to customercare@joelscottfitness.com if you have any questions.</label>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 
 
 
-            </div>
+</div>
         </div>
 
 
