@@ -355,7 +355,7 @@ namespace JoelScottFitness.Web.Controllers
                     // send confirmation email
                     var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel);
 
-                    await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{purchaseViewModel.TransactionId} Complete", email, new List<string>() { "Blackmore__s@hotmail.com" }, planPaths);
+                    await jsfService.SendEmailAsync($"Joel Scott Fitness - Order #{purchaseViewModel.TransactionId} Complete", email, new List<string>() { "Blackmore__s@hotmail.com" }, planPaths);
                 }
             }
 

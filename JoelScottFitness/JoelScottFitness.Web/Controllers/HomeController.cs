@@ -198,11 +198,6 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult NewCustomerDetails()
         {
-            // this flag is used when a customer has a user account but no customer details
-            // it prevents them from re-registering there account
-            //if (Session["PartiallyRegistered"] != null)
-            //    ViewBag.PartiallyRegistered = (bool)Session["PartiallyRegistered"];
-
             return View();
         }
         
@@ -298,13 +293,6 @@ namespace JoelScottFitness.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var customerDetails = await jsfService.GetCustomerDetailsAsync(User.Identity.Name);
-
-                // if some how the user managed to partially register, redirect them to the new user screen
-                //if (customerDetails == null)
-                //{
-                //    Session["PartiallyRegistered"] = true;
-                //    return RedirectToAction("NewCustomerDetails", "Home", new { partiallyRegistered = true });
-                //}
                   
                 //ensure this is defaulted to true
                 customerDetails.JoinMailingList = true;
@@ -505,7 +493,7 @@ namespace JoelScottFitness.Web.Controllers
             // send confirmation email
             var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel);
             
-            await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{purchaseViewModel.TransactionId} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
+            await jsfService.SendEmailAsync($"Joel Scott Fitness - Order #{purchaseViewModel.TransactionId} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
             
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });
