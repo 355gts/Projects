@@ -15,6 +15,7 @@ namespace JoelScottFitness.Web.App_Start
     using JoelScottFitness.PayPal.Modules;
     using JoelScottFitness.Services.Modules;
     using JoelScottFitness.YouTube.Modules;
+    using JoelScottFitness.Common.Modules;
 
     public static class NinjectWebCommon 
     {
@@ -46,6 +47,7 @@ namespace JoelScottFitness.Web.App_Start
         {
             var modules = new NinjectModule[]
             {
+                new CommonModule(),
                 new DataModule(),
                 new PayPalModule(),
                 new ServiceModule(),

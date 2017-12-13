@@ -1,0 +1,302 @@
+﻿@model JoelScottFitness.Common.Models.PurchaseHistoryViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel Scott Fitness</title>
+</head>
+<body style="background-color: white;min-width: 300px;white-space: nowrap; margin:0;">
+    <style>
+        .email-wrapper {
+            width: 100%;
+            position: relative;
+            min-width: 500px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .email-banner-wrapper {
+            position: relative;
+            background-color: black;
+            height: 80px;
+            white-space: nowrap;
+        }
+
+        .email-banner-wrapper-logo {
+            position: relative;
+            background-color: orange;
+            width: 210px;
+        }
+
+        .email-banner-wrapper-logo-img {
+            width: 200px;
+            height: auto;
+            padding-top: 20px;
+            padding-left: 10px;
+            margin: auto;
+            float: left;
+        }
+
+        .email-social-wrapper {
+            position: relative;
+            width: 260px;
+            height: 100%;
+            float: right;
+            display: inline-block;
+        }
+
+        .email-social-icon-wrapper {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-collapse: collapse !important;
+            vertical-align: top;
+            color: #222222;
+            margin: 0;
+            padding: 20px 10px 10px 10px;
+        }
+
+        .email-social-link {
+            text-decoration: none;
+        }
+
+        .email-social-link-twitter a:hover img {
+            text-decoration: none;
+        }
+
+        .email-social-icon {
+            outline-style: none;
+            width: 30px;
+            height: 30px;
+            max-width: 100%;
+            clear: both;
+            display: block;
+            border-style: none;
+            margin: 0 auto;
+            float: none;
+        }
+
+        .email-content-wrapper {
+            width: 100%;
+            position: relative;
+            font-size: 14pt;
+            white-space: normal;
+        }
+
+        .email-content-container {
+            min-width: 90%;
+            width: 90%;
+            position: relative;
+            margin: 0 auto;
+            min-height: 400px;
+            text-align: center;
+        }
+
+        .email-footer-wrapper {
+            width: 100%;
+            margin: 0 auto;
+            height: auto;
+            position: relative;
+            vertical-align: middle;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .email-footer-logo {
+            width: 300px;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .email-table {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .email-table-head {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .email-table-head-order {
+            color: black;
+            display: block;
+            padding-bottom: 10px;
+        }
+
+        .email-table-item-image {
+            width: 100%;
+            background-position: top center;
+            background-size: cover;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        .email-table-item-title {
+            height: 200px;
+            color: white;
+            padding-left: 1%;
+            padding-top: 1%;
+            font-weight: bold;
+            font-size: 30pt;
+        }
+
+        .email-table-item-element {
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            padding: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+
+        .email-table-item-element-left {
+            text-align: left;
+        }
+
+        .email-table-item-element-right {
+            text-align: right;
+        }
+
+
+        .email-item-table-element-label {
+            color: black;
+            display: block;
+            padding-bottom: 10px;
+            font-size: 12pt;
+        }
+
+        .email-item-table-element-footer {
+            font-weight: bold;
+            padding-top: 20px;
+            padding-bottom: 30px;
+        }
+
+        .email-order-confirmation {
+            color: black;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            margin: 0;
+        }
+
+        .email-order-summary {
+            color: gray;
+            display: block;
+            padding-bottom: 10px;
+            font-size: 12pt;
+        }
+
+
+        .email-order-status {
+            color: gray;
+            display: block;
+            padding-bottom: 10px;
+            padding-top: 30px;
+            font-size: 12pt;
+        }
+
+        .email-order-status-button {
+            background-color: #0c0c09;
+            border-radius: 30px;
+            color: #ffffff;
+            display: block;
+            font-family: Arial,sans-serif,'Open Sans';
+            font-weight: bold;
+            line-height: 1;
+            text-align: center;
+            text-decoration: none !important;
+            text-transform: uppercase;
+            padding: 1px 20px 0;
+            border: 15px solid #0c0c09;
+            width: 200px;
+            margin: 0 auto;
+        }
+    </style>
+
+
+    <div class="email-wrapper">
+        <div class="email-banner-wrapper">
+            <div class="email-banner-wrapper-logo">
+                <a href="http://www.joelscottfitness.com" target="_blank">
+                    <img class="email-banner-wrapper-logo-img" src="http://localhost:49910/Content/Logos/jsf-white.svg">
+                </a>
+            </div>
+            <div class="email-social-wrapper">
+                <span class="email-social-icon-wrapper">
+                    <a href="https://www.facebook.com/Joelscottfitness-346355882365048/" target="_blank" id="facebook" rel="noopener noreferrer" class="email-social-link">
+                        <img data-imagetype="External" src="http://localhost:49910/Content/Logos/facebook-grey.png" width="40" height="40" alt="Facebook" class="email-social-icon">
+                    </a>
+                </span>
+                <span class="email-social-icon-wrapper">
+                    <a href="https://www.instagram.com/joelscottfitness/" target="_blank" id="instagram" rel="noopener noreferrer" class="email-social-link">
+                        <img data-imagetype="External" src="http://localhost:49910/Content/Logos/instagram-grey.png" width="40" height="40" alt="Instagram" class="email-social-icon">
+                    </a>
+                </span>
+                <span class="email-social-icon-wrapper">
+                    <a href="https://twitter.com/JoelSFitness/" target="_blank" id="twitter" rel="noopener noreferrer" class="email-social-link">
+                        <img data-imagetype="External" src="http://localhost:49910/Content/Logos/twitter-grey.png" width="40" height="40" alt="Twitter" class="email-social-icon">
+                    </a>
+                </span>
+                <span class="email-social-icon-wrapper">
+                    <a href="https://www.youtube.com/user/JoelScottFitness/" target="_blank" id="youtube" rel="noopener noreferrer" class="email-social-link social-link-twitter">
+                        <img data-imagetype="External" src="http://localhost:49910/Content/Logos/youtube-grey.png" alt="YouTube" class="email-social-icon">
+                    </a>
+                </span>
+            </div>
+        </div>
+
+
+
+        <div class="email-content-wrapper">
+            <div class="email-content-container">
+                <h3 class="email-order-confirmation">ORDER COMPLETE</h3>
+                @{
+                    bool multiplePurchases = Model.Items.Count() > 1 || Model.Items.Any(i => i.Quantity > 1) ? true : false;
+
+                    <label class="email-order-summary">@Model.PurchaseDateDisplayString</label>
+                    <label class="email-order-summary">Hey @Model.Customer.Firstname,</label>
+                    <label class="email-order-summary">Your order #@Model.TransactionId is complete.</label>
+                    <label class="email-order-summary">Please find your fitness @string.Format(@"plan{0}", multiplePurchases ? "s" : string.Empty) attached.</label>
+
+                    if (Model.Customer.UserId.HasValue)
+                    {
+                        <label class="email-order-summary">You can also access your @string.Format(@" {0} ", multiplePurchases ? "them" : "it") from online your account below.</label>
+                    }
+               }
+
+                <table class="email-table" cellspacing="0" cellpadding="0">
+                    <tbody>
+                @if (Model.Customer.UserId.HasValue)
+                {
+                            <tr>
+                                <td colspan="3" style="text-align:center">
+                                    <hr />
+                                    <a href="http://localhost:49910/Home/MyPlans" target="_blank" rel="noopener noreferrer" class="email-order-status-button" style="margin-bottom:30px;margin-top:30px;">
+                                        <span style="text-decoration:none;font-size:10pt;">View Plans</span>
+
+                                    </a>
+                                    <hr />
+                                </td>
+                            </tr>
+                }
+                        <tr>
+                            <td colspan="3" style="text-align:center">
+                                <label class="email-order-summary">Please do not hesitate to send an email to customercare@joelscottfitness.com if you have any questions.</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="email-footer-wrapper">
+            <div class="email-footer-logo">
+                <img src="http://localhost:49910/Content/Logos/jsf-black.svg" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

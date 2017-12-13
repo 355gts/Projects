@@ -258,7 +258,7 @@
                     <label class="email-order-summary">@Model.PurchaseDateDisplayString</label>
                     <label class="email-order-summary">Hey @Model.Customer.Firstname,</label>
                     <label class="email-order-summary">Thank you for your purchase! Your order #@Model.TransactionId is confirmed.</label>
-                    <label class="email-order-summary">If you haven't already, please complete your fitness questionnaire <a href="http://localhost:49910/Home/MyPlans" target="_blank" id="twitter" rel="noopener noreferrer" style="text-decoration:underline;color:blue">here</a>.</label>
+                    <label class="email-order-summary">If you haven't already, please complete your fitness questionnaire <a href="@string.Format(@"http://localhost:49910/Home/CustomerQuestionnaire?transactionId={0}", Model.TransactionId)" target="_blank" id="twitter" rel="noopener noreferrer" style="text-decoration:underline;color:blue">here</a>.</label>
                     <label class="email-order-summary">While I prepare your fitness @string.Format(@"plan{0}", multiplePurchases ? "s" : string.Empty)  please double check the details below and let me know if anything needs changing.</label>
                     <label class="email-order-summary">I aim to create all plans within 48 hours of receiving your order, you will receive another email when @string.Format(@" {0} ", multiplePurchases ? "they are" : "it is") ready.</label>
                 }
@@ -307,6 +307,8 @@
                     <label class="email-item-table-element-label email-table-item-element-right email-item-table-element-footer">@string.Format(@"£{0}", Model.TotalAmount)</label>
                 </td>
             </tr>
+            @if (Model.Customer.UserId.HasValue)
+            {
             <tr>
                 <td colspan="3" style="text-align:center;">
                     <hr />
@@ -322,6 +324,7 @@
                     <hr />
                 </td>
             </tr>
+            }
             <tr>
                 <td colspan="3" style="text-align:center">
                     <label class="email-order-summary">Please do not hesitate to send an email to customercare@joelscottfitness.com if you have any questions.</label>

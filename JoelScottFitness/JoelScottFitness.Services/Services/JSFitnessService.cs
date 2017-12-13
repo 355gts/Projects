@@ -47,7 +47,11 @@ namespace JoelScottFitness.Services.Services
             this.paypalService = paypalService;
             this.emailService = emailService;
         }
-        
+
+        public JSFitnessService()
+        {
+        }
+
         public async Task<AsyncResult<long>> CreateBlogAsync(CreateBlogViewModel blog)
         {
             var repoBlog = mapper.Map<CreateBlogViewModel, Blog>(blog);
@@ -491,9 +495,14 @@ namespace JoelScottFitness.Services.Services
             return await repository.DeleteHallOfFameEntryAsync(purchasedItemId);
         }
 
-        public Task<bool> SendEmail(string subject, string content, IEnumerable<string> receivers)
+        public Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers)
         {
             return emailService.SendEmailAsync(subject, content, receivers);
+        }
+
+        public Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers, IEnumerable<string> attachmentPaths)
+        {
+            return emailService.SendEmailAsync(subject, content, receivers, attachmentPaths);
         }
     }
 }

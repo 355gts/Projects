@@ -198,6 +198,11 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult NewCustomerDetails()
         {
+            // this flag is used when a customer has a user account but no customer details
+            // it prevents them from re-registering there account
+            //if (Session["PartiallyRegistered"] != null)
+            //    ViewBag.PartiallyRegistered = (bool)Session["PartiallyRegistered"];
+
             return View();
         }
         
@@ -216,7 +221,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (user != null)
                 {
-                    ModelState.AddModelError(string.Empty, "Email addresses is already registered");
+                    ModelState.AddModelError(string.Empty, "Email address is already registered");
                     customer.RegisterAccount = false;
                     customer.ConfirmEmailAddress = string.Empty;
                     customer.Password = string.Empty;
@@ -245,9 +250,9 @@ namespace JoelScottFitness.Web.Controllers
                     var accountResult = await UserManager.CreateAsync(newUser, customer.Password);
                     if (accountResult.Succeeded)
                     {
-                        await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                        // assign the user id to the customer account
                         customer.UserId = newUser.Id;
-
+                        
                         await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.User);
 
                         // TODO remove this logic when released
@@ -255,6 +260,12 @@ namespace JoelScottFitness.Web.Controllers
                         {
                             await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.Admin);
                         }
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code }, protocol: Request.Url.Scheme);
+                        await jsfService.SendEmailAsync("Joel Scott Fitness - Confirm Account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>", new List<string>() { newUser.Email });
                     }
                     else
                     {
@@ -287,6 +298,14 @@ namespace JoelScottFitness.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var customerDetails = await jsfService.GetCustomerDetailsAsync(User.Identity.Name);
+
+                // if some how the user managed to partially register, redirect them to the new user screen
+                //if (customerDetails == null)
+                //{
+                //    Session["PartiallyRegistered"] = true;
+                //    return RedirectToAction("NewCustomerDetails", "Home", new { partiallyRegistered = true });
+                //}
+                  
                 //ensure this is defaulted to true
                 customerDetails.JoinMailingList = true;
 
@@ -486,7 +505,7 @@ namespace JoelScottFitness.Web.Controllers
             // send confirmation email
             var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel);
             
-            await jsfService.SendEmail($"Joel Scott Fitness Order #{purchaseViewModel.TransactionId} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
+            await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{purchaseViewModel.TransactionId} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
             
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });

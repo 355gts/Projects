@@ -417,6 +417,7 @@
     <Content Include="Views\Home\HallOfFame.cshtml" />
     <Content Include="Views\Admin\HallOfFame.cshtml" />
     <Content Include="Views\Shared\_OrderConfirmation.cshtml" />
+    <Content Include="Views\Shared\_OrderComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

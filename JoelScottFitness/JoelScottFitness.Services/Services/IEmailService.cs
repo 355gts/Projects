@@ -7,6 +7,10 @@ namespace JoelScottFitness.Services.Services
     {
         bool SendEmail(string subject, string content, IEnumerable<string> receivers);
 
+        bool SendEmail(string subject, string content, IEnumerable<string> receivers, IEnumerable<string> attachmentPaths);
+
         Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers);
+
+        Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers, IEnumerable<string> attachmentPaths);
     }
 }

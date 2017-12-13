@@ -344,6 +344,19 @@ namespace JoelScottFitness.Web.Controllers
                 var planPath = SaveFile(uploadPlanViewModel.PostedFile, "Content/Plans", fileName);
 
                 var result = await jsfService.AssociatePlanToPurchase(uploadPlanViewModel.PurchasedItemId, planPath);
+
+                var purchaseViewModel = await jsfService.GetPurchaseAsync(uploadPlanViewModel.PurchaseId);
+
+                // if none of the plans require action then they are all ready
+                if (!purchaseViewModel.Items.Any(i => i.RequiresAction))
+                {
+                    var planPaths = purchaseViewModel.Items.Select(i => Server.MapPath(i.PlanPath)).ToList();
+
+                    // send confirmation email
+                    var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel);
+
+                    await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{purchaseViewModel.TransactionId} Complete", email, new List<string>() { "Blackmore__s@hotmail.com" }, planPaths);
+                }
             }
 
             return RedirectToAction("CustomerPlan", "Admin", new { purchaseId = uploadPlanViewModel.PurchaseId });
@@ -400,7 +413,7 @@ namespace JoelScottFitness.Web.Controllers
             //string content = tr.ReadToEnd();
             //tr.Dispose();
 
-            await jsfService.SendEmail($"Joel Scott Fitness Order #{model.OrderReference} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
+            await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{model.OrderReference} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
         }
 
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
