@@ -57,29 +57,6 @@ $(function () {
     });
 });
 
-// submit the mailing list subscription
-$(function () {
-    $('#resetPassword').click(function () {
-
-        if ($('#emailAddress').valid()) {
-            $('#resetPasswordConfirmation').text('');
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                url: '/Account/ForgotPassword',
-                data: {
-                    Email: $('#emailAddress').val(),
-                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
-                },
-                success: function (data) {
-                    $('#resetPasswordConfirmation').text('If this is a valid account a password reset link will be sent.');
-                }
-            });
-        }
-    });
-});
-
-
 // send email
 function sendEmail() {
     $.ajax({

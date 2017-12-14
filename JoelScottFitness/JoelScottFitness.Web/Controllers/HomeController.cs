@@ -629,6 +629,17 @@ namespace JoelScottFitness.Web.Controllers
             return View(hallOfFameEntries);
         }
 
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            var model = new ResetPasswordCallbackViewModel()
+            {
+                CallbackUrl = "https://www.JoelScottFitness.com/Account/ResetPassword?userEmail=blah",
+            };
+
+            return View(model);
+        }
+
         private async Task AddItemToBasket(long id)
         {
             var basket = GetBasketItems();

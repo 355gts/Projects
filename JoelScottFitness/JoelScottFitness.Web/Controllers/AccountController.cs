@@ -1,8 +1,13 @@
-﻿using JoelScottFitness.Identity.Models;
+﻿using JoelScottFitness.Common.Models;
+using JoelScottFitness.Identity.Models;
+using JoelScottFitness.Services.Services;
+using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,16 +20,21 @@ namespace JoelScottFitness.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IJSFitnessService jsfService;
 
-        public AccountController()
+        public AccountController(IJSFitnessService jsfService)
         {
+            if (jsfService == null)
+                throw new ArgumentNullException(nameof(jsfService));
+
+            this.jsfService = jsfService;
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        //{
+        //    UserManager = userManager;
+        //    SignInManager = signInManager;
+        //}
 
         public ApplicationSignInManager SignInManager
         {
@@ -224,10 +234,19 @@ namespace JoelScottFitness.Web.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                
+                var resetPasswordViewModel = new ResetPasswordCallbackViewModel()
+                {
+                    CallbackUrl = callbackUrl,
+                };
+                
+                var email = this.RenderRazorViewToString("_EmailResetPassword", resetPasswordViewModel);
+
+                await jsfService.SendEmailAsync($"Joel Scott Fitness - Reset Password", email, new List<string>() { model.Email });
+
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
