@@ -89,9 +89,8 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    // TODO Fix this as it gives the user a clue that the account attempted was registered just not activated
-                    ViewBag.errorMessage = "You must have a confirmed email to sign in, please check your inbox to authorise or contact customerservice@JoelScottFitness.com.";
-                    return View("Error");
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
                 }
             }
 

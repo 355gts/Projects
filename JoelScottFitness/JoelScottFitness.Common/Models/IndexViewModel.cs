@@ -22,7 +22,9 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public KaleidoscopeViewModel KaleidoscopeImages { get; set; }
-
+        
+        [DataMember(IsRequired = false)]
+        public HallOfFameViewModel LatestHallOfFamer { get; set; }
 
     }
 }

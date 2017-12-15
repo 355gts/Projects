@@ -1544,6 +1544,8 @@ a:hover {
     position: relative;
     text-align: center;
     display: inline-block;
+    margin-left:0px;
+    margin-right:0px;
 }
 
 .hof-title-wrapper {
@@ -1562,6 +1564,8 @@ a:hover {
     position: relative;
     text-align: center;
     display: inline-block;
+    margin-left:0px;
+    margin-right:0px;
 }
 
 .hof-image {
@@ -1598,3 +1602,11 @@ a:hover {
     color: black;
 }
 /* HALL OF FAME STYLE END */
+
+/* VALIDATION SUMMARY STYLE START */
+.validation-format ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+/* VALIDATION SUMMARY STYLE END*/

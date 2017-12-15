@@ -167,3 +167,25 @@
     <div style="clear:both"></div>
 </div>
     }
+
+@if (Model?.LatestHallOfFamer != null)
+{
+    <div class="subSect">
+        <div class="container section-title-wrapper">
+            <div id="hall-of-fame" class="row col-xs-12 section-title">
+                <div class="home-row home-welcome sect-header">
+                    LATEST HALL OF FAMER
+                </div>
+            </div>
+
+            @Html.Partial("_HallOfFame", Model.LatestHallOfFamer)
+
+            <div class="row col-xs-12" style="margin:0px;">
+                <div class="more-link-wrapper">
+                    <a href="/Home/HallOfFame" class="more-link">MORE</a>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+}

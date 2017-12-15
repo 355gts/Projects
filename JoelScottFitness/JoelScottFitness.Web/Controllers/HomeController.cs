@@ -76,6 +76,7 @@ namespace JoelScottFitness.Web.Controllers
             var videos = youTubeClient.GetVideos(3);
             var sectionImages = await jsfService.GetSectionImages();
             var kaleidoscopeImages = await jsfService.GetKaleidoscopeImages();
+            var hallOfFame = await jsfService.GetHallOfFameEntries(true, 1);
 
             if (sectionImages == null)
             {
@@ -100,7 +101,13 @@ namespace JoelScottFitness.Web.Controllers
                 Videos = videoViewModel,
                 SectionImages = sectionImages,
                 KaleidoscopeImages = kaleidoscopeImages,
+                LatestHallOfFamer = hallOfFame.FirstOrDefault()
             };
+
+            // used to determine whether to show the hall of fame link
+            Session["HallOfFame"] = false;
+            if (indexViewModel.LatestHallOfFamer != null)
+                Session["HallOfFame"] = true;
 
             return View(indexViewModel);
         }
@@ -493,8 +500,16 @@ namespace JoelScottFitness.Web.Controllers
 
             await jsfService.UpdatePurchaseStatusAsync(transactionId, PurchaseStatus.Complete);
 
+            // check whether the hall of fame is visible and re-add it after session is cleared
+            var hallOfFameVisible = false;
+            if (Session["HallOfFame"] != null && (bool)Session["HallOfFame"])
+                hallOfFameVisible = true;
+
             // clear the users basket
             Session.Clear();
+
+            // re-add this to the session
+            Session["HallOfFame"] = hallOfFameVisible;
 
             var purchaseViewModel = await jsfService.GetPurchaseAsync(purchaseId);
 
@@ -531,13 +546,13 @@ namespace JoelScottFitness.Web.Controllers
             var purchase = await jsfService.GetPurchaseByTransactionIdAsync(transactionId);
             if (purchase == null)
             {
-                ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please Contact Us.";
+                ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please contact customerservice@JoelScottFitness.com.";
                 return View();
             }
 
             if (purchase.QuestionnaireId.HasValue)
             {
-                ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please Contact Us.";
+                ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please contact customerservice@JoelScottFitness.com.";
                 return View();
             }
 

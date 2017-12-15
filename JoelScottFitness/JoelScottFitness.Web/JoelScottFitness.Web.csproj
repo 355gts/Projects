@@ -422,6 +422,7 @@
     <Content Include="Views\Shared\_EmailLayout.cshtml" />
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_EmailConfirmAccount.cshtml" />
+    <Content Include="Views\Shared\_HallOfFame.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -562,23 +562,23 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PurchasedItem>> GetHallOfFameEntriesAsync(bool onlyEnabled = true)
+        public async Task<IEnumerable<PurchasedItem>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null)
         {
-            if (onlyEnabled)
-                return await dbContext.PurchasedItems
+
+            var query = dbContext.PurchasedItems
                                       .Include(p => p.Item)
                                       .Include(p => p.Purchase)
                                       .Include("Purchase.Customer")
-                                      .Where(p => p.HallOfFameEnabled && p.MemberOfHallOfFame)
-                                      .OrderByDescending(p => p.Purchase.PurchaseDate).ToListAsync();
+                                      .Where(p => p.MemberOfHallOfFame);
 
-            return await dbContext.PurchasedItems
-                                  .Include(p => p.Item)
-                                  .Include(p => p.Purchase)
-                                  .Include("Purchase.Customer")
-                                  .Where(p => p.MemberOfHallOfFame)
-                                  .OrderByDescending(p => p.Purchase.PurchaseDate)
-                                  .ToListAsync();
+            if (onlyEnabled)
+                query = query.Where(p => p.HallOfFameEnabled);
+
+            if (numberOfEntries != null && numberOfEntries > 0)
+                query = query.Take(numberOfEntries.Value);
+
+            return await query.OrderByDescending(p => p.Purchase.PurchaseDate)
+                              .ToListAsync();
         }
 
         public async Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status)
