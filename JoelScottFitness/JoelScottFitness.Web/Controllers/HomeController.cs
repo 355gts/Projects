@@ -260,7 +260,15 @@ namespace JoelScottFitness.Web.Controllers
                         // Send an email with this link
                         string code = await UserManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code }, protocol: Request.Url.Scheme);
-                        await jsfService.SendEmailAsync("Joel Scott Fitness - Confirm Account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>", new List<string>() { newUser.Email });
+
+                        var callbackViewModel = new CallbackViewModel()
+                        {
+                            CallbackUrl = callbackUrl,
+                        };
+
+                        var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel);
+
+                        await jsfService.SendEmailAsync("Joel Scott Fitness - Confirm Account", email, new List<string>() { newUser.Email });
                     }
                     else
                     {
@@ -632,7 +640,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult ResetPassword()
         {
-            var model = new ResetPasswordCallbackViewModel()
+            var model = new CallbackViewModel()
             {
                 CallbackUrl = "https://www.JoelScottFitness.com/Account/ResetPassword?userEmail=blah",
             };

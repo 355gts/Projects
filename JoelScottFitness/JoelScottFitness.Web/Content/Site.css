@@ -59,7 +59,7 @@ a:hover {
     right: 12px;
     bottom: 20px;
     z-index: 1;
-    width: 100%;
+    width: 400px;
     height: 62px;
     background-position-x: right;
 }
@@ -84,6 +84,7 @@ a:hover {
         background-position-x: center;
         right: auto;
         left: auto;
+        width:100%;
     }
 }
 
@@ -1075,7 +1076,6 @@ a:hover {
 .login-container {
     background-color: white;
     min-height: 600px;
-    padding-top: 30px;
     margin-left: 0px;
     margin-right: 0px;
     font-family: 'Bebas-Neue';

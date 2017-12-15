@@ -237,12 +237,12 @@ namespace JoelScottFitness.Web.Controllers
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 
-                var resetPasswordViewModel = new ResetPasswordCallbackViewModel()
+                var callbackViewModel = new CallbackViewModel()
                 {
                     CallbackUrl = callbackUrl,
                 };
                 
-                var email = this.RenderRazorViewToString("_EmailResetPassword", resetPasswordViewModel);
+                var email = this.RenderRazorViewToString("_EmailResetPassword", callbackViewModel);
 
                 await jsfService.SendEmailAsync($"Joel Scott Fitness - Reset Password", email, new List<string>() { model.Email });
 

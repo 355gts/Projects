@@ -95,7 +95,7 @@
     <Compile Include="Models\PurchaseHistoryViewModel.cs" />
     <Compile Include="Models\PurchaseSummaryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
-    <Compile Include="Models\ResetPasswordCallbackViewModel.cs" />
+    <Compile Include="Models\CallbackViewModel.cs" />
     <Compile Include="Models\SectionImageViewModel.cs" />
     <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
     <Compile Include="Models\UiPlanViewModel.cs" />
