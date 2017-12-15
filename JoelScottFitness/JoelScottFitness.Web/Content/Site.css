@@ -177,6 +177,7 @@ textarea {
     line-height: 60px;
     overflow-x: visible;
     overflow-y: visible;
+    position:absolute;
 }
 
 @media (min-width:0px) and (max-width: 767px) {
