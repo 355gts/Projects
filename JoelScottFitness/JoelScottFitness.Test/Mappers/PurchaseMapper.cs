@@ -20,7 +20,7 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var repoObject = new Purchase()
                 {
-                    CustomerId = 123,
+                    CustomerId = Guid.NewGuid(),
                     DiscountCodeId = 456,
                     Id = 789,
                     PayPalReference = "PayPalReference",
@@ -56,7 +56,7 @@ namespace JoelScottFitness.Test.Mappers
             {
                 var repoObject = new Purchase()
                 {
-                    CustomerId = 123,
+                    CustomerId = Guid.NewGuid(),
                     DiscountCodeId = 456,
                     Id = 789,
                     PayPalReference = "PayPalReference",

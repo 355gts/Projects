@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace JoelScottFitness.Common.Models
@@ -13,7 +14,7 @@ namespace JoelScottFitness.Common.Models
         public long PurchasedItemId { get; set; }
 
         [DataMember(IsRequired = true)]
-        public long CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
 
         [DataMember(IsRequired = true)]
         public string Name { get; set; }

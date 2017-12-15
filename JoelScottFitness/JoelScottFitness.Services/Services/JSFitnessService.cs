@@ -67,14 +67,14 @@ namespace JoelScottFitness.Services.Services
         }
 
 
-        public async Task<AsyncResult<long>> CreateCustomerAsync(CreateCustomerViewModel customer)
+        public async Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer)
         {
             var repoCustomer = mapper.Map<CreateCustomerViewModel, Customer>(customer);
 
             return await repository.CreateCustomerAsync(repoCustomer);
         }
 
-        public async Task<AsyncResult<long>> UpdateCustomerAsync(CustomerViewModel customer)
+        public async Task<AsyncResult<Guid>> UpdateCustomerAsync(CustomerViewModel customer)
         {
             var repoCustomer = mapper.Map<CustomerViewModel, Customer>(customer);
 
@@ -115,7 +115,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Blog, BlogViewModel>(blogs);
         }
 
-        public async Task<CustomerViewModel> GetCustomerDetailsAsync(long id)
+        public async Task<CustomerViewModel> GetCustomerDetailsAsync(Guid id)
         {
             var customer = await repository.GetCustomerDetailsAsync(id);
 
@@ -232,7 +232,7 @@ namespace JoelScottFitness.Services.Services
             return purchaseViewModel;
         }
 
-        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(long customerId)
+        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId)
         {
             var purchases = await repository.GetPurchasesAsync(customerId);
 
@@ -252,7 +252,7 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Purchase, PurchaseSummaryViewModel>(purchases);
         }
 
-        public async Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(long customerId)
+        public async Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(Guid customerId)
         {
             List<PurchasedHistoryItemViewModel> plansViewModel = new List<PurchasedHistoryItemViewModel>();
             var planOptions = await repository.GetPlanOptionsAsync();

@@ -69,12 +69,12 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> CreateCustomerAsync(Customer customer)
+        public async Task<AsyncResult<Guid>> CreateCustomerAsync(Customer customer)
         {
             var existingCustomer = await dbContext.Customers.FirstOrDefaultAsync(c => c.Id == customer.Id);
 
             if (existingCustomer != null)
-                return new AsyncResult<long>() { Success = false, ErrorMessage = "User already exists" };
+                return new AsyncResult<Guid>() { Success = false, ErrorMessage = "User already exists" };
 
             customer.CreatedDate = DateTime.UtcNow;
             dbContext.Customers.Add(customer);
@@ -82,18 +82,18 @@ namespace JoelScottFitness.Data
             if (await SaveChangesAsync())
             {
                 var id = existingCustomer != null ? existingCustomer.Id : customer.Id;
-                return new AsyncResult<long>() { Success = true, Result = id };
+                return new AsyncResult<Guid>() { Success = true, Result = id };
             }
 
-            return new AsyncResult<long>() { Success = false };
+            return new AsyncResult<Guid>() { Success = false };
         }
 
-        public async Task<AsyncResult<long>> UpdateCustomerAsync(Customer customer)
+        public async Task<AsyncResult<Guid>> UpdateCustomerAsync(Customer customer)
         {
             var existingCustomer = await dbContext.Customers.Include(c => c.BillingAddress).FirstOrDefaultAsync(c => c.Id == customer.Id);
 
             if (existingCustomer == null)
-                return new AsyncResult<long>() { Success = false, ErrorMessage = $"User {customer.EmailAddress} does not exist." };
+                return new AsyncResult<Guid>() { Success = false, ErrorMessage = $"User {customer.EmailAddress} does not exist." };
 
             customer.ModifiedDate = DateTime.UtcNow;
 
@@ -112,10 +112,10 @@ namespace JoelScottFitness.Data
             if (await SaveChangesAsync())
             {
                 var id = existingCustomer != null ? existingCustomer.Id : customer.Id;
-                return new AsyncResult<long>() { Success = true, Result = id };
+                return new AsyncResult<Guid>() { Success = true, Result = id };
             }
 
-            return new AsyncResult<long>() { Success = false };
+            return new AsyncResult<Guid>() { Success = false };
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateDiscountCodeAsync(DiscountCode discountCode)
@@ -205,7 +205,7 @@ namespace JoelScottFitness.Data
             return await blogQuery.ToListAsync();
         }
 
-        public async Task<Customer> GetCustomerDetailsAsync(long id)
+        public async Task<Customer> GetCustomerDetailsAsync(Guid id)
         {
             return await dbContext.Customers
                                   .Include(c => c.BillingAddress)
@@ -285,7 +285,7 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId)
+        public async Task<IEnumerable<Purchase>> GetPurchasesAsync(Guid customerId)
         {
             return await dbContext.Purchases
                                   .Include(p => p.Customer)

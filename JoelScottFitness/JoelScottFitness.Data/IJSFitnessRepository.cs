@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,11 +17,11 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<Blog>> GetBlogsAsync(int number = 0);
         
-        Task<AsyncResult<long>> CreateCustomerAsync(Customer customer);
+        Task<AsyncResult<Guid>> CreateCustomerAsync(Customer customer);
 
-        Task<AsyncResult<long>> UpdateCustomerAsync(Customer customer);
+        Task<AsyncResult<Guid>> UpdateCustomerAsync(Customer customer);
 
-        Task<Customer> GetCustomerDetailsAsync(long id);
+        Task<Customer> GetCustomerDetailsAsync(Guid id);
 
         Task<Customer> GetCustomerDetailsAsync(string userName);
 
@@ -42,7 +43,7 @@ namespace JoelScottFitness.Data
         
         Task<Purchase> GetPurchaseAsync(long id);
 
-        Task<IEnumerable<Purchase>> GetPurchasesAsync(long customerId);
+        Task<IEnumerable<Purchase>> GetPurchasesAsync(Guid customerId);
 
         Task<IEnumerable<Purchase>> GetPurchasesAsync();
 

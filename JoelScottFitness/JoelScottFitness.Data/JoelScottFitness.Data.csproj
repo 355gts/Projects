@@ -65,26 +65,12 @@
     <Compile Include="JSFitnessContext.cs" />
     <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
-    <Compile Include="Migrations\201711132153345_InitialCreate.cs" />
-    <Compile Include="Migrations\201711132153345_InitialCreate.Designer.cs">
-      <DependentUpon>201711132153345_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711241733488_Added hall of fame fields.cs" />
-    <Compile Include="Migrations\201711241733488_Added hall of fame fields.Designer.cs">
-      <DependentUpon>201711241733488_Added hall of fame fields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711282036122_Added HallOfFameEnabled flag.cs" />
-    <Compile Include="Migrations\201711282036122_Added HallOfFameEnabled flag.Designer.cs">
-      <DependentUpon>201711282036122_Added HallOfFameEnabled flag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\BaseRecord.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\BlogImage.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DataContractAttribute.cs" />
     <Compile Include="Models\DiscountCode.cs" />
     <Compile Include="Models\ImageConfiguration.cs" />
     <Compile Include="Models\Item.cs" />
@@ -110,17 +96,6 @@
       <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
       <Name>JoelScottFitness.Identity</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711132153345_InitialCreate.resx">
-      <DependentUpon>201711132153345_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711241733488_Added hall of fame fields.resx">
-      <DependentUpon>201711241733488_Added hall of fame fields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711282036122_Added HallOfFameEnabled flag.resx">
-      <DependentUpon>201711282036122_Added HallOfFameEnabled flag.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

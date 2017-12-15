@@ -25,7 +25,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/section1.PNG")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/section1.jpg")]
         public string DefaultSectionImage1 {
             get {
                 return ((string)(this["DefaultSectionImage1"]));
@@ -34,7 +34,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/section2.PNG")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/section2.jpg")]
         public string DefaultSectionImage2 {
             get {
                 return ((string)(this["DefaultSectionImage2"]));
@@ -43,7 +43,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/section3.PNG")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/section3.jpg")]
         public string DefaultSectionImage3 {
             get {
                 return ((string)(this["DefaultSectionImage3"]));
@@ -52,7 +52,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/banner.PNG")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/banner.jpg")]
         public string DefaultSplashImage {
             get {
                 return ((string)(this["DefaultSplashImage"]));

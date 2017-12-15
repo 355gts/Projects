@@ -2,6 +2,7 @@
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,11 +18,11 @@ namespace JoelScottFitness.Services.Services
 
         Task<IEnumerable<BlogViewModel>> GetBlogsAsync(int number = 0);
         
-        Task<AsyncResult<long>> CreateCustomerAsync(CreateCustomerViewModel customer);
+        Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer);
 
-        Task<AsyncResult<long>> UpdateCustomerAsync(CustomerViewModel customer);
+        Task<AsyncResult<Guid>> UpdateCustomerAsync(CustomerViewModel customer);
 
-        Task<CustomerViewModel> GetCustomerDetailsAsync(long id);
+        Task<CustomerViewModel> GetCustomerDetailsAsync(Guid id);
 
         Task<CustomerViewModel> GetCustomerDetailsAsync(string userName);
 
@@ -47,7 +48,7 @@ namespace JoelScottFitness.Services.Services
                 
         Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id);
 
-        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(long customerId);
+        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId);
 
         Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync();
 
@@ -87,7 +88,7 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath);
 
-        Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(long customerId);
+        Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(Guid customerId);
 
         Task<KaleidoscopeViewModel> GetKaleidoscopeImages();
 

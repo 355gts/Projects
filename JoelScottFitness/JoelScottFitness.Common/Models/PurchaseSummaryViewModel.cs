@@ -18,7 +18,7 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
-        public long CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
 
         [Required]
         [DataMember(IsRequired = true)]

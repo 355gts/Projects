@@ -6,8 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Data.Models
 {
-    public class Customer : BaseRecord
+    public class Customer
     {
+        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
         [Required]
         public string Firstname { get; set; }
 

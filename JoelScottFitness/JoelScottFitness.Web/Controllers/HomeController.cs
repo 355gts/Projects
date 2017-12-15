@@ -346,7 +346,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> ConfirmPurchase(long customerId)
+        public async Task<ActionResult> ConfirmPurchase(Guid customerId)
         {
             var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
 

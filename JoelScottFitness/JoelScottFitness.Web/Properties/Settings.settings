@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="DefaultSectionImage1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/section1.PNG</Value>
+      <Value Profile="(Default)">/Content/Images/section1.jpg</Value>
     </Setting>
     <Setting Name="DefaultSectionImage2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/section2.PNG</Value>
+      <Value Profile="(Default)">/Content/Images/section2.jpg</Value>
     </Setting>
     <Setting Name="DefaultSectionImage3" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/section3.PNG</Value>
+      <Value Profile="(Default)">/Content/Images/section3.jpg</Value>
     </Setting>
     <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/banner.PNG</Value>
+      <Value Profile="(Default)">/Content/Images/banner.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -140,32 +140,27 @@
 </div>
 
 
-@{ 
-    string hideKaleidoscope = string.Empty;
 
-    if(Model.KaleidoscopeImages == null || string.IsNullOrEmpty(Model.KaleidoscopeImages.Image1))
+    @if(Model?.KaleidoscopeImages != null && !string.IsNullOrEmpty(Model?.KaleidoscopeImages?.Image1))
     {
-        hideKaleidoscope = "display:none";
-    }
+        <div class="row kaleidoscope-wrapper">
+            <div class="col-xs-12 col-sm-6 kaleidoscope-large" style="background-image:url('@Model.KaleidoscopeImages.Image1')">
 
-<div class="row kaleidoscope-wrapper" style="@hideKaleidoscope">
-    <div class="col-xs-12 col-sm-6 kaleidoscope-large" style="background-image:url('@Model.KaleidoscopeImages.Image1')">
+            </div>
+            <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image2')">
 
-    </div>
-    <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image2')">
+            </div>
+            <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image3')">
 
-    </div>
-    <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image3')">
+            </div>
+            <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image4')">
 
-    </div>
-    <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image4')">
+            </div>
+            <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image5')">
 
-    </div>
-    <div class="col-xs-6 col-sm-3 kaleidoscope-small" style="background-image:url('@Model.KaleidoscopeImages.Image5')">
-
-    </div>
-    <div style="clear:both"></div>
-</div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
     }
 
 @if (Model?.LatestHallOfFamer != null)

@@ -27,7 +27,7 @@ namespace JoelScottFitness.Data.Models
         
         [ForeignKey("Customer")]
         [Required]
-        public long CustomerId { get; set; }
+        public Guid CustomerId { get; set; }
         
         public Customer Customer { get; set; }
 
