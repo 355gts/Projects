@@ -25,6 +25,7 @@ namespace JoelScottFitness.Services.Mappers
             plan.TargetGender = fromObject.TargetGender;
             plan.Active = fromObject.Active;
             plan.ModifiedDate = DateTime.UtcNow;
+            plan.BannerColour = fromObject.BannerColour;
 
             var planOptions = new List<PlanOptionViewModel>();
 
@@ -52,6 +53,7 @@ namespace JoelScottFitness.Services.Mappers
             plan.Name = fromObject.Name;
             plan.TargetGender = fromObject.TargetGender;
             plan.Active = fromObject.Active;
+            plan.BannerColour = fromObject.BannerColour;
 
             var planOptions = new List<PlanOption>();
 

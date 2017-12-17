@@ -421,12 +421,12 @@ namespace JoelScottFitness.Services.Services
 
             var images = await repository.GetImages();
 
-            if (imageConfiguration != null)
+            if (imageConfiguration == null || images == null || !images.Any())
             {
-                imageConfiguration.Images = images != null 
-                                                ? images 
-                                                : Enumerable.Empty<Image>();
+                return null;
             }
+
+            imageConfiguration.Images = images;
 
             return mapper.Map<ImageConfiguration, SectionImageViewModel>(imageConfiguration);
         }
@@ -437,12 +437,12 @@ namespace JoelScottFitness.Services.Services
 
             var images = await repository.GetImages();
 
-            if (imageConfiguration != null)
+            if (imageConfiguration == null || images == null || !images.Any())
             {
-                imageConfiguration.Images = images != null
-                                                ? images
-                                                : Enumerable.Empty<Image>();
+                return null;
             }
+
+            imageConfiguration.Images = images;
 
             return mapper.Map<ImageConfiguration, KaleidoscopeViewModel>(imageConfiguration);
         }
@@ -463,6 +463,8 @@ namespace JoelScottFitness.Services.Services
                 purchasedItem.AfterImage = afterImage;
                 purchasedItem.Comment = comment;
                 purchasedItem.MemberOfHallOfFame = true;
+                purchasedItem.HallOfFameDate = DateTime.UtcNow;
+                purchasedItem.HallOfFameEnabled = false;
 
                 success = await repository.UpdatePurchasedItemAsync(purchasedItem);
             }

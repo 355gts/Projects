@@ -30,6 +30,7 @@ namespace JoelScottFitness.Test.Mappers
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOption>(),
+                    BannerColour = BannerColour.White,
                 };
 
                 var mapper = new Map.PlanMapper();
@@ -55,6 +56,7 @@ namespace JoelScottFitness.Test.Mappers
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOption>(),
+                    BannerColour = BannerColour.White,
                 };
 
                 PlanViewModel toObject = new PlanViewModel();
@@ -77,6 +79,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.IsNotNull(webObject.ModifiedDate);
                 Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
+                Assert.AreEqual(repoObject.BannerColour, webObject.BannerColour);
                 Assert.AreEqual(0, webObject.Options.Count);
             }
         }
@@ -99,6 +102,7 @@ namespace JoelScottFitness.Test.Mappers
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOptionViewModel>(),
+                    BannerColour = BannerColour.White,
                 };
 
                 var mapper = new Map.PlanMapper();
@@ -123,6 +127,7 @@ namespace JoelScottFitness.Test.Mappers
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOptionViewModel>(),
+                    BannerColour = BannerColour.White,
                 };
 
                 Plan toObject = new Plan();
@@ -146,6 +151,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.ModifiedDate, repoObject.ModifiedDate);
                 Assert.AreEqual(webObject.Name, repoObject.Name);
                 Assert.AreEqual(webObject.TargetGender, repoObject.TargetGender);
+                Assert.AreEqual(webObject.BannerColour, repoObject.BannerColour);
                 Assert.AreEqual(0, repoObject.Options.Count);
             }
         }

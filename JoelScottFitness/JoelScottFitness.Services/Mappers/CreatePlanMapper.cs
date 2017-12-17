@@ -22,6 +22,7 @@ namespace JoelScottFitness.Services.Mappers
             plan.Name = fromObject.Name;
             plan.TargetGender = fromObject.TargetGender;
             plan.Active = false;
+            plan.BannerColour = fromObject.BannerColour;
 
             var planOptions = new List<PlanOption>();
 

@@ -25,6 +25,7 @@ namespace JoelScottFitness.Test.Mappers
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<CreatePlanOptionViewModel>(),
+                    BannerColour = BannerColour.White,
                 };
 
                 var mapper = new Map.CreatePlanMapper();
@@ -46,6 +47,7 @@ namespace JoelScottFitness.Test.Mappers
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<CreatePlanOptionViewModel>(),
+                    BannerColour = BannerColour.White,
                 };
 
                 Plan toObject = new Plan();
@@ -68,6 +70,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.ImagePathMedium, webObject.ImagePathMedium);
                 Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
+                Assert.AreEqual(repoObject.BannerColour, webObject.BannerColour);
                 Assert.AreEqual(0, webObject.Options.Count);
             }
         }

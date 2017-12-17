@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Data.Models
@@ -36,6 +37,8 @@ namespace JoelScottFitness.Data.Models
         public string AfterImage { get; set; }
 
         public string Comment { get; set; }
+
+        public DateTime? HallOfFameDate { get; set; }
 
         public bool HallOfFameEnabled { get; set; }
     }

@@ -48,6 +48,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(model => model.BannerColour, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.BannerColour, Model.BannerColours.Select(o => new SelectListItem() { Text = o.Key, Value = o.Value.ToString(), Selected = true }).ToList(), new { @style = "width:100%" })
+                        @Html.ValidationMessageFor(model => model.BannerColour, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(model => model.TargetGender, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.TargetGender, Model.GenderTypes.Select(o => new SelectListItem() { Text = o.Key, Value = o.Value.ToString(), Selected = true }).ToList(), new { @style = "width:100%" })

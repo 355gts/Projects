@@ -70,7 +70,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(bool christmas = false)
         {
             var blogs = await jsfService.GetBlogsAsync(6);
             var videos = youTubeClient.GetVideos(3);
@@ -108,6 +108,9 @@ namespace JoelScottFitness.Web.Controllers
             Session["HallOfFame"] = false;
             if (indexViewModel.LatestHallOfFamer != null)
                 Session["HallOfFame"] = true;
+
+            if (christmas)
+                Session["Christmas"] = true;
 
             return View(indexViewModel);
         }
@@ -183,7 +186,7 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Plans(Gender gender)
+        public async Task<ActionResult> Plans(Gender gender = Gender.Male)
         {
             var plans = await jsfService.GetPlansByGenderAsync(gender);
             return View(plans.Where(p => p.Active).OrderByDescending(p => p.CreatedDate));

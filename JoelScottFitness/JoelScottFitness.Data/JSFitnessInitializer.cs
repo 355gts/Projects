@@ -401,6 +401,15 @@ namespace JoelScottFitness.Data
                 context.SaveChanges();
             }
 
+            if (!context.ImageConfigurations.Any())
+            {
+                context.ImageConfigurations.Add(new ImageConfiguration()
+                {
+                    Randomize = true,
+                });
+                context.SaveChanges();
+        }
+
             if (!context.Roles.Any())
             {
                 var userRole = new AuthRole()

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JoelScottFitness.Common.Enumerations;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace JoelScottFitness.Common.Models

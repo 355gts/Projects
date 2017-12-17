@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
     <title>Joel Scott Fitness</title>
     @*@Styles.Render("~/Content/css")*@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
@@ -60,7 +60,7 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/jquery.validate.date.js"></script>
-
+    <script src="~/Scripts/jquery.snow.min.1.0.js"></script>
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -70,6 +70,15 @@
         @Html.Partial("_BeforeAndAfterModal")
 
     @Html.Partial("_BasketIndicator")
+
+@if (Session["Christmas"] != null && (bool)Session["Christmas"])
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.fn.snow({ minSize: 5, maxSize: 50, newOn: 50, flakeColor: 'white' });
+        });
+    </script>
+}
 
 </body>
 </html>

@@ -569,7 +569,9 @@ namespace JoelScottFitness.Data
                                       .Include(p => p.Item)
                                       .Include(p => p.Purchase)
                                       .Include("Purchase.Customer")
-                                      .Where(p => p.MemberOfHallOfFame);
+                                      .Where(p => p.MemberOfHallOfFame)
+                                      .OrderByDescending(p => p.HallOfFameDate)
+                                      .AsQueryable();
 
             if (onlyEnabled)
                 query = query.Where(p => p.HallOfFameEnabled);
@@ -577,8 +579,7 @@ namespace JoelScottFitness.Data
             if (numberOfEntries != null && numberOfEntries > 0)
                 query = query.Take(numberOfEntries.Value);
 
-            return await query.OrderByDescending(p => p.Purchase.PurchaseDate)
-                              .ToListAsync();
+            return await query.ToListAsync();
         }
 
         public async Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status)

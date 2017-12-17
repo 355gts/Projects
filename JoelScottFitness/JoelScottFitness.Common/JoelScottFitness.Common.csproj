@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\JsfRoles.cs" />
+    <Compile Include="Enumerations\BannerColour.cs" />
     <Compile Include="Enumerations\BlogCaptionTextColour.cs" />
     <Compile Include="Enumerations\CreditCardType.cs" />
     <Compile Include="Enumerations\Gender.cs" />

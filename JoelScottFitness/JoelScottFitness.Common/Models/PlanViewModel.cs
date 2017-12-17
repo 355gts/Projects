@@ -54,6 +54,23 @@ namespace JoelScottFitness.Common.Models
                 };
             }
         }
+        
+        [Required]
+        [DataMember(IsRequired = true)]
+        public BannerColour BannerColour { get; set; }
+
+        public List<KeyValuePair<string, int>> BannerColours
+        {
+            get
+            {
+                return new List<KeyValuePair<string, int>>()
+                {
+                    new KeyValuePair<string, int>(BannerColour.Black.ToString(), (int)BannerColour.Black),
+                    new KeyValuePair<string, int>(BannerColour.White.ToString(), (int)BannerColour.White),
+                    new KeyValuePair<string, int>(BannerColour.Grey.ToString(), (int)BannerColour.Grey),
+                };
+            }
+        }
 
         [Required]
         [DataMember(IsRequired = true)]
