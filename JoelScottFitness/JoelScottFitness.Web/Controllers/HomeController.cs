@@ -248,7 +248,7 @@ namespace JoelScottFitness.Web.Controllers
                 return View(customerDetails);
             }
 
-            return RedirectToAction("NewCustomerDetails", "Home");
+            return RedirectToAction("Login", "Account", new { ReturnUrl = @"/Home/ExistingCustomerDetails" });
         }
 
         [HttpPost]

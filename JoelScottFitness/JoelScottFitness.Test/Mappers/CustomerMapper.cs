@@ -106,7 +106,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.EmailAddress, webObject.EmailAddress);
                 Assert.AreEqual(repoObject.Firstname, webObject.Firstname);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
-                Assert.AreEqual(repoObject.ModifiedDate, webObject.ModifiedDate);
                 Assert.AreEqual(repoObject.Surname, webObject.Surname);
                 Assert.AreEqual(repoObject.UserId, webObject.UserId);
                 
@@ -141,7 +140,6 @@ namespace JoelScottFitness.Test.Mappers
                     EmailAddress = "EmailAddress",
                     Firstname = "Firstname",
                     Id = Guid.NewGuid(),
-                    ModifiedDate = DateTime.UtcNow.AddMinutes(1),
                     Surname = "Surname",
                     UserId = 789,
                     BillingAddress = new AddressViewModel()
@@ -175,7 +173,6 @@ namespace JoelScottFitness.Test.Mappers
                     EmailAddress = "EmailAddress",
                     Firstname = "Firstname",
                     Id = Guid.NewGuid(),
-                    ModifiedDate = DateTime.UtcNow.AddMinutes(1),
                     Surname = "Surname",
                     UserId = 789,
                     BillingAddress = new AddressViewModel()
@@ -208,7 +205,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.EmailAddress, repoObject.EmailAddress);
                 Assert.AreEqual(webObject.Firstname, repoObject.Firstname);
                 Assert.AreEqual(webObject.Id, repoObject.Id);
-                Assert.AreEqual(webObject.ModifiedDate, repoObject.ModifiedDate);
                 Assert.AreEqual(webObject.Surname, repoObject.Surname);
                 Assert.AreEqual(webObject.UserId, repoObject.UserId);
 

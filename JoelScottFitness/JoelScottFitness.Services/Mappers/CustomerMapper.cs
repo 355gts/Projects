@@ -19,9 +19,9 @@ namespace JoelScottFitness.Services.Mappers
             customer.EmailAddress = fromObject.EmailAddress;
             customer.Firstname = fromObject.Firstname;
             customer.Id = fromObject.Id;
-            customer.ModifiedDate = fromObject.ModifiedDate;
             customer.Surname = fromObject.Surname;
             customer.BillingAddressId = fromObject.BillingAddressId;
+            customer.UserId = fromObject.UserId;
 
             if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);
@@ -37,7 +37,6 @@ namespace JoelScottFitness.Services.Mappers
             customer.EmailAddress = fromObject.EmailAddress;
             customer.Firstname = fromObject.Firstname;
             customer.Id = fromObject.Id;
-            customer.ModifiedDate = fromObject.ModifiedDate;
             customer.Surname = fromObject.Surname;
             customer.BillingAddressId = fromObject.BillingAddressId;
             customer.UserId = fromObject.UserId;

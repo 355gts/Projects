@@ -1680,3 +1680,39 @@ a:hover {
 
 
 /* CUSTOMER FORM STYLE END*/
+
+/* ACTIVE BUTTON STYLE START */
+.active-button-row-wrapper {
+    position: relative;
+}
+
+.active-button-wrapper {
+    position: relative;
+    min-width: 200px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.active-button {
+    position: relative;
+    width: 100%;
+    background-color: gray;
+    color: black;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+}
+
+.active-button:active {
+    background-color: gray;
+    color: black;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
+}
+
+.active-button:hover {
+    background-color: black;
+    color: white;
+}
+/* ACTIVE BUTTON STYLE END */

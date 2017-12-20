@@ -1,187 +1,126 @@
 ﻿@model JoelScottFitness.Common.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container customer-form-container">
-        <div class="row">
-            <div class="col-xs-12 title-format">
-                REGISTER
-            </div>
-            <div style="clear:both"></div>
+<div class="container customer-form-container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            REGISTER
         </div>
-        <div class="customer-form-wrapper">
+        <div style="clear:both"></div>
+    </div>
+    <div class="customer-form-wrapper">
             
-            @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl, AppendCustomerId = ViewBag.AppendCustomerId }, FormMethod.Post, new { role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger customer-form-validation-summary" })
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.Firstname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.Firstname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Firstname" })
-                            @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.Surname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.Surname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Surname" })
-                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.AddressLine1, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.AddressLine1, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Address Line 1" })
-                            @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine1, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.AddressLine2, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.AddressLine2, new { @type = "text", @class = "form-control customer-form-input", @placeholder = "Address Line 2" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.AddressLine3, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.AddressLine3, new { @type = "text", @class = "form-control customer-form-input", @placeholder = "Address Line 3" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.City, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.City, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "City" })
-                            @Html.ValidationMessageFor(model => model.BillingAddress.City, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.Region, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.Region, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Region" })
-                            @Html.ValidationMessageFor(model => model.BillingAddress.Region, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.PostCode, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.PostCode, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Post Code" })
-                            @Html.ValidationMessageFor(model => model.BillingAddress.PostCode, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.BillingAddress.Country, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.BillingAddress.Country, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Country" })
-                            @Html.ValidationMessageFor(model => model.BillingAddress.Country, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.EmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email" })
-                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.ConfirmEmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.ConfirmEmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Confirm Email" })
-                            @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.Password, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.Password, new { @type = "password", @class = "form-control form-control-warning customer-form-input", @placeholder = "Password" })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.TextBoxFor(m => m.ConfirmPassword, new { @type = "password", @class = "form-control form-control-warning customer-form-input", @placeholder = "Confirm Password" })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger customer-form-warning" })
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="form-group row">
-                        @Html.LabelFor(m => m.JoinMailingList, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
-                        <div class="col-xs-12 col-sm-8">
-                            @Html.CheckBoxFor(model => model.JoinMailingList, new { @checked = "checked", @class = "customer-form-checkbox" })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
-                    </div>
-            }
-        </div>
-    </div>
-
-@*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <div style="position:relative">
-        <fieldset>
-            <ul style="list-style-type:none">
-                <li>
-                    <div style="position:relative" class="col-md-12">
-                        @Html.LabelFor(m => m.Email, new { @style = "position:relative", @class = "col-md-2" })
-                        <div style="position:relative">
-                            @Html.TextBoxFor(m => m.Email, new { @style = "position:relative;min-width:300px", @class = "col-md-10" })
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div style="position:relative">
-                        @Html.LabelFor(m => m.Email, new { @style = "position:relative", @class = "col-md-2" })
-                        <div style="position:relative">
-                            @Html.TextBoxFor(m => m.Email, new { @style = "position:relative;min-width:300px", @class = "col-md-10" })
-                        </div>
-                    </div>
-                </li>
-
-            </ul>
-
-        </fieldset>
-    </div>
-
-
+        @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl, AppendCustomerId = ViewBag.AppendCustomerId }, FormMethod.Post, new { role = "form" }))
+        {
             @Html.AntiForgeryToken()
-            <h4>Create a new account.</h4>
             <hr />
-            @Html.ValidationSummary("", new { @class = "text-danger customer-form-warning" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger customer-form-validation-summary" })
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Firstname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Firstname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Firstname" })
+                        @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Surname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Surname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Surname" })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                <hr />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.AddressLine1, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.AddressLine1, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Address Line 1" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine1, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-default" value="Register" />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.AddressLine2, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.AddressLine2, new { @type = "text", @class = "form-control customer-form-input", @placeholder = "Address Line 2" })
+                    </div>
                 </div>
-            </div>
-}*@
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.AddressLine3, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.AddressLine3, new { @type = "text", @class = "form-control customer-form-input", @placeholder = "Address Line 3" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.City, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.City, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "City" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.City, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.Region, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.Region, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Region" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.Region, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.PostCode, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.PostCode, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Post Code" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.PostCode, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.BillingAddress.Country, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.BillingAddress.Country, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Country" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.Country, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.EmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email" })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.ConfirmEmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.ConfirmEmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Confirm Email" })
+                        @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Password, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Password, new { @type = "password", @class = "form-control form-control-warning customer-form-input", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @type = "password", @class = "form-control form-control-warning customer-form-input", @placeholder = "Confirm Password" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.JoinMailingList, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.CheckBoxFor(model => model.JoinMailingList, new { @checked = "checked", @class = "customer-form-checkbox" })
+                    </div>
+                </div>
+                <div class="form-group row active-button-row-wrapper">
+                    <div class="active-button-wrapper">
+                        <button type="submit" class="btn btn-primary active-button">Register</button>
+                    </div>
+                </div>
+        }
+    </div>
+</div>
