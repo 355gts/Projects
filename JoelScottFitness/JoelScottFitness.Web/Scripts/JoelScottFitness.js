@@ -197,7 +197,7 @@ function removeFromBasket(id, controlId) {
         },
         success: function (data) {
             $('#' + controlId).remove();
-            $('#basket-total').text(calculateTotal());
+            $('.basket-total').text(calculateTotal());
             getBasketItems();
         }
     });
@@ -263,7 +263,7 @@ function changeQuantity(id, controlId, action) {
         },
         success: function (data) {
             $('#' + controlId).text(data.Quantity);
-            $('#basket-total').text(calculateTotal());
+            $('.basket-total').text(calculateTotal());
         }
     });
 
@@ -287,7 +287,7 @@ function calculateTotal() {
                 $('#no-items').show();
             }
             else {
-                $('#basket-total').text("£" + data.TotalPrice);
+                $('.basket-total').text("£" + data.TotalPrice);
             }
         }
     });

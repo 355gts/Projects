@@ -4,6 +4,34 @@
     ViewBag.Title = "ConfirmPurchase";
 }
 
+<style>
+    .basket-value-new {
+        width: 100%;
+        max-width: 100%;
+        border: none;
+        background-color:transparent;
+        padding:0px;
+    }
+
+    @@media (min-width:0px) and (max-width: 500px) {
+        .small-table{
+            display:block;
+        }
+        .large-table{
+            display:none;
+        }
+    }
+    @@media (min-width: 500px) {
+        .small-table {
+            display: none;
+        }
+
+        .large-table {
+            display: block;
+        }
+    }
+</style>
+
 <div class="container page-container">
     <div class="row">
         <div class="col-xs-12 title-format">
@@ -12,169 +40,187 @@
         <div style="clear:both"></div>
     </div>
 
-    @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
+    <div class="large-table" style="position:relative">
+        @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
 
+            @Html.HiddenFor(model => model.CustomerDetails.Id, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.CustomerDetails.BillingAddressId, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.CustomerDetails.UserId, new { @style = "display:none" })
+            @Html.HiddenFor(model => model.CustomerDetails.CreatedDate, new { @style = "display:none" })
 
-        @Html.HiddenFor(model => model.CustomerDetails.Id, new { @style = "display:none" })
-        @Html.HiddenFor(model => model.CustomerDetails.BillingAddressId, new { @style = "display:none" })
-        @Html.HiddenFor(model => model.CustomerDetails.UserId, new { @style = "display:none" })
-        @Html.HiddenFor(model => model.CustomerDetails.CreatedDate, new { @style = "display:none" })
-        <br /><br />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-horizontal">
-
-            <div class="col-xs-12 col-sm-6">
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="Firstname">Forename</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.Firstname, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>Customer Details</p>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="Surname">Surname</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.Surname, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
+                <div class="col-sm-12">
+                    <p>Customer Name: @Model.CustomerDetails.Firstname @Model.CustomerDetails.Surname</p>
                 </div>
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="EmailAddress">Email Address</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.EmailAddress, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                <div class="col-sm-12">
+                    <p> Address: 
+                    @string.Join(", ", @Model.CustomerDetails.BillingAddress.AddressLine1,
+                        @Model.CustomerDetails.BillingAddress.AddressLine2,
+                        @Model.CustomerDetails.BillingAddress.AddressLine3,
+                        @Model.CustomerDetails.BillingAddress.City,
+                        @Model.CustomerDetails.BillingAddress.PostCode,
+                        @Model.CustomerDetails.BillingAddress.Country)
+                        
+                    </p>
+                </div>
+                <div class="col-sm-12">
+                    <p>Email: @Model.CustomerDetails.EmailAddress</p>
+                </div>
+            </div>
+
+
+            <div id="basket-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align:left">Plan</th>
+                            <th scope="col" style="text-align:left">Description</th>
+                            <th scope="col" style="text-align:center">Quantity</th>
+                            <th scope="col" style="text-align:center">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var itemCount = 0;
+
+                            foreach (var planOption in Model.BasketItems)
+                            {
+                    @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
+                    @Html.Hidden("BasketItems[" + @itemCount + "].Id", planOption.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
+                    @Html.Hidden("BasketItems[" + @itemCount + "].ItemDiscontinued", planOption.ItemDiscontinued, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemDiscontinued" })
+                    @Html.Hidden("BasketItems[" + @itemCount + "].ItemType", planOption.ItemType, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemType" })
+                    @Html.Hidden("BasketItems[" + @itemCount + "].PlanId", planOption.PlanId, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].PlanId" })
+                    @Html.Hidden("BasketItems[" + @itemCount + "].Price", planOption.Price, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Price" })
+
+                    <tr>
+                        <td class="col-xs-4" scope="row">@Html.TextBox("BasketItems[" + @itemCount + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Plan_Name" })</td>
+                        <td class="col-xs-5">@Html.TextBox("BasketItems[" + @itemCount + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Decription" })</td>
+                        <td class="col-xs-1">@Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center" })</td>
+                        <td class="col-xs-2"><div style="position:relative;"> <input class="basket-value-new" name="Price" readonly="readonly" type="text" value="£@planOption.Price"style="text-align:center"></div></td>
+                    </tr>
+                            itemCount++;
+                        }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="width:200px"><div style="text-align:right;position:relative"><button type="button">Apply</button></div></td>
+                            <td style="width:200px"><div style="position:relative"><input type="text" placeholder="Discount Code" style="min-width:100%" /></div></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><div style="text-align:right;position:relative">Total:</div></td>
+                            <td><div id="basket-total" class="basket-total" style="position:relative;text-align:center"></div></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="form-group row active-button-row-wrapper">
+                    <div class="active-button-wrapper">
+                        <button type="submit" class="btn btn-primary active-button">Checkout Securely</button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-6">
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_AddressLine1">Address Line 1</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.AddressLine1, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
+                            }
+        </div>
+        <div class="small-table" style="position:relative">
+            @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.CustomerDetails.Id, new { @style = "display:none" })
+                @Html.HiddenFor(model => model.CustomerDetails.BillingAddressId, new { @style = "display:none" })
+                @Html.HiddenFor(model => model.CustomerDetails.UserId, new { @style = "display:none" })
+                @Html.HiddenFor(model => model.CustomerDetails.CreatedDate, new { @style = "display:none" })
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>Customer Details</p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>Customer Name: @Model.CustomerDetails.Firstname @Model.CustomerDetails.Surname</p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>
+                            Address:
+                            @string.Join(", ", @Model.CustomerDetails.BillingAddress.AddressLine1,
+                        @Model.CustomerDetails.BillingAddress.AddressLine2,
+                        @Model.CustomerDetails.BillingAddress.AddressLine3,
+                        @Model.CustomerDetails.BillingAddress.City,
+                        @Model.CustomerDetails.BillingAddress.PostCode,
+                        @Model.CustomerDetails.BillingAddress.Country)
+
+                        </p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>Email: @Model.CustomerDetails.EmailAddress</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_AddressLine2">Address Line 2</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.AddressLine2, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_AddressLine3">Address Line 3</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.AddressLine3, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_City">City</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.City, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_Region">Region</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.Region, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_PostCode">Post Code</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.PostCode, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="BillingAddress_Country">Country</label>
-                    <div class="col-md-8">
-                        @Html.EditorFor(model => model.CustomerDetails.BillingAddress.Country, new { htmlAttributes = new { @class = "form-control", @readOnly = "true", @style = "Background-color:white" } })
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div style="clear:both"></div>
-
-            <div class="row" style="padding:20px">
-                <div class="basket" style="padding-top:40px">
-                    @{
-
-                        <div id="no-items" class="row col-xs-12" style="margin:0px;display:none">
-                            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
-                                NO ITEMS IN BASKET
-                            </div>
-                        </div>
-
-                        <div id="basket-wrapper">
-                            <div class="row hidden-xs visible-sm visible-md visible-lg">
-                                <div class="col-sm-2">Plan</div>
-                                <div class="col-sm-4">Description</div>
-                                <div class="col-sm-3" style="text-align:center;padding-right:30px">Quantity</div>
-                                <div class="col-sm-2" style="text-align:center">Price</div>
-                                <div class="col-sm-1"></div>
-                            </div>
-
+                <div id="basket-wrapper">
+                    <table class="table table-striped">
+                        <tbody>
                             @{
                                 var itemCount = 0;
 
                                 foreach (var planOption in Model.BasketItems)
                                 {
-                            <div id="basket-item-row-@itemCount" class="row basket-item-row">
-                                @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
-                                @Html.Hidden("BasketItems[" + @itemCount + "].Id", planOption.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
-                                @Html.Hidden("BasketItems[" + @itemCount + "].ItemDiscontinued", planOption.ItemDiscontinued, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemDiscontinued" })
-                                @Html.Hidden("BasketItems[" + @itemCount + "].ItemType", planOption.ItemType, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemType" })
-                                @Html.Hidden("BasketItems[" + @itemCount + "].PlanId", planOption.PlanId, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].PlanId" })
-                                @Html.Hidden("BasketItems[" + @itemCount + "].Price", planOption.Price, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Price" })
+                                    @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
+                                    @Html.Hidden("BasketItems[" + @itemCount + "].Id", planOption.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
+                                    @Html.Hidden("BasketItems[" + @itemCount + "].ItemDiscontinued", planOption.ItemDiscontinued, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemDiscontinued" })
+                                    @Html.Hidden("BasketItems[" + @itemCount + "].ItemType", planOption.ItemType, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemType" })
+                                    @Html.Hidden("BasketItems[" + @itemCount + "].PlanId", planOption.PlanId, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].PlanId" })
+                                    @Html.Hidden("BasketItems[" + @itemCount + "].Price", planOption.Price, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Price" })
 
-                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Plan:</div>
-                                <div class="col-xs-12 col-sm-2">@Html.TextBox("BasketItems[" + @itemCount + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Plan_Name" })</div>
-                                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Description:</div>
-                                <div class="col-xs-12 col-sm-4">@Html.TextBox("BasketItems[" + @itemCount + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Description" })</div>
-                                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Quantity:</div>
-                                <div class="row col-xs-12 col-sm-3 basket-button-spacing" style="display:inline-block;text-align:center;position:relative;padding-left:30px;">
-                                    @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-value", @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center" })
-                                </div>
-                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Price:</div>
-                                <div class="col-xs-6 col-sm-2">
-                                    <input class="basket-value basket-value-price" name="Price" readonly="True" type="text" value="£@planOption.Price">
-                                </div>
-                            </div>
-
+                                    <tr>
+                                        <th colspan="2" scope="col" style="text-align:left">Plan</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" scope="row">@Html.TextBox("BasketItems[" + @itemCount + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Plan_Name", @style = "text-align:center" })</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" scope="col" style="text-align:left">Description</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">@Html.TextBox("BasketItems[" + @itemCount + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Decription", @style = "text-align:center" })</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="text-align:left">Quantity</th>
+                                        <td>@Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:right" })</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="text-align:left">Price</th>
+                                        <td><div style="position:relative;"> <input class="basket-value-new" name="Price" readonly="readonly" type="text" value="£@planOption.Price" style="text-align:right"></div></td>
+                                    </tr>
                                     itemCount++;
                                 }
                             }
-
-                            <div class="row" style="padding-top:20px">
-                                <div class="col-sm-9 hidden-xs visible-sm visible-md visible-lg" style="text-align:right">Total:</div>
-                                <div class="col-xs-6 visible-xs hidden-sm hidden-md hidden-lg" style="text-align:left">Total:</div>
-                                <div id="basket-total" class="col-xs-6 col-sm-2 basket-value-total"></div>
-                            </div>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td style="width:200px"><div style="text-align:left;position:relative"><button type="button">Apply</button></div></td>
+                                <td style="width:200px"><div style="position:relative"><input type="text" placeholder="Discount Code" style="min-width:100%" /></div></td>
+                            </tr>
+                            <tr>
+                                <td><div style="text-align:left;position:relative">Total:</div></td>
+                                <td><div id="basket-total" class="basket-total" style="position:relative;text-align:right"></div></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="form-group row active-button-row-wrapper">
+                        <div class="active-button-wrapper">
+                            <button type="submit" class="btn btn-primary active-button">Checkout Securely</button>
                         </div>
-
-                    }
-
+                    </div>
                 </div>
 
-            </div>
-
-
+            }
         </div>
-        <div class="row">
-            <div class="col-xs-12 visible-xs hidden-sm hidden-md hidden-lg basket-next-button-wrapper " style="padding:0px;padding-right:0px;text-align:center">
-                <input type="submit" value="Confirm Purchase" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" />
-            </div>
-            <div class="col-xs-12 hidden-xs visible-sm visible-md visible-lg basket-next-button-wrapper" style="padding:0px;padding-right:0px;text-align:right;padding-right:8%">
-                <input type="submit" value="Confirm Purchase" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" />
-            </div>
-        </div>
-    }
-</div>
+    </div>
