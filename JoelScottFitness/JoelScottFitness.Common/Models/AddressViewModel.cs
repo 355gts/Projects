@@ -8,12 +8,15 @@ namespace JoelScottFitness.Common.Models
     {
         [Required]
         [DataMember(IsRequired = true)]
+        [Display(Name = "Address Line 1")]
         public string AddressLine1 { get; set; }
 
         [DataMember(IsRequired = false)]
+        [Display(Name = "Address Line 2")]
         public string AddressLine2 { get; set; }
 
         [DataMember(IsRequired = false)]
+        [Display(Name = "Address Line 3")]
         public string AddressLine3 { get; set; }
 
         [Required]
@@ -26,6 +29,7 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
+        [Display(Name = "Post Code")]
         public string PostCode { get; set; }
 
         [Required]

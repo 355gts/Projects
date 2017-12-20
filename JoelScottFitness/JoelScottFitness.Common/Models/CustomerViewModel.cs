@@ -35,6 +35,7 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
+        [Display(Name = "Join Mailing List")]
         public bool JoinMailingList { get; set; }
         
         [Required]
