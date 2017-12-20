@@ -393,7 +393,7 @@
     <Content Include="Views\Shared\_BasketIndicator.cshtml" />
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
-    <Content Include="Views\Home\NewCustomerDetails.cshtml" />
+    <Content Include="Views\Home\GuestDetails.cshtml" />
     <Content Include="Views\Home\ConfirmPurchase.cshtml" />
     <Content Include="Views\Home\ExistingCustomerDetails.cshtml" />
     <Content Include="Views\Home\PaymentConfirmation.cshtml" />
@@ -424,6 +424,7 @@
     <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_EmailConfirmAccount.cshtml" />
     <Content Include="Views\Shared\_HallOfFame.cshtml" />
+    <Content Include="Views\Account\RegisterAccountConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

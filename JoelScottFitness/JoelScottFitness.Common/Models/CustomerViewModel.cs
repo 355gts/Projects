@@ -23,6 +23,10 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = false)]
         public DateTime? ModifiedDate { get; set; }
 
+        public long? UserId { get; set; }
+
+        public UserViewModel User { get; set; }
+
         [DataMember(IsRequired = false)]
         public ICollection<PurchaseHistoryViewModel> PurchaseHistory { get; set; }
     }

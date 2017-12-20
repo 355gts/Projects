@@ -1,4 +1,5 @@
-﻿using JoelScottFitness.Common.Models;
+﻿using JoelScottFitness.Common.Constants;
+using JoelScottFitness.Common.Models;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
@@ -159,8 +160,11 @@ namespace JoelScottFitness.Web.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string returnUrl, bool appendCustomerId = false)
         {
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.AppendCustomerId = appendCustomerId;
+
             return View();
         }
 
@@ -169,29 +173,76 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(Common.Models.RegisterViewModel customer, string returnUrl, bool appendCustomerId = false)
         {
+            // add these properties back to the viewbag incase there is a model error
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.AppendCustomerId = appendCustomerId;
+
             if (ModelState.IsValid)
             {
-                var user = new AuthUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var user = await jsfService.GetUserAsync(customer.EmailAddress);
+                if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    ModelState.AddModelError(string.Empty, "Email address is already registered");
+                    customer.ConfirmEmailAddress = string.Empty;
+                    customer.Password = string.Empty;
+                    customer.ConfirmPassword = string.Empty;
+                    return View(customer);
+                }
+                
+                var newUser = new AuthUser { UserName = customer.EmailAddress, Email = customer.EmailAddress };
+                var accountResult = await UserManager.CreateAsync(newUser, customer.Password);
+                if (accountResult.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.User);
+
+                    // TODO remove this logic when released
+                    if (customer.EmailAddress.ToLower() == "blackmore__s@hotmail.com")
+                    {
+                        await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.Admin);
+                    }
+
+                    var customerResult = await jsfService.CreateCustomerAsync(customer, newUser.Id);
+                    if (!customerResult.Success)
+                    {
+                        ModelState.AddModelError(string.Empty, "An error occured saving customer details please try again.");
+                        return View(customer);
+                    }
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(newUser.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = newUser.Id, code = code }, protocol: Request.Url.Scheme);
 
-                    return RedirectToAction("Index", "Home");
+                    var callbackViewModel = new CallbackViewModel()
+                    {
+                        CallbackUrl = callbackUrl,
+                    };
+
+                    var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel);
+
+                    await jsfService.SendEmailAsync("Joel Scott Fitness - Confirm Account", email, new List<string>() { newUser.Email });
+
+                    if (customer.JoinMailingList)
+                    {
+                        await UpdateMailingList(customer.EmailAddress);
+                    }
+
+                    return string.IsNullOrEmpty(returnUrl)
+                        ? RedirectToAction("RegisterAccountConfirmation", "Account")
+                        : appendCustomerId ? RedirectToLocal($"{returnUrl}?customerId={customerResult.Result}")
+                                           : RedirectToLocal(returnUrl);
                 }
-                AddErrors(result);
             }
+            
+            return View(customer);
+        }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+        [AllowAnonymous]
+        public ActionResult RegisterAccountConfirmation()
+        {
+            return View();
         }
 
         //
@@ -454,6 +505,17 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private async Task<bool> UpdateMailingList(string emailAddress)
+        {
+            var mailingListItemViewModel = new MailingListItemViewModel()
+            {
+                Active = true,
+                Email = emailAddress,
+            };
+
+            return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
         }
 
         #region Helpers

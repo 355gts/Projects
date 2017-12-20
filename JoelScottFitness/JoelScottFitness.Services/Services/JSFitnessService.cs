@@ -67,9 +67,12 @@ namespace JoelScottFitness.Services.Services
         }
 
 
-        public async Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer)
+        public async Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer, long? userId = null)
         {
             var repoCustomer = mapper.Map<CreateCustomerViewModel, Customer>(customer);
+
+            if (userId.HasValue)
+                repoCustomer.UserId = userId;
 
             return await repository.CreateCustomerAsync(repoCustomer);
         }

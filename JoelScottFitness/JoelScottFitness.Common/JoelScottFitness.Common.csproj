@@ -97,6 +97,7 @@
     <Compile Include="Models\PurchaseSummaryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
     <Compile Include="Models\CallbackViewModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SectionImageViewModel.cs" />
     <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
     <Compile Include="Models\UiPlanViewModel.cs" />

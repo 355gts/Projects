@@ -21,7 +21,6 @@ namespace JoelScottFitness.Services.Mappers
             customer.Id = fromObject.Id;
             customer.ModifiedDate = fromObject.ModifiedDate;
             customer.Surname = fromObject.Surname;
-            customer.UserId = fromObject.UserId;
             customer.BillingAddressId = fromObject.BillingAddressId;
 
             if (fromObject.BillingAddress != null)
@@ -40,8 +39,8 @@ namespace JoelScottFitness.Services.Mappers
             customer.Id = fromObject.Id;
             customer.ModifiedDate = fromObject.ModifiedDate;
             customer.Surname = fromObject.Surname;
-            customer.UserId = fromObject.UserId;
             customer.BillingAddressId = fromObject.BillingAddressId;
+            customer.UserId = fromObject.UserId;
 
             if (fromObject.BillingAddress != null)
                 customer.BillingAddress = addressMapper.Map(fromObject.BillingAddress);

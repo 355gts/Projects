@@ -19,7 +19,6 @@ namespace JoelScottFitness.Test.Mappers
                     EmailAddress = "EmailAddress",
                     Firstname = "Firstname",
                     Surname = "Surname",
-                    UserId = 789,
                     BillingAddress = new AddressViewModel()
                     {
                         AddressLine1 = "AddressLine1",
@@ -49,7 +48,6 @@ namespace JoelScottFitness.Test.Mappers
                     EmailAddress = "EmailAddress",
                     Firstname = "Firstname",
                     Surname = "Surname",
-                    UserId = 789,
                     BillingAddress = new AddressViewModel()
                     {
                         AddressLine1 = "AddressLine1",
@@ -78,7 +76,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.EmailAddress, repoObject.EmailAddress);
                 Assert.AreEqual(webObject.Firstname, repoObject.Firstname);
                 Assert.AreEqual(webObject.Surname, repoObject.Surname);
-                Assert.AreEqual(webObject.UserId, repoObject.UserId);
 
                 Assert.AreEqual(webObject.BillingAddress.AddressLine1, repoObject.BillingAddress.AddressLine1);
                 Assert.AreEqual(webObject.BillingAddress.AddressLine2, repoObject.BillingAddress.AddressLine2);

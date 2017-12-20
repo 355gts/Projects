@@ -1641,3 +1641,42 @@ a:hover {
     padding: 0;
 }
 /* VALIDATION SUMMARY STYLE END*/
+
+/* CUSTOMER FORM STYLE START */
+.customer-form-container {
+    font-family: 'Bebas-Neue';
+    font-size: 14pt;
+}
+
+.customer-form-wrapper {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.customer-form-label {
+    padding-top: 8px;
+}
+
+.customer-form-input {
+    min-width: 100%;
+}
+
+.customer-form-checkbox {
+    margin-top: 8px;
+}
+
+.customer-form-warning {
+    font-size: 10pt;
+}
+
+.customer-form-validation-summary ul {
+    font-size: 10pt;
+    padding-bottom: 2px;
+    list-style-type: none;
+    text-align: center;
+}
+
+
+/* CUSTOMER FORM STYLE END*/

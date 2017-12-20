@@ -18,7 +18,7 @@ namespace JoelScottFitness.Services.Services
 
         Task<IEnumerable<BlogViewModel>> GetBlogsAsync(int number = 0);
         
-        Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer);
+        Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer, long? userId = null);
 
         Task<AsyncResult<Guid>> UpdateCustomerAsync(CustomerViewModel customer);
 

@@ -1,0 +1,336 @@
+﻿@model JoelScottFitness.Common.Models.CreateCustomerViewModel
+
+@{
+    ViewBag.Title = "GuestDetails";
+}
+
+<div class="container customer-form-container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            CUSTOMER DETAILS
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="customer-form-wrapper">
+
+        @using (Html.BeginForm("GuestDetails", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            @Html.AntiForgeryToken()
+            <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger customer-form-validation-summary" })
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Firstname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Firstname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Firstname" })
+                        @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger customer-form-warning" })
+                    </div>
+                </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.Surname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.Surname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Surname" })
+                            @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.AddressLine1, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.AddressLine1, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Address Line 1" })
+                            @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine1, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.AddressLine2, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.AddressLine2, new { @type = "text", @class = "form-control customer-form-input", @placeholder = "Address Line 2" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.AddressLine3, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.AddressLine3, new { @type = "text", @class = "form-control customer-form-input", @placeholder = "Address Line 3" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.City, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.City, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "City" })
+                            @Html.ValidationMessageFor(model => model.BillingAddress.City, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.Region, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.Region, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Region" })
+                            @Html.ValidationMessageFor(model => model.BillingAddress.Region, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.PostCode, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.PostCode, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Post Code" })
+                            @Html.ValidationMessageFor(model => model.BillingAddress.PostCode, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BillingAddress.Country, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.BillingAddress.Country, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Country" })
+                            @Html.ValidationMessageFor(model => model.BillingAddress.Country, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.EmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email" })
+                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.ConfirmEmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.TextBoxFor(m => m.ConfirmEmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Confirm Email" })
+                            @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger customer-form-warning" })
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.JoinMailingList, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                        <div class="col-xs-12 col-sm-8">
+                            @Html.CheckBoxFor(model => model.JoinMailingList, new { @checked = "checked", @class = "customer-form-checkbox" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </div>
+                    </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+@*<div class="container page-container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            CUSTOMER DETAILS
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+@using (Html.BeginForm("NewCustomerDetails", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="Firstname">Forename</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="ConfirmEmailAddress">Surname</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="hidden-xs visible-sm visible-md visible-lg">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="EmailAddress">Email</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group registration-element">
+                    <label class="control-label col-md-4" for="ConfirmEmailAddress">Confirm Email</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ConfirmEmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group registration-element">
+                    <label class="control-label col-md-4" for="Password">Password</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group registration-element">
+                    <label class="control-label col-md-4" for="ConfirmPassword">Confirm Password</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="RegisterAccount">Register Account</label>
+                    <div class="col-md-8">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.RegisterAccount, new { @class = "register-checkbox", @checked = "checked", @style = "margin-left:0px" })
+                            @Html.ValidationMessageFor(model => model.RegisterAccount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="JoinMailingList">Subscribe</label>
+                    <div class="col-md-8">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(model => model.JoinMailingList, new { @checked = "checked", @style = "margin-left:0px" })
+                            @Html.ValidationMessageFor(model => model.JoinMailingList, "", new { @class = "text-danger" })
+                            <div style="clear:both"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_AddressLine1">Address Line 1</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_AddressLine2">Address Line 2</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_AddressLine3">Address Line 3</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.AddressLine3, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_City">City</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.City, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_Region">Region</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.Region, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.Region, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_PostCode">Post Code</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.PostCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="BillingAddress_Country">Country</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.BillingAddress.Country, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BillingAddress.Country, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-8 col-md-offset-4 hidden-xs visible-sm visible-md visible-lg">
+                    <input type="submit" value="Next" style="width:100%;font-size:18px" class="btn btn-default basket-next-button basket-button" />
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+            <div class="form-group">
+                <label class="control-label col-md-4" for="EmailAddress">Email</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group registration-element">
+                <label class="control-label col-md-4" for="ConfirmEmailAddress">Confirm Email</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ConfirmEmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group registration-element">
+                <label class="control-label col-md-4" for="Password">Password</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group registration-element">
+                <label class="control-label col-md-4" for="ConfirmPassword">Confirm Password</label>
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="RegisterAccount">Register Account</label>
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(model => model.RegisterAccount, new { @class = "register-checkbox", @checked = "checked", @style = "margin-left:0px" })
+                        @Html.ValidationMessageFor(model => model.RegisterAccount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-4" for="JoinMailingList">Subscribe</label>
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(model => model.JoinMailingList, new { @checked = "checked", @style = "margin-left:0px" })
+                        @Html.ValidationMessageFor(model => model.JoinMailingList, "", new { @class = "text-danger" })
+                        <div style="clear:both"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+            <div class="row visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="form-group">
+                    <div class="col-xs-12 visible-xs hidden-sm hidden-md hidden-lg" style="padding:0px;text-align:center;padding-left:20px;padding-right:20px">
+                        <input type="submit" value="Next" style="width:270px;font-size:18px" class="btn btn-default basket-next-button basket-button" />
+                    </div>
+                </div>
+            </div>
+}
+
+</div>*@
+
