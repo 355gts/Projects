@@ -12,124 +12,102 @@
         </div>
         <div style="clear:both"></div>
     </div>
+@{
+    if (ViewBag.Message != null)
+    {
+        <div style="text-align:center;padding-top:50px">
+            @ViewBag.Message
+        </div>
+    }
+    else
+    {
+            <div class="customer-form-wrapper">
 
-    @{
-        if (ViewBag.Message != null)
-        {
-            <div style="text-align:center;padding-top:50px">
-                @ViewBag.Message
-            </div>
-        }
-        else
-        {
-            using (Html.BeginForm())
+            @using (Html.BeginForm("CustomerQuestionnaire", "Home", FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(model => model.PurchaseId, new { @style = "display:none" })
-                <div class="form-horizontal">
-
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="form-group">
-                            @Html.Label("Age", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Weight (lbs)", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Height (inches)", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.Height, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Member of gym?", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.DropDownListFor(p => Model.IsMemberOfGym, Model.BooleanTypes.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key.ToString(), Selected = true }).ToList(), new { @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.IsMemberOfGym, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Current gym", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.EditorFor(model => model.CurrentGym, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.CurrentGym, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.Label("Workout type", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.DropDownListFor(p => Model.WorkoutTypeId, Model.WorkoutTypes.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key.ToString() }).ToList(), new { @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.WorkoutTypeId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Age, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Age, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Age" })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger form-warning" })
                     </div>
-                    <div class="col-xs-12 col-sm-6">
-
-
-
-                        <div class="form-group">
-                            @Html.Label("Workout description", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.WorkoutDescription, new { @class = "form-control textAreaSize", @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.WorkoutDescription, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Diet Type", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.DropDownListFor(p => Model.DietTypeId, Model.DietTypes.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key.ToString() }).ToList(), new { @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.DietTypeId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Diet details", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.DietDetails, new { @class = "form-control textAreaSize", @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.DietDetails, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.Label("Training goals", htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.TrainingGoals, new { @class = "form-control textAreaSize", @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.TrainingGoals, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4 hidden-xs visible-sm visible-md visible-lg">
-                                <input type="submit" value="Submit" style="width:100%;font-size:18px" class="btn btn-default basket-next-button basket-button" />
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <div style="clear:both"></div>
-                <div class="row visible-xs hidden-sm hidden-md hidden-lg">
-                    <div class="form-group">
-                        <div class="col-xs-12 visible-xs hidden-sm hidden-md hidden-lg" style="padding:0px;text-align:center;padding-left:20px;padding-right:20px">
-                            <input type="submit" value="Submit" style="width:270px;font-size:18px" class="btn btn-default basket-next-button basket-button" />
-                        </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Weight, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Weight, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Weight (lbs)" })
+                        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger form-warning" })
                     </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Height, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Height, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Height (inches)" })
+                        @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.IsMemberOfGym, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.DropDownListFor(p => Model.IsMemberOfGym, Model.BooleanTypes.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key.ToString(), Selected = true }).ToList(), new { @style = "min-width:100%" })
+                        @Html.ValidationMessageFor(model => model.IsMemberOfGym, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.CurrentGym, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.CurrentGym, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Current Gym" })
+                        @Html.ValidationMessageFor(model => model.CurrentGym, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.WorkoutTypeId, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.DropDownListFor(p => Model.WorkoutTypeId, Model.WorkoutTypes.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key.ToString() }).ToList(), new { @style = "min-width:100%" })
+                        @Html.ValidationMessageFor(model => model.WorkoutTypeId, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.WorkoutDescription, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextAreaFor(m => m.WorkoutDescription, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Workout Description", @style = "min-width:100%" })
+                        @Html.ValidationMessageFor(model => model.WorkoutDescription, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.DietTypeId, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.DropDownListFor(p => Model.DietTypeId, Model.DietTypes.Select(o => new SelectListItem() { Text = o.Value, Value = o.Key.ToString() }).ToList(), new { @style = "min-width:100%" })
+                        @Html.ValidationMessageFor(model => model.DietTypeId, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.DietDetails, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextAreaFor(m => m.DietDetails, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Diet Details", @style = "min-width:100%" })
+                        @Html.ValidationMessageFor(model => model.DietDetails, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.TrainingGoals, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextAreaFor(m => m.TrainingGoals, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Training Goals", @style = "min-width:100%" })
+                        @Html.ValidationMessageFor(model => model.TrainingGoals, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row active-button-row-wrapper">
+                    <div class="active-button-wrapper">
+                        <button type="submit" class="btn btn-primary active-button">Submit</button>
+                    </div>
+                </div>
+                <div style="position:relative">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger form-validation-summary" })
+                    </div>
+                    }
                 </div>
             }
-        }
     }
-
-    
 </div>

@@ -230,6 +230,11 @@ namespace JoelScottFitness.Data
             return await dbContext.DiscountCodes.FindAsync(id);
         }
 
+        public async Task<DiscountCode> GetDiscountCodeAsync(string code)
+        {
+            return await dbContext.DiscountCodes.FirstOrDefaultAsync(d => d.Code == code);
+        }
+
         public async Task<IEnumerable<DiscountCode>> GetDiscountCodesAsync()
         {
             return await dbContext.DiscountCodes

@@ -12,70 +12,130 @@
         </div>
         <div style="clear:both"></div>
     </div>
-    <div class="row" style="padding:20px">
-        <div class="basket" style="padding-top:40px">
-            @{
-
-                <div id="no-items" class="row col-xs-12" style="margin:0px;display:none">
-                    <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
-                        NO ITEMS IN BASKET
-                    </div>
-                </div>
-
-                <div id="basket-wrapper">
-                    <div class="row hidden-xs visible-sm visible-md visible-lg">
-                        <div class="col-sm-2">Plan</div>
-                        <div class="col-sm-4">Description</div>
-                        <div class="col-sm-3" style="text-align:center;padding-right:30px">Quantity</div>
-                        <div class="col-sm-2" style="text-align:center">Price</div>
-                        <div class="col-sm-1"></div>
-                    </div>
-
-                    @{
-                        var itemCount = 0;
-
-                        foreach (var planOption in Model)
-                        {
-                            <div id="basket-item-row-@itemCount" class="row basket-item-row">
-                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg basket-button-spacing col-xs-push-6" style="text-align:right;padding-right:14px"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></div>
-                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg col-xs-pull-6">Plan:</div>
-                                <div class="col-xs-12 col-sm-2">@Html.TextBoxFor(s => planOption.Plan.Name, new { @readonly = true, @class = "basket-value" })</div>
-                                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Description:</div>
-                                <div class="col-xs-12 col-sm-4">@Html.TextBoxFor(s => planOption.Description, new { @readonly = true, @class = "basket-value" })</div>
-                                <div class="col-xs-12 hidden-sm hidden-md hidden-lg">Quantity:</div>
-                                <div class="row col-xs-12 col-sm-3 basket-button-spacing" style="display:inline-block;text-align:center;position:relative;padding-left:30px;">
-                                    <button type="button" style="float:left;padding-left:10px" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@planOption.Id','basket-item-quantity-@itemCount')"><i class="fa fa-plus"></i></button>
-                                    <label class="basket-value" id="basket-item-quantity-@itemCount" style="text-align:center;width:auto;padding-left:10px;padding-right:10px;">@planOption.Quantity</label>
-                                    <button type="button" style="float:right;" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@planOption.Id','basket-item-quantity-@itemCount')"><i class="fa fa-minus"></i></button>
-                                </div>
-                                <div class="col-xs-6 hidden-sm hidden-md hidden-lg">Price:</div>
-                                <div class="col-xs-6 col-sm-2">@Html.TextBoxFor(s => planOption.Price, "{0:£0.00}", new { @readonly = true, @class = "basket-value basket-value-price" })</div>
-                                <div class="col-sm-1 hidden-xs"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></div>
-
-                            </div>
-
-                                itemCount++;
-                            }
-                    }
-
-                    <div class="row" style="padding-top:20px">
-                        <div class="col-sm-9 hidden-xs visible-sm visible-md visible-lg" style="text-align:right">Total:</div>
-                        <div class="col-xs-6 visible-xs hidden-sm hidden-md hidden-lg" style="text-align:left">Total:</div>
-                        <div id="basket-total" class="col-xs-6 col-sm-2 basket-value-total"></div>
-                    </div>
-                    <div style="clear:both"></div>
-                    <div class="row">
-                        <div class="col-xs-12 visible-xs hidden-sm hidden-md hidden-lg basket-next-button-wrapper " style="padding-top:10px;padding-right:0px;text-align:center">
-                            <a href="/Home/Lobby?ReturnUrl=/Home/ConfirmPurchase&AppendCustomerId=true" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px" type="button">Next</a>
-                        </div>
-                        <div class="col-xs-12 hidden-xs visible-sm visible-md visible-lg basket-next-button-wrapper" style="padding-top:10px;padding-right:0px;text-align:right;padding-right:7%">
-                            <a href="/Home/Lobby?ReturnUrl=/Home/ConfirmPurchase&AppendCustomerId=true" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" type="button">Next</a>
-                        </div>
-                    </div>
-                </div>
-
-            }
-
+    <div id="no-items" class="row col-xs-12" style="margin:0px;display:none">
+        <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+            NO ITEMS IN BASKET
         </div>
     </div>
+    <div class="large-table">
+        <div id="basket-wrapper" class="basket-wrapper">
+            <fieldset>
+                <legend class="basket-legend">Basket Items</legend>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align:left">Plan</th>
+                            <th scope="col" style="text-align:left">Description</th>
+                            <th scope="col" style="text-align:center">Quantity</th>
+                            <th scope="col" style="text-align:center">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var itemCountLarge = 0;
+
+                            foreach (var planOption in Model)
+                            {
+                                <tr id="basket-item-row-@itemCountLarge" class="basket-item-row-@itemCountLarge">
+                                    <td class="col-sm-3" scope="row">@Html.TextBox("BasketItems[" + @itemCountLarge + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Plan_Name" })</td>
+                                    <td class="col-sm-5"> @Html.TextBox("BasketItems[" + @itemCountLarge + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Decription" })</td>
+                                    <td class="" style="display:inline-flex;text-align:center">
+                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@planOption.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-plus"></i></button>
+                                        @Html.TextBox("BasketItems[" + @itemCountLarge + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-quantity-new-" + @itemCountLarge, @id = "BasketItems[" + @itemCountLarge + "].Quantity", @style = "text-align:center;width:60px" })
+                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@planOption.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-minus"></i></button>
+                                    </td>
+                                    <td class="col-sm-2"><div style="position:relative;"> <input class="basket-value-new" name="Price" readonly="readonly" type="text" value="£@planOption.Price" style="text-align:center"></div></td>
+                                    <td class="col-sm-1"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCountLarge')"><i class="fa fa-close"></i></button>
+                                </tr>
+                                itemCountLarge++;
+                            }
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><div class="basket-total-large">Total:</div></td>
+                            <td><div id="basket-total" class="basket-total basket-total-large-input"></div></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </fieldset>
+        </div>
+
     </div>
+
+    <div class="small-table" style="position:relative">
+        <div id="basket-wrapper" class="basket-wrapper">
+            <fieldset>
+                <legend class="basket-legend">Basket Items</legend>
+
+                <div class="basket-small-wrapper">
+
+                @{
+                    var itemCount = 0;
+                        foreach (var planOption in Model)
+                        {
+                            <div class="basket-item-row-@itemCount">
+                            @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].Id", planOption.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].ItemDiscontinued", planOption.ItemDiscontinued, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemDiscontinued" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].ItemType", planOption.ItemType, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemType" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].PlanId", planOption.PlanId, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].PlanId" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].Price", planOption.Price, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Price" })
+                            <table class="table table-striped basket-small">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2" scope="col" style="text-align:left">Plan</th>
+                                        <td colspan="1" style="text-align:right" ><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" scope="row">@Html.TextBox("BasketItems[" + @itemCount + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Plan_Name", @style = "text-align:center" })</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" scope="col" style="text-align:left">Description</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">@Html.TextBox("BasketItems[" + @itemCount + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Decription", @style = "text-align:center" })</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3" scope="col" style="text-align:left">Quantity</th>
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@planOption.Id','basket-quantity-new-@itemCount')"><i class="fa fa-plus"></i></button>
+                                        </td>
+                                        <td>
+                                            @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-quantity-new-" + @itemCount, @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center;width:100%" })
+                                        </td>
+                                        <td style="text-align:right">
+                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@planOption.Id','basket-quantity-new-@itemCount')"><i class="fa fa-minus"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="basket-small-spacer"></div>
+                                </div>
+                            itemCount++;
+                        }
+                    }
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><div class="basket-total-small">Total:</div></td>
+                                <td><div id="basket-total" class="basket-total basket-total-small-input"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                    
+            </fieldset>
+        </div>
+    </div>
+    <div class="active-button-wrapper active-basket-button-wrapper">
+        <a href="/Home/Lobby?ReturnUrl=/Home/ConfirmPurchase&AppendCustomerId=true" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" type="button">Next</a>
+    </div>
+</div>

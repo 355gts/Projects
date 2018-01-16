@@ -196,7 +196,7 @@ function removeFromBasket(id, controlId) {
             __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
         },
         success: function (data) {
-            $('#' + controlId).remove();
+            $('.' + controlId).remove();
             $('.basket-total').text(calculateTotal());
             getBasketItems();
         }
@@ -262,12 +262,102 @@ function changeQuantity(id, controlId, action) {
             __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
         },
         success: function (data) {
-            $('#' + controlId).text(data.Quantity);
-            $('.basket-total').text(calculateTotal());
+            $('.' + controlId).val(data.Quantity);
+            calculateTotal();
         }
     });
 
     return false;
+}
+
+function applyDiscountCode(codeControl) {
+    $('.basket-discount-input').each(function (i, obj) {
+        $(obj).attr('placeholder', 'Discount Code');
+    });
+    $('.discount-code-id').each(function (i, obj) {
+        $(obj).val('');
+    });
+
+    var code = $('.'+ codeControl).val();
+
+    if (code != '') {
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: '/Home/ApplyDiscountCode',
+            data: {
+                code: code,
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            },
+            success: function (data) {
+                if (data.Applied == true) {
+                    hideApplyDiscountCode(data.Description);
+                    $('.discount-code-id').each(function (i, obj) {
+                        $(obj).val(data.DiscountCodeId);
+                    });
+                }
+                else {
+                    $('.basket-discount-input').each(function (i, obj) {
+                        $(obj).val('');
+                        $(obj).attr('placeholder', 'Invalid Code!');
+                    });
+                }
+                calculateTotal();
+            }
+        });
+    }
+    else {
+        $('.basket-discount-input').each(function (i, obj) {
+            $(obj).val('');
+        });
+    }
+
+    return false;
+}
+
+function removeDiscountCode() {
+    $('.discount-code-id').each(function (i, obj) {
+        $(obj).val('');
+    });
+
+    $.ajax({
+        type: 'POST',
+        cache: false,
+        url: '/Home/RemoveDiscountCode',
+        data: {
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function (data) {
+            showApplyDiscountCode();
+            calculateTotal();
+        }
+    });
+
+    return false;
+}
+
+function showApplyDiscountCode() {
+    $('.basket-discount-input').each(function (i, obj) {
+        $(obj).val('');
+    });
+    $('.apply-discount-code-wrapper').each(function (i, obj) {
+        $(obj).removeClass('basket-hide-element');
+    });
+    $('.remove-discount-code-wrapper').each(function (i, obj) {
+        $(obj).addClass('basket-hide-element');
+    });
+}
+
+function hideApplyDiscountCode(discountDescription) {
+    $('.basket-discount-description').each(function (i, obj) {
+        $(obj).val(discountDescription);
+    });
+    $('.remove-discount-code-wrapper').each(function (i, obj) {
+        $(obj).removeClass('basket-hide-element');
+    });
+    $('.apply-discount-code-wrapper').each(function (i, obj) {
+        $(obj).addClass('basket-hide-element');
+    });
 }
 
 // calls get basket items on page load to show the basket or not
@@ -283,7 +373,8 @@ function calculateTotal() {
         url: '/Home/CalculateTotal',
         success: function (data) {
             if (data.TotalPrice == 0) {
-                $('#basket-wrapper').hide();
+                $('.basket-wrapper').hide();
+                $('.active-basket-button-wrapper').hide();
                 $('#no-items').show();
             }
             else {

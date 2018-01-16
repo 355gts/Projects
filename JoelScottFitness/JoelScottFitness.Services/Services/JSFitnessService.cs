@@ -148,6 +148,16 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<DiscountCode, DiscountCodeViewModel>(discountCode);
         }
 
+        public async Task<DiscountCodeViewModel> GetDiscountCodeAsync(string code)
+        {
+            var discountCode = await repository.GetDiscountCodeAsync(code);
+
+            if (discountCode == null)
+                return null;
+
+            return mapper.Map<DiscountCode, DiscountCodeViewModel>(discountCode);
+        }
+
         public async Task<IEnumerable<DiscountCodeViewModel>> GetDiscountCodesAsync()
         {
             var discountCodes = await repository.GetDiscountCodesAsync();

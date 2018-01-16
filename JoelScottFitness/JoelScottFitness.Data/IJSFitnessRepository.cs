@@ -29,6 +29,8 @@ namespace JoelScottFitness.Data
 
         Task<DiscountCode> GetDiscountCodeAsync(long id);
 
+        Task<DiscountCode> GetDiscountCodeAsync(string code);
+
         Task<IEnumerable<DiscountCode>> GetDiscountCodesAsync();
 
         Task<AsyncResult<long>> CreateOrUpdatePlanAsync(Plan plan);

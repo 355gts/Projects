@@ -17,19 +17,18 @@
         {
             @Html.AntiForgeryToken()
             <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger customer-form-validation-summary" })
             <div class="form-group row">
                 @Html.LabelFor(m => m.Firstname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                 <div class="col-xs-12 col-sm-8">
                     @Html.TextBoxFor(m => m.Firstname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Firstname" })
-                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger customer-form-warning" })
+                    @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger form-warning" })
                 </div>
             </div>
                 <div class="form-group row">
                     @Html.LabelFor(m => m.Surname, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.Surname, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Surname" })
-                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <hr />
@@ -37,7 +36,7 @@
                     @Html.LabelFor(m => m.BillingAddress.AddressLine1, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.BillingAddress.AddressLine1, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Address Line 1" })
-                        @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine1, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.AddressLine1, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <div class="form-group row">
@@ -56,28 +55,28 @@
                     @Html.LabelFor(m => m.BillingAddress.City, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.BillingAddress.City, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "City" })
-                        @Html.ValidationMessageFor(model => model.BillingAddress.City, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.City, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <div class="form-group row">
                     @Html.LabelFor(m => m.BillingAddress.Region, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.BillingAddress.Region, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Region" })
-                        @Html.ValidationMessageFor(model => model.BillingAddress.Region, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.Region, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <div class="form-group row">
                     @Html.LabelFor(m => m.BillingAddress.PostCode, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.BillingAddress.PostCode, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Post Code" })
-                        @Html.ValidationMessageFor(model => model.BillingAddress.PostCode, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.PostCode, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <div class="form-group row">
                     @Html.LabelFor(m => m.BillingAddress.Country, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.BillingAddress.Country, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Country" })
-                        @Html.ValidationMessageFor(model => model.BillingAddress.Country, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.BillingAddress.Country, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <hr />
@@ -85,14 +84,14 @@
                     @Html.LabelFor(m => m.EmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.EmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email" })
-                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <div class="form-group row">
                     @Html.LabelFor(m => m.ConfirmEmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
                     <div class="col-xs-12 col-sm-8">
                         @Html.TextBoxFor(m => m.ConfirmEmailAddress, new { @type = "email", @class = "form-control form-control-warning customer-form-input", @placeholder = "Confirm Email" })
-                        @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger customer-form-warning" })
+                        @Html.ValidationMessageFor(model => model.ConfirmEmailAddress, "", new { @class = "text-danger form-warning" })
                     </div>
                 </div>
                 <hr />
@@ -107,6 +106,9 @@
                         <button type="submit" class="btn btn-primary active-button">Continue</button>
                     </div>
                 </div>
-        }
-    </div>
+                <div style="position:relative">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger form-validation-summary" })
+                    </div>
+                    }
+                </div>
 </div>

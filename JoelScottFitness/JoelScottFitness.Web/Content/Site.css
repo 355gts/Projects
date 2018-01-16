@@ -1002,6 +1002,153 @@ a:hover {
     min-height: 600px;
 }
 
+.basket-value-new {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+}
+
+.basket-quantity-new {
+    max-width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 0px;
+}
+
+.basket-legend {
+    font-size: 16pt;
+    color: gray;
+}
+
+.large-table {
+    position: relative;
+}
+
+@media (min-width:0px) and (max-width: 500px) {
+    .small-table {
+        display: block;
+    }
+    .large-table {
+        display: none;
+    }
+}
+
+@media (min-width: 501px) {
+    .small-table {
+        display: none;
+    }
+
+    .large-table {
+        display: block;
+    }
+}
+
+@media (min-width:0px) and (max-width: 768px) {
+    .small-basket-summary {
+        display: block;
+    }
+    .large-basket-summary {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+
+    .small-basket-summary {
+        display: none;
+    }
+
+    .large-basket-summary {
+        display: block;
+    }
+}
+
+.basket-list {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.basket-list-label {
+    color: gray;
+}
+
+.basket-summary-items {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.basket-discount-code-wrapper {
+    width: 200px;
+}
+
+.basket-discount-code-button-wrapper-large {
+    text-align: right;
+    position: relative;
+}
+
+.basket-discount-code-input-wrapper-large {
+    position: relative;
+}
+
+.basket-discount-code-input-large {
+    min-width: 100%;
+}
+
+.basket-total-large {
+    text-align: right;
+    position: relative;
+}
+
+.basket-total-large-input {
+    position: relative;
+    text-align: center;
+}
+
+.basket-small-wrapper {
+    position: relative;
+}
+
+.basket-small {
+    border: solid 2px black;
+}
+
+.basket-small-spacer {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.basket-discount-code-button-wrapper-small {
+    text-align: left;
+    position: relative;
+}
+
+.basket-discount-code-input-wrapper-small {
+    position: relative;
+}
+
+.basket-discount-code-input-small {
+    min-width: 100%;
+}
+
+.basket-total-small {
+    text-align: left;
+    position: relative;
+}
+
+.basket-total-small-input {
+    position: relative;
+    text-align: right;
+}
+
+.basket-hide-element{
+    display:none;
+}
+
+/* BASKET STYLES END */
+
+/* OLD BASKET STYLES START */
 .basket {
     font-family: 'Bebas-Neue';
     font-size: 16px;
@@ -1037,6 +1184,8 @@ a:hover {
     .basket-button-spacing {
         margin-right: 0px;
         padding-right: 0px;
+        width:30px;
+        height:30px;
     }
 
     .basket-next-button {
@@ -1667,19 +1816,22 @@ a:hover {
     margin-top: 8px;
 }
 
-.customer-form-warning {
+/* CUSTOMER FORM STYLE END*/
+
+/* FORM WARNING STYLE START */
+.form-warning {
     font-size: 10pt;
 }
 
-.customer-form-validation-summary ul {
+.form-validation-summary ul {
     font-size: 10pt;
     padding-bottom: 2px;
     list-style-type: none;
     text-align: center;
+    padding-left:0px;
 }
 
-
-/* CUSTOMER FORM STYLE END*/
+/* FORM WARNING STYLE END */
 
 /* ACTIVE BUTTON STYLE START */
 .active-button-row-wrapper {
@@ -1691,6 +1843,7 @@ a:hover {
     min-width: 200px;
     max-width: 300px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .active-button {

@@ -296,6 +296,11 @@ namespace JoelScottFitness.Web.Controllers
             confirmPurchaseViewModel.CustomerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
             confirmPurchaseViewModel.BasketItems = basketItems;
 
+            if (Session["DiscountCode"] != null)
+            {
+                confirmPurchaseViewModel.DiscountCodeId = ((DiscountCodeViewModel)Session["DiscountCode"]).Id;
+            }
+
             return View(confirmPurchaseViewModel);
         }
 
@@ -351,6 +356,56 @@ namespace JoelScottFitness.Web.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<JsonResult> ApplyDiscountCode(string code)
+        {
+            var discountCode = await jsfService.GetDiscountCodeAsync(code);
+
+            if (discountCode != null && discountCode.Active)
+            {
+                Session["DiscountCode"] = discountCode;
+
+                return new JsonResult()
+                {
+                    Data = new
+                    {
+                        Applied = Session["DiscountCode"] != null,
+                        DiscountCodeId = discountCode.Id,
+                        Description = $"{discountCode.Code} - {discountCode.PercentDiscount}% Discount!",
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    Applied = false
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult RemoveDiscountCode()
+        {
+            if (Session["DiscountCode"] != null)
+                Session.Remove("DiscountCode");
+            
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    Applied = false
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
 
         [HttpGet]
         public ActionResult CalculateTotal()
@@ -390,9 +445,21 @@ namespace JoelScottFitness.Web.Controllers
                         "/Home/CompletePayment?";
 
             var plans = await jsfService.GetPlansAsync();
+            DiscountCodeViewModel discountCodeViewModel = null;
+            if (confirmPurchaseViewModel.DiscountCodeId.HasValue)
+            {
+                discountCodeViewModel = await jsfService.GetDiscountCodeAsync(confirmPurchaseViewModel.DiscountCodeId.Value);
+            }
 
             // map the plans back to the items
-            confirmPurchaseViewModel.BasketItems.ToList().ForEach(i => i.Plan = plans.First(p => p.Id == i.PlanId));
+            confirmPurchaseViewModel.BasketItems.ToList().ForEach(i =>
+            {
+                i.Plan = plans.First(p => p.Id == i.PlanId);
+                if (discountCodeViewModel != null)
+                {
+                    i.Price = Math.Round(i.Price - (i.Price / 100 * discountCodeViewModel.PercentDiscount),2);
+                }
+            });
 
             var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
 
@@ -476,23 +543,22 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> CustomerQuestionnaire(string transactionId)
         {
+            var questionnaireViewModel = new QuestionnaireViewModel();
+
             var purchase = await jsfService.GetPurchaseByTransactionIdAsync(transactionId);
             if (purchase == null)
             {
                 ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please contact customerservice@JoelScottFitness.com.";
-                return View();
+                return View(questionnaireViewModel);
             }
 
             if (purchase.QuestionnaireId.HasValue)
             {
                 ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please contact customerservice@JoelScottFitness.com.";
-                return View();
+                return View(questionnaireViewModel);
             }
 
-            var questionnaireViewModel = new QuestionnaireViewModel()
-            {
-                PurchaseId = purchase.Id
-            };
+            questionnaireViewModel.PurchaseId = purchase.Id;
 
             return View(questionnaireViewModel);
         }
@@ -514,7 +580,7 @@ namespace JoelScottFitness.Web.Controllers
 
             ViewBag.Message = $"Thanks, your tailored workout plan will be with you in the next 24 hours.";
 
-            return View();
+            return View(questionnaire);
         }
 
         [HttpGet]
@@ -678,6 +744,16 @@ namespace JoelScottFitness.Web.Controllers
             foreach (var item in basket)
             {
                 total += item.Value.Quantity * item.Value.Price;
+            }
+
+            if (Session["DiscountCode"] != null && total > 0)
+            {
+                var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+
+                if (discountCode.Active)
+                {
+                    total = total - (total / 100 * discountCode.PercentDiscount);
+                }
             }
 
             return Math.Round(total, 2);

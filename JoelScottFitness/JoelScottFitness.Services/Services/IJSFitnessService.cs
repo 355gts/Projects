@@ -32,6 +32,8 @@ namespace JoelScottFitness.Services.Services
 
         Task<DiscountCodeViewModel> GetDiscountCodeAsync(long id);
 
+        Task<DiscountCodeViewModel> GetDiscountCodeAsync(string code);
+
         Task<IEnumerable<DiscountCodeViewModel>> GetDiscountCodesAsync();
 
         Task<AsyncResult<long>> CreatePlanAsync(CreatePlanViewModel plan);
