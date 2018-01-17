@@ -77,7 +77,9 @@ namespace JoelScottFitness.Web.Controllers
             var sectionImages = await jsfService.GetSectionImages();
             var kaleidoscopeImages = await jsfService.GetKaleidoscopeImages();
             var hallOfFame = await jsfService.GetHallOfFameEntries(true, 1);
-            
+
+            throw new Exception("this is a test");
+
             if (sectionImages == null)
             {
                 sectionImages = new SectionImageViewModel()

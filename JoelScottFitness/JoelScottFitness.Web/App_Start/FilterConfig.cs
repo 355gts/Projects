@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using JoelScottFitness.Web.Attributes;
+using System.Web;
 using System.Web.Mvc;
 
 namespace JoelScottFitness.Web
@@ -7,7 +8,7 @@ namespace JoelScottFitness.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new GlobalExceptionAttribute());
         }
     }
 }
