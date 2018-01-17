@@ -18,6 +18,8 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = false)]
         public long? DiscountCodeId { get; set; }
 
+        public DiscountCodeViewModel DiscountCode { get; set; }
+
         [Required]
         public string PayPalReference { get; set; }
 

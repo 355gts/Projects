@@ -15,18 +15,24 @@
     @{
         if (ViewBag.Message != null)
         {
-            <div>
-                <br />
-                <br />
-                @ViewBag.Message
+            <div class="row">
+                <div class="col-xs-12" style="text-align:center;padding-top:50px">
+                    <p>
+                        @ViewBag.Message
+                    </p>
+                </div>
+                <div style="clear:both"></div>
             </div>
         }
         else
         {
-            <div>
-                <br />
-                <br />
-                Oops! Something has gone wrong, please try again later.
+            <div class="row">
+                <div class="col-xs-12" style="text-align:center;padding-top:50px">
+                    <p>
+                        Oops! Something has gone wrong, please try again later.
+                    </p>
+                </div>
+                <div style="clear:both"></div>
             </div>
         }
     }

@@ -295,11 +295,18 @@ function applyDiscountCode(codeControl) {
                     $('.discount-code-id').each(function (i, obj) {
                         $(obj).val(data.DiscountCodeId);
                     });
+                    $('.discount').each(function (i, obj) {
+                        $(obj).val(data.Discount);
+                    });
+                    applyDiscount();
                 }
                 else {
                     $('.basket-discount-input').each(function (i, obj) {
                         $(obj).val('');
                         $(obj).attr('placeholder', 'Invalid Code!');
+                    });
+                    $('.discount').each(function (i, obj) {
+                        $(obj).val('');
                     });
                 }
                 calculateTotal();
@@ -315,6 +322,71 @@ function applyDiscountCode(codeControl) {
     return false;
 }
 
+function applyDiscount() {
+    var discount = parseInt($('.discount').first().val());
+
+    if (discount > 0) {
+        applyDiscountToItems(discount);
+    }
+    else {
+        removeDiscountFromItems();
+    }
+}
+
+function applyDiscountToItems(discount) {
+    
+    $('.basket-wrapper').each(function (i, obj) {
+        var totalCost = 0;
+        $(obj).find('.basket-item').each(function (i, obj) {
+            var itemPriceElement = $(obj).find('#basket-item-price')[0];
+            var itemPriceHiddenElement = $(obj).find('#basket-item-hidden-price')[0];
+            var itemQuantity = $(obj).find('.basket-item-quantity')[0];
+
+            var discountedPrice = (parseFloat($(itemPriceHiddenElement).val()) - (parseFloat($(itemPriceHiddenElement).val()) / 100 * parseInt(discount))) * parseInt($(itemQuantity).val());
+            if (Math.round(discountedPrice) !== discountedPrice) {
+                discountedPrice = discountedPrice.toFixed(2);
+            }
+
+            $(itemPriceElement).val('£' + discountedPrice);
+            totalCost = parseFloat(totalCost) + parseFloat(discountedPrice);
+        });
+
+        if (Math.round(totalCost) !== totalCost) {
+            totalCost = totalCost.toFixed(2);
+        }
+
+        $(obj).find('.basket-total-row').each(function (i, obj) {
+            var totalPriceElement = $(obj).find('#basket-total')[0];
+            $(totalPriceElement).val("£" + totalCost);
+        });
+    });
+}
+
+function removeDiscountFromItems() {
+
+    $('.basket-wrapper').each(function (i, obj) {
+        var totalCost = 0;
+        $(obj).find('.basket-item').each(function (i, obj) {
+            var itemPriceElement = $(obj).find('#basket-item-price')[0];
+            var itemPriceHiddenElement = $(obj).find('#basket-item-hidden-price')[0];
+            var itemQuantity = $(obj).find('.basket-item-quantity')[0];
+            var runningItemTotal = parseFloat($(itemPriceHiddenElement).val()) * parseInt($(itemQuantity).val());
+
+            if (Math.round(runningItemTotal) !== runningItemTotal) {
+                runningItemTotal = runningItemTotal.toFixed(2);
+            }
+
+            totalCost = parseFloat(totalCost) + parseFloat(runningItemTotal);
+            $(itemPriceElement).val('£' + parseFloat(runningItemTotal));
+        });
+
+        $(obj).find('.basket-total-row').each(function (i, obj) {
+            var totalPriceElement = $(obj).find('#basket-total')[0];
+            $(totalPriceElement).val("£" + totalCost);
+        });
+    });
+}
+
 function removeDiscountCode() {
     $('.discount-code-id').each(function (i, obj) {
         $(obj).val('');
@@ -328,8 +400,9 @@ function removeDiscountCode() {
             __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
         },
         success: function (data) {
+            removeDiscountFromItems();
             showApplyDiscountCode();
-            calculateTotal();
+            //calculateTotal();
         }
     });
 
@@ -360,11 +433,6 @@ function hideApplyDiscountCode(discountDescription) {
     });
 }
 
-// calls get basket items on page load to show the basket or not
-$(function () {
-    calculateTotal();
-});
-
 function calculateTotal() {
     
     $.ajax({
@@ -373,12 +441,19 @@ function calculateTotal() {
         url: '/Home/CalculateTotal',
         success: function (data) {
             if (data.TotalPrice == 0) {
-                $('.basket-wrapper').hide();
+                $('.basket-wrapper').each(function (i, obj) {
+                    $(obj).hide();
+                });
+                $('.basket-summary').each(function (i, obj) {
+                    $(obj).hide();
+                });
                 $('.active-basket-button-wrapper').hide();
                 $('#no-items').show();
             }
             else {
-                $('.basket-total').text("£" + data.TotalPrice);
+                $('.basket-total').each(function (i, obj) {
+                    $(obj).val("£" + data.TotalPrice);
+                });
             }
         }
     });

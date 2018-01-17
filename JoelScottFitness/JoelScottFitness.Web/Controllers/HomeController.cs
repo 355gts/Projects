@@ -77,7 +77,7 @@ namespace JoelScottFitness.Web.Controllers
             var sectionImages = await jsfService.GetSectionImages();
             var kaleidoscopeImages = await jsfService.GetKaleidoscopeImages();
             var hallOfFame = await jsfService.GetHallOfFameEntries(true, 1);
-
+            
             if (sectionImages == null)
             {
                 sectionImages = new SectionImageViewModel()
@@ -299,6 +299,7 @@ namespace JoelScottFitness.Web.Controllers
             if (Session["DiscountCode"] != null)
             {
                 confirmPurchaseViewModel.DiscountCodeId = ((DiscountCodeViewModel)Session["DiscountCode"]).Id;
+                confirmPurchaseViewModel.DiscountCode = (DiscountCodeViewModel)Session["DiscountCode"];
             }
 
             return View(confirmPurchaseViewModel);
@@ -373,7 +374,8 @@ namespace JoelScottFitness.Web.Controllers
                     {
                         Applied = Session["DiscountCode"] != null,
                         DiscountCodeId = discountCode.Id,
-                        Description = $"{discountCode.Code} - {discountCode.PercentDiscount}% Discount!",
+                        Discount = discountCode.PercentDiscount,
+                        Description = $"{discountCode.PercentDiscount}% Discount!",
                     },
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
@@ -746,17 +748,18 @@ namespace JoelScottFitness.Web.Controllers
                 total += item.Value.Quantity * item.Value.Price;
             }
 
-            if (Session["DiscountCode"] != null && total > 0)
-            {
-                var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+            //if (Session["DiscountCode"] != null && total > 0)
+            //{
+            //    var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
 
-                if (discountCode.Active)
-                {
-                    total = total - (total / 100 * discountCode.PercentDiscount);
-                }
-            }
+            //    if (discountCode.Active)
+            //    {
+            //        total = total - (total / 100 * discountCode.PercentDiscount);
+            //    }
+            //}
 
-            return Math.Round(total, 2);
+            //return Math.Round(total, 2);
+            return total;
         }
 
         private async Task<bool> UpdateMailingList(string emailAddress)
