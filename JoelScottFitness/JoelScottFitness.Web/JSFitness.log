@@ -52,3 +52,50 @@
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
+2018-01-17 23:41:51,361       [5] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.Exception: this is a test
+   at JoelScottFitness.Web.Controllers.HomeController.<Index>d__13.MoveNext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Controllers\HomeController.cs:line 81
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__36(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
+2018-01-18 20:23:21,826       [12] ERROR PayPal.Api.HttpConnection [(null)] The remote name could not be resolved: 'api.sandbox.paypal.com'
+2018-01-18 20:23:21,852       [12] ERROR PayPal.PayPalException [(null)] Connection Exception: Invalid HTTP response: The remote name could not be resolved: 'api.sandbox.paypal.com'
+PayPal.ConnectionException: Invalid HTTP response: The remote name could not be resolved: 'api.sandbox.paypal.com'
+2018-01-18 20:23:24,710       [67] ERROR GlobalExceptionAttribute [(null)] An error has occured 'PayPal.ConnectionException: Invalid HTTP response: The remote name could not be resolved: 'api.sandbox.paypal.com'
+   at PayPal.Api.HttpConnection.Execute(String payLoad, HttpWebRequest httpRequest)
+   at PayPal.Api.PayPalResource.ConfigureAndExecute[T](APIContext apiContext, HttpMethod httpMethod, String resource, String payload, String endpoint, Boolean setAuthorizationHeader)
+   at PayPal.Api.OAuthTokenCredential.GenerateOAuthToken()
+   at PayPal.Api.OAuthTokenCredential.GetAccessToken()
+   at JoelScottFitness.PayPal.Configuration.PayPalConfiguration.GetAccessToken() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.PayPal\Configuration\PayPalConfiguration.cs:line 25
+   at JoelScottFitness.PayPal.Configuration.PayPalConfiguration.GetAPIContext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.PayPal\Configuration\PayPalConfiguration.cs:line 30
+   at JoelScottFitness.PayPal.Services.PayPalService.InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, String baseUri) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.PayPal\Services\PayPalService.cs:line 174
+   at JoelScottFitness.Services.Services.JSFitnessService.InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, String baseUri) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Services\Services\JSFitnessService.cs:line 294
+   at JoelScottFitness.Web.Controllers.HomeController.<Checkout>d__36.MoveNext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Controllers\HomeController.cs:line 466
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__36(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.

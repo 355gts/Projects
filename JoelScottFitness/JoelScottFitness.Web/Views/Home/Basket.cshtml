@@ -16,7 +16,9 @@
         <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
             NO ITEMS IN BASKET
         </div>
+        <div style="clear:both"></div>
     </div>
+    <div style="clear:both"></div>
     <div class="large-table">
         <div id="basket-wrapper" class="basket-wrapper">
             <fieldset>
@@ -112,10 +114,19 @@
                                             <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@planOption.Id','basket-quantity-new-@itemCount')"><i class="fa fa-plus"></i></button>
                                         </td>
                                         <td>
-                                            @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-quantity-new-" + @itemCount, @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center;width:100%" })
+                                            @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCount, @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center;width:100%" })
                                         </td>
                                         <td style="text-align:right">
                                             <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@planOption.Id','basket-quantity-new-@itemCount')"><i class="fa fa-minus"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="text-align:left">Price</th>
+                                        <td colspan="2">
+                                            <div style="position:relative;">
+                                                <input class="basket-value-new basket-item-price" id="basket-item-price" name="Price" readonly="readonly" type="text" value="£@planOption.Price" style="text-align:right">
+                                                <input type="hidden" class="basket-item-hidden-price" id="basket-item-hidden-price" value="@planOption.Price" />
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -129,7 +140,7 @@
                         <tbody>
                             <tr class="basket-total-row">
                                 <td><div class="basket-total-small">Total:</div></td>
-                                <td>
+                                <td style="text-align:right">
                                     <input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Math.Round(Model.Sum(s => s.Price * s.Quantity),2)" />
                                 </td>
                             </tr>
@@ -147,7 +158,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        calculateTotal();
-        removeDiscountFromItems();
+        calculateBasketItemTotals();
     });
 </script>

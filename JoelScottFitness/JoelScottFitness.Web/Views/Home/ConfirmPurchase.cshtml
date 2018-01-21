@@ -18,6 +18,7 @@
         </div>
     </div>
 
+    <div style="clear:both"></div>
     <div class="row large-basket-summary basket-summary">
         <fieldset class="basket-summary-items">
             <legend class="basket-legend">Delivery Details</legend>
@@ -307,7 +308,7 @@
                                     }
                                 <tr class="basket-total-row">
                                     <td><div class="basket-total-small">Total:</div></td>
-                                    <td><input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Math.Round(Model.BasketItems.Sum(s => s.Price * s.Quantity),2)"/>
+                                    <td colspan="2"><input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Math.Round(Model.BasketItems.Sum(s => s.Price * s.Quantity),2)"/>
                                         <input type="hidden" id="basket-total-hidden" value="@Math.Round(Model.BasketItems.Sum(s => s.Price * s.Quantity),2)" />
                                     </td>
                                 </tr>
@@ -328,13 +329,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var discount = parseInt($('.discount').first().val());
-
-        if (discount > 0) {
-            applyDiscountToItems(discount);
-        }
-        else {
-            removeDiscountFromItems();
-        }
+        calculateBasketItemTotals();
     });
 </script>
