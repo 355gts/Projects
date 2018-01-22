@@ -18,6 +18,12 @@ namespace JoelScottFitness.PayPal.Services
         private static readonly ILog logger = LogManager.GetLogger(typeof(PayPalService));
 
         private readonly IMapper mapper;
+        private APIContext apiContext;
+        
+        public APIContext ApiContext
+        {
+            get { return apiContext != null ? apiContext : PayPalConfiguration.GetAPIContext(); }
+        }
         
         private ItemList itemList;
         private Address billingAddress;
@@ -41,6 +47,8 @@ namespace JoelScottFitness.PayPal.Services
                 throw new ArgumentNullException(nameof(mapper));
 
             this.mapper = mapper;
+
+            apiContext = PayPalConfiguration.GetAPIContext();
 
             InitialisePayment();
         }
@@ -100,9 +108,7 @@ namespace JoelScottFitness.PayPal.Services
 
             try
             {
-                APIContext apiContext = PayPalConfiguration.GetAPIContext();
-
-                Payment createdPayment = payment.Create(apiContext);
+                Payment createdPayment = payment.Create(ApiContext);
 
                 if (createdPayment.state.ToLower() != "approved")
                     return new PaymentResult()
@@ -171,8 +177,6 @@ namespace JoelScottFitness.PayPal.Services
 
         public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)
         {
-            APIContext apiContext = PayPalConfiguration.GetAPIContext();
-
             //string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority +
             //            "/Home/CompletePayment?";
 
@@ -182,7 +186,7 @@ namespace JoelScottFitness.PayPal.Services
             AddItems(confirmPurchaseViewModel.BasketItems);
             SetBillingAddress(confirmPurchaseViewModel.CustomerDetails.BillingAddress);
             
-            var createdPayment = this.CreatePayment(apiContext, transactionId, baseUri + "guid=" + transactionId);
+            var createdPayment = this.CreatePayment(ApiContext, transactionId, baseUri + "guid=" + transactionId);
 
             var approvalLink = createdPayment.links
                                              .Where(l => l.rel.ToLower().Trim() == "approval_url")
