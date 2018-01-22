@@ -11,7 +11,7 @@ namespace JoelScottFitness.PayPal.Modules
         {
             Bind<IMapper>().To<Mapper>().Named("PayPalMapper")
                            .WithConstructorArgument("assemblyWithMappers", Assembly.Load("JoelScottFitness.PayPal"));
-            Bind<IPayPalService>().To<PayPalService>().InSingletonScope();
+            Bind<IPayPalService>().To<PayPalService>();
         }
     }
 }
