@@ -5,33 +5,36 @@
     ViewBag.Title = "Home Page";
 }
 
+
+<style>
+
+
+
+</style>
+
 <div style="position:relative;z-index:2;background-color:white;text-align:center">
-    <div class="row" style="margin:20px;vertical-align:bottom;padding-bottom:140px;color:black">
-        <div class="col-xs-12 col-sm-6 col-md-offset-1 col-md-5 col-lg-offset-2 col-lg-4 text-nowrap" style="font-family:'Bebas-Neue';font-size:100px;margin-top:0;padding-top:0;">
-            WELCOME TO
+    <div class="title-wrapper">
+       <div class="title-welcome-wrapper">
+           WELCOME TO
+       </div>
+        <div class="title-logo-wrapper">
+            <img src="~/Content/Logos/jsf-black.svg" class="title-logo" />
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-nowrap home-row home-logo" style="vertical-align:bottom">
-            <img style="width:440px;" src="~/Content/Logos/jsf-black.svg" />
-        </div>
-        <div style="clear:both"></div>
     </div>
-    <div class="row" style="padding: 0px 20px;">
-        <div class="col-xs-12" style="padding-bottom:120px">
+
+    <div style="padding-bottom:120px;padding-top:20px;width:100vw;padding-left:20px;padding-right:20px">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
             </p>
-        </div>
 
         <div style="clear:both"></div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
+    <div style="width:100vw">
             <div class="believe-achieve-logo-wrapper">
-                <div class="believe-achieve-logo believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
+                <div class="believe-achieve-logo-footer believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
                     <img src="~/Content/Logos/believe-achieve-black.svg" />
                 </div>
             </div>
-        </div>
     </div>
 </div>
 <input id="splash-image" type="hidden" style="display:none" value="@Model.SectionImages.SplashImage" />
@@ -51,7 +54,7 @@
     <div class="subSect">
         <div class="container section-title-wrapper">
             <div id="media" class="row col-xs-12 section-title">
-                <div class="home-row home-welcome sect-header">
+                <div class="home-row sect-header">
                     MEDIA
                 </div>
             </div>
@@ -74,33 +77,38 @@
     {
         <div class="sect sect2"></div>
     }
+
+    <style>
+     
+
+    </style>
     <div class="subSect">
-        <div class="container section-title-wrapper">
-            <div id="plans" class="row col-xs-12 section-title">
-                <div class="home-row home-welcome sect-header">
+        <div class="section-title-wrapper">
+            <div id="plans" class="row section-title">
+                <div class="home-row sect-header">
                     PLANS
                 </div>
             </div>
 
-            <div class="row col-xs-12 plan-row-container">
-            <div class="plan-index-container">
-                <a href=@Url.Action("Plans", "Home", new { gender = "Female" }, Request.Url.Scheme) class="plan-index-link">
-                    <div class="plan-index-image" style="background-image: url('../../Content/Images/ladies3.jpg');">
-                        <div class="plan-index-title">
-                            FOR HER
+            <div class="plan-index-row-container">
+                <div class="plan-index-container">
+                    <a href=@Url.Action("Plans", "Home", new { gender = "Female" }, Request.Url.Scheme) class="plan-index-link">
+                        <div class="plan-index-image" style="background-image: url('../../Content/Images/ladies3.jpg');">
+                            <div class="plan-index-title">
+                                FOR HER
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="plan-index-container">
-                <a href=@Url.Action("Plans", "Home", new { gender = "Male" }, Request.Url.Scheme) style="text-decoration:none">
-                    <div class="plan-index-image" style="background-image: url('../../Content/Images/mens1.jpg');">
-                        <div class="plan-index-title">
-                            FOR HIM
+                    </a>
+                </div>
+                <div class="plan-index-container">
+                    <a href=@Url.Action("Plans", "Home", new { gender = "Male" }, Request.Url.Scheme) style="text-decoration:none">
+                        <div class="plan-index-image" style="background-image: url('../../Content/Images/mens1.jpg');">
+                            <div class="plan-index-title">
+                                FOR HIM
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
             <div style="clear:both"></div>
         </div>
     </div>
@@ -116,24 +124,24 @@
 
     <div class="subSect">
         <div class="container section-title-wrapper">
-            <div class="row col-xs-12 section-title">
-                <div class="home-row home-welcome sect-header">
+            <div class="row section-title">
+                <div class="home-row sect-header">
                     BLOG
                 </div>
                 <div style="clear:both"></div>
             </div>
             <div class="row">
-                <div class="col-xs-12 blog-row-container">
+                <div class="blog-row-container">
                    @Html.Partial("_Blog", Model.Blogs)
                 </div>
                 <div style="clear:both"></div>
             </div>
+
+            <hr />
             <div class="row">
-                <div class="col-xs-12">
                     <div class="more-link-wrapper">
                         <a href="/Home/Blogs" class="more-link">MORE</a>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -168,7 +176,7 @@
     <div class="subSect">
         <div class="container section-title-wrapper">
             <div id="hall-of-fame" class="row col-xs-12 section-title">
-                <div class="home-row home-welcome sect-header">
+                <div class="home-row sect-header">
                     LATEST HALL OF FAMER
                 </div>
             </div>

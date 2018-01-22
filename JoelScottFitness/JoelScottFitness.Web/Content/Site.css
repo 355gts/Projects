@@ -26,7 +26,7 @@
 body {
     margin: 0px;
     height: 100%;
-    max-width: 100%;
+    width: 100vw;
     overflow-x: hidden;
 }
 
@@ -42,9 +42,9 @@ a:hover {
     line-height: 1;
     margin-top: 0;
     padding-top: 0;
-    padding-right: 20px;
     display: inline-block;
     color: black;
+    width:100%;
 }
 
 .content-format {
@@ -84,7 +84,7 @@ a:hover {
         background-position-x: center;
         right: auto;
         left: auto;
-        width:100%;
+        width:100vw;
     }
 }
 
@@ -110,7 +110,7 @@ textarea {
 
 .header {
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     background-size: cover;
     background-image: url('Images/banner.JPG');
     background-position: center top;
@@ -128,15 +128,6 @@ textarea {
     clear: both;
 }
 
-.believe-achieve-logo-wrapper {
-    position: relative;
-}
-
-.believe-achieve-logo-wrapper:after {
-    content: '';
-    display: block;
-    clear: both;
-}
 
 .believe-achieve-logo-absolute {
     position: absolute;
@@ -158,12 +149,26 @@ textarea {
     width: 25%;
 }
 
-.believe-achieve-logo-bottom-center {
-    bottom: 20px;
-    margin: auto;
-    width: 25%;
+.believe-achieve-logo-wrapper {
+    position: relative;
 }
 
+.believe-achieve-logo-wrapper:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.believe-achieve-logo-bottom-center {
+    bottom: 20px;
+    margin: 0 auto;
+}
+
+.believe-achieve-logo-footer {
+    height: 100%;
+    max-width: 200px;
+    width: 80vw;
+}
 
 
 .navbar-left {
@@ -200,6 +205,7 @@ p {
     height: 60px;
     background-color: black;
     z-index: 10;
+    width:100vw;
 }
 
 .navbar-font {
@@ -219,14 +225,21 @@ p {
     }
 }
 
-.navbar-container {
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-right: auto;
-    margin-left: auto;
-}
 
-@media (min-width: 768px) {
+@media (min-width:0px) and (max-width:768px){
+    .navbar-container {
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .navbar-toggle {
+        margin-right:0px;
+    }
+
+}
+@media (min-width: 769px) {
     div.navbar-collapse.collapse {
         margin-left: 200px;
     }
@@ -289,7 +302,6 @@ p {
 .sect {
     height: 100vh;
     width: 100%;
-    background-attachment: fixed;
     background-size: cover;
     background-position: center top;
 }
@@ -353,20 +365,39 @@ p {
 
 .home-row {
     padding: 20px 0;
-}
-
-.home-welcome {
     flex: 1;
     width: inherit;
     flex-shrink: 3;
 }
 
-.home-logo img {
-    flex: 1;
-    width: 200px;
-    height: auto;
-    overflow-x: visible;
-    overflow-y: visible;
+.title-wrapper {
+    vertical-align: bottom;
+    color: black;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.title-welcome-wrapper {
+    position: relative;
+    width: 100%;
+    color: black;
+    font-family: 'Bebas-Neue';
+    font-size: 100px;
+    text-align: center;
+}
+
+.title-logo-wrapper {
+    position: relative;
+    width: 100%;
+    color: black;
+    text-align: center;
+}
+
+.title-logo {
+    height: 100%;
+    max-width: 600px;
+    width: 80vw;
 }
 
 a {
@@ -386,35 +417,47 @@ a:hover {
 .section-title {
     width: 100%;
     text-align: center;
-    align-content: center;
+    align-content: center;plan-row-container
     margin: 0px;
 }
 
-.plan-row-container {
+.plan-index-row-container {
+    width: 100%;
     text-align: center;
     font-family: 'Bebas-Neue';
     font-size: 100px;
     line-height: 1;
     margin-top: 0;
     padding-top: 0;
-    padding-right: 20px;
     display: inline-block;
 }
 
 .plan-index-container {
-    width: 400px;
     height: 500px;
     position: relative;
     text-align: center;
     display: inline-block;
-    padding: 20px;
     color: black;
+    margin: 0 auto;
 }
 
 .plan-index-container:hover .plan-index-title {
     text-decoration: none;
     color: black;
     text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+@media (min-width:0px) and (max-width:999px) {
+    .plan-index-container {
+        width: 100vw;
+        max-width: 360px;
+    }
+}
+
+@media (min-width:1000px) {
+    .plan-index-container {
+        width: 360px;
+    }
 }
 
 .plan-index-link {
@@ -499,7 +542,6 @@ a:hover {
     line-height: 1;
     margin-top: 0;
     padding-top: 0;
-    padding-right: 20px;
     display: inline-block;
 }
 
@@ -1374,7 +1416,6 @@ a:hover {
     line-height: 1;
     margin-top: 0;
     padding-top: 0;
-    padding-right: 20px;
     display: inline-block;
 }
 
@@ -1613,7 +1654,9 @@ a:hover {
 .kaleidoscope-wrapper {
     background-color: white;
     position: relative;
-    z-index: 1
+    z-index: 1;
+    margin-left:0px;
+    margin-right:0px;
 }
 
 .kaleidoscope-large {

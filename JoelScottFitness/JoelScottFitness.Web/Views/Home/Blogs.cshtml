@@ -4,19 +4,13 @@
     ViewBag.Title = "Blogs";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12 title-format">
+        <div class="title-format">
             BLOG
         </div>
-        <div style="clear:both"></div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 blog-row-container">
+
+        <div class="blog-row-container">
             
             @Html.Partial("_Blog", Model)
 
         </div>
         <div style="clear:both"></div>
-    </div>
-</div>

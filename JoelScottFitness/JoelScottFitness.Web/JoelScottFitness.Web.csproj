@@ -383,7 +383,6 @@
     <Content Include="Views\Home\Blogs.cshtml" />
     <Content Include="Views\Shared\_BlogEntry.cshtml" />
     <Content Include="Views\Home\Plans.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_BelieveAchieve.cshtml" />
     <Content Include="Views\Shared\_BlogModal.cshtml" />
@@ -422,7 +421,6 @@
     <Content Include="Views\Shared\_OrderComplete.cshtml" />
     <Content Include="Views\Shared\_EmailResetPassword.cshtml" />
     <Content Include="Views\Shared\_EmailLayout.cshtml" />
-    <Content Include="Views\Home\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_EmailConfirmAccount.cshtml" />
     <Content Include="Views\Shared\_HallOfFame.cshtml" />
     <Content Include="Views\Account\RegisterAccountConfirmation.cshtml" />
