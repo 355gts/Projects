@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace JoelScottFitness.Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IJSFitnessService jsfService;
@@ -407,12 +408,7 @@ namespace JoelScottFitness.Web.Controllers
             };
 
             var email = this.RenderRazorViewToString("_OrderConfirmation", model);
-
-
-            //TextReader tr = new StreamReader(@"D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\EmailTemplate.html");
-            //string content = tr.ReadToEnd();
-            //tr.Dispose();
-
+            
             await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{model.OrderReference} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
         }
 

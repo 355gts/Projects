@@ -3,7 +3,6 @@ using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Extensions;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Enumerations;
-using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Properties;
@@ -748,17 +747,6 @@ namespace JoelScottFitness.Web.Controllers
                 total += item.Value.Quantity * item.Value.Price;
             }
 
-            //if (Session["DiscountCode"] != null && total > 0)
-            //{
-            //    var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
-
-            //    if (discountCode.Active)
-            //    {
-            //        total = total - (total / 100 * discountCode.PercentDiscount);
-            //    }
-            //}
-
-            //return Math.Round(total, 2);
             return total;
         }
 

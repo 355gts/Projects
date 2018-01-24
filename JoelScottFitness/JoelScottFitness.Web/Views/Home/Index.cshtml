@@ -52,16 +52,17 @@
         <div class="sect sect1" style="z-index:-10"></div>
     }
     <div class="subSect">
-        <div class="container section-title-wrapper">
-            <div id="media" class="row col-xs-12 section-title">
+        <div class="section-title-wrapper">
+            <div id="media" class="section-title">
                 <div class="home-row sect-header">
                     MEDIA
                 </div>
             </div>
 
-            @Html.Partial("_Media", Model.Videos)
-
-            <div class="row col-xs-12" style="margin:0px;">
+            <div class="media-wrapper">
+                @Html.Partial("_Media", Model.Videos)
+            </div>
+            <div>
                 <div class="more-link-wrapper">
                     <a href="/Home/Media" class="more-link">MORE</a>
                 </div>
@@ -82,9 +83,9 @@
      
 
     </style>
-    <div class="subSect">
+    <div id="plans" class="subSect">
         <div class="section-title-wrapper">
-            <div id="plans" class="row section-title">
+            <div class="row section-title">
                 <div class="home-row sect-header">
                     PLANS
                 </div>
@@ -123,22 +124,19 @@
     }
 
     <div class="subSect">
-        <div class="container section-title-wrapper">
-            <div class="row section-title">
+        <div class="section-title-wrapper">
+            <div class="section-title">
                 <div class="home-row sect-header">
                     BLOG
                 </div>
                 <div style="clear:both"></div>
             </div>
-            <div class="row">
                 <div class="blog-row-container">
                    @Html.Partial("_Blog", Model.Blogs)
                 </div>
-                <div style="clear:both"></div>
-            </div>
 
             <hr />
-            <div class="row">
+            <div>
                     <div class="more-link-wrapper">
                         <a href="/Home/Blogs" class="more-link">MORE</a>
                     </div>
@@ -174,8 +172,8 @@
 @if (Model?.LatestHallOfFamer != null)
 {
     <div class="subSect">
-        <div class="container section-title-wrapper">
-            <div id="hall-of-fame" class="row col-xs-12 section-title">
+        <div class="section-title-wrapper">
+            <div id="hall-of-fame" class="section-title">
                 <div class="home-row sect-header">
                     LATEST HALL OF FAMER
                 </div>
@@ -183,11 +181,9 @@
 
             @Html.Partial("_HallOfFame", Model.LatestHallOfFamer)
 
-            <div class="row col-xs-12" style="margin:0px;">
                 <div class="more-link-wrapper">
                     <a href="/Home/HallOfFame" class="more-link">MORE</a>
                 </div>
-            </div>
         </div>
         <div style="clear:both"></div>
     </div>

@@ -24,17 +24,22 @@
     @RenderSection("scripts", required: false)
 </head>
 
-<body id="home">
-    <style>
-        .navbar-container {
-            width: 100vw;
-            margin-right: 0px;
-        }
-        .navbar-header {
-            width: 100vw;
-            margin-right:0px;
+
+<body>
+    <style id="antiClickjack">
+        body {
+            display: none !important;
         }
     </style>
+    <script type="text/javascript">
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
+
     <div id="full-page-image" class="header">
         <div class="logo">
             <img src="~/Content/Logos/jsf-white.svg" />
@@ -54,7 +59,7 @@
                 <ul class="nav navbar-nav navbar-font">
                     <li><a href="/Home/Index#home">Home</a></li>
                     <li>@Html.ActionLink("Blog", "Blogs", "Home")</li>
-                    <li><a href="/Home/Index#plans">Plans</a></li>
+                    <li><a class="plans-link" href="/Home/Index#plans">Plans</a></li>
                     @if (Session["HallOfFame"] != null && (bool)Session["HallOfFame"])
                     {
                         <li>@Html.ActionLink("Hall Of Fame", "HallOfFame", "Home")</li>
@@ -91,6 +96,11 @@
     </script>
 }
 
+    <script>
+        $('.plans-link').click(function () {
+            $('.navbar-toggle:visible').click();
+        });
+    </script>
 </body>
 </html>
 
