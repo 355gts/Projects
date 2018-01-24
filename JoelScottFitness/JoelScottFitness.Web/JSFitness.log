@@ -124,3 +124,15 @@ Parameter name: parameters
 2018-01-22 21:45:44,156       [24] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1970.
 2018-01-22 21:46:54,625       [19] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 2078.
 2018-01-23 21:42:01,903       [28] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1971.
+2018-01-24 22:07:43,626       [17] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.InvalidOperationException: The requested resource can only be accessed via SSL.
+   at System.Web.Mvc.RequireHttpsAttribute.HandleNonHttpsRequest(AuthorizationContext filterContext)
+   at System.Web.Mvc.RequireHttpsAttribute.OnAuthorization(AuthorizationContext filterContext)
+   at JoelScottFitness.Web.Filters.RequireSecureConnectionFilter.OnAuthorization(AuthorizationContext filterContext) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Filters\RequireSecureConnectionFilter.cs:line 21
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)'.
+2018-01-24 22:08:51,712       [14] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.InvalidOperationException: The requested resource can only be accessed via SSL.
+   at System.Web.Mvc.RequireHttpsAttribute.HandleNonHttpsRequest(AuthorizationContext filterContext)
+   at System.Web.Mvc.RequireHttpsAttribute.OnAuthorization(AuthorizationContext filterContext)
+   at JoelScottFitness.Web.Filters.RequireSecureConnectionFilter.OnAuthorization(AuthorizationContext filterContext) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Filters\RequireSecureConnectionFilter.cs:line 21
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)'.
