@@ -1,20 +1,17 @@
 ﻿@model IEnumerable<JoelScottFitness.Common.Models.MediaViewModel>
 
-@{
-    ViewBag.Title = "Media";
-}
 
-    <div class="title-format">
-        MEDIA
-    </div>
+<div class="title-format">
+    MEDIA
+</div>
 
 <div class="media-wrapper">
     @Html.Partial("_Media", Model)
+</div>
+<div class="row col-xs-12" style="margin:0px;">
+    <div class="more-link-wrapper">
+        <a href="https://www.youtube.com/channel/UCubxF1muUJF5xH7yLe_KfFg" target="_blank" class="more-link">VIEW MY CHANNEL</a>
     </div>
-    <div class="row col-xs-12" style="margin:0px;">
-        <div class="more-link-wrapper">
-            <a href="https://www.youtube.com/channel/UCubxF1muUJF5xH7yLe_KfFg" target="_blank" class="more-link">VIEW MY CHANNEL</a>
-        </div>
-    </div>
+</div>
 </div>
 

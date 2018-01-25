@@ -515,9 +515,7 @@ namespace JoelScottFitness.Web.Controllers
             var purchaseViewModel = await jsfService.GetPurchaseAsync(purchaseId);
 
             // send confirmation email
-            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel);
-            
-            await jsfService.SendEmailAsync($"Joel Scott Fitness - Order #{purchaseViewModel.TransactionId} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
+            await SendOrderConfirmationEmail(purchaseViewModel);
             
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });
@@ -655,6 +653,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult ResetPassword()
         {
+            // TODO need to fix this
             var model = new CallbackViewModel()
             {
                 CallbackUrl = "https://www.JoelScottFitness.com/Account/ResetPassword?userEmail=blah",
@@ -785,6 +784,13 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             return uploadPath;
+        }
+
+        private async Task<bool> SendOrderConfirmationEmail(PurchaseHistoryViewModel purchaseViewModel)
+        {
+            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel);
+
+            return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
         }
     }
 }

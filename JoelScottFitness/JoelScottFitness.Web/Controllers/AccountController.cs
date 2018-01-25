@@ -4,6 +4,7 @@ using JoelScottFitness.Identity.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Models;
+using JoelScottFitness.Web.Properties;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -219,10 +220,8 @@ namespace JoelScottFitness.Web.Controllers
                     {
                         CallbackUrl = callbackUrl,
                     };
-
-                    var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel);
-
-                    await jsfService.SendEmailAsync("Joel Scott Fitness - Confirm Account", email, new List<string>() { newUser.Email });
+                    
+                    await SendConfirmAccountEmail(callbackViewModel, newUser.Email);
 
                     if (customer.JoinMailingList)
                     {
@@ -292,9 +291,7 @@ namespace JoelScottFitness.Web.Controllers
                     CallbackUrl = callbackUrl,
                 };
                 
-                var email = this.RenderRazorViewToString("_EmailResetPassword", callbackViewModel);
-
-                await jsfService.SendEmailAsync($"Joel Scott Fitness - Reset Password", email, new List<string>() { model.Email });
+                await SendResetPasswordEmail(callbackViewModel, model.Email);
 
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -576,5 +573,19 @@ namespace JoelScottFitness.Web.Controllers
             }
         }
         #endregion
+
+        private async Task<bool> SendConfirmAccountEmail(CallbackViewModel callbackViewModel, string emailAddress)
+        {
+            var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel);
+
+            return await jsfService.SendEmailAsync(Settings.Default.ConfirmAccount, email, new List<string>() { emailAddress });
+        }
+
+        private async Task<bool> SendResetPasswordEmail(CallbackViewModel callbackViewModel, string emailAddress)
+        {
+            var email = this.RenderRazorViewToString("_EmailResetPassword", callbackViewModel);
+
+            return await jsfService.SendEmailAsync(Settings.Default.ResetPassword, email, new List<string>() { emailAddress });
+        }
     }
 }

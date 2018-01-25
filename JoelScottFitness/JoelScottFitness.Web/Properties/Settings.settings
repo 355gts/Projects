@@ -14,5 +14,17 @@
     <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/Content/Images/banner.jpg</Value>
     </Setting>
+    <Setting Name="PurchaseConfirmation" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Confirmation</Value>
+    </Setting>
+    <Setting Name="PurchaseComplete" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Complete</Value>
+    </Setting>
+    <Setting Name="ConfirmAccount" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Joel Scott Fitness - Confirm Account</Value>
+    </Setting>
+    <Setting Name="ResetPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Joel Scott Fitness - Reset Password</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<JoelScottFitness.Common.Models.BlogViewModel>
 
-@{
-    ViewBag.Title = "Blogs";
-}
+<div class="title-format">
+    BLOG
+</div>
 
-        <div class="title-format">
-            BLOG
-        </div>
+<div class="blog-row-container">
 
-        <div class="blog-row-container">
-            
-            @Html.Partial("_Blog", Model)
+    @Html.Partial("_Blog", Model)
 
-        </div>
-        <div style="clear:both"></div>
+</div>
+<div style="clear:both"></div>

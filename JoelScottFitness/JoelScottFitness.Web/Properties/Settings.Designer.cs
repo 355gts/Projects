@@ -58,5 +58,41 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["DefaultSplashImage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Order #{0} Confirmation")]
+        public string PurchaseConfirmation {
+            get {
+                return ((string)(this["PurchaseConfirmation"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Order #{0} Complete")]
+        public string PurchaseComplete {
+            get {
+                return ((string)(this["PurchaseComplete"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Confirm Account")]
+        public string ConfirmAccount {
+            get {
+                return ((string)(this["ConfirmAccount"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Reset Password")]
+        public string ResetPassword {
+            get {
+                return ((string)(this["ResetPassword"]));
+            }
+        }
     }
 }

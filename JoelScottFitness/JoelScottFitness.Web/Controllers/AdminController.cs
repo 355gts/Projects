@@ -2,6 +2,7 @@
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
+using JoelScottFitness.Web.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -354,9 +355,7 @@ namespace JoelScottFitness.Web.Controllers
                     var planPaths = purchaseViewModel.Items.Select(i => Server.MapPath(i.PlanPath)).ToList();
 
                     // send confirmation email
-                    var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel);
-
-                    await jsfService.SendEmailAsync($"Joel Scott Fitness - Order #{purchaseViewModel.TransactionId} Complete", email, new List<string>() { "Blackmore__s@hotmail.com" }, planPaths);
+                    await SendOrderCompleteEmail(purchaseViewModel, planPaths);
                 }
             }
 
@@ -398,20 +397,6 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Authorize(Roles = JsfRoles.Admin)]
-        public async Task SendEmail()
-        {
-            var model = new OrderConfirmationViewModel()
-            {
-                OrderReference = "123923902",
-            };
-
-            var email = this.RenderRazorViewToString("_OrderConfirmation", model);
-            
-            await jsfService.SendEmailAsync($"Joel Scott Fitness Order #{model.OrderReference} Confirmation", email, new List<string>() { "Blackmore__s@hotmail.com" });
-        }
-
         private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
         {
             string uploadPath = null;
@@ -436,6 +421,13 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             return uploadPath;
+        }
+
+        private async Task<bool> SendOrderCompleteEmail(PurchaseHistoryViewModel purchaseViewModel, IEnumerable<string> planPaths)
+        {
+            var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel);
+
+            return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseComplete, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress }, planPaths);
         }
     }
 }
