@@ -634,8 +634,8 @@ namespace JoelScottFitness.Web.Controllers
             var beforeImageFilename = $"{model.PurchasedItemId}_BEFORE_{Path.GetFileName(model.BeforeFile.FileName)}";
             var afterImageFilename = $"{model.PurchasedItemId}_AFTER_{Path.GetFileName(model.AfterFile.FileName)}";
 
-            var beforeUploadPath = SaveFile(model.BeforeFile, "Content/Images/HallOfFame", beforeImageFilename);
-            var afterUploadPath = SaveFile(model.AfterFile, "Content/Images/HallOfFame", afterImageFilename);
+            var beforeUploadPath = SaveFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
+            var afterUploadPath = SaveFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
 
             var result = await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadPath, afterUploadPath, model.Comment);
 

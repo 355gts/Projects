@@ -55,13 +55,13 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                blog.ImagePath = SaveFile(postedFile, "Content/Images");
+                blog.ImagePath = SaveFile(postedFile, Settings.Default.BlogImageDirectory);
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages)
                     {
-                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, "Content/Images");
+                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, Settings.Default.BlogImageDirectory);
                     }
                 }
 
@@ -95,14 +95,14 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    blog.ImagePath = SaveFile(postedFile, "Content/Images");
+                    blog.ImagePath = SaveFile(postedFile, Settings.Default.BlogImageDirectory);
                 }
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages.Where(i => i.PostedFile != null).ToList())
                     {
-                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, "Content/Images");
+                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, Settings.Default.BlogImageDirectory);
                     }
                 }
 
@@ -170,7 +170,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    plan.ImagePathLarge = SaveFile(postedFile, "Content/Images");
+                    plan.ImagePathLarge = SaveFile(postedFile, Settings.Default.PlanImageDirectory);
                 }
 
                 var result = await jsfService.UpdatePlanAsync(plan);
@@ -292,7 +292,7 @@ namespace JoelScottFitness.Web.Controllers
 
             foreach (var file in postedFile)
             {
-                string imagePath = SaveFile(file, "Content/Images");
+                string imagePath = SaveFile(file, Settings.Default.ImageDirectory);
 
                 var result = await jsfService.AddImage(imagePath);
 
@@ -342,8 +342,8 @@ namespace JoelScottFitness.Web.Controllers
             {
                 var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
 
-                string fileName = $"{customer.Firstname} {customer.Surname} - {uploadPlanViewModel.Name} - {uploadPlanViewModel.Description} - {DateTime.UtcNow.ToString("yyyyMMdd")}.pdf";
-                var planPath = SaveFile(uploadPlanViewModel.PostedFile, "Content/Plans", fileName);
+                string fileName = string.Format(Settings.Default.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd"));
+                var planPath = SaveFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
 
                 var result = await jsfService.AssociatePlanToPurchase(uploadPlanViewModel.PurchasedItemId, planPath);
 

@@ -53,7 +53,7 @@ a:hover {
 }
 
 .believe-achieve-background-footer {
-    background-image: url('/Content/Logos/believe-achieve-white.svg');
+    background-image: url('/Content/Images/Logos/believe-achieve-white.svg');
     background-repeat: no-repeat;
     position: fixed;
     right: 12px;
@@ -65,7 +65,7 @@ a:hover {
 }
 
 .joel-scott-fitness-background-logo-footer {
-    background-image: url('/Content/Logos/jsf-white.svg');
+    background-image: url('/Content/Images/Logos/jsf-white.svg');
     background-repeat: no-repeat;
     position: fixed;
     left: 12px;
@@ -112,7 +112,7 @@ textarea {
     height: 100vh;
     width: 100vw;
     background-size: cover;
-    background-image: url('Images/banner.JPG');
+    background-image: url('Images/Default/banner.JPG');
     background-position: center top;
 }
 
@@ -319,15 +319,15 @@ p {
 }
 
 .sect1 {
-    background-image: url('Images/section1.PNG');
+    background-image: url('Images/Default/section1.PNG');
 }
 
 .sect2 {
-    background-image: url('Images/section2.PNG');
+    background-image: url('Images/Default/section2.PNG');
 }
 
 .sect3 {
-    background-image: url('Images/section3.PNG');
+    background-image: url('Images/Default/section3.PNG');
 }
 
 .believe-achieve-background-wrapper {
@@ -335,7 +335,7 @@ p {
 }
 
 .believe-achieve-background {
-    background-image: url('Logos/believe-achieve-black.svg');
+    background-image: url('Images/Logos/believe-achieve-black.svg');
     background-size: cover;
     background-position: center center;
 }
@@ -920,11 +920,11 @@ a:hover {
 }
 
 .blog-modal-carousel-item-caption-logo-white {
-    background-image: url(../Content/Logos/jsf-white.svg);
+    background-image: url(../Content/Images/Logos/jsf-white.svg);
 }
 
 .blog-modal-carousel-item-caption-logo-black {
-    background-image: url(../Content/Logos/jsf-black.svg);
+    background-image: url(../Content/Images/Logos/jsf-black.svg);
 }
 
 .hide-caption {
