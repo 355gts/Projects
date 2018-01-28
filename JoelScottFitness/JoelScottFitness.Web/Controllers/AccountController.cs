@@ -199,7 +199,7 @@ namespace JoelScottFitness.Web.Controllers
                     await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.User);
 
                     // TODO remove this logic when released
-                    if (customer.EmailAddress.ToLower() == "blackmore__s@hotmail.com")
+                    if (customer.EmailAddress.ToLower() == "blackmore__s@hotmail.com" || customer.EmailAddress.ToLower() == "joel@joelscottfitness")
                     {
                         await UserManager.AddToRoleAsync(newUser.Id, JsfRoles.Admin);
                     }

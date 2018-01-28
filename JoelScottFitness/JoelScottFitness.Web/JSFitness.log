@@ -136,3 +136,5 @@ Parameter name: parameters
    at JoelScottFitness.Web.Filters.RequireSecureConnectionFilter.OnAuthorization(AuthorizationContext filterContext) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Filters\RequireSecureConnectionFilter.cs:line 21
    at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)'.
+2018-01-26 20:59:35,935       [29] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1874.
+2018-01-26 21:25:38,136       [69] WARN  JoelScottFitness.Data.JSFitnessRespository [(null)] An exception occured update the database, details - 'Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.'.

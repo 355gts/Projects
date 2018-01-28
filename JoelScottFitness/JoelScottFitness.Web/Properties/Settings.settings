@@ -2,47 +2,47 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.Web.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DefaultSectionImage1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"/Content/Images/Default/section1.jpg"</Value>
-    </Setting>
-    <Setting Name="DefaultSectionImage2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"/Content/Images/Default/section2.jpg"</Value>
-    </Setting>
-    <Setting Name="DefaultSectionImage3" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"/Content/Images/Default/section3.jpg"</Value>
-    </Setting>
-    <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"/Content/Images/Default/banner.jpg"</Value>
-    </Setting>
     <Setting Name="PurchaseConfirmation" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Joel Scott Fitness - Order #{0} Confirmation"</Value>
+      <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Confirmation</Value>
     </Setting>
     <Setting Name="PurchaseComplete" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Joel Scott Fitness - Order #{0} Complete"</Value>
+      <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Complete</Value>
     </Setting>
     <Setting Name="ConfirmAccount" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Joel Scott Fitness - Confirm Account"</Value>
+      <Value Profile="(Default)">Joel Scott Fitness - Confirm Account</Value>
     </Setting>
     <Setting Name="ResetPassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Joel Scott Fitness - Reset Password"</Value>
+      <Value Profile="(Default)">Joel Scott Fitness - Reset Password</Value>
     </Setting>
     <Setting Name="HallOfFameDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Content/Images/HallOfFame"</Value>
+      <Value Profile="(Default)">Content/Images/HallOfFame</Value>
     </Setting>
     <Setting Name="BlogImageDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Content/Images/Blogs"</Value>
+      <Value Profile="(Default)">Content/Images/Blogs</Value>
     </Setting>
     <Setting Name="PlanImageDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Content/Images/Plans"</Value>
+      <Value Profile="(Default)">Content/Images/Plans</Value>
     </Setting>
     <Setting Name="ImageDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Content/Images"</Value>
+      <Value Profile="(Default)">Content/Images</Value>
     </Setting>
     <Setting Name="PlanDirectory" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"Content/Plans"</Value>
+      <Value Profile="(Default)">Content/Plans</Value>
     </Setting>
     <Setting Name="PlanFilenameFormat" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">"{0} {1} - {2} - {3} - {4}.pdf"</Value>
+      <Value Profile="(Default)">{0} {1} - {2} - {3} - {4}.pdf</Value>
+    </Setting>
+    <Setting Name="DefaultSectionImage1" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/section1.jpg</Value>
+    </Setting>
+    <Setting Name="DefaultSectionImage2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/section2.jpg</Value>
+    </Setting>
+    <Setting Name="DefaultSectionImage3" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/section3.jpg</Value>
+    </Setting>
+    <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/Content/Images/banner.jpg</Value>
     </Setting>
   </Settings>
 </SettingsFile>

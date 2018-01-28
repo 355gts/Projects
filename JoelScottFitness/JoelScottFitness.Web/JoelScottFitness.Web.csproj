@@ -254,6 +254,9 @@
     <Content Include="Content\Images\Blogs\ladies3.jpg" />
     <Content Include="Content\Images\Default\for-her-plan.jpg" />
     <Content Include="Content\Images\Default\for-him-plan.jpg" />
+    <Content Include="Content\Images\Default\section1.jpg" />
+    <Content Include="Content\Images\Default\section2.jpg" />
+    <Content Include="Content\Images\Default\section3.jpg" />
     <Content Include="Content\Images\Logos\facebook-black.png" />
     <Content Include="Content\Images\Logos\facebook-grey.png" />
     <Content Include="Content\Images\Logos\facebook-white.png" />
