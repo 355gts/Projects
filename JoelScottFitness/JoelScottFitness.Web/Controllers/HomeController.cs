@@ -10,51 +10,23 @@ using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Helpers;
 using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
-using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace JoelScottFitness.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
         private readonly IJSFitnessService jsfService;
         private readonly IYouTubeClient youTubeClient;
         private readonly IBasketHelper basketHelper;
         private readonly IFileHelper fileHelper;
         
         private string errorMessage;
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
 
         public HomeController(IJSFitnessService jsfService,
                               IYouTubeClient youTubeClient,
@@ -77,8 +49,6 @@ namespace JoelScottFitness.Web.Controllers
             this.youTubeClient = youTubeClient;
             this.basketHelper = basketHelper;
             this.fileHelper = fileHelper;
-            this.SignInManager = _signInManager;
-            this.UserManager = _userManager;
         }
 
         [HttpGet]
@@ -663,18 +633,6 @@ namespace JoelScottFitness.Web.Controllers
             var hallOfFameEntries = await jsfService.GetHallOfFameEntries();
 
             return View(hallOfFameEntries);
-        }
-
-        [HttpGet]
-        public ActionResult ResetPassword()
-        {
-            // TODO need to fix this
-            var model = new CallbackViewModel()
-            {
-                CallbackUrl = "https://www.JoelScottFitness.com/Account/ResetPassword?userEmail=blah",
-            };
-
-            return View(model);
         }
 
         private async Task<bool> UpdateMailingList(string emailAddress)

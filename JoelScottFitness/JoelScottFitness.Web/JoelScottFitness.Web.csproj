@@ -257,6 +257,7 @@
     <Content Include="Content\Images\Blogs\ladies3.jpg" />
     <Content Include="Content\Images\Default\for-her-plan.jpg" />
     <Content Include="Content\Images\Default\for-him-plan.jpg" />
+    <Content Include="Content\Images\Default\JoelScottFitness.jpg" />
     <Content Include="Content\Images\Default\section1.jpg" />
     <Content Include="Content\Images\Default\section2.jpg" />
     <Content Include="Content\Images\Default\section3.jpg" />
@@ -361,6 +362,9 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="robots.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\flipclock.min.js" />
