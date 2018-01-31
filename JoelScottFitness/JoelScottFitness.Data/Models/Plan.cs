@@ -18,8 +18,6 @@ namespace JoelScottFitness.Data.Models
 
         [Required]
         public BannerColour BannerColour { get; set; }
-        
-        public string ImagePathMedium { get; set; }
 
         [Required]
         public string ImagePathLarge { get; set; }

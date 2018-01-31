@@ -21,9 +21,6 @@ namespace JoelScottFitness.Common.Models
         public string BannerHeader { get; set; }
         
         [DataMember(IsRequired = false)]
-        public string ImagePathMedium { get; set; }
-        
-        [DataMember(IsRequired = false)]
         public string ImagePathLarge { get; set; }
 
         [Required]

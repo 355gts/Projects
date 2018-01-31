@@ -21,7 +21,6 @@ namespace JoelScottFitness.Test.Mappers
                     BannerHeader = "Test Banner",
                     Description = "Test Description",
                     ImagePathLarge = "Image Large",
-                    ImagePathMedium = "Image Medium",
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<CreatePlanOptionViewModel>(),
@@ -43,7 +42,6 @@ namespace JoelScottFitness.Test.Mappers
                     BannerHeader = "Test Banner",
                     Description = "Test Description",
                     ImagePathLarge = "Image Large",
-                    ImagePathMedium = "Image Medium",
                     Name = "Test Name",
                     TargetGender = Gender.Female,
                     Options = new List<CreatePlanOptionViewModel>(),
@@ -67,7 +65,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(0, repoObject.Id);
                 Assert.AreEqual(repoObject.ImagePathLarge, webObject.ImagePathLarge);
-                Assert.AreEqual(repoObject.ImagePathMedium, webObject.ImagePathMedium);
                 Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
                 Assert.AreEqual(repoObject.BannerColour, webObject.BannerColour);

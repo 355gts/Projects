@@ -25,7 +25,6 @@ namespace JoelScottFitness.Test.Mappers
                     Description = "Test Description",
                     Id = 123,
                     ImagePathLarge = "Image Large",
-                    ImagePathMedium = "Image Medium",
                     ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
                     Name = "Test Name",
                     TargetGender = Gender.Female,
@@ -51,7 +50,6 @@ namespace JoelScottFitness.Test.Mappers
                     Description = "Test Description",
                     Id = 123,
                     ImagePathLarge = "Image Large",
-                    ImagePathMedium = "Image Medium",
                     ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
                     Name = "Test Name",
                     TargetGender = Gender.Female,
@@ -75,7 +73,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.ImagePathLarge, webObject.ImagePathLarge);
-                Assert.AreEqual(repoObject.ImagePathMedium, webObject.ImagePathMedium);
                 Assert.IsNotNull(webObject.ModifiedDate);
                 Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
@@ -97,7 +94,6 @@ namespace JoelScottFitness.Test.Mappers
                     Description = "Test Description",
                     Id = 123,
                     ImagePathLarge = "Image Large",
-                    ImagePathMedium = "Image Medium",
                     ModifiedDate = DateTime.UtcNow,
                     Name = "Test Name",
                     TargetGender = Gender.Female,
@@ -122,7 +118,6 @@ namespace JoelScottFitness.Test.Mappers
                     Description = "Test Description",
                     Id = 123,
                     ImagePathLarge = "Image Large",
-                    ImagePathMedium = "Image Medium",
                     ModifiedDate = DateTime.UtcNow,
                     Name = "Test Name",
                     TargetGender = Gender.Female,
@@ -147,7 +142,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.Description, repoObject.Description);
                 Assert.AreEqual(webObject.Id, repoObject.Id);
                 Assert.AreEqual(webObject.ImagePathLarge, repoObject.ImagePathLarge);
-                Assert.AreEqual(webObject.ImagePathMedium, repoObject.ImagePathMedium);
                 Assert.AreEqual(webObject.ModifiedDate, repoObject.ModifiedDate);
                 Assert.AreEqual(webObject.Name, repoObject.Name);
                 Assert.AreEqual(webObject.TargetGender, repoObject.TargetGender);

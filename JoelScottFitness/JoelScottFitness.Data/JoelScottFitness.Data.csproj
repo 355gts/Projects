@@ -65,6 +65,15 @@
     <Compile Include="JSFitnessContext.cs" />
     <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
+    <Compile Include="Migrations\201712172327383_InitialCreate.cs" />
+    <Compile Include="Migrations\201712172327383_InitialCreate.Designer.cs">
+      <DependentUpon>201712172327383_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801312126242_Removed image path medium.cs" />
+    <Compile Include="Migrations\201801312126242_Removed image path medium.Designer.cs">
+      <DependentUpon>201801312126242_Removed image path medium.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\BaseRecord.cs" />
@@ -96,6 +105,14 @@
       <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
       <Name>JoelScottFitness.Identity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712172327383_InitialCreate.resx">
+      <DependentUpon>201712172327383_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801312126242_Removed image path medium.resx">
+      <DependentUpon>201801312126242_Removed image path medium.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

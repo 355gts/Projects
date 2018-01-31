@@ -18,7 +18,6 @@ namespace JoelScottFitness.Services.Mappers
             plan.CreatedDate = DateTime.UtcNow;
             plan.Description = fromObject.Description;
             plan.ImagePathLarge = fromObject.ImagePathLarge;
-            plan.ImagePathMedium = fromObject.ImagePathMedium;
             plan.Name = fromObject.Name;
             plan.TargetGender = fromObject.TargetGender;
             plan.Active = false;

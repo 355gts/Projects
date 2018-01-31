@@ -25,7 +25,6 @@ namespace JoelScottFitness.Services.Mappers
                 planOption.Plan.Description = fromObject.Plan.Description;
                 planOption.Plan.Id = fromObject.Plan.Id;
                 planOption.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
-                planOption.Plan.ImagePathMedium = fromObject.Plan.ImagePathMedium;
                 planOption.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
                 planOption.Plan.Name = fromObject.Plan.Name;
                 planOption.Plan.TargetGender = fromObject.Plan.TargetGender;
@@ -53,7 +52,6 @@ namespace JoelScottFitness.Services.Mappers
                 planOption.Plan.Description = fromObject.Plan.Description;
                 planOption.Plan.Id = fromObject.Plan.Id;
                 planOption.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
-                planOption.Plan.ImagePathMedium = fromObject.Plan.ImagePathMedium;
                 planOption.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
                 planOption.Plan.Name = fromObject.Plan.Name;
                 planOption.Plan.TargetGender = fromObject.Plan.TargetGender;
