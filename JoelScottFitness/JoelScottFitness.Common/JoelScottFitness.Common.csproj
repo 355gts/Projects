@@ -57,7 +57,9 @@
     <Compile Include="Enumerations\ItemType.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="IO\FileHelper.cs" />
+    <Compile Include="IO\FileUtility.cs" />
     <Compile Include="IO\IFileHelper.cs" />
+    <Compile Include="IO\UploadResult.cs" />
     <Compile Include="Mapper\IMapper.cs" />
     <Compile Include="Mapper\ITypeMapper.cs" />
     <Compile Include="Mapper\Mapper.cs" />

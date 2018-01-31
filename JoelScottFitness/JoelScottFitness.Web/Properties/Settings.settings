@@ -44,5 +44,11 @@
     <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/Content/Images/banner.jpg</Value>
     </Setting>
+    <Setting Name="BeforeFileNameFormat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{0}_BEFORE_{1}</Value>
+    </Setting>
+    <Setting Name="AfterFileNameFormat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{0}_AFTER_{1}</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

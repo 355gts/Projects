@@ -1,10 +1,13 @@
 ﻿using JoelScottFitness.Common.Constants;
 using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Extensions;
+using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Services.Services;
+using JoelScottFitness.Web.Constants;
 using JoelScottFitness.Web.Extensions;
+using JoelScottFitness.Web.Helpers;
 using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.AspNet.Identity.Owin;
@@ -24,9 +27,9 @@ namespace JoelScottFitness.Web.Controllers
         private ApplicationUserManager _userManager;
         private readonly IJSFitnessService jsfService;
         private readonly IYouTubeClient youTubeClient;
-
-        private const string basketKey = "Basket";
-
+        private readonly IBasketHelper basketHelper;
+        private readonly IFileHelper fileHelper;
+        
         private string errorMessage;
 
         public ApplicationSignInManager SignInManager
@@ -54,7 +57,9 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         public HomeController(IJSFitnessService jsfService,
-                              IYouTubeClient youTubeClient)
+                              IYouTubeClient youTubeClient,
+                              IBasketHelper basketHelper,
+                              IFileHelper fileHelper)
         {
             if (jsfService == null)
                 throw new ArgumentNullException(nameof(jsfService));
@@ -62,8 +67,16 @@ namespace JoelScottFitness.Web.Controllers
             if (youTubeClient == null)
                 throw new ArgumentNullException(nameof(youTubeClient));
 
+            if (basketHelper == null)
+                throw new ArgumentNullException(nameof(basketHelper));
+
+            if (fileHelper == null)
+                throw new ArgumentNullException(nameof(fileHelper));
+
             this.jsfService = jsfService;
             this.youTubeClient = youTubeClient;
+            this.basketHelper = basketHelper;
+            this.fileHelper = fileHelper;
             this.SignInManager = _signInManager;
             this.UserManager = _userManager;
         }
@@ -104,12 +117,12 @@ namespace JoelScottFitness.Web.Controllers
             };
 
             // used to determine whether to show the hall of fame link
-            Session["HallOfFame"] = false;
+            Session[SessionKeys.HallOfFame] = false;
             if (indexViewModel.LatestHallOfFamer != null)
-                Session["HallOfFame"] = true;
+                Session[SessionKeys.HallOfFame] = true;
 
             if (christmas)
-                Session["Christmas"] = true;
+                Session[SessionKeys.Christmas] = true;
 
             return View(indexViewModel);
         }
@@ -282,7 +295,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
 
-            var basket = GetBasketItems();
+            var basket = basketHelper.GetBasketItems();
 
             var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
 
@@ -295,10 +308,10 @@ namespace JoelScottFitness.Web.Controllers
             confirmPurchaseViewModel.CustomerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
             confirmPurchaseViewModel.BasketItems = basketItems;
 
-            if (Session["DiscountCode"] != null)
+            if (Session[SessionKeys.DiscountCode] != null)
             {
-                confirmPurchaseViewModel.DiscountCodeId = ((DiscountCodeViewModel)Session["DiscountCode"]).Id;
-                confirmPurchaseViewModel.DiscountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+                confirmPurchaseViewModel.DiscountCodeId = ((DiscountCodeViewModel)Session[SessionKeys.DiscountCode]).Id;
+                confirmPurchaseViewModel.DiscountCode = (DiscountCodeViewModel)Session[SessionKeys.DiscountCode];
             }
 
             return View(confirmPurchaseViewModel);
@@ -308,21 +321,21 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task AddToBasket(long id)
         {
-            await AddItemToBasket(id);
+            await basketHelper.AddItemToBasket(id);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public void RemoveFromBasket(long id)
         {
-            RemoveItemFromBasket(id);
+            basketHelper.RemoveItemFromBasket(id);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public JsonResult IncreaseQuantity(long id)
         {
-            var itemQuantityModel = IncreaseItemQuantity(id);
+            var itemQuantityModel = basketHelper.IncreaseItemQuantity(id);
 
             return new JsonResult()
             {
@@ -334,7 +347,7 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult DecreaseQuantity(long id)
         {
-            var itemQuantityModel = DecreaseItemQuantity(id);
+            var itemQuantityModel = basketHelper.DecreaseItemQuantity(id);
 
             return new JsonResult()
             {
@@ -345,7 +358,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult GetBasketItemCount()
         {
-            var numberOfItems = GetBasketItems().Count();
+            var numberOfItems = basketHelper.GetBasketItems().Count();
 
             return new JsonResult()
             {
@@ -365,13 +378,13 @@ namespace JoelScottFitness.Web.Controllers
 
             if (discountCode != null && discountCode.Active)
             {
-                Session["DiscountCode"] = discountCode;
+                Session[SessionKeys.DiscountCode] = discountCode;
 
                 return new JsonResult()
                 {
                     Data = new
                     {
-                        Applied = Session["DiscountCode"] != null,
+                        Applied = Session[SessionKeys.DiscountCode] != null,
                         DiscountCodeId = discountCode.Id,
                         Discount = discountCode.PercentDiscount,
                         Description = $"{discountCode.PercentDiscount}% Discount!",
@@ -395,8 +408,8 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult RemoveDiscountCode()
         {
-            if (Session["DiscountCode"] != null)
-                Session.Remove("DiscountCode");
+            if (Session[SessionKeys.DiscountCode] != null)
+                Session.Remove(SessionKeys.DiscountCode);
             
             return new JsonResult()
             {
@@ -415,7 +428,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 Data = new
                 {
-                    TotalPrice = String.Format("{0:0.00}", CalculateTotalCost())
+                    TotalPrice = String.Format("{0:0.00}", basketHelper.CalculateTotalCost())
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -424,7 +437,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Basket()
         {
-            var basket = GetBasketItems();
+            var basket = basketHelper.GetBasketItems();
             
             var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
 
@@ -464,8 +477,8 @@ namespace JoelScottFitness.Web.Controllers
 
             var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
 
-            Session.Add("PaymentId", paymentInitiationResult.PaymentId);
-            Session.Add("TransactionId", paymentInitiationResult.TransactionId);
+            Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
+            Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
 
             confirmPurchaseViewModel.PayPalReference = paymentInitiationResult.PaymentId;
             confirmPurchaseViewModel.TransactionId = paymentInitiationResult.TransactionId;
@@ -477,7 +490,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 // cancel the purchase
             }
-            Session.Add("PurchaseId", savePurchaseResult.Result);
+            Session.Add(SessionKeys.PurchaseId, savePurchaseResult.Result);
 
             return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
@@ -486,10 +499,10 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> CompletePayment()
         {
             // need to define a model to return with the success invoice number or failure reason
-            string payerId = Request.Params["PayerID"];
-            string paymentId = (string)Session["PaymentId"];
-            string transactionId = (string)Session["TransactionId"];
-            long purchaseId = (long)Session["PurchaseId"];
+            string payerId = Request.Params[SessionKeys.PayerID];
+            string paymentId = (string)Session[SessionKeys.PaymentId];
+            string transactionId = (string)Session[SessionKeys.TransactionId];
+            long purchaseId = (long)Session[SessionKeys.PurchaseId];
 
             var paymentResult = jsfService.CompletePayPalPayment(paymentId, payerId);
 
@@ -503,14 +516,14 @@ namespace JoelScottFitness.Web.Controllers
 
             // check whether the hall of fame is visible and re-add it after session is cleared
             var hallOfFameVisible = false;
-            if (Session["HallOfFame"] != null && (bool)Session["HallOfFame"])
+            if (Session[SessionKeys.HallOfFame] != null && (bool)Session[SessionKeys.HallOfFame])
                 hallOfFameVisible = true;
 
             // clear the users basket
             Session.Clear();
 
             // re-add this to the session
-            Session["HallOfFame"] = hallOfFameVisible;
+            Session[SessionKeys.HallOfFame] = hallOfFameVisible;
 
             var purchaseViewModel = await jsfService.GetPurchaseAsync(purchaseId);
 
@@ -631,13 +644,15 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> BeforeAndAfter(BeforeAndAfterViewModel model)
         {
-            var beforeImageFilename = $"{model.PurchasedItemId}_BEFORE_{Path.GetFileName(model.BeforeFile.FileName)}";
-            var afterImageFilename = $"{model.PurchasedItemId}_AFTER_{Path.GetFileName(model.AfterFile.FileName)}";
+            var beforeImageFilename = string.Format(Settings.Default.BeforeFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.BeforeFile.FileName));
+            var afterImageFilename = string.Format(Settings.Default.AfterFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.AfterFile.FileName));
 
-            var beforeUploadPath = SaveFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
-            var afterUploadPath = SaveFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
+            var beforeUploadResult = fileHelper.UploadFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
+            var afterUploadResult = fileHelper.UploadFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
 
-            var result = await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadPath, afterUploadPath, model.Comment);
+            // TODO what if upload fails!!!
+
+            var result = await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment);
 
             return RedirectToAction("MyPlans", "Home");
         }
@@ -662,93 +677,6 @@ namespace JoelScottFitness.Web.Controllers
             return View(model);
         }
 
-        private async Task AddItemToBasket(long id)
-        {
-            var basket = GetBasketItems();
-
-            if (!basket.ContainsKey(id))
-            {
-                var planOption = await jsfService.GetPlanOptionAsync(id);
-
-                if (planOption != null)
-                {
-                    basket.Add(id, new ItemQuantityViewModel()
-                    {
-                        Id = id,
-                        Price = planOption.Price,
-                        Quantity = 1, // 1 is the default quantity
-                    });
-                }
-            }
-
-            Session[basketKey] = basket;
-        }
-
-        private void RemoveItemFromBasket(long id)
-        {
-            var basket = GetBasketItems();
-
-            if (basket.ContainsKey(id))
-            {
-                basket.Remove(id);
-            }
-
-            Session[basketKey] = basket;
-        }
-
-        private ItemQuantityViewModel IncreaseItemQuantity(long id)
-        {
-            var basket = GetBasketItems();
-
-            if (basket.ContainsKey(id))
-            {
-                basket[id].Quantity = ++basket[id].Quantity;
-                
-                Session[basketKey] = basket;
-            }
-
-            return new ItemQuantityViewModel() { Id = id, Quantity = basket[id].Quantity };
-        }
-
-        private ItemQuantityViewModel DecreaseItemQuantity(long id)
-        {
-            var basket = GetBasketItems();
-
-            // only permit the customer to decrease the quantity to 1
-            if (basket.ContainsKey(id) && basket[id].Quantity > 1)
-            {
-                basket[id].Quantity = --basket[id].Quantity;
-
-                Session[basketKey] = basket;
-            }
-            
-            return new ItemQuantityViewModel() { Id = id, Quantity = basket[id].Quantity };
-        }
-
-        private IDictionary<long, ItemQuantityViewModel> GetBasketItems()
-        {
-            if (Session[basketKey] == null)
-            {
-                Session[basketKey] = new Dictionary<long, ItemQuantityViewModel>();
-            }
-
-            return (Dictionary<long, ItemQuantityViewModel>)Session[basketKey];
-        }
-
-        private double CalculateTotalCost()
-        {
-            double total = 0;
-
-            var basket = GetBasketItems();
-
-            foreach (var item in basket)
-            {
-                total += item.Value.Quantity * item.Value.Price;
-            }
-
-            return total;
-        }
-
         private async Task<bool> UpdateMailingList(string emailAddress)
         {
             var mailingListItemViewModel = new MailingListItemViewModel()
@@ -758,32 +686,6 @@ namespace JoelScottFitness.Web.Controllers
             };
 
             return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
-        }
-
-        private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
-        {
-            string uploadPath = null;
-            try
-            {
-                string path = Server.MapPath($"~/{directory}/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                string fileName = !string.IsNullOrEmpty(name)
-                                    ? name
-                                    : Path.GetFileName(postedFile.FileName);
-
-                postedFile.SaveAs(path + fileName);
-                uploadPath = $"/{directory}/{fileName}";
-            }
-            catch (Exception ex)
-            {
-                // TODO log exception
-            }
-
-            return uploadPath;
         }
 
         private async Task<bool> SendOrderConfirmationEmail(PurchaseHistoryViewModel purchaseViewModel)

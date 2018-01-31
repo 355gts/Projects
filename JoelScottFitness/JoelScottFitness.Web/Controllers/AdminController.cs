@@ -1,4 +1,5 @@
 ﻿using JoelScottFitness.Common.Constants;
+using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
@@ -17,13 +18,19 @@ namespace JoelScottFitness.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IJSFitnessService jsfService;
+        private readonly IFileHelper fileHelper;
 
-        public AdminController(IJSFitnessService jsfService)
+        public AdminController(IJSFitnessService jsfService,
+                               IFileHelper fileHelper)
         {
             if (jsfService == null)
                 throw new ArgumentNullException(nameof(jsfService));
 
+            if (fileHelper == null)
+                throw new ArgumentNullException(nameof(fileHelper));
+
             this.jsfService = jsfService;
+            this.fileHelper = fileHelper;
         }
 
         [HttpGet]
@@ -55,13 +62,23 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                blog.ImagePath = SaveFile(postedFile, Settings.Default.BlogImageDirectory);
+                var uploadResult = UploadFile(postedFile, Settings.Default.BlogImageDirectory);
+                if (!uploadResult.Success)
+                {
+                    return View(blog);
+                }
+                blog.ImagePath = uploadResult.UploadPath;
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages)
                     {
-                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, Settings.Default.BlogImageDirectory);
+                        uploadResult = UploadFile(blogImage.PostedFile, Settings.Default.BlogImageDirectory);
+                        if (!uploadResult.Success)
+                        {
+                            return View(blog);
+                        }
+                        blogImage.ImagePath = uploadResult.UploadPath;
                     }
                 }
 
@@ -95,14 +112,24 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    blog.ImagePath = SaveFile(postedFile, Settings.Default.BlogImageDirectory);
+                    var uploadResult = fileHelper.UploadFile(postedFile, Settings.Default.BlogImageDirectory);
+                    if (!uploadResult.Success)
+                    {
+                        return View(blog);
+                    }
+                    blog.ImagePath = uploadResult.UploadPath;
                 }
 
                 if (blog.BlogImages != null && blog.BlogImages.Any())
                 {
                     foreach (var blogImage in blog.BlogImages.Where(i => i.PostedFile != null).ToList())
                     {
-                        blogImage.ImagePath = SaveFile(blogImage.PostedFile, Settings.Default.BlogImageDirectory);
+                        var uploadResult = UploadFile(blogImage.PostedFile, Settings.Default.BlogImageDirectory);
+                        if (!uploadResult.Success)
+                        {
+                            return View(blog);
+                        }
+                        blogImage.ImagePath = uploadResult.UploadPath;
                     }
                 }
 
@@ -141,7 +168,12 @@ namespace JoelScottFitness.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                plan.ImagePathLarge = SaveFile(postedFile, "Content/Images");
+                var uploadResult = UploadFile(postedFile, Settings.Default.PlanImageDirectory);
+                if (!uploadResult.Success)
+                {
+                    return View(plan);
+                }
+                plan.ImagePathLarge = uploadResult.UploadPath;
 
                 var result = await jsfService.CreatePlanAsync(plan);
 
@@ -170,7 +202,12 @@ namespace JoelScottFitness.Web.Controllers
             {
                 if (postedFile != null)
                 {
-                    plan.ImagePathLarge = SaveFile(postedFile, Settings.Default.PlanImageDirectory);
+                    var uploadResult = UploadFile(postedFile, Settings.Default.PlanImageDirectory);
+                    if (!uploadResult.Success)
+                    {
+                        return View(plan);
+                    }
+                    plan.ImagePathLarge = uploadResult.UploadPath;
                 }
 
                 var result = await jsfService.UpdatePlanAsync(plan);
@@ -292,9 +329,11 @@ namespace JoelScottFitness.Web.Controllers
 
             foreach (var file in postedFile)
             {
-                string imagePath = SaveFile(file, Settings.Default.ImageDirectory);
+                var uploadResult = fileHelper.UploadFile(file, Settings.Default.ImageDirectory);
 
-                var result = await jsfService.AddImage(imagePath);
+                // TODO what when upload fails
+
+                var result = await jsfService.AddImage(uploadResult.UploadPath);
 
                 if (!result.Success)
                 {
@@ -343,9 +382,14 @@ namespace JoelScottFitness.Web.Controllers
                 var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
 
                 string fileName = string.Format(Settings.Default.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd"));
-                var planPath = SaveFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
 
-                var result = await jsfService.AssociatePlanToPurchase(uploadPlanViewModel.PurchasedItemId, planPath);
+                var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
+                if (!uploadResult.Success)
+                {
+                    // TODO what happens when upload fails
+                }                
+
+                var result = await jsfService.AssociatePlanToPurchase(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath);
 
                 var purchaseViewModel = await jsfService.GetPurchaseAsync(uploadPlanViewModel.PurchaseId);
 
@@ -396,32 +440,43 @@ namespace JoelScottFitness.Web.Controllers
 
             return View();
         }
-
-        private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
+        
+        private UploadResult UploadFile(HttpPostedFileBase postedFile, string directory, string name = null)
         {
-            string uploadPath = null;
-            try
+            var uploadResult = fileHelper.UploadFile(postedFile, directory, name);
+            if (!uploadResult.Success)
             {
-                string path = Server.MapPath($"~/{directory}/");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-
-                string fileName = !string.IsNullOrEmpty(name) 
-                                    ? name 
-                                    : Path.GetFileName(postedFile.FileName);
-
-                postedFile.SaveAs(path + fileName);
-                uploadPath = $"/{directory}/{fileName}";
+                ModelState.AddModelError(string.Empty, $"Failed to save file '{postedFile.FileName}'.");
             }
-            catch (Exception ex)
-            {
-                // TODO log exception
-            }
-
-            return uploadPath;
+            
+            return uploadResult;
         }
+
+        //private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
+        //{
+        //    string uploadPath = null;
+        //    try
+        //    {
+        //        string path = Server.MapPath($"~/{directory}/");
+        //        if (!Directory.Exists(path))
+        //        {
+        //            Directory.CreateDirectory(path);
+        //        }
+
+        //        string fileName = !string.IsNullOrEmpty(name) 
+        //                            ? name 
+        //                            : Path.GetFileName(postedFile.FileName);
+
+        //        postedFile.SaveAs(path + fileName);
+        //        uploadPath = $"/{directory}/{fileName}";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // TODO log exception
+        //    }
+
+        //    return uploadPath;
+        //}
 
         private async Task<bool> SendOrderCompleteEmail(PurchaseHistoryViewModel purchaseViewModel, IEnumerable<string> planPaths)
         {

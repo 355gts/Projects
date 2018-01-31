@@ -148,5 +148,23 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["DefaultSplashImage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0}_BEFORE_{1}")]
+        public string BeforeFileNameFormat {
+            get {
+                return ((string)(this["BeforeFileNameFormat"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0}_AFTER_{1}")]
+        public string AfterFileNameFormat {
+            get {
+                return ((string)(this["AfterFileNameFormat"]));
+            }
+        }
     }
 }
