@@ -5,9 +5,14 @@ namespace JoelScottFitness.Web.Extensions
 {
     public static class ControllerExtensions
     {
-        public static string RenderRazorViewToString(this Controller controller, string viewName, object model)
+        public static string RenderRazorViewToString(this Controller controller, string viewName, object model, string rootUri)
         {
             controller.ViewData.Model = model;
+            if (controller.TempData.ContainsKey("RootUri"))
+                controller.TempData["RootUri"] = rootUri;
+            else
+                controller.TempData.Add("RootUri", rootUri);
+
             using (var sw = new StringWriter())
             {
                 var viewResult = ViewEngines.Engines.FindPartialView(controller.ControllerContext, viewName);

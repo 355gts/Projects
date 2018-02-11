@@ -290,3 +290,41 @@ Parameter name: file
    at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
+2018-02-08 19:39:44,533       [27] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1873.
+2018-02-08 19:41:32,415       [38] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.
+2018-02-08 19:49:17,556       [24] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1863.
+2018-02-08 19:50:30,253       [32] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1862.
+2018-02-08 19:52:54,011       [37] ERROR PayPal.Api.HttpConnection [(null)] Unable to connect to the remote server
+2018-02-08 19:52:54,017       [37] INFO  PayPal.Api.HttpConnection [(null)] Retrying....
+2018-02-08 19:53:15,031       [37] ERROR PayPal.Api.HttpConnection [(null)] Unable to connect to the remote server
+2018-02-08 19:53:15,035       [37] ERROR PayPal.PayPalException [(null)] Retried 1 times.... Exception in PayPal.HttpConnection.Execute(). Check log for more details.
+PayPal.PayPalException: Retried 1 times.... Exception in PayPal.HttpConnection.Execute(). Check log for more details.
+2018-02-08 19:53:26,861       [55] ERROR GlobalExceptionAttribute [(null)] An error has occured 'PayPal.PayPalException: Retried 1 times.... Exception in PayPal.HttpConnection.Execute(). Check log for more details.
+   at PayPal.Api.HttpConnection.Execute(String payLoad, HttpWebRequest httpRequest)
+   at PayPal.Api.PayPalResource.ConfigureAndExecute[T](APIContext apiContext, HttpMethod httpMethod, String resource, String payload, String endpoint, Boolean setAuthorizationHeader)
+   at PayPal.Api.OAuthTokenCredential.GenerateOAuthToken()
+   at PayPal.Api.OAuthTokenCredential.GetAccessToken()
+   at JoelScottFitness.PayPal.Configuration.PayPalConfiguration.GetAccessToken() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.PayPal\Configuration\PayPalConfiguration.cs:line 25
+   at JoelScottFitness.PayPal.Configuration.PayPalConfiguration.GetAPIContext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.PayPal\Configuration\PayPalConfiguration.cs:line 30
+   at JoelScottFitness.PayPal.Services.PayPalService.InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, String baseUri) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.PayPal\Services\PayPalService.cs:line 174
+   at JoelScottFitness.Services.Services.JSFitnessService.InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, String baseUri) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Services\Services\JSFitnessService.cs:line 294
+   at JoelScottFitness.Web.Controllers.HomeController.<Checkout>d__31.MoveNext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Controllers\HomeController.cs:line 449
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__36(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
+2018-02-08 19:53:57,537       [58] ERROR PayPal.Api.HttpConnection [(null)] Unable to connect to the remote server
+2018-02-08 19:53:57,538       [58] INFO  PayPal.Api.HttpConnection [(null)] Retrying....
+2018-02-08 19:54:23,942       [36] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.

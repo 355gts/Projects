@@ -28,6 +28,8 @@ namespace JoelScottFitness.Web.Controllers
         
         private string errorMessage;
 
+        public string RootUri { get { return $"{Request.Url.Scheme}://{Request.Url.Authority}"; } }
+
         public HomeController(IJSFitnessService jsfService,
                               IYouTubeClient youTubeClient,
                               IBasketHelper basketHelper,
@@ -425,8 +427,7 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> Checkout(ConfirmPurchaseViewModel confirmPurchaseViewModel)
         {
             // method used to initiate the paypal payment transaction
-            string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority +
-                        "/Home/CompletePayment?";
+            string callbackUri = $"{RootUri}/Home/CompletePayment?";
 
             var plans = await jsfService.GetPlansAsync();
             DiscountCodeViewModel discountCodeViewModel = null;
@@ -445,7 +446,7 @@ namespace JoelScottFitness.Web.Controllers
                 }
             });
 
-            var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
+            var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, callbackUri);
 
             Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
             Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
@@ -648,7 +649,7 @@ namespace JoelScottFitness.Web.Controllers
 
         private async Task<bool> SendOrderConfirmationEmail(PurchaseHistoryViewModel purchaseViewModel)
         {
-            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel);
+            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel, RootUri);
 
             return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
         }

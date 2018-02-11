@@ -37,8 +37,6 @@ namespace JoelScottFitness.YouTube.Client
                         VideoId = item.Id.VideoId,
                         Description = item.Snippet.Description,
                     });
-
-                    //videoList.Add("https://www.youtube.com/watch?v=" + item.Id.VideoId);
                 }
             }
             catch(Exception ex)

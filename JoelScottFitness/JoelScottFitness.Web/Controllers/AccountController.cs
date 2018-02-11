@@ -24,6 +24,8 @@ namespace JoelScottFitness.Web.Controllers
         private ApplicationUserManager _userManager;
         private readonly IJSFitnessService jsfService;
 
+        public string RootUri { get { return $"{Request.Url.Scheme}://{Request.Url.Authority}"; } }
+
         public AccountController(IJSFitnessService jsfService)
         {
             if (jsfService == null)
@@ -595,14 +597,14 @@ namespace JoelScottFitness.Web.Controllers
 
         private async Task<bool> SendConfirmAccountEmail(CallbackViewModel callbackViewModel, string emailAddress)
         {
-            var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel);
+            var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel, RootUri);
 
             return await jsfService.SendEmailAsync(Settings.Default.ConfirmAccount, email, new List<string>() { emailAddress });
         }
 
         private async Task<bool> SendResetPasswordEmail(CallbackViewModel callbackViewModel, string emailAddress)
         {
-            var email = this.RenderRazorViewToString("_EmailResetPassword", callbackViewModel);
+            var email = this.RenderRazorViewToString("_EmailResetPassword", callbackViewModel, RootUri);
 
             return await jsfService.SendEmailAsync(Settings.Default.ResetPassword, email, new List<string>() { emailAddress });
         }

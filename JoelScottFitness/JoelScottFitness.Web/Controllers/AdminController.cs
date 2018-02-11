@@ -20,6 +20,8 @@ namespace JoelScottFitness.Web.Controllers
         private readonly IJSFitnessService jsfService;
         private readonly IFileHelper fileHelper;
 
+        public string RootUri { get { return $"{Request.Url.Scheme}://{Request.Url.Authority}"; } }
+
         public AdminController(IJSFitnessService jsfService,
                                IFileHelper fileHelper)
         {
@@ -452,35 +454,9 @@ namespace JoelScottFitness.Web.Controllers
             return uploadResult;
         }
 
-        //private string SaveFile(HttpPostedFileBase postedFile, string directory, string name = null)
-        //{
-        //    string uploadPath = null;
-        //    try
-        //    {
-        //        string path = Server.MapPath($"~/{directory}/");
-        //        if (!Directory.Exists(path))
-        //        {
-        //            Directory.CreateDirectory(path);
-        //        }
-
-        //        string fileName = !string.IsNullOrEmpty(name) 
-        //                            ? name 
-        //                            : Path.GetFileName(postedFile.FileName);
-
-        //        postedFile.SaveAs(path + fileName);
-        //        uploadPath = $"/{directory}/{fileName}";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // TODO log exception
-        //    }
-
-        //    return uploadPath;
-        //}
-
         private async Task<bool> SendOrderCompleteEmail(PurchaseHistoryViewModel purchaseViewModel, IEnumerable<string> planPaths)
         {
-            var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel);
+            var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel, RootUri);
 
             return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseComplete, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress }, planPaths);
         }
