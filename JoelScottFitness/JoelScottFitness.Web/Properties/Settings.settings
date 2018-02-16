@@ -50,5 +50,20 @@
     <Setting Name="AfterFileNameFormat" Type="System.String" Scope="Application">
       <Value Profile="(Default)">{0}_AFTER_{1}</Value>
     </Setting>
+    <Setting Name="DefaultItemQuantity" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="BasketItemsNullErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ooops, the items fell out of the basket, please try again.</Value>
+    </Setting>
+    <Setting Name="BasketItemsAsyncNullErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ooops, there must be a hole in your basket, please try again.</Value>
+    </Setting>
+    <Setting Name="GetCustomerDetailsAsyncErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ooops, someone turned the power off, please try again.</Value>
+    </Setting>
+    <Setting Name="CustomerIdNullErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ooops, we cannot find your customer id, please contact customer services if this continues.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

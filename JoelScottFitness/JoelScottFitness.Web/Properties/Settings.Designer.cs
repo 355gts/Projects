@@ -166,5 +166,51 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["AfterFileNameFormat"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int DefaultItemQuantity {
+            get {
+                return ((int)(this["DefaultItemQuantity"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, the items fell out of the basket, please try again.")]
+        public string BasketItemsNullErrorMessage {
+            get {
+                return ((string)(this["BasketItemsNullErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, there must be a hole in your basket, please try again.")]
+        public string BasketItemsAsyncNullErrorMessage {
+            get {
+                return ((string)(this["BasketItemsAsyncNullErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, someone turned the power off, please try again.")]
+        public string GetCustomerDetailsAsyncErrorMessage {
+            get {
+                return ((string)(this["GetCustomerDetailsAsyncErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, we cannot find your customer id, please contact customer services if this " +
+            "continues.")]
+        public string CustomerIdNullErrorMessage {
+            get {
+                return ((string)(this["CustomerIdNullErrorMessage"]));
+            }
+        }
     }
 }

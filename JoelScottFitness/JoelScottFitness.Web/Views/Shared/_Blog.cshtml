@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<JoelScottFitness.Common.Models.BlogViewModel>
 
 @{
-    if (Model.Any())
+    if (Model != null && Model.Any())
     {
         int blogCount = 0;
 

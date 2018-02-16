@@ -4,6 +4,7 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Properties;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,8 @@ namespace JoelScottFitness.Web.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(AdminController));
+
         private readonly IJSFitnessService jsfService;
         private readonly IFileHelper fileHelper;
 

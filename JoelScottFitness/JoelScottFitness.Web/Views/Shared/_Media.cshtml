@@ -1,15 +1,7 @@
 ﻿@model IEnumerable<JoelScottFitness.Common.Models.MediaViewModel>
 
 @{
-    if (!Model.Any())
-    {
-        <div class="row col-xs-12" style="margin:0px">
-            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
-                SORRY NOT CURRENTLY AVAILABLE
-            </div>
-        </div>
-    }
-    else
+    if (Model != null && Model.Any())
     {
         var videoCount = 0;
 
@@ -28,5 +20,14 @@
 
             videoCount++;
         }
+    }
+    else
+    {
+        <div class="row col-xs-12" style="margin:0px">
+            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                OOPS! NOT CURRENTLY AVAILABLE
+            </div>
+        </div>
+
     }
 }

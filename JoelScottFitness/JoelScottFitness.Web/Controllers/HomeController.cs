@@ -10,6 +10,7 @@ using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Helpers;
 using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +22,8 @@ namespace JoelScottFitness.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(HomeController));
+
         private readonly IJSFitnessService jsfService;
         private readonly IYouTubeClient youTubeClient;
         private readonly IBasketHelper basketHelper;
@@ -134,6 +137,10 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> Blogs()
         {
             var blogs = await jsfService.GetBlogsAsync();
+
+            if (blogs == null || !blogs.Any())
+                return View();
+
             return View(blogs.Where(b => b.Active).OrderByDescending(b => b.CreatedDate));
         }
 
@@ -245,6 +252,11 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             var user = await jsfService.GetUserAsync(customer.EmailAddress);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Unable to find account, please try again.");
+                return View(customer);
+            }
 
             if (customer.JoinMailingList)
             {
@@ -252,7 +264,6 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             var customerResult = await jsfService.UpdateCustomerAsync(customer);
-
             if (!customerResult.Success)
             {
                 ModelState.AddModelError(string.Empty, "An error occured saving customer details please try again.");
@@ -267,17 +278,40 @@ namespace JoelScottFitness.Web.Controllers
         {
             var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
 
+            if (customerId == null || customerId == Guid.Empty)
+            {
+                ModelState.AddModelError(string.Empty, Settings.Default.CustomerIdNullErrorMessage);
+                return View(confirmPurchaseViewModel);
+            }
+            
             var basket = basketHelper.GetBasketItems();
+            if (basket == null)
+            {
+                ModelState.AddModelError(string.Empty, Settings.Default.BasketItemsNullErrorMessage);
+                return View(confirmPurchaseViewModel);
+            }
 
             var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
+            if (basketItems == null)
+            {
+                ModelState.AddModelError(string.Empty, Settings.Default.BasketItemsAsyncNullErrorMessage);
+                return View(confirmPurchaseViewModel);
+            }
 
             // map the quantities to the items
             foreach (var basketItem in basketItems)
             {
-                basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : 1;
+                basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : Settings.Default.DefaultItemQuantity;
             }
 
-            confirmPurchaseViewModel.CustomerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
+            var customerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
+            if (customerDetails == null)
+            {
+                ModelState.AddModelError(string.Empty, Settings.Default.GetCustomerDetailsAsyncErrorMessage);
+                return View(confirmPurchaseViewModel);
+            }
+
+            confirmPurchaseViewModel.CustomerDetails = customerDetails;
             confirmPurchaseViewModel.BasketItems = basketItems;
 
             if (Session[SessionKeys.DiscountCode] != null)
@@ -638,13 +672,21 @@ namespace JoelScottFitness.Web.Controllers
 
         private async Task<bool> UpdateMailingList(string emailAddress)
         {
-            var mailingListItemViewModel = new MailingListItemViewModel()
+            try
             {
-                Active = true,
-                Email = emailAddress,
-            };
+                var mailingListItemViewModel = new MailingListItemViewModel()
+                {
+                    Active = true,
+                    Email = emailAddress,
+                };
 
-            return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
+                return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
+            }
+            catch(Exception ex)
+            {
+                logger.Warn($"An error occurred attempting to add '{emailAddress}' to mailing list, error details: '{ex.Message}.");
+                return false;
+            }
         }
 
         private async Task<bool> SendOrderConfirmationEmail(PurchaseHistoryViewModel purchaseViewModel)

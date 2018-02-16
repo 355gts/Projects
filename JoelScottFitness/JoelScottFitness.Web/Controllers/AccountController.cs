@@ -5,6 +5,7 @@ using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Extensions;
 using JoelScottFitness.Web.Models;
 using JoelScottFitness.Web.Properties;
+using log4net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -20,6 +21,8 @@ namespace JoelScottFitness.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(AccountController));
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IJSFitnessService jsfService;
