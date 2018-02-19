@@ -32,5 +32,23 @@ namespace JoelScottFitness.Test.Helpers
         {
             get { return keyCollection.Keys; }
         }
+
+        public override void Remove(string name)
+        {
+            if (sessionStateDictionary.ContainsKey(name))
+                sessionStateDictionary.Remove(name);
+
+            foreach (var key in keyCollection.AllKeys)
+            {
+                if (key == name)
+                    keyCollection.Remove(name);
+            }
+        }
+
+        public override void Add(string name, object value)
+        {
+            sessionStateDictionary[name] = value;
+            keyCollection[name] = null;
+        }
     }
 }

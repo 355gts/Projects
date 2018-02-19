@@ -286,10 +286,10 @@ function applyDiscountCode(codeControl) {
                 __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
             },
             success: function (data) {
-                if (data.Applied == true) {
-                    hideApplyDiscountCode(data.Description);
-                    $('.discount-code-id').val(data.DiscountCodeId);
-                    $('.discount').val(data.Discount);
+                if (data.applied == true) {
+                    hideApplyDiscountCode(data.description);
+                    $('.discount-code-id').val(data.discountCodeId);
+                    $('.discount').val(data.discount);
                     calculateBasketItemTotals();
                 }
                 else {

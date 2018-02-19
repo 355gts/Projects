@@ -9,5 +9,7 @@
         public string PayPalRedirectUrl { get; set; }
 
         public string TransactionId { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

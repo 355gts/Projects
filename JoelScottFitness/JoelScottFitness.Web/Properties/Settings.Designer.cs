@@ -178,7 +178,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, the items fell out of the basket, please try again.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Attempted checkout with null basket session for customer \'{0}\'.")]
         public string BasketItemsNullErrorMessage {
             get {
                 return ((string)(this["BasketItemsNullErrorMessage"]));
@@ -187,7 +187,8 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, there must be a hole in your basket, please try again.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve matching basket items from database for customer \'{0}\', id\'s s" +
+            "earched were \'{1}\'.")]
         public string BasketItemsAsyncNullErrorMessage {
             get {
                 return ((string)(this["BasketItemsAsyncNullErrorMessage"]));
@@ -196,7 +197,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Ooops, someone turned the power off, please try again.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve customer details for customer with id \'{0}\';")]
         public string GetCustomerDetailsAsyncErrorMessage {
             get {
                 return ((string)(this["GetCustomerDetailsAsyncErrorMessage"]));
@@ -210,6 +211,78 @@ namespace JoelScottFitness.Web.Properties {
         public string CustomerIdNullErrorMessage {
             get {
                 return ((string)(this["CustomerIdNullErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to create guest account details for customer with emaill address \'{0}\'.")]
+        public string CreateGuestDetailsFailedErrorMessage {
+            get {
+                return ((string)(this["CreateGuestDetailsFailedErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to find existing customer details for email address \'{0}\';")]
+        public string UnableToFindExistingCustomerErrorMessage {
+            get {
+                return ((string)(this["UnableToFindExistingCustomerErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to update existing customer details for email address \'{0}\';")]
+        public string FailedToUpdateExistingCustomerDetailsErrorMessage {
+            get {
+                return ((string)(this["FailedToUpdateExistingCustomerDetailsErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve plans from repository.")]
+        public string FailedToRetrievePlansErrorMessage {
+            get {
+                return ((string)(this["FailedToRetrievePlansErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to initiate paypal payment, error details \'{0}\'.")]
+        public string FailedToInitiatePayPalPaymentErrorMessage {
+            get {
+                return ((string)(this["FailedToInitiatePayPalPaymentErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to save items pending purchase for customer \'{0}\'.")]
+        public string FailedToSaveItemsForPurchase {
+            get {
+                return ((string)(this["FailedToSaveItemsForPurchase"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("The confirmPurchaseViewModel was null")]
+        public string ConfirmPurchaseViewModelNullErrorMessage {
+            get {
+                return ((string)(this["ConfirmPurchaseViewModelNullErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0}/Home/CompletePayment?")]
+        public string CallbackUri {
+            get {
+                return ((string)(this["CallbackUri"]));
             }
         }
     }

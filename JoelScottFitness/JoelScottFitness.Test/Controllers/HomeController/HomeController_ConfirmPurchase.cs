@@ -109,32 +109,31 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmPurchase_CustomerIdNull_ReturnsView()
+            public void ConfirmPurchase_CustomerIdNull_ReturnRedirectToRouteResult()
             {
                 // test
-                var result = controller.ConfirmPurchase(Guid.Empty).Result as ViewResult;
+                var result = controller.ConfirmPurchase(Guid.Empty).Result as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Never);
                 jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
-
+                
                 Assert.IsNotNull(result);
-
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(Settings.Default.CustomerIdNullErrorMessage, controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.CustomerIdNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
-            public void ConfirmPurchase_GetBasketItemsFails_ReturnsView()
+            public void ConfirmPurchase_GetBasketItemsFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 basketHelperMock.Setup(b => b.GetBasketItems())
                                 .Returns((IDictionary<long, ItemQuantityViewModel>)null);
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as ViewResult;
+                var result = controller.ConfirmPurchase(customerId).Result as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
@@ -142,21 +141,20 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
 
                 Assert.IsNotNull(result);
-
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(Settings.Default.BasketItemsNullErrorMessage, controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.BasketItemsNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
-            public void ConfirmPurchase_GetBasketItemsAsyncFails_ReturnsView()
+            public void ConfirmPurchase_GetBasketItemsAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 jsfServiceMock.Setup(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()))
                               .ReturnsAsync((IEnumerable<SelectedPlanOptionViewModel>)null);
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as ViewResult;
+                var result = controller.ConfirmPurchase(customerId).Result as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
@@ -164,21 +162,20 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
 
                 Assert.IsNotNull(result);
-
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(Settings.Default.BasketItemsAsyncNullErrorMessage, controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.BasketItemsAsyncNullErrorMessage, customerId, string.Join(",", sessionBasketItems.Keys.ToList())), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
-            public void ConfirmPurchase_GetCustomerDetailsAsyncFails_ReturnsView()
+            public void ConfirmPurchase_GetCustomerDetailsAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
                               .ReturnsAsync((CustomerViewModel)null);
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as ViewResult;
+                var result = controller.ConfirmPurchase(customerId).Result as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
@@ -186,10 +183,9 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
-
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(Settings.Default.GetCustomerDetailsAsyncErrorMessage, controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]

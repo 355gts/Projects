@@ -28,8 +28,6 @@ namespace JoelScottFitness.Web.Controllers
         private readonly IYouTubeClient youTubeClient;
         private readonly IBasketHelper basketHelper;
         private readonly IFileHelper fileHelper;
-        
-        private string errorMessage;
 
         public string RootUri { get { return $"{Request.Url.Scheme}://{Request.Url.Authority}"; } }
 
@@ -64,7 +62,7 @@ namespace JoelScottFitness.Web.Controllers
             var sectionImages = await jsfService.GetSectionImages();
             var kaleidoscopeImages = await jsfService.GetKaleidoscopeImages();
             var hallOfFame = await jsfService.GetHallOfFameEntries(true, 1);
-            
+
             if (sectionImages == null)
             {
                 sectionImages = new SectionImageViewModel()
@@ -149,7 +147,8 @@ namespace JoelScottFitness.Web.Controllers
         {
             var blog = await jsfService.GetBlogAsync(id);
 
-            return new JsonResult() {
+            return new JsonResult()
+            {
                 Data = new
                 {
                     title = blog.Title,
@@ -188,7 +187,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("ExistingCustomerDetails","Home");
+                return RedirectToAction("ExistingCustomerDetails", "Home");
             }
             else
             {
@@ -201,7 +200,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GuestDetails(CreateCustomerViewModel customer)
@@ -213,10 +212,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerResult = await jsfService.CreateCustomerAsync(customer);
             if (!customerResult.Success)
-            {
-                ModelState.AddModelError(string.Empty, "An error occured saving customer details please try again.");
-                return View(customer);
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.CreateGuestDetailsFailedErrorMessage, customer.EmailAddress) });
 
             if (customer.JoinMailingList)
             {
@@ -232,7 +228,7 @@ namespace JoelScottFitness.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var customerDetails = await jsfService.GetCustomerDetailsAsync(User.Identity.Name);
-                  
+
                 //ensure this is defaulted to true
                 customerDetails.JoinMailingList = true;
 
@@ -253,10 +249,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var user = await jsfService.GetUserAsync(customer.EmailAddress);
             if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "Unable to find account, please try again.");
-                return View(customer);
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.UnableToFindExistingCustomerErrorMessage, customer.EmailAddress) });
 
             if (customer.JoinMailingList)
             {
@@ -265,10 +258,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerResult = await jsfService.UpdateCustomerAsync(customer);
             if (!customerResult.Success)
-            {
-                ModelState.AddModelError(string.Empty, "An error occured saving customer details please try again.");
-                return View(customer);
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress) });
 
             return RedirectToAction("ConfirmPurchase", "Home", new { customerId = customerResult.Result });
         }
@@ -279,24 +269,15 @@ namespace JoelScottFitness.Web.Controllers
             var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
 
             if (customerId == null || customerId == Guid.Empty)
-            {
-                ModelState.AddModelError(string.Empty, Settings.Default.CustomerIdNullErrorMessage);
-                return View(confirmPurchaseViewModel);
-            }
-            
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+
             var basket = basketHelper.GetBasketItems();
             if (basket == null)
-            {
-                ModelState.AddModelError(string.Empty, Settings.Default.BasketItemsNullErrorMessage);
-                return View(confirmPurchaseViewModel);
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsNullErrorMessage, customerId) });
 
             var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
             if (basketItems == null)
-            {
-                ModelState.AddModelError(string.Empty, Settings.Default.BasketItemsAsyncNullErrorMessage);
-                return View(confirmPurchaseViewModel);
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsAsyncNullErrorMessage, customerId, string.Join(",", basket.Keys.ToList())) });
 
             // map the quantities to the items
             foreach (var basketItem in basketItems)
@@ -306,10 +287,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
             if (customerDetails == null)
-            {
-                ModelState.AddModelError(string.Empty, Settings.Default.GetCustomerDetailsAsyncErrorMessage);
-                return View(confirmPurchaseViewModel);
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId) });
 
             confirmPurchaseViewModel.CustomerDetails = customerDetails;
             confirmPurchaseViewModel.BasketItems = basketItems;
@@ -375,7 +353,7 @@ namespace JoelScottFitness.Web.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<JsonResult> ApplyDiscountCode(string code)
@@ -390,10 +368,10 @@ namespace JoelScottFitness.Web.Controllers
                 {
                     Data = new
                     {
-                        Applied = Session[SessionKeys.DiscountCode] != null,
-                        DiscountCodeId = discountCode.Id,
-                        Discount = discountCode.PercentDiscount,
-                        Description = $"{discountCode.PercentDiscount}% Discount!",
+                        applied = Session[SessionKeys.DiscountCode] != null,
+                        discountCodeId = discountCode.Id,
+                        discount = discountCode.PercentDiscount,
+                        description = $"{discountCode.PercentDiscount}% Discount!",
                     },
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
@@ -416,7 +394,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             if (Session[SessionKeys.DiscountCode] != null)
                 Session.Remove(SessionKeys.DiscountCode);
-            
+
             return new JsonResult()
             {
                 Data = new
@@ -444,7 +422,7 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> Basket()
         {
             var basket = basketHelper.GetBasketItems();
-            
+
             var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
 
             // map the quantities to the items
@@ -452,7 +430,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : 1;
             }
-            
+
             return View(basketItems);
         }
 
@@ -460,10 +438,16 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Checkout(ConfirmPurchaseViewModel confirmPurchaseViewModel)
         {
+            if (confirmPurchaseViewModel == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.ConfirmPurchaseViewModelNullErrorMessage });
+
             // method used to initiate the paypal payment transaction
-            string callbackUri = $"{RootUri}/Home/CompletePayment?";
+            string callbackUri = string.Format(Settings.Default.CallbackUri, RootUri);
 
             var plans = await jsfService.GetPlansAsync();
+            if (plans == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.FailedToRetrievePlansErrorMessage });
+
             DiscountCodeViewModel discountCodeViewModel = null;
             if (confirmPurchaseViewModel.DiscountCodeId.HasValue)
             {
@@ -476,11 +460,13 @@ namespace JoelScottFitness.Web.Controllers
                 i.Plan = plans.First(p => p.Id == i.PlanId);
                 if (discountCodeViewModel != null)
                 {
-                    i.Price = Math.Round(i.Price - (i.Price / 100 * discountCodeViewModel.PercentDiscount),2);
+                    i.Price = Math.Round(i.Price - (i.Price / 100 * discountCodeViewModel.PercentDiscount), 2);
                 }
             });
 
             var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, callbackUri);
+            if (!paymentInitiationResult.Success)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage) });
 
             Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
             Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
@@ -490,11 +476,9 @@ namespace JoelScottFitness.Web.Controllers
 
             // save the pending purchase details in the database
             var savePurchaseResult = await jsfService.SavePurchaseAsync(confirmPurchaseViewModel);
-            
             if (!savePurchaseResult.Success)
-            {
-                // cancel the purchase
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSaveItemsForPurchase, confirmPurchaseViewModel.CustomerDetails.EmailAddress) });
+
             Session.Add(SessionKeys.PurchaseId, savePurchaseResult.Result);
 
             return Redirect(paymentInitiationResult.PayPalRedirectUrl);
@@ -534,7 +518,7 @@ namespace JoelScottFitness.Web.Controllers
 
             // send confirmation email
             await SendOrderConfirmationEmail(purchaseViewModel);
-            
+
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });
         }
@@ -635,11 +619,11 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Error()
+        public ActionResult Error(string errorMessage = null)
         {
             if (!string.IsNullOrEmpty(errorMessage))
             {
-                ViewBag.Message = errorMessage;
+                logger.Warn($"An error has occured, error details: '{errorMessage}'.");
             }
 
             return View();
@@ -682,7 +666,7 @@ namespace JoelScottFitness.Web.Controllers
 
                 return await jsfService.UpdateMailingListAsync(mailingListItemViewModel);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Warn($"An error occurred attempting to add '{emailAddress}' to mailing list, error details: '{ex.Message}.");
                 return false;

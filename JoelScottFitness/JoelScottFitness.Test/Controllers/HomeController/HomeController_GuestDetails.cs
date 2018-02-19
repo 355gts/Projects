@@ -4,6 +4,7 @@ using JoelScottFitness.Common.Results;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
 using JoelScottFitness.Web.Helpers;
+using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -28,7 +29,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
             Guid customerId = Guid.NewGuid();
             string emailAddress = "EmailAddress";
-            CreateCustomerViewModel customerViewModel;
+            CreateCustomerViewModel customer;
 
             CON.HomeController controller;
 
@@ -46,7 +47,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                            .Returns(sessionMock);
 
 
-                customerViewModel = new CreateCustomerViewModel()
+                customer = new CreateCustomerViewModel()
                 {
                     EmailAddress = emailAddress,
                     JoinMailingList = true,
@@ -73,7 +74,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 controller.ModelState.AddModelError(string.Empty, "Error");
 
                 // test
-                var result = controller.GuestDetails(customerViewModel).Result as ViewResult;
+                var result = controller.GuestDetails(customer).Result as ViewResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.CreateCustomerAsync(It.IsAny<CreateCustomerViewModel>(), It.IsAny<long?>()), Times.Never);
@@ -83,34 +84,33 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void GuestDetails_CreateCustomerAsyncFails_AddsModelError_ReturnsView()
+            public void GuestDetails_CreateCustomerAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 jsfServiceMock.Setup(s => s.CreateCustomerAsync(It.IsAny<CreateCustomerViewModel>(), It.IsAny<long?>()))
                               .ReturnsAsync(new AsyncResult<Guid>() { Success = false, Result = customerId });
 
                 // test
-                var result = controller.GuestDetails(customerViewModel).Result as ViewResult;
+                var result = controller.GuestDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.CreateCustomerAsync(It.IsAny<CreateCustomerViewModel>(), It.IsAny<long?>()), Times.Once);
                 jsfServiceMock.Verify(s => s.UpdateMailingListAsync(It.IsAny<MailingListItemViewModel>()), Times.Never);
 
                 Assert.IsNotNull(result);
-
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual("An error occured saving customer details please try again.", controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.CreateGuestDetailsFailedErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
             public void GuestDetails_JoinMailingListFalse_ReturnsRedirectToRouteResult()
             {
                 // setup
-                customerViewModel.JoinMailingList = false;
+                customer.JoinMailingList = false;
 
                 // test
-                var result = controller.GuestDetails(customerViewModel).Result as RedirectToRouteResult;
+                var result = controller.GuestDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.CreateCustomerAsync(It.IsAny<CreateCustomerViewModel>(), It.IsAny<long?>()), Times.Once);
@@ -126,7 +126,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void GuestDetails_JoinMailingListTrue_ReturnsRedirectToRouteResult()
             {
                 // test
-                var result = controller.GuestDetails(customerViewModel).Result as RedirectToRouteResult;
+                var result = controller.GuestDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.CreateCustomerAsync(It.IsAny<CreateCustomerViewModel>(), It.IsAny<long?>()), Times.Once);

@@ -87,11 +87,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController\HomeController.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_ApplyDiscountCode.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Blogs.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_Checkout.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ConfirmPurchase.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ExistingCustomerDetails.cs" />
     <Compile Include="Controllers\HomeController\HomeController_GuestDetails.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Index.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_RemoveDiscountCode.cs" />
     <Compile Include="Helpers\MockHttpSessionBase.cs" />
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\BlogImageMapper.cs" />

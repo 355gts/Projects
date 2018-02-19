@@ -4,6 +4,7 @@ using JoelScottFitness.Common.Results;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
 using JoelScottFitness.Web.Helpers;
+using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -28,7 +29,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
             Guid customerId = Guid.NewGuid();
             string emailAddress = "EmailAddress";
-            CustomerViewModel customerViewModel;
+            CustomerViewModel customer;
             UserViewModel user;
 
             CON.HomeController controller;
@@ -51,7 +52,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                     EmailAddress = emailAddress,
                 };
 
-                customerViewModel = new CustomerViewModel()
+                customer = new CustomerViewModel()
                 {
                     EmailAddress = emailAddress,
                     JoinMailingList = true,
@@ -81,7 +82,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 controller.ModelState.AddModelError(string.Empty, "Error");
 
                 // test
-                var result = controller.ExistingCustomerDetails(customerViewModel).Result as ViewResult;
+                var result = controller.ExistingCustomerDetails(customer).Result as ViewResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.CreateCustomerAsync(It.IsAny<CreateCustomerViewModel>(), It.IsAny<long?>()), Times.Never);
@@ -95,53 +96,55 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ExistingCustomerDetails_GetUserAsyncFails_ReturnsView()
+            public void ExistingCustomerDetails_GetUserAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 jsfServiceMock.Setup(s => s.GetUserAsync(It.IsAny<string>()))
                               .ReturnsAsync((UserViewModel)null);
 
                 // test
-                var result = controller.ExistingCustomerDetails(customerViewModel).Result as ViewResult;
+                var result = controller.ExistingCustomerDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetUserAsync(It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.UpdateCustomerAsync(It.IsAny<CustomerViewModel>()), Times.Never);
                 jsfServiceMock.Verify(s => s.UpdateMailingListAsync(It.IsAny<MailingListItemViewModel>()), Times.Never);
 
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual("Unable to find account, please try again.", controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.IsNotNull(result);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.UnableToFindExistingCustomerErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
-            public void ExistingCustomerDetails_UpdateCustomerAsyncFails_ReturnsView()
+            public void ExistingCustomerDetails_UpdateCustomerAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 jsfServiceMock.Setup(s => s.UpdateCustomerAsync(It.IsAny<CustomerViewModel>()))
                               .ReturnsAsync(new AsyncResult<Guid>() { Success = false, Result = customerId });
 
                 // test
-                var result = controller.ExistingCustomerDetails(customerViewModel).Result as ViewResult;
+                var result = controller.ExistingCustomerDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetUserAsync(It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.UpdateCustomerAsync(It.IsAny<CustomerViewModel>()), Times.Once);
                 jsfServiceMock.Verify(s => s.UpdateMailingListAsync(It.IsAny<MailingListItemViewModel>()), Times.Once);
 
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual("An error occured saving customer details please try again.", controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.IsNotNull(result);
+                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("Home", result.RouteValues["controller"]);
+                Assert.AreEqual(string.Format(Settings.Default.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
             public void ExistingCustomerDetails_JoinMailingListFalse_ReturnsRedirectToRouteResult()
             {
                 // setup
-                customerViewModel.JoinMailingList = false;
+                customer.JoinMailingList = false;
 
                 // test
-                var result = controller.ExistingCustomerDetails(customerViewModel).Result as RedirectToRouteResult;
+                var result = controller.ExistingCustomerDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetUserAsync(It.IsAny<string>()), Times.Once);
@@ -158,7 +161,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void ExistingCustomerDetails_JoinMailingListTrue_ReturnsRedirectToRouteResult()
             {
                 // test
-                var result = controller.ExistingCustomerDetails(customerViewModel).Result as RedirectToRouteResult;
+                var result = controller.ExistingCustomerDetails(customer).Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetUserAsync(It.IsAny<string>()), Times.Once);

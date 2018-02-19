@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.PayPal.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PayPalFailedToCreatePaymentForTransactionErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to create payment for transaction '{0}' associated to customer '{1}'.</Value>
+    </Setting>
+    <Setting Name="PayPalExceptionOccuredCreatingPaymentErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">An error occured initiating paypal payment for customer '{0}', error details - '{1}'.</Value>
+    </Setting>
+    <Setting Name="PayPalPaymentFailedErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Payment associated to paymentId '{0}' and payerId '{1}' failed, paypal response returned payment state of '{2}'.</Value>
+    </Setting>
+    <Setting Name="PayPalPaymentExceptionErrorMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An exception occured processing paypal payment for paymentId '{0}' and payerId '{1}', error details '{2}'.</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

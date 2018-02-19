@@ -54,16 +54,40 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="BasketItemsNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Ooops, the items fell out of the basket, please try again.</Value>
+      <Value Profile="(Default)">Attempted checkout with null basket session for customer '{0}'.</Value>
     </Setting>
     <Setting Name="BasketItemsAsyncNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Ooops, there must be a hole in your basket, please try again.</Value>
+      <Value Profile="(Default)">Failed to retrieve matching basket items from database for customer '{0}', id's searched were '{1}'.</Value>
     </Setting>
     <Setting Name="GetCustomerDetailsAsyncErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Ooops, someone turned the power off, please try again.</Value>
+      <Value Profile="(Default)">Failed to retrieve customer details for customer with id '{0}';</Value>
     </Setting>
     <Setting Name="CustomerIdNullErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Ooops, we cannot find your customer id, please contact customer services if this continues.</Value>
+    </Setting>
+    <Setting Name="CreateGuestDetailsFailedErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to create guest account details for customer with emaill address '{0}'.</Value>
+    </Setting>
+    <Setting Name="UnableToFindExistingCustomerErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to find existing customer details for email address '{0}';</Value>
+    </Setting>
+    <Setting Name="FailedToUpdateExistingCustomerDetailsErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to update existing customer details for email address '{0}';</Value>
+    </Setting>
+    <Setting Name="FailedToRetrievePlansErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to retrieve plans from repository.</Value>
+    </Setting>
+    <Setting Name="FailedToInitiatePayPalPaymentErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to initiate paypal payment, error details '{0}'.</Value>
+    </Setting>
+    <Setting Name="FailedToSaveItemsForPurchase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to save items pending purchase for customer '{0}'.</Value>
+    </Setting>
+    <Setting Name="ConfirmPurchaseViewModelNullErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">The confirmPurchaseViewModel was null</Value>
+    </Setting>
+    <Setting Name="CallbackUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{0}/Home/CompletePayment?</Value>
     </Setting>
   </Settings>
 </SettingsFile>

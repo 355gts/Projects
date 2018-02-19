@@ -2,6 +2,7 @@
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.PayPal.Configuration;
+using JoelScottFitness.PayPal.Properties;
 using log4net;
 using Ninject;
 using PayPal;
@@ -171,59 +172,85 @@ namespace JoelScottFitness.PayPal.Services
 
         public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)
         {
-            APIContext apiContext = PayPalConfiguration.GetAPIContext();
-
-            //string baseURI = Request.Url.Scheme + "://" + Request.Url.Authority +
-            //            "/Home/CompletePayment?";
-
-            var transactionId = Convert.ToString((new Random()).Next(100000));
-
-            // add items to transaction
-            AddItems(confirmPurchaseViewModel.BasketItems);
-            SetBillingAddress(confirmPurchaseViewModel.CustomerDetails.BillingAddress);
-
-            var createdPayment = this.CreatePayment(apiContext, transactionId, baseUri + "guid=" + transactionId);
-
-            var approvalLink = createdPayment.links
-                                             .Where(l => l.rel.ToLower().Trim() == "approval_url")
-                                             .Select(l => l.href).FirstOrDefault();
-
-            if (createdPayment == null || string.IsNullOrEmpty(createdPayment.id) || string.IsNullOrEmpty(approvalLink))
+            try
             {
+                APIContext apiContext = PayPalConfiguration.GetAPIContext();
+
+                var transactionId = Convert.ToString((new Random()).Next(100000));
+
+                // add items to transaction
+                AddItems(confirmPurchaseViewModel.BasketItems);
+                SetBillingAddress(confirmPurchaseViewModel.CustomerDetails.BillingAddress);
+
+                var createdPayment = this.CreatePayment(apiContext, transactionId, baseUri + "guid=" + transactionId);
+
+                var approvalLink = createdPayment.links
+                                                 .Where(l => l.rel.ToLower().Trim() == "approval_url")
+                                                 .Select(l => l.href).FirstOrDefault();
+
+                if (createdPayment == null || string.IsNullOrEmpty(createdPayment.id) || string.IsNullOrEmpty(approvalLink))
+                {
+                    return new PaymentInitiationResult()
+                    {
+                        Success = false,
+                        ErrorMessage = string.Format(Settings.Default.PayPalFailedToCreatePaymentForTransactionErrorMessage, transactionId, confirmPurchaseViewModel.CustomerDetails.EmailAddress),
+                    };
+                }
+
+                return new PaymentInitiationResult()
+                {
+                    Success = true,
+                    PayPalRedirectUrl = approvalLink,
+                    PaymentId = createdPayment.id,
+                    TransactionId = transactionId,
+                };
+            }
+            catch(Exception ex)
+            {
+                string erroMessage = string.Format(Settings.Default.PayPalExceptionOccuredCreatingPaymentErrorMessage, confirmPurchaseViewModel.CustomerDetails.EmailAddress, ex.Message);
+                logger.Warn(erroMessage);
+
                 return new PaymentInitiationResult()
                 {
                     Success = false,
+                    ErrorMessage = erroMessage,
                 };
             }
-
-            return new PaymentInitiationResult()
-            {
-                Success = true,
-                PayPalRedirectUrl = approvalLink,
-                PaymentId = createdPayment.id,
-                TransactionId = transactionId,
-            };
         }
 
         public PaymentResult CompletePayPalPayment(string paymentId, string payerId)
         {
-            APIContext apiContext = PayPalConfiguration.GetAPIContext();
-
-            var executedPayment = ExecutePayment(apiContext, payerId, paymentId);
-
-            if (executedPayment.state.ToLower() != "approved")
+            try
             {
+                APIContext apiContext = PayPalConfiguration.GetAPIContext();
+
+                var executedPayment = ExecutePayment(apiContext, payerId, paymentId);
+
+                if (executedPayment.state.ToLower() != "approved")
+                {
+                    return new PaymentResult()
+                    {
+                        Success = false,
+                        ErrorMessage = string.Format(Settings.Default.PayPalPaymentFailedErrorMessage, paymentId, payerId, executedPayment.state)
+                    };
+                }
+
+                return new PaymentResult()
+                {
+                    Success = true,
+                };
+            }
+            catch(Exception ex)
+            {
+                string erroMessage = string.Format(Settings.Default.PayPalPaymentExceptionErrorMessage, paymentId, payerId, ex.Message);
+                logger.Warn(erroMessage);
+
                 return new PaymentResult()
                 {
                     Success = false,
-                    ErrorMessage = $"Payment was not approvied, returned state of '{executedPayment.state}'.",
+                    ErrorMessage = erroMessage,
                 };
             }
-
-            return new PaymentResult()
-            {
-                Success = true,
-            };
         }
 
         private Payment CreatePayment(APIContext apiContext, string transactionId, string redirectUrl)
