@@ -10,7 +10,7 @@
 
         public const string PurchaseId = "PurchaseId";
 
-        public const string PayerID = "PayerID";
+        public const string PayerId = "PayerID";
 
         public const string HallOfFame = "HallOfFame";
 

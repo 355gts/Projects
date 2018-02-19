@@ -285,5 +285,60 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["CallbackUri"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Payment completion parameter \'{0}\' is null or empty, cannot complete transaction." +
+            "")]
+        public string PaymentCompletionParameterNullErrorMessage {
+            get {
+                return ((string)(this["PaymentCompletionParameterNullErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("One or more payment completion parameters were null or empty")]
+        public string PaymentCompletionErrorMessage {
+            get {
+                return ((string)(this["PaymentCompletionErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to complete paypal payment, error details \'{0}\'.")]
+        public string FailedToCompletePayPalPaymentErrorMessage {
+            get {
+                return ((string)(this["FailedToCompletePayPalPaymentErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to update purchase status of transaction with id \'{0}\'.")]
+        public string FailedToUpdatePurchaseStatusErrorMessage {
+            get {
+                return ((string)(this["FailedToUpdatePurchaseStatusErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve purchase \'{0}\' associated to transaction with id \'{1}\'.")]
+        public string FailedToRetrievePurchaseErrorMessage {
+            get {
+                return ((string)(this["FailedToRetrievePurchaseErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to send order confirmation email for transaction with id \'{0}\'.")]
+        public string FailedToSendOrderConfirmationEmailErrorMessage {
+            get {
+                return ((string)(this["FailedToSendOrderConfirmationEmailErrorMessage"]));
+            }
+        }
     }
 }

@@ -89,5 +89,23 @@
     <Setting Name="CallbackUri" Type="System.String" Scope="Application">
       <Value Profile="(Default)">{0}/Home/CompletePayment?</Value>
     </Setting>
+    <Setting Name="PaymentCompletionParameterNullErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Payment completion parameter '{0}' is null or empty, cannot complete transaction.</Value>
+    </Setting>
+    <Setting Name="PaymentCompletionErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">One or more payment completion parameters were null or empty</Value>
+    </Setting>
+    <Setting Name="FailedToCompletePayPalPaymentErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to complete paypal payment, error details '{0}'.</Value>
+    </Setting>
+    <Setting Name="FailedToUpdatePurchaseStatusErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to update purchase status of transaction with id '{0}'.</Value>
+    </Setting>
+    <Setting Name="FailedToRetrievePurchaseErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to retrieve purchase '{0}' associated to transaction with id '{1}'.</Value>
+    </Setting>
+    <Setting Name="FailedToSendOrderConfirmationEmailErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to send order confirmation email for transaction with id '{0}'.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

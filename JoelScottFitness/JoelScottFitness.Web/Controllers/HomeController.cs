@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Extensions;
 using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
+using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Constants;
@@ -487,21 +488,22 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> CompletePayment()
         {
-            // need to define a model to return with the success invoice number or failure reason
-            string payerId = Request.Params[SessionKeys.PayerID];
-            string paymentId = (string)Session[SessionKeys.PaymentId];
-            string transactionId = (string)Session[SessionKeys.TransactionId];
-            long purchaseId = (long)Session[SessionKeys.PurchaseId];
+            // retrieve parameters from request to complete payment
+            var paymentCompletionResult = GetPaymentCompletionResult();
+            if (!paymentCompletionResult.Success)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.PaymentCompletionErrorMessage });
 
-            var paymentResult = jsfService.CompletePayPalPayment(paymentId, payerId);
-
+            // complete the paypal payment
+            var paymentResult = jsfService.CompletePayPalPayment(paymentCompletionResult.PaymentId, paymentCompletionResult.PayerId);
             if (!paymentResult.Success)
             {
-                await jsfService.UpdatePurchaseStatusAsync(transactionId, PurchaseStatus.Failed);
-                // return error
+                await jsfService.UpdatePurchaseStatusAsync(paymentCompletionResult.TransactionId, PurchaseStatus.Failed);
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage) });
             }
 
-            await jsfService.UpdatePurchaseStatusAsync(transactionId, PurchaseStatus.Complete);
+            // update the purchase to complete
+            if (!await jsfService.UpdatePurchaseStatusAsync(paymentCompletionResult.TransactionId, PurchaseStatus.Complete))
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUpdatePurchaseStatusErrorMessage, paymentCompletionResult.TransactionId) });
 
             // check whether the hall of fame is visible and re-add it after session is cleared
             var hallOfFameVisible = false;
@@ -514,13 +516,16 @@ namespace JoelScottFitness.Web.Controllers
             // re-add this to the session
             Session[SessionKeys.HallOfFame] = hallOfFameVisible;
 
-            var purchaseViewModel = await jsfService.GetPurchaseAsync(purchaseId);
+            var purchaseViewModel = await jsfService.GetPurchaseAsync(paymentCompletionResult.PurchaseId);
+            if (purchaseViewModel == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToRetrievePurchaseErrorMessage, paymentCompletionResult.PurchaseId, paymentCompletionResult.TransactionId) });
 
             // send confirmation email
-            await SendOrderConfirmationEmail(purchaseViewModel);
+            if (!await SendOrderConfirmationEmail(purchaseViewModel))
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId) });
 
             // redirect them to a normal Get method incase they refresh
-            return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = transactionId });
+            return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = paymentCompletionResult.TransactionId });
         }
 
         public ActionResult PaymentConfirmation(string transactionId)
@@ -678,6 +683,42 @@ namespace JoelScottFitness.Web.Controllers
             var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel, RootUri);
 
             return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
+        }
+
+        private PaymentCompletionResult GetPaymentCompletionResult()
+        {
+            var paymentCompletionResult = new PaymentCompletionResult() { Success = true };
+
+            if (string.IsNullOrEmpty(Request.Params[SessionKeys.PayerId]))
+            {
+                paymentCompletionResult.Success = false;
+                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PayerId));
+            }
+
+            if (string.IsNullOrEmpty((string)Session[SessionKeys.PaymentId]))
+            {
+                paymentCompletionResult.Success = false;
+                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PaymentId));
+            }
+
+            if (string.IsNullOrEmpty((string)Session[SessionKeys.TransactionId]))
+            {
+                paymentCompletionResult.Success = false;
+                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.TransactionId));
+            }
+
+            if (!((long?)Session[SessionKeys.PurchaseId]).HasValue)
+            {
+                paymentCompletionResult.Success = false;
+                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PurchaseId));
+            }
+
+            paymentCompletionResult.PayerId = Request.Params[SessionKeys.PayerId];
+            paymentCompletionResult.PaymentId = (string)Session[SessionKeys.PaymentId];
+            paymentCompletionResult.TransactionId = (string)Session[SessionKeys.TransactionId];
+            paymentCompletionResult.PurchaseId = ((long?)Session[SessionKeys.PurchaseId]).HasValue ? ((long?)Session[SessionKeys.PurchaseId]).Value : long.MinValue;
+
+            return paymentCompletionResult;
         }
     }
 }

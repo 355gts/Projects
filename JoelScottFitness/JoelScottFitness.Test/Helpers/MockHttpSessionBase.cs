@@ -50,5 +50,11 @@ namespace JoelScottFitness.Test.Helpers
             sessionStateDictionary[name] = value;
             keyCollection[name] = null;
         }
+
+        public override void Clear()
+        {
+            keyCollection = new NameValueCollection();
+            sessionStateDictionary = new Dictionary<string, object>();
+        }
     }
 }
