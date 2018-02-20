@@ -528,6 +528,7 @@ namespace JoelScottFitness.Web.Controllers
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = paymentCompletionResult.TransactionId });
         }
 
+        [HttpGet]
         public ActionResult PaymentConfirmation(string transactionId)
         {
             var completePaymentViewModel = new PaymentConfirmationViewModel()
@@ -579,12 +580,9 @@ namespace JoelScottFitness.Web.Controllers
             var questionnaireResult = await jsfService.CreateOrUpdateQuestionnaireAsync(questionnaire);
 
             if (!questionnaireResult.Success)
-            {
-                //errorMessage = "Oh ohhh, damn it!";
-                return RedirectToAction("Error", "Home");
-            }
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaire.PurchaseId) });
 
-            ViewBag.Message = $"Thanks, your tailored workout plan will be with you in the next 24 hours.";
+            ViewBag.Message = Settings.Default.QuestionnaireCompleteConfirmationMessage;
 
             return View(questionnaire);
         }
@@ -638,15 +636,29 @@ namespace JoelScottFitness.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> BeforeAndAfter(BeforeAndAfterViewModel model)
         {
+            if (string.IsNullOrEmpty(model.AfterFile.FileName) || model.AfterFile.ContentLength == 0)
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.ImageUploadErrorMessage, "After Image"));
+
+            if (string.IsNullOrEmpty(model.BeforeFile.FileName) || model.BeforeFile.ContentLength == 0)
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.ImageUploadErrorMessage, "Before Image"));
+
+            if (string.IsNullOrEmpty(model.Comment))
+                ModelState.AddModelError(string.Empty, Settings.Default.MissingCommentErrorMessage);
+
+            if (!ModelState.IsValid)
+                return View(model);
+
             var beforeImageFilename = string.Format(Settings.Default.BeforeFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.BeforeFile.FileName));
             var afterImageFilename = string.Format(Settings.Default.AfterFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.AfterFile.FileName));
 
             var beforeUploadResult = fileHelper.UploadFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
             var afterUploadResult = fileHelper.UploadFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
 
-            // TODO what if upload fails!!!
+            if (!beforeUploadResult.Success || !afterUploadResult.Success)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUploadHallOfFameImagesErrorMessage, model.PurchasedItemId) });
 
-            var result = await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment);
+            if (!await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUploadHallOfFameErrorMessage, model.PurchasedItemId) });
 
             return RedirectToAction("MyPlans", "Home");
         }

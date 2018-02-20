@@ -340,5 +340,59 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["FailedToSendOrderConfirmationEmailErrorMessage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to create or update questionnaire for purchase with id \'{0}\'.")]
+        public string FailedToCreateOrUpdateQuestionnaireErrorMessage {
+            get {
+                return ((string)(this["FailedToCreateOrUpdateQuestionnaireErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Thanks, your tailored workout plan will be with you in the next 24 hours.")]
+        public string QuestionnaireCompleteConfirmationMessage {
+            get {
+                return ((string)(this["QuestionnaireCompleteConfirmationMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0} image is empty, please re-select.")]
+        public string ImageUploadErrorMessage {
+            get {
+                return ((string)(this["ImageUploadErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Please add a comment.")]
+        public string MissingCommentErrorMessage {
+            get {
+                return ((string)(this["MissingCommentErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to upload hall of fame images associated to purchased item id \'{0}\'.")]
+        public string FailedToUploadHallOfFameImagesErrorMessage {
+            get {
+                return ((string)(this["FailedToUploadHallOfFameImagesErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to upload hall of fame associated to purchase item id \'{0}\'.")]
+        public string FailedToUploadHallOfFameErrorMessage {
+            get {
+                return ((string)(this["FailedToUploadHallOfFameErrorMessage"]));
+            }
+        }
     }
 }

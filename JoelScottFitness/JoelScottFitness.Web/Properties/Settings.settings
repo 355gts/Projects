@@ -107,5 +107,23 @@
     <Setting Name="FailedToSendOrderConfirmationEmailErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to send order confirmation email for transaction with id '{0}'.</Value>
     </Setting>
+    <Setting Name="FailedToCreateOrUpdateQuestionnaireErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to create or update questionnaire for purchase with id '{0}'.</Value>
+    </Setting>
+    <Setting Name="QuestionnaireCompleteConfirmationMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Thanks, your tailored workout plan will be with you in the next 24 hours.</Value>
+    </Setting>
+    <Setting Name="ImageUploadErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{0} image is empty, please re-select.</Value>
+    </Setting>
+    <Setting Name="MissingCommentErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Please add a comment.</Value>
+    </Setting>
+    <Setting Name="FailedToUploadHallOfFameImagesErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to upload hall of fame images associated to purchased item id '{0}'.</Value>
+    </Setting>
+    <Setting Name="FailedToUploadHallOfFameErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to upload hall of fame associated to purchase item id '{0}'.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

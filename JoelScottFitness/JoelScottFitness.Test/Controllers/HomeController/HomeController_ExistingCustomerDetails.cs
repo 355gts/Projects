@@ -89,7 +89,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.UpdateMailingListAsync(It.IsAny<MailingListItemViewModel>()), Times.Never);
 
                 Assert.IsNotNull(result);
-
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
                 Assert.AreEqual("Error", controller.ModelState.Values.First().Errors.First().ErrorMessage);

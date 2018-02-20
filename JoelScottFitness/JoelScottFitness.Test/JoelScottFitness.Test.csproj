@@ -88,10 +88,12 @@
   <ItemGroup>
     <Compile Include="Controllers\HomeController\HomeController.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ApplyDiscountCode.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_BeforeAndAfter.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Blogs.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Checkout.cs" />
     <Compile Include="Controllers\HomeController\HomeController_CompletePayment.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ConfirmPurchase.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_CustomerQuestionnaire.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ExistingCustomerDetails.cs" />
     <Compile Include="Controllers\HomeController\HomeController_GuestDetails.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Index.cs" />
