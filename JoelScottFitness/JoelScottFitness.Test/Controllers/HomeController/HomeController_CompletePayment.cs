@@ -293,11 +293,11 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.UpdatePurchaseStatusAsync(It.IsAny<string>(), It.IsAny<PurchaseStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
-
+                
                 Assert.IsNotNull(result);
-                Assert.AreEqual("Error", result.RouteValues["action"]);
+                Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToSendOrderConfirmationEmailErrorMessage, transactionId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(transactionId, result.RouteValues["transactionId"]);
 
                 // verify the session variables have been added
                 Assert.AreEqual(1, sessionMock.Count);

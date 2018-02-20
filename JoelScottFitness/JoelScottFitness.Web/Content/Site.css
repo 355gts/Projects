@@ -18,11 +18,6 @@
     src: url('../fonts/BebasNeue.otf') format('opentype');
 }
 
-* {
-    border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-}
-
 body {
     margin: 0px;
     height: 100%;
@@ -30,6 +25,9 @@ body {
     overflow-x: hidden;
 }
 
+.btn .btn-default{
+    border-radius: 10px!important;
+}
 
 a:hover {
     cursor: pointer;

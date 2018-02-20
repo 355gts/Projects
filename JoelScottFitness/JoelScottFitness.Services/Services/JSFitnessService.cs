@@ -26,7 +26,7 @@ namespace JoelScottFitness.Services.Services
         private readonly IEmailService emailService;
 
         public JSFitnessService(IJSFitnessRepository repository,
-                                [Named("ServiceMapper")] IMapper  mapper, 
+                                [Named("ServiceMapper")] IMapper mapper,
                                 IPayPalService paypalService,
                                 IEmailService emailService)
         {
@@ -83,7 +83,7 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.UpdateCustomerAsync(repoCustomer);
         }
-        
+
         public async Task<AsyncResult<long>> CreatePlanAsync(CreatePlanViewModel plan)
         {
             var repoPlan = mapper.Map<CreatePlanViewModel, Plan>(plan);
@@ -97,7 +97,7 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.CreateOrUpdatePlanAsync(repoPlan);
         }
-        
+
         public async Task<BlogViewModel> GetBlogAsync(long id)
         {
             var blog = await repository.GetBlogAsync(id);
@@ -222,7 +222,7 @@ namespace JoelScottFitness.Services.Services
             {
                 purchaseViewModel.Customer = mapper.Map<Customer, CustomerViewModel>(purchase.Customer);
             }
-            
+
             if (purchase.DiscountCode != null)
             {
                 purchaseViewModel.DiscountCode = mapper.Map<DiscountCode, DiscountCodeViewModel>(purchase.DiscountCode);
@@ -235,13 +235,13 @@ namespace JoelScottFitness.Services.Services
 
             var plans = await repository.GetPlansAsync();
 
-            purchaseViewModel.Items.ToList().ForEach(pvm => 
+            purchaseViewModel.Items.ToList().ForEach(pvm =>
             {
                 var plan = plans.Where(p => p.Options.Select(s => s.Id).Contains(pvm.ItemId)).FirstOrDefault();
                 pvm.Name = plan?.Name;
                 pvm.ImagePath = plan?.ImagePathLarge;
             });
-            
+
             return purchaseViewModel;
         }
 
@@ -271,10 +271,10 @@ namespace JoelScottFitness.Services.Services
             var planOptions = await repository.GetPlanOptionsAsync();
             var purchases = await repository.GetPurchasesAsync(customerId);
 
-            foreach (var purchase in purchases)
+            foreach (var purchase in purchases.Where(p => p.Status == PurchaseStatus.Complete))
             {
                 var mappedPlans = mapper.MapEnumerable<PurchasedItem, PurchasedHistoryItemViewModel>(purchase.Items);
-                mappedPlans.ToList().ForEach(p => 
+                mappedPlans.ToList().ForEach(p =>
                 {
                     var plan = planOptions.FirstOrDefault(o => o.Id == p.PlanOptionId)?.Plan;
                     p.QuestionnaireComplete = purchase.QuestionnareId.HasValue;
@@ -285,7 +285,7 @@ namespace JoelScottFitness.Services.Services
 
                 plansViewModel.AddRange(mappedPlans);
             }
-            
+
             return plansViewModel;
         }
 
@@ -335,7 +335,7 @@ namespace JoelScottFitness.Services.Services
         public async Task<PurchaseHistoryViewModel> GetPurchaseByTransactionIdAsync(string transactionId)
         {
             var purchase = await repository.GetPurchaseByTransactionId(transactionId);
-            
+
             return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
         }
 
@@ -415,9 +415,9 @@ namespace JoelScottFitness.Services.Services
             var imageConfiguration = await repository.GetImageConfiguration();
 
             var images = await repository.GetImages();
-            
-            var imageConfigurationViewModel = imageConfiguration != null 
-                                                ? mapper.Map<ImageConfiguration, ImageConfigurationViewModel>(imageConfiguration) 
+
+            var imageConfigurationViewModel = imageConfiguration != null
+                                                ? mapper.Map<ImageConfiguration, ImageConfigurationViewModel>(imageConfiguration)
                                                 : new ImageConfigurationViewModel();
 
             if (images != null)

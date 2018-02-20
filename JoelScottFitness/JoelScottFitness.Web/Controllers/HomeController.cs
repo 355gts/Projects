@@ -522,7 +522,7 @@ namespace JoelScottFitness.Web.Controllers
 
             // send confirmation email
             if (!await SendOrderConfirmationEmail(purchaseViewModel))
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId) });
+                logger.Error(string.Format(Settings.Default.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId));
 
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = paymentCompletionResult.TransactionId });
