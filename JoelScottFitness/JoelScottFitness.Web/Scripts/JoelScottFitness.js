@@ -506,3 +506,29 @@ function addBlogImage(blogId) {
 $(function () {
     $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
 });
+
+function uploadBeforeAndAfter() {
+
+    var content = new FormData();
+    content.append("PurchasedItemId", $('.purchased-item-id').val());
+
+    $.ajax({
+        contentType: 'multipart/form-data',
+        cache: false,
+        type: 'POST',
+        url: '/Home/BeforeAndAfter',
+        data: content,
+        success: function (data) {
+            if (data.Success) { 
+                console.log('success');
+            } else {
+                console.log('Oops');
+            }
+        },
+        error: function (event, jqxhr, settings, thrownError){
+            console.log(jqxhr.error);
+        }
+    });
+
+    return false;
+}

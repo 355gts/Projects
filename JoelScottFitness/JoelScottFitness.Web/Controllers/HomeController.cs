@@ -14,7 +14,6 @@ using JoelScottFitness.YouTube.Client;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -633,34 +632,35 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> BeforeAndAfter(BeforeAndAfterViewModel model)
+        //[ValidateAntiForgeryToken]
+        [ChildActionOnly]
+        public JsonResult BeforeAndAfter(BeforeAndAfterViewModel model)
         {
-            if (string.IsNullOrEmpty(model.AfterFile.FileName) || model.AfterFile.ContentLength == 0)
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.ImageUploadErrorMessage, "After Image"));
+            //if (string.IsNullOrEmpty(model.AfterFile.FileName) || model.AfterFile.ContentLength == 0)
+            //    ModelState.AddModelError(string.Empty, string.Format(Settings.Default.ImageUploadErrorMessage, "After Image"));
 
-            if (string.IsNullOrEmpty(model.BeforeFile.FileName) || model.BeforeFile.ContentLength == 0)
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.ImageUploadErrorMessage, "Before Image"));
+            //if (string.IsNullOrEmpty(model.BeforeFile.FileName) || model.BeforeFile.ContentLength == 0)
+            //    ModelState.AddModelError(string.Empty, string.Format(Settings.Default.ImageUploadErrorMessage, "Before Image"));
 
-            if (string.IsNullOrEmpty(model.Comment))
-                ModelState.AddModelError(string.Empty, Settings.Default.MissingCommentErrorMessage);
+            //if (string.IsNullOrEmpty(model.Comment))
+            //    ModelState.AddModelError(string.Empty, Settings.Default.MissingCommentErrorMessage);
 
-            if (!ModelState.IsValid)
-                return View(model);
+            //if (!ModelState.IsValid)
+            //    return View(model);
 
-            var beforeImageFilename = string.Format(Settings.Default.BeforeFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.BeforeFile.FileName));
-            var afterImageFilename = string.Format(Settings.Default.AfterFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.AfterFile.FileName));
+            //var beforeImageFilename = string.Format(Settings.Default.BeforeFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.BeforeFile.FileName));
+            //var afterImageFilename = string.Format(Settings.Default.AfterFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.AfterFile.FileName));
 
-            var beforeUploadResult = fileHelper.UploadFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
-            var afterUploadResult = fileHelper.UploadFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
+            //var beforeUploadResult = fileHelper.UploadFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
+            //var afterUploadResult = fileHelper.UploadFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
 
-            if (!beforeUploadResult.Success || !afterUploadResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUploadHallOfFameImagesErrorMessage, model.PurchasedItemId) });
+            //if (!beforeUploadResult.Success || !afterUploadResult.Success)
+            //    return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUploadHallOfFameImagesErrorMessage, model.PurchasedItemId) });
 
-            if (!await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUploadHallOfFameErrorMessage, model.PurchasedItemId) });
+            //if (!await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
+            //    return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUploadHallOfFameErrorMessage, model.PurchasedItemId) });
 
-            return RedirectToAction("MyPlans", "Home");
+            return new JsonResult() { Data = new { Success = true } };
         }
 
         [HttpGet]

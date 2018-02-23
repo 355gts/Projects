@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
@@ -13,7 +14,7 @@ namespace JoelScottFitness.Services.Mappers
         public PlanViewModel Map(Plan fromObject, PlanViewModel toObject = null)
         {
             var plan = toObject ?? new PlanViewModel();
-            
+
             plan.BannerHeader = fromObject.BannerHeader;
             plan.CreatedDate = fromObject.CreatedDate;
             plan.Description = fromObject.Description;
@@ -28,9 +29,12 @@ namespace JoelScottFitness.Services.Mappers
 
             var planOptions = new List<PlanOptionViewModel>();
 
-            foreach (var planoption in fromObject.Options)
+            if (fromObject.Options != null && fromObject.Options.Any())
             {
-                planOptions.Add(planOptionMapper.Map(planoption));
+                foreach (var planoption in fromObject.Options)
+                {
+                    planOptions.Add(planOptionMapper.Map(planoption));
+                }
             }
 
             plan.Options = planOptions;
@@ -41,7 +45,7 @@ namespace JoelScottFitness.Services.Mappers
         public Plan Map(PlanViewModel fromObject, Plan toObject = null)
         {
             var plan = toObject ?? new Plan();
-            
+
             plan.BannerHeader = fromObject.BannerHeader;
             plan.CreatedDate = fromObject.CreatedDate;
             plan.Description = fromObject.Description;
@@ -55,9 +59,12 @@ namespace JoelScottFitness.Services.Mappers
 
             var planOptions = new List<PlanOption>();
 
-            foreach (var planoption in fromObject.Options)
+            if (fromObject.Options != null && fromObject.Options.Any())
             {
-                planOptions.Add(planOptionMapper.Map(planoption));
+                foreach (var planoption in fromObject.Options)
+                {
+                    planOptions.Add(planOptionMapper.Map(planoption));
+                }
             }
 
             plan.Options = planOptions;

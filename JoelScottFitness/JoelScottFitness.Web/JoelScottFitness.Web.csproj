@@ -462,6 +462,7 @@
     <Content Include="Views\Shared\_EmailConfirmAccount.cshtml" />
     <Content Include="Views\Shared\_HallOfFame.cshtml" />
     <Content Include="Views\Account\RegisterAccountConfirmation.cshtml" />
+    <Content Include="Views\Home\BeforeAndAfter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

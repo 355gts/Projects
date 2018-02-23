@@ -7,6 +7,7 @@ using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.PayPal.Services;
+using JoelScottFitness.Services.Properties;
 using log4net;
 using Ninject;
 using System;
@@ -329,12 +330,12 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status)
         {
-            return await repository.UpdatePurchaseStatus(transactionId, status);
+            return await repository.UpdatePurchaseStatusAsync(transactionId, status);
         }
 
         public async Task<PurchaseHistoryViewModel> GetPurchaseByTransactionIdAsync(string transactionId)
         {
-            var purchase = await repository.GetPurchaseByTransactionId(transactionId);
+            var purchase = await repository.GetPurchaseByTransactionIdAsync(transactionId);
 
             return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
         }
@@ -344,9 +345,18 @@ namespace JoelScottFitness.Services.Services
             var questionnaire = mapper.Map<QuestionnaireViewModel, Questionnaire>(questionnaireViewModel);
 
             var result = await repository.CreateOrUpdateQuestionnaireAsync(questionnaire);
+            if (!result.Success)
+            {
+                logger.Warn(string.Format(Resources.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaireViewModel.PurchaseId));
+                return result;
+            }
 
             // associate the questionnaire to the purchase
-            await repository.AssociateQuestionnaireToPurchase(questionnaireViewModel.PurchaseId, result.Result);
+            if (!await repository.AssociateQuestionnaireToPurchaseAsync(questionnaireViewModel.PurchaseId, result.Result))
+            {
+                logger.Warn(string.Format(Resources.FailedToAssociateQuestionnaireToPurchaseErrorMessage, questionnaireViewModel.PurchaseId));
+                result.Success = false;
+            }
 
             return result;
         }
@@ -386,12 +396,12 @@ namespace JoelScottFitness.Services.Services
         {
             var image = new Image() { ImagePath = imagePath };
 
-            return await repository.AddImage(image);
+            return await repository.AddImageAsync(image);
         }
 
         public async Task<ImageListViewModel> GetImages()
         {
-            var images = await repository.GetImages();
+            var images = await repository.GetImagesAsync();
 
             var imageListViewModel = new ImageListViewModel();
 
@@ -407,14 +417,14 @@ namespace JoelScottFitness.Services.Services
         {
             var repoImageConfiguration = mapper.Map<ImageConfigurationViewModel, ImageConfiguration>(imageConfiguration);
 
-            return await repository.CreateOrUpdateImageConfiguration(repoImageConfiguration);
+            return await repository.CreateOrUpdateImageConfigurationAsync(repoImageConfiguration);
         }
 
         public async Task<ImageConfigurationViewModel> GetImageConfiguration()
         {
-            var imageConfiguration = await repository.GetImageConfiguration();
+            var imageConfiguration = await repository.GetImageConfigurationAsync();
 
-            var images = await repository.GetImages();
+            var images = await repository.GetImagesAsync();
 
             var imageConfigurationViewModel = imageConfiguration != null
                                                 ? mapper.Map<ImageConfiguration, ImageConfigurationViewModel>(imageConfiguration)
@@ -430,9 +440,9 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<SectionImageViewModel> GetSectionImages()
         {
-            var imageConfiguration = await repository.GetImageConfiguration();
+            var imageConfiguration = await repository.GetImageConfigurationAsync();
 
-            var images = await repository.GetImages();
+            var images = await repository.GetImagesAsync();
 
             if (imageConfiguration == null || images == null || !images.Any())
             {
@@ -446,9 +456,9 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<KaleidoscopeViewModel> GetKaleidoscopeImages()
         {
-            var imageConfiguration = await repository.GetImageConfiguration();
+            var imageConfiguration = await repository.GetImageConfigurationAsync();
 
-            var images = await repository.GetImages();
+            var images = await repository.GetImagesAsync();
 
             if (imageConfiguration == null || images == null || !images.Any())
             {
@@ -462,7 +472,7 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath)
         {
-            return await repository.AssociatePlanToPurchase(purchasedItemId, planPath);
+            return await repository.AssociatePlanToPurchaseAsync(purchasedItemId, planPath);
         }
 
         public async Task<bool> UploadHallOfFameAsync(long purchasedItemId, string beforeImage, string afterImage, string comment)

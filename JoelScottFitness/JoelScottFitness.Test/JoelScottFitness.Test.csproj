@@ -99,6 +99,7 @@
     <Compile Include="Controllers\HomeController\HomeController_Index.cs" />
     <Compile Include="Controllers\HomeController\HomeController_RemoveDiscountCode.cs" />
     <Compile Include="Helpers\MockHttpSessionBase.cs" />
+    <Compile Include="Helpers\MapperHelper.cs" />
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\BlogImageMapper.cs" />
     <Compile Include="Mappers\BlogMapper.cs" />
@@ -122,6 +123,9 @@
     <Compile Include="Mappers\SectionImageConfigurationMapper.cs" />
     <Compile Include="Mappers\SelectedPlanOptionMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\JSFitnessService.cs" />
+    <Compile Include="Services\JsfService_GetCustomerPlansAsync.cs" />
+    <Compile Include="Services\JSFService_GetPurchaseAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

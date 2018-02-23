@@ -3,6 +3,7 @@ using JoelScottFitness.Common.Models;
 using JoelScottFitness.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
@@ -25,9 +26,12 @@ namespace JoelScottFitness.Services.Mappers
 
             var planOptions = new List<PlanOption>();
 
-            foreach (var planoption in fromObject.Options)
+            if (fromObject.Options != null && fromObject.Options.Any())
             {
-                planOptions.Add(planOptionMapper.Map(planoption));
+                foreach (var planoption in fromObject.Options)
+                {
+                    planOptions.Add(planOptionMapper.Map(planoption));
+                }
             }
 
             plan.Options = planOptions;

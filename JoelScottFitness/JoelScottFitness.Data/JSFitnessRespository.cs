@@ -380,7 +380,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<bool> UpdatePurchaseStatus(string transactionId, PurchaseStatus status)
+        public async Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status)
         {
             bool success = false;
 
@@ -399,7 +399,7 @@ namespace JoelScottFitness.Data
             return success;
         }
 
-        public async Task<bool> AssociateQuestionnaireToPurchase(long purchaseId, long questionnaireId)
+        public async Task<bool> AssociateQuestionnaireToPurchaseAsync(long purchaseId, long questionnaireId)
         {
             bool success = false;
 
@@ -417,7 +417,7 @@ namespace JoelScottFitness.Data
             return success;
         }
 
-        public async Task<Purchase> GetPurchaseByTransactionId(string transactionId)
+        public async Task<Purchase> GetPurchaseByTransactionIdAsync(string transactionId)
         {
             return await dbContext.Purchases
                                   .FirstOrDefaultAsync(p => p.TransactionId == transactionId);
@@ -479,7 +479,7 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<AsyncResult<long>> AddImage(Image image)
+        public async Task<AsyncResult<long>> AddImageAsync(Image image)
         {
             var existingImage = await dbContext.Images.FirstOrDefaultAsync(i => i.ImagePath == image.ImagePath);
 
@@ -496,7 +496,7 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<IEnumerable<Image>> GetImages()
+        public async Task<IEnumerable<Image>> GetImagesAsync()
         {
             var images = await dbContext.Images
                                         .ToListAsync();
@@ -507,7 +507,7 @@ namespace JoelScottFitness.Data
             return images;
         }
 
-        public async Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfiguration imageConfiguration)
+        public async Task<AsyncResult<long>> CreateOrUpdateImageConfigurationAsync(ImageConfiguration imageConfiguration)
         {
             var existingImageConfiguration = await dbContext.ImageConfigurations.FirstOrDefaultAsync();
 
@@ -535,13 +535,13 @@ namespace JoelScottFitness.Data
             return new AsyncResult<long>() { Success = false };
         }
 
-        public async Task<ImageConfiguration> GetImageConfiguration()
+        public async Task<ImageConfiguration> GetImageConfigurationAsync()
         {
             return await dbContext.ImageConfigurations
                                   .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath)
+        public async Task<bool> AssociatePlanToPurchaseAsync(long purchasedItemId, string planPath)
         {
             var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
 
