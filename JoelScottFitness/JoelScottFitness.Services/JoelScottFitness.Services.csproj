@@ -81,6 +81,8 @@
     <Compile Include="Mappers\ITypeMapper.cs" />
     <Compile Include="Mappers\KaleidoscopeImageMapper.cs" />
     <Compile Include="Mappers\MailingListItemMapper.cs" />
+    <Compile Include="Mappers\CreateMessageMapper.cs" />
+    <Compile Include="Mappers\MessageMapper.cs" />
     <Compile Include="Mappers\PlanMapper.cs" />
     <Compile Include="Mappers\PlanOptionMapper.cs" />
     <Compile Include="Mappers\PurchasedItemMapper.cs" />

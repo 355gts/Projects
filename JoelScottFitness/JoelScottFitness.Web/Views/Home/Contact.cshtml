@@ -1,17 +1,64 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model JoelScottFitness.Common.Models.CreateMessageViewModel
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="container customer-form-container" style="min-height:600px">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            CONTACT
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="customer-form-wrapper">
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+            <div class="form-group row">
+                @Html.LabelFor(m => m.Name, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                <div class="col-xs-12 col-sm-8">
+                    @Html.TextBoxFor(m => m.Name, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Name" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger form-warning" })
+                </div>
+            </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.EmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.EmailAddress, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email Address" })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Subject, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Subject, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Subject" })
+                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Message, new { @class = "customer-form-label col-xs-12 col-form-label" })
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-12">
+                        @Html.TextAreaFor(m => m.Message, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Message", @style = "min-width:100%;min-height:300px" })
+                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.JoinMailingList, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.CheckBoxFor(model => model.JoinMailingList, new { @checked = "checked", @class = "customer-form-checkbox", @style = "margin-top:12px" })
+                    </div>
+                </div>
+                <div class="form-group row active-button-row-wrapper">
+                    <div class="active-button-wrapper">
+                        <button type="submit" class="btn btn-primary active-button" style="width:270px;font-size:18px;">Send</button>
+                    </div>
+                </div>
+                <div style="position:relative">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger form-validation-summary" })
+                </div>
+        }
+    </div>
+</div>
+

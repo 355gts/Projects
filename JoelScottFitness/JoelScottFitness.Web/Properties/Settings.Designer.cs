@@ -394,5 +394,24 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["FailedToUploadHallOfFameErrorMessage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to create message for Nam: \'{0}\', Email Address \'{1}\', Subject \'{2}\', Mess" +
+            "age \'{3}\'.")]
+        public string FailedToCreateMessageErrorMessage {
+            get {
+                return ((string)(this["FailedToCreateMessageErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Re: {0}")]
+        public string MessageResponseSubject {
+            get {
+                return ((string)(this["MessageResponseSubject"]));
+            }
+        }
     }
 }

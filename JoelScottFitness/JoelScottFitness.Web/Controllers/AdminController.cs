@@ -7,7 +7,6 @@ using JoelScottFitness.Web.Properties;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -276,7 +275,7 @@ namespace JoelScottFitness.Web.Controllers
                 var result = await jsfService.CreateDiscountCodeAsync(discountCode);
 
                 if (result.Success)
-                    return RedirectToAction("DiscountCodes","Admin");
+                    return RedirectToAction("DiscountCodes", "Admin");
             }
 
             return View();
@@ -346,7 +345,7 @@ namespace JoelScottFitness.Web.Controllers
                 }
 
             }
-            
+
             return RedirectToAction("ImageConfiguration", "Admin");
         }
 
@@ -355,7 +354,7 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> ImageConfiguration(string imageConfigurationError = null)
         {
             var imageConfiguration = await jsfService.GetImageConfigurationAsync();
-            
+
             return View(imageConfiguration);
         }
 
@@ -392,7 +391,7 @@ namespace JoelScottFitness.Web.Controllers
                 if (!uploadResult.Success)
                 {
                     // TODO what happens when upload fails
-                }                
+                }
 
                 var result = await jsfService.AssociatePlanToPurchaseAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath);
 
@@ -410,7 +409,7 @@ namespace JoelScottFitness.Web.Controllers
 
             return RedirectToAction("CustomerPlan", "Admin", new { purchaseId = uploadPlanViewModel.PurchaseId });
         }
-        
+
         [HttpGet]
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> HallOfFame()
@@ -419,7 +418,7 @@ namespace JoelScottFitness.Web.Controllers
 
             return View(hallOfFameEntries);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]
@@ -445,7 +444,46 @@ namespace JoelScottFitness.Web.Controllers
 
             return View();
         }
-        
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> Messages()
+        {
+            var messages = await jsfService.GetMessagesAsync();
+
+            return View(messages);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> Message(long messageId)
+        {
+            var message = await jsfService.GetMessageAsync(messageId);
+
+            return View(message);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> Message(MessageViewModel messageViewModel)
+        {
+            var messageResult = await jsfService.UpdateMessageAsync(messageViewModel);
+            if (!messageResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, "Failed to add response to message to database");
+                return View(messageViewModel);
+            }
+
+            if (!await SendMessageResponseEmail(messageViewModel))
+            {
+                ModelState.AddModelError(string.Empty, $"Failed to send response message to {messageViewModel.EmailAddress}.");
+                return View(messageViewModel);
+            }
+
+            return RedirectToAction("Messages", "Admin");
+        }
+
         private UploadResult UploadFile(HttpPostedFileBase postedFile, string directory, string name = null)
         {
             var uploadResult = fileHelper.UploadFile(postedFile, directory, name);
@@ -453,7 +491,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, $"Failed to save file '{postedFile.FileName}'.");
             }
-            
+
             return uploadResult;
         }
 
@@ -462,6 +500,13 @@ namespace JoelScottFitness.Web.Controllers
             var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel, RootUri);
 
             return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseComplete, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress }, planPaths);
+        }
+
+        private async Task<bool> SendMessageResponseEmail(MessageViewModel messageViewModel)
+        {
+            var email = this.RenderRazorViewToString("_EmailMessageResponse", messageViewModel, RootUri);
+
+            return await jsfService.SendEmailAsync(string.Format(Settings.Default.MessageResponseSubject, messageViewModel.Subject), email, new List<string>() { messageViewModel.EmailAddress });
         }
     }
 }

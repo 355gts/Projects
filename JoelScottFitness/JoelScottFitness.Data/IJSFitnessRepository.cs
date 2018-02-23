@@ -92,5 +92,11 @@ namespace JoelScottFitness.Data
         Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status);
 
         Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId);
+
+        Task<AsyncResult<long>> CreateOrUpdateMessageAsync(Message message);
+
+        Task<IEnumerable<Message>> GetMessagesAsync();
+
+        Task<Message> GetMessageAsync(long id);
     }
 }

@@ -116,22 +116,6 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        [HttpGet]
         public async Task<ActionResult> Blogs()
         {
             var blogs = await jsfService.GetBlogsAsync();
@@ -554,13 +538,13 @@ namespace JoelScottFitness.Web.Controllers
             var purchase = await jsfService.GetPurchaseByTransactionIdAsync(transactionId);
             if (purchase == null)
             {
-                ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please contact customerservice@JoelScottFitness.com.";
+                ViewBag.Message = $"Oops! Transaction Id '{transactionId}' not recognised, please ";
                 return View(questionnaireViewModel);
             }
 
             if (purchase.QuestionnaireId.HasValue)
             {
-                ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please contact customerservice@JoelScottFitness.com.";
+                ViewBag.Message = $"Customer insight questionnaire for transaction Id '{transactionId}' has already been submitted, to make amendments please ";
                 return View(questionnaireViewModel);
             }
 
@@ -629,6 +613,38 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(CreateMessageViewModel messageViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(messageViewModel);
+
+            if (messageViewModel.JoinMailingList)
+            {
+                await UpdateMailingList(messageViewModel.EmailAddress);
+            }
+
+            var createMessageResult = await jsfService.CreateMessageAsync(messageViewModel);
+            if (!createMessageResult.Success)
+                RedirectToAction("Error", "Home", new
+                {
+                    errorMessage = string.Format(Settings.Default.FailedToCreateMessageErrorMessage,
+                                                                                            messageViewModel.Name,
+                                                                                            messageViewModel.EmailAddress,
+                                                                                            messageViewModel.Subject,
+                                                                                            messageViewModel.Message)
+                });
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

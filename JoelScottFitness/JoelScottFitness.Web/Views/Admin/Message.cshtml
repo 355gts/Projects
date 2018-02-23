@@ -1,0 +1,76 @@
+﻿@model JoelScottFitness.Common.Models.MessageViewModel
+
+<div class="container customer-form-container" style="min-height:600px">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            MESSAGE
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="customer-form-wrapper">
+
+        @using (Html.BeginForm("Message", "Admin", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            <hr />
+            <div class="form-group row">
+                @Html.LabelFor(m => m.Name, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                <div class="col-xs-12 col-sm-8">
+                    @Html.TextBoxFor(m => m.Name, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Name", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger form-warning" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(m => m.EmailAddress, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                <div class="col-xs-12 col-sm-8">
+                    @Html.TextBoxFor(m => m.EmailAddress, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email Address", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger form-warning" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(m => m.ReceivedDate, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                <div class="col-xs-12 col-sm-8">
+                    @Html.TextBoxFor(m => m.ReceivedDate, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Email Address", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.ReceivedDate, "", new { @class = "text-danger form-warning" })
+                </div>
+            </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Subject, new { @class = "customer-form-label col-xs-12 col-sm-4 col-form-label" })
+                    <div class="col-xs-12 col-sm-8">
+                        @Html.TextBoxFor(m => m.Subject, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Subject", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Message, new { @class = "customer-form-label col-xs-12 col-form-label" })
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-12">
+                        @Html.TextAreaFor(m => m.Message, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Message", @style = "min-width:100%;min-height:300px", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row">
+                    @Html.LabelFor(m => m.Response, new { @class = "customer-form-label col-xs-12 col-form-label" })
+                </div>
+                <div class="form-group row">
+                    <div class="col-xs-12">
+                        @Html.TextAreaFor(m => m.Response, new { @type = "text", @class = "form-control form-control-warning customer-form-input", @placeholder = "Message", @style = "min-width:100%;min-height:300px" })
+                        @Html.ValidationMessageFor(model => model.Response, "", new { @class = "text-danger form-warning" })
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group row active-button-row-wrapper">
+                    <div class="active-button-wrapper">
+                        <button type="submit" class="btn btn-primary active-button" style="width:270px;font-size:18px;">Send</button>
+                    </div>
+                </div>
+                <div style="position:relative">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger form-validation-summary" })
+                </div>
+        }
+    </div>
+</div>
+

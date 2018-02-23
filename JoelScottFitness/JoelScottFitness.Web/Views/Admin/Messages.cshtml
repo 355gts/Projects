@@ -1,0 +1,64 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.MessageViewModel>
+
+<div class="container" style="min-height:600px">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            MESSAGES
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReceivedDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Responded)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReceivedDate)
+                    </td>
+                    <td style="text-align:center">
+                        @if (item.Responded)
+                        {
+                            <i class="fa fa-check fa-2x" aria-hidden="true" style="color:green"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times fa-2x" aria-hidden="true" style="color:red"></i>
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Respond", "Message", "Admin", new { messageId = item.Id }, new { @class = "btn btn-default" })
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>

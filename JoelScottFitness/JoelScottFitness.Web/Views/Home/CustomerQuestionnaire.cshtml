@@ -1,9 +1,5 @@
 ﻿@model JoelScottFitness.Common.Models.QuestionnaireViewModel
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 <div class="container page-container">
     <div class="row">
         <div class="col-xs-12 title-format">
@@ -15,7 +11,7 @@
     if (ViewBag.Message != null)
     {
         <div style="text-align:center;padding-top:50px">
-            @ViewBag.Message
+            @ViewBag.Message <a href="/Home/Contact">contact us</a>.
         </div>
     }
     else

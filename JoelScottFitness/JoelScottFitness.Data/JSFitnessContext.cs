@@ -23,7 +23,7 @@ namespace JoelScottFitness.Data
                 System.Diagnostics.Debug.WriteLine(logentry);
 #endif
             };
-            
+
             Configuration.ProxyCreationEnabled = false;
         }
 
@@ -36,7 +36,7 @@ namespace JoelScottFitness.Data
         {
             if (modelBuilder == null)
                 throw new ArgumentNullException(nameof(modelBuilder));
-            
+
             base.OnModelCreating(modelBuilder);
 
             //modelBuilder.HasDefaultSchema(Settings.Default.DefaultSchema);
@@ -48,7 +48,7 @@ namespace JoelScottFitness.Data
         {
             return Database.BeginTransaction();
         }
-    
+
         public virtual void CommitTransaction()
         {
             Database.CurrentTransaction?.Commit();
@@ -58,7 +58,7 @@ namespace JoelScottFitness.Data
         {
             Database.CurrentTransaction?.Rollback();
         }
-        
+
         public virtual void SetModified(object entity)
         {
             Entry(entity).State = EntityState.Modified;
@@ -68,7 +68,7 @@ namespace JoelScottFitness.Data
         {
             Entry(entity).State = EntityState.Added;
         }
-        
+
         public virtual void SetPropertyModified(object entity, string propertyName)
         {
             Entry(entity).Property(propertyName).IsModified = true;
@@ -79,7 +79,7 @@ namespace JoelScottFitness.Data
 
             Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
-        
+
         public void SetValues<TEntity>(TEntity oldEntity, TEntity newEntity) where TEntity : class
         {
             this.Entry<TEntity>(oldEntity).CurrentValues.SetValues(newEntity);
@@ -112,5 +112,7 @@ namespace JoelScottFitness.Data
         public virtual DbSet<Image> Images { get; set; }
 
         public virtual DbSet<ImageConfiguration> ImageConfigurations { get; set; }
+
+        public virtual DbSet<Message> Messages { get; set; }
     }
 }

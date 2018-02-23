@@ -18,7 +18,7 @@ namespace JoelScottFitness.Data
         void SetValues<TEntity>(TEntity oldEntity, TEntity newEntity) where TEntity : class;
 
         Database Database { get; }
-        
+
         DbContextConfiguration Configuration { get; }
 
         DbEntityEntry Entry(object entity);
@@ -33,7 +33,7 @@ namespace JoelScottFitness.Data
         DbSet<BlogImage> BlogImages { get; set; }
 
         DbSet<Customer> Customers { get; set; }
-    
+
         DbSet<DiscountCode> DiscountCodes { get; set; }
 
         DbSet<Item> Items { get; set; }
@@ -53,5 +53,7 @@ namespace JoelScottFitness.Data
         DbSet<Image> Images { get; set; }
 
         DbSet<ImageConfiguration> ImageConfigurations { get; set; }
+
+        DbSet<Message> Messages { get; set; }
     }
 }

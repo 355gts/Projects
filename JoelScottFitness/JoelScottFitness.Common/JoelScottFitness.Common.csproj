@@ -71,7 +71,9 @@
     <Compile Include="Models\CreateAddressViewModel.cs" />
     <Compile Include="Models\CreateBlogImageViewModel.cs" />
     <Compile Include="Models\CreateBlogViewModel.cs" />
+    <Compile Include="Models\CreateMessageViewModel.cs" />
     <Compile Include="Models\CreateDiscountCodeViewModel.cs" />
+    <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\HallOfFameViewModel.cs" />
     <Compile Include="Models\ImageConfigurationViewModel.cs" />
     <Compile Include="Models\CreateItemViewModel.cs" />

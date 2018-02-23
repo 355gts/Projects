@@ -332,6 +332,65 @@ namespace JoelScottFitness.Data
                 context.SaveChanges();
             }
 
+            if (!context.Images.Any())
+            {
+                var image1 = new Image() { ImagePath = "/Content/Images/BGZD3738.JPG" };
+                var image2 = new Image() { ImagePath = "/Content/Images/BXJA2014.JPG" };
+                var image3 = new Image() { ImagePath = "/Content/Images/CZOB9407.JPG" };
+                var image4 = new Image() { ImagePath = "/Content/Images/FIOI1024.JPG" };
+                var image5 = new Image() { ImagePath = "/Content/Images/IMG_00001.JPG" };
+                var image6 = new Image() { ImagePath = "/Content/Images/IMG_00002.JPG" };
+                var image7 = new Image() { ImagePath = "/Content/Images/IMG_00003.JPG" };
+                var image8 = new Image() { ImagePath = "/Content/Images/IMG_00004.JPG" };
+                var image9 = new Image() { ImagePath = "/Content/Images/IMG_00005.JPG" };
+                var image10 = new Image() { ImagePath = "/Content/Images/IMG_00006.JPG" };
+                var image11 = new Image() { ImagePath = "/Content/Images/IMG_00007.JPG" };
+                var image12 = new Image() { ImagePath = "/Content/Images/IMG_00008.JPG" };
+                var image13 = new Image() { ImagePath = "/Content/Images/IMG_00010.JPG" };
+                var image14 = new Image() { ImagePath = "/Content/Images/IMG_00011.JPG" };
+                var image15 = new Image() { ImagePath = "/Content/Images/IMG_00012.JPG" };
+                var image16 = new Image() { ImagePath = "/Content/Images/IMG_00013.JPG" };
+                var image17 = new Image() { ImagePath = "/Content/Images/IMG_00014.JPG" };
+                var image18 = new Image() { ImagePath = "/Content/Images/IMG_00015.JPG" };
+                var image19 = new Image() { ImagePath = "/Content/Images/IMG_00016.JPG" };
+                var image20 = new Image() { ImagePath = "/Content/Images/IMG_00017.JPG" };
+                var image21 = new Image() { ImagePath = "/Content/Images/IMG_00018.JPG" };
+                var image22 = new Image() { ImagePath = "/Content/Images/IMG_00019.JPG" };
+                var image23 = new Image() { ImagePath = "/Content/Images/IMG_00020.JPG" };
+                var image24 = new Image() { ImagePath = "/Content/Images/IMG_00021.JPG" };
+                var image25 = new Image() { ImagePath = "/Content/Images/IMG_6173.JPG" };
+                var image26 = new Image() { ImagePath = "/Content/Images/IMG_6313.jpg" };
+                var image27 = new Image() { ImagePath = "/Content/Images/UWBL7758.JPG" };
+
+                context.Images.Add(image1);
+                context.Images.Add(image2);
+                context.Images.Add(image3);
+                context.Images.Add(image4);
+                context.Images.Add(image5);
+                context.Images.Add(image6);
+                context.Images.Add(image7);
+                context.Images.Add(image8);
+                context.Images.Add(image9);
+                context.Images.Add(image10);
+                context.Images.Add(image11);
+                context.Images.Add(image12);
+                context.Images.Add(image13);
+                context.Images.Add(image14);
+                context.Images.Add(image15);
+                context.Images.Add(image16);
+                context.Images.Add(image17);
+                context.Images.Add(image18);
+                context.Images.Add(image19);
+                context.Images.Add(image20);
+                context.Images.Add(image21);
+                context.Images.Add(image22);
+                context.Images.Add(image23);
+                context.Images.Add(image24);
+                context.Images.Add(image25);
+                context.Images.Add(image26);
+                context.Images.Add(image27);
+            }
+
             if (!context.Roles.Any())
             {
                 var userRole = new AuthRole()

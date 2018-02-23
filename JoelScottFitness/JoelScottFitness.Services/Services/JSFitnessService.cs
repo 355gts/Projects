@@ -533,5 +533,39 @@ namespace JoelScottFitness.Services.Services
         {
             return emailService.SendEmailAsync(subject, content, receivers, attachmentPaths);
         }
+
+        public async Task<AsyncResult<long>> CreateMessageAsync(CreateMessageViewModel message)
+        {
+            var repoMessage = mapper.Map<CreateMessageViewModel, Message>(message);
+
+            return await repository.CreateOrUpdateMessageAsync(repoMessage);
+        }
+
+        public async Task<AsyncResult<long>> UpdateMessageAsync(MessageViewModel message)
+        {
+            var repoMessage = mapper.Map<MessageViewModel, Message>(message);
+
+            return await repository.CreateOrUpdateMessageAsync(repoMessage);
+        }
+
+        public async Task<IEnumerable<MessageViewModel>> GetMessagesAsync()
+        {
+            var messages = await repository.GetMessagesAsync();
+
+            if (messages == null || !messages.Any())
+                return Enumerable.Empty<MessageViewModel>();
+
+            return mapper.MapEnumerable<Message, MessageViewModel>(messages);
+        }
+
+        public async Task<MessageViewModel> GetMessageAsync(long id)
+        {
+            var message = await repository.GetMessageAsync(id);
+
+            if (message == null)
+                return null;
+
+            return mapper.Map<Message, MessageViewModel>(message);
+        }
     }
 }

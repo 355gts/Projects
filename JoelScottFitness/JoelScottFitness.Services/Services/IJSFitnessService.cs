@@ -17,7 +17,7 @@ namespace JoelScottFitness.Services.Services
         Task<BlogViewModel> GetBlogAsync(long id);
 
         Task<IEnumerable<BlogViewModel>> GetBlogsAsync(int number = 0);
-        
+
         Task<AsyncResult<Guid>> CreateCustomerAsync(CreateCustomerViewModel customer, long? userId = null);
 
         Task<AsyncResult<Guid>> UpdateCustomerAsync(CustomerViewModel customer);
@@ -39,7 +39,7 @@ namespace JoelScottFitness.Services.Services
         Task<AsyncResult<long>> CreatePlanAsync(CreatePlanViewModel plan);
 
         Task<AsyncResult<long>> UpdatePlanAsync(PlanViewModel plan);
-        
+
         Task<PlanViewModel> GetPlanAsync(long id);
 
         Task<IEnumerable<PlanViewModel>> GetPlansAsync();
@@ -47,7 +47,7 @@ namespace JoelScottFitness.Services.Services
         Task<IEnumerable<UiPlanViewModel>> GetPlansByGenderAsync(Gender gender);
 
         Task<PlanOptionViewModel> GetPlanOptionAsync(long id);
-                
+
         Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id);
 
         Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId);
@@ -59,7 +59,7 @@ namespace JoelScottFitness.Services.Services
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
 
         Task<bool> UpdateMailingListAsync(MailingListItemViewModel mailingListItem);
-        
+
         Task<IEnumerable<SelectedPlanOptionViewModel>> GetBasketItemsAsync(IEnumerable<long> ids);
 
         Task<UserViewModel> GetUserAsync(string userName);
@@ -104,5 +104,13 @@ namespace JoelScottFitness.Services.Services
         Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers);
 
         Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers, IEnumerable<string> attachmentPaths);
+
+        Task<AsyncResult<long>> CreateMessageAsync(CreateMessageViewModel message);
+
+        Task<AsyncResult<long>> UpdateMessageAsync(MessageViewModel message);
+
+        Task<IEnumerable<MessageViewModel>> GetMessagesAsync();
+
+        Task<MessageViewModel> GetMessageAsync(long id);
     }
 }

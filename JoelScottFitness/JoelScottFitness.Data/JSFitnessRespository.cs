@@ -155,11 +155,11 @@ namespace JoelScottFitness.Data
                 var newOptions = plan.Options.Where(p => p.Id == 0).ToList();
                 var removedOptions = existingPlan.Options.Where(ep => !plan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
                 var updatedOptions = plan.Options.Where(ep => existingPlan.Options.Select(p => p.Id).ToList().Contains(ep.Id)).ToList();
-                
+
                 dbContext.PlanOptions.RemoveRange(removedOptions);
                 dbContext.PlanOptions.AddRange(newOptions);
 
-                updatedOptions.ForEach(updatedOption => 
+                updatedOptions.ForEach(updatedOption =>
                 {
                     var existingOption = existingPlan.Options.FirstOrDefault(eo => eo.Id == updatedOption.Id);
 
@@ -220,9 +220,9 @@ namespace JoelScottFitness.Data
             if (user == null)
                 return null;
 
-                return await dbContext.Customers
-                                      .Include(c => c.BillingAddress)
-                                      .FirstOrDefaultAsync(c => c.UserId == user.Id);
+            return await dbContext.Customers
+                                  .Include(c => c.BillingAddress)
+                                  .FirstOrDefaultAsync(c => c.UserId == user.Id);
         }
 
         public async Task<DiscountCode> GetDiscountCodeAsync(long id)
@@ -404,7 +404,7 @@ namespace JoelScottFitness.Data
             bool success = false;
 
             var purchase = await dbContext.Purchases.FindAsync(purchaseId);
-            
+
             if (purchase != null)
             {
                 purchase.QuestionnareId = questionnaireId;
@@ -619,6 +619,43 @@ namespace JoelScottFitness.Data
             dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.HallOfFameEnabled));
 
             return await SaveChangesAsync();
+        }
+
+        public async Task<AsyncResult<long>> CreateOrUpdateMessageAsync(Message message)
+        {
+            var existingMessage = await dbContext.Messages.FindAsync(message.Id);
+
+            if (existingMessage != null)
+            {
+                existingMessage.Responded = true;
+                existingMessage.Response = message.Response;
+
+                dbContext.SetModified(existingMessage);
+            }
+            else
+            {
+                dbContext.Messages.Add(message);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                var id = existingMessage != null ? existingMessage.Id : message.Id;
+                return new AsyncResult<long>() { Success = true, Result = id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<IEnumerable<Message>> GetMessagesAsync()
+        {
+            return await dbContext.Messages
+                                  .OrderByDescending(m => m.ReceivedDate)
+                                  .ToListAsync();
+        }
+
+        public async Task<Message> GetMessageAsync(long id)
+        {
+            return await dbContext.Messages.FindAsync(id);
         }
     }
 }
