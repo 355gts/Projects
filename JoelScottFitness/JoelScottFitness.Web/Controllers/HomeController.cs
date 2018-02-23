@@ -59,9 +59,9 @@ namespace JoelScottFitness.Web.Controllers
         {
             var blogs = await jsfService.GetBlogsAsync(6);
             var videos = youTubeClient.GetVideos(3);
-            var sectionImages = await jsfService.GetSectionImages();
-            var kaleidoscopeImages = await jsfService.GetKaleidoscopeImages();
-            var hallOfFame = await jsfService.GetHallOfFameEntries(true, 1);
+            var sectionImages = await jsfService.GetSectionImagesAsync();
+            var kaleidoscopeImages = await jsfService.GetKaleidoscopeImagesAsync();
+            var hallOfFame = await jsfService.GetHallOfFameEntriesAsync(true, 1);
 
             if (sectionImages == null)
             {
@@ -666,7 +666,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> HallOfFame()
         {
-            var hallOfFameEntries = await jsfService.GetHallOfFameEntries();
+            var hallOfFameEntries = await jsfService.GetHallOfFameEntriesAsync();
 
             return View(hallOfFameEntries);
         }

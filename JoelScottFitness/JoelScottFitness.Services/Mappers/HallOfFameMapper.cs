@@ -14,8 +14,8 @@ namespace JoelScottFitness.Services.Mappers
             hallOfFameEntry.AfterImagePath = fromObject.AfterImage;
             hallOfFameEntry.BeforeImagePath = fromObject.BeforeImage;
             hallOfFameEntry.Comment = fromObject.Comment;
-            hallOfFameEntry.Name = $"{fromObject.Purchase.Customer.Firstname} {fromObject.Purchase.Customer.Surname}";
-            hallOfFameEntry.PlanDescription = fromObject.Item.Description;
+            hallOfFameEntry.Name = $"{fromObject.Purchase?.Customer?.Firstname} {fromObject.Purchase?.Customer?.Surname}";
+            hallOfFameEntry.PlanDescription = fromObject.Item?.Description;
             hallOfFameEntry.ItemId = fromObject.ItemId;
             hallOfFameEntry.Enabled = fromObject.HallOfFameEnabled;
 

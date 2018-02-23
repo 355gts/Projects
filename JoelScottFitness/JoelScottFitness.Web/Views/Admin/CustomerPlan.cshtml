@@ -194,6 +194,14 @@
         <label style="font-size:14pt">Items:</label>
     </div>
     <div class="col-md-12">
+        @if (Model.Items == null || !Model.Items.Any())
+        {
+                <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                    NO PLANS ASSOCIATED TO CUSTOMER
+                </div>
+        }
+        else
+        {
         <table class="table">
             <tr>
 
@@ -278,6 +286,7 @@
 
 
 </table>
+        }
 </div>
     <div class="row">
         <div class="form-group">

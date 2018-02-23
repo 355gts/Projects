@@ -338,7 +338,7 @@ namespace JoelScottFitness.Web.Controllers
 
                 // TODO what when upload fails
 
-                var result = await jsfService.AddImage(uploadResult.UploadPath);
+                var result = await jsfService.AddImageAsync(uploadResult.UploadPath);
 
                 if (!result.Success)
                 {
@@ -354,7 +354,7 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> ImageConfiguration(string imageConfigurationError = null)
         {
-            var imageConfiguration = await jsfService.GetImageConfiguration();
+            var imageConfiguration = await jsfService.GetImageConfigurationAsync();
             
             return View(imageConfiguration);
         }
@@ -366,7 +366,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await jsfService.CreateOrUpdateImageConfiguration(imageConfiguration);
+                var result = await jsfService.CreateOrUpdateImageConfigurationAsync(imageConfiguration);
 
                 if (!result.Success)
                     return RedirectToAction("ImageConfiguration", "Admin", new { imageConfigurationError = "An error occured configuring images." });
@@ -394,7 +394,7 @@ namespace JoelScottFitness.Web.Controllers
                     // TODO what happens when upload fails
                 }                
 
-                var result = await jsfService.AssociatePlanToPurchase(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath);
+                var result = await jsfService.AssociatePlanToPurchaseAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath);
 
                 var purchaseViewModel = await jsfService.GetPurchaseAsync(uploadPlanViewModel.PurchaseId);
 
@@ -415,7 +415,7 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> HallOfFame()
         {
-            var hallOfFameEntries = await jsfService.GetHallOfFameEntries(false);
+            var hallOfFameEntries = await jsfService.GetHallOfFameEntriesAsync(false);
 
             return View(hallOfFameEntries);
         }

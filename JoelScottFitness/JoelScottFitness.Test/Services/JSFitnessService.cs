@@ -5,6 +5,7 @@ using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
 using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
+using JoelScottFitness.Identity.Models;
 using JoelScottFitness.PayPal.Services;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
@@ -28,6 +29,7 @@ namespace JoelScottFitness.Test.Services
         Guid customerId = Guid.NewGuid();
         string idString = "id";
         long id = 1234;
+        PurchasedItem purchasedItemCallback;
 
         SRV.JSFitnessService service;
 
@@ -86,11 +88,42 @@ namespace JoelScottFitness.Test.Services
                           .ReturnsAsync(new Questionnaire());
             repositoryMock.Setup(r => r.UpdatePlanStatusAsync(It.IsAny<long>(), It.IsAny<bool>()))
                           .ReturnsAsync(true);
+            repositoryMock.Setup(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = true });
+            repositoryMock.Setup(r => r.AddImageAsync(It.IsAny<Image>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = true });
+            repositoryMock.Setup(r => r.GetImagesAsync())
+                          .ReturnsAsync(new List<Image>() { new Image(), new Image() });
+            repositoryMock.Setup(r => r.CreateOrUpdateImageConfigurationAsync(It.IsAny<ImageConfiguration>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = true });
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync())
+                          .ReturnsAsync(new ImageConfiguration());
+            repositoryMock.Setup(r => r.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()))
+                          .ReturnsAsync(true);
+            repositoryMock.Setup(r => r.GetPurchasedItemAsync(It.IsAny<long>()))
+                          .ReturnsAsync(new PurchasedItem());
+            repositoryMock.Setup(r => r.UpdatePurchasedItemAsync(It.IsAny<PurchasedItem>()))
+                          .Callback<PurchasedItem>((a) => { purchasedItemCallback = a; })
+                          .ReturnsAsync(true);
+            repositoryMock.Setup(r => r.UpdateHallOfFameStatusAsync(It.IsAny<long>(), It.IsAny<bool>()))
+                          .ReturnsAsync(true);
+            repositoryMock.Setup(r => r.DeleteHallOfFameEntryAsync(It.IsAny<long>()))
+                          .ReturnsAsync(true);
+            repositoryMock.Setup(r => r.GetUserAsync(It.IsAny<string>()))
+                          .ReturnsAsync(new AuthUser());
+            repositoryMock.Setup(r => r.GetPurchasesAsync(It.IsAny<Guid>()))
+                          .ReturnsAsync(new List<Purchase>() { new Purchase(), new Purchase() });
 
             paypalServiceMock.Setup(r => r.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()))
                              .Returns(new PaymentResult() { Success = true });
             paypalServiceMock.Setup(r => r.InitiatePayPalPayment(It.IsAny<ConfirmPurchaseViewModel>(), It.IsAny<string>()))
                              .Returns(new PaymentInitiationResult() { Success = true });
+
+
+            emailServiceMock.Setup(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                            .ReturnsAsync(true);
+            emailServiceMock.Setup(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
+                            .ReturnsAsync(true);
 
             service = new SRV.JSFitnessService(repositoryMock.Object,
                                      MapperHelper.GetServiceMapper(),
@@ -759,10 +792,9 @@ namespace JoelScottFitness.Test.Services
         [TestMethod]
         public void GetUserAsync_NotFound_ReturnsNull()
         {
-            throw new NotImplementedException();
             // setup
-            //repositoryMock.Setup(r => r.GetUserAsync(It.IsAny<string>()))
-            //              .ReturnsAsync((AuthUser)null);
+            repositoryMock.Setup(r => r.GetUserAsync(It.IsAny<string>()))
+                          .ReturnsAsync((AuthUser)null);
 
             // test
             var result = service.GetUserAsync(idString).Result;
@@ -770,13 +802,12 @@ namespace JoelScottFitness.Test.Services
             // verify
             repositoryMock.Verify(r => r.GetUserAsync(It.IsAny<string>()), Times.Once);
 
-            Assert.IsNotNull(result);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
         public void GetUserAsync_Found_ReturnsUser()
         {
-            throw new NotImplementedException();
             // test
             var result = service.GetUserAsync(idString).Result;
 
@@ -793,7 +824,7 @@ namespace JoelScottFitness.Test.Services
             repositoryMock.Setup(r => r.SavePurchaseAsync(It.IsAny<Purchase>()))
                           .ReturnsAsync(new AsyncResult<long>() { Success = false });
             // test
-            var result = service.SavePurchaseAsync(new ConfirmPurchaseViewModel()).Result;
+            var result = service.SavePurchaseAsync(new ConfirmPurchaseViewModel() { CustomerDetails = new CustomerViewModel() { Id = Guid.NewGuid() }, BasketItems = new List<SelectedPlanOptionViewModel>() { new SelectedPlanOptionViewModel() { Price = 10 } } }).Result;
 
             // verify
             repositoryMock.Verify(r => r.SavePurchaseAsync(It.IsAny<Purchase>()), Times.Once);
@@ -806,13 +837,13 @@ namespace JoelScottFitness.Test.Services
         public void SavePurchaseAsync_Success_ReturnsTrue()
         {
             // test
-            var result = service.SavePurchaseAsync(new ConfirmPurchaseViewModel()).Result;
+            var result = service.SavePurchaseAsync(new ConfirmPurchaseViewModel() { CustomerDetails = new CustomerViewModel() { Id = Guid.NewGuid() }, BasketItems = new List<SelectedPlanOptionViewModel>() { new SelectedPlanOptionViewModel() { Price = 10 } } }).Result;
 
             // verify
             repositoryMock.Verify(r => r.SavePurchaseAsync(It.IsAny<Purchase>()), Times.Once);
 
             Assert.IsNotNull(result);
-            Assert.IsFalse(result.Success);
+            Assert.IsTrue(result.Success);
         }
 
         [TestMethod]
@@ -975,5 +1006,865 @@ namespace JoelScottFitness.Test.Services
 
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void CreateDiscountCodeAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = false });
+
+            // test
+            var result = service.CreateDiscountCodeAsync(new CreateDiscountCodeViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
+        public void CreateDiscountCodeAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.CreateDiscountCodeAsync(new CreateDiscountCodeViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void UpdateDiscountCodeAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = false });
+
+            // test
+            var result = service.UpdateDiscountCodeAsync(new DiscountCodeViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
+        public void UpdateDiscountCodeAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.UpdateDiscountCodeAsync(new DiscountCodeViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateDiscountCodeAsync(It.IsAny<DiscountCode>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void AddImage_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.AddImageAsync(It.IsAny<Image>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = false });
+
+            // test
+            var result = service.AddImageAsync("image").Result;
+
+            // verify
+            repositoryMock.Verify(r => r.AddImageAsync(It.IsAny<Image>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
+        public void AddImage_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.AddImageAsync("image").Result;
+
+            // verify
+            repositoryMock.Verify(r => r.AddImageAsync(It.IsAny<Image>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void GetImagesAsync_Fails_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImagesAsync())
+                          .ReturnsAsync((IEnumerable<Image>)null);
+
+            // test
+            var result = service.GetImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Images.Count());
+        }
+
+        [TestMethod]
+        public void GetImagesAsync_Success_ReturnsImages()
+        {
+            // test
+            var result = service.GetImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Images.Count());
+        }
+
+        [TestMethod]
+        public void CreateOrUpdateImageConfigurationAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.CreateOrUpdateImageConfigurationAsync(It.IsAny<ImageConfiguration>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = false });
+
+            // test
+            var result = service.CreateOrUpdateImageConfigurationAsync(new ImageConfigurationViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateImageConfigurationAsync(It.IsAny<ImageConfiguration>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
+        public void CreateOrUpdateImageConfigurationAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.CreateOrUpdateImageConfigurationAsync(new ImageConfigurationViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateImageConfigurationAsync(It.IsAny<ImageConfiguration>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void GetImageConfigurationAsync_ImageConfigurationNull_ImagesNull_ReturnsEmptyModel()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync()).ReturnsAsync((ImageConfiguration)null);
+            repositoryMock.Setup(r => r.GetImagesAsync()).ReturnsAsync((IEnumerable<Image>)null);
+
+            // test
+            var result = service.GetImageConfigurationAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Randomize);
+            Assert.AreEqual(0, result.Images.Count());
+        }
+
+        [TestMethod]
+        public void GetImageConfigurationAsync_Success_ReturnsEmptyImages()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync()).ReturnsAsync(new ImageConfiguration() { Randomize = true });
+
+            // test
+            var result = service.GetImageConfigurationAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Randomize);
+            Assert.AreEqual(2, result.Images.Count());
+        }
+
+        [TestMethod]
+        public void GetSectionImagesAsync_ImageConfigurationNull_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync()).ReturnsAsync((ImageConfiguration)null);
+
+            // test
+            var result = service.GetSectionImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetSectionImagesAsync_ImagesNull_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImagesAsync()).ReturnsAsync((IEnumerable<Image>)null);
+
+            // test
+            var result = service.GetSectionImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetSectionImagesAsync_Success_ReturnsModel()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync()).ReturnsAsync(new ImageConfiguration() { Randomize = true });
+            repositoryMock.Setup(r => r.GetImagesAsync()).ReturnsAsync(new List<Image>()
+            {
+                new Image() { ImagePath = "Path1" },
+                new Image() { ImagePath = "Path2" },
+                new Image() { ImagePath = "Path3" },
+                new Image() { ImagePath = "Path4" },
+            });
+
+            // test
+            var result = service.GetSectionImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(!string.IsNullOrEmpty(result.SectionImage1));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.SectionImage2));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.SectionImage3));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.SplashImage));
+        }
+
+        [TestMethod]
+        public void GetKaleidoscopeImagesAsync_ImageConfigurationNull_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync()).ReturnsAsync((ImageConfiguration)null);
+
+            // test
+            var result = service.GetKaleidoscopeImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetKaleidoscopeImagesAsync_ImagesNull_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImagesAsync()).ReturnsAsync((IEnumerable<Image>)null);
+
+            // test
+            var result = service.GetKaleidoscopeImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetKaleidoscopeImagesAsync_Success_ReturnsModel()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetImageConfigurationAsync()).ReturnsAsync(new ImageConfiguration() { Randomize = true });
+            repositoryMock.Setup(r => r.GetImagesAsync()).ReturnsAsync(new List<Image>()
+            {
+                new Image() { ImagePath = "Path1" },
+                new Image() { ImagePath = "Path2" },
+                new Image() { ImagePath = "Path3" },
+                new Image() { ImagePath = "Path4" },
+                new Image() { ImagePath = "Path5" },
+            });
+
+            // test
+            var result = service.GetKaleidoscopeImagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetImageConfigurationAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetImagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(!string.IsNullOrEmpty(result.Image1));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.Image2));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.Image3));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.Image4));
+            Assert.IsTrue(!string.IsNullOrEmpty(result.Image5));
+        }
+
+        [TestMethod]
+        public void AssociatePlanToPurchaseAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()))
+                          .ReturnsAsync(false);
+
+            // test
+            var result = service.AssociatePlanToPurchaseAsync(id, idString).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void AssociatePlanToPurchaseAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.AssociatePlanToPurchaseAsync(id, idString).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void UploadHallOfFameAsync_GetPurchasedItemAsyncFails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPurchasedItemAsync(It.IsAny<long>()))
+                          .ReturnsAsync((PurchasedItem)null);
+            // test
+            var result = service.UploadHallOfFameAsync(id, idString, idString, idString).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPurchasedItemAsync(It.IsAny<long>()), Times.Once);
+            repositoryMock.Verify(r => r.UpdatePurchasedItemAsync(It.IsAny<PurchasedItem>()), Times.Never);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void UploadHallOfFameAsync_UpdatePurchasedItemAsyncFails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.UpdatePurchasedItemAsync(It.IsAny<PurchasedItem>()))
+                          .ReturnsAsync(false);
+            // test
+            var result = service.UploadHallOfFameAsync(id, idString, idString, idString).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPurchasedItemAsync(It.IsAny<long>()), Times.Once);
+            repositoryMock.Verify(r => r.UpdatePurchasedItemAsync(It.IsAny<PurchasedItem>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void UploadHallOfFameAsync_Success_ReturnsTrue()
+        {
+            // setup
+            string beforeImage = "beforeImage";
+            string afterImage = "afterImage";
+            string comment = "comment";
+            // test
+            var result = service.UploadHallOfFameAsync(id, beforeImage, afterImage, comment).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPurchasedItemAsync(It.IsAny<long>()), Times.Once);
+            repositoryMock.Verify(r => r.UpdatePurchasedItemAsync(It.IsAny<PurchasedItem>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+
+            Assert.IsNotNull(purchasedItemCallback);
+            Assert.AreEqual(beforeImage, purchasedItemCallback.BeforeImage);
+            Assert.AreEqual(afterImage, purchasedItemCallback.AfterImage);
+            Assert.AreEqual(comment, purchasedItemCallback.Comment);
+            Assert.IsTrue(purchasedItemCallback.MemberOfHallOfFame);
+            Assert.IsFalse(purchasedItemCallback.HallOfFameEnabled);
+            Assert.IsNotNull(purchasedItemCallback.HallOfFameDate);
+        }
+
+        [TestMethod]
+        public void GetHallOfFameEntriesAsync_PurchasedItemsNull_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()))
+                          .ReturnsAsync((IEnumerable<PurchasedItem>)null);
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync(new List<Plan>()
+                          {
+                              new Plan(){ Name = "Plan1", Options = new List<PlanOption>(){ new PlanOption() { Id = 1 } } },
+                              new Plan(){ Options = new List<PlanOption>(){ new PlanOption() { Id = 2 } } },
+                              new Plan(){ Name = "Plan3", Options = new List<PlanOption>(){ new PlanOption() { Id = 3 } } },
+                              new Plan(){ Name = "Plan4" },
+                          });
+
+            // test
+            var result = service.GetHallOfFameEntriesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()), Times.Once);
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetHallOfFameEntriesAsync_PlansNull_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()))
+                          .ReturnsAsync(new List<PurchasedItem>()
+                          {
+                              new PurchasedItem(){ Id = 1, ItemId = 1 },
+                              new PurchasedItem(){ Id = 2, ItemId = 2 },
+                              new PurchasedItem(){ Id = 3, ItemId = 3 },
+                              new PurchasedItem(){ Id = 4, ItemId = 4 },
+                          });
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync((IEnumerable<Plan>)null);
+
+            // test
+            var result = service.GetHallOfFameEntriesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()), Times.Once);
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetHallOfFameEntriesAsync_Success_ExcludesOnePlanWithNoName_ReturnsHallOfFameEntries()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()))
+                          .ReturnsAsync(new List<PurchasedItem>()
+                          {
+                              new PurchasedItem(){ Id = 1, ItemId = 1 },
+                              new PurchasedItem(){ Id = 2, ItemId = 2 },
+                              new PurchasedItem(){ Id = 3, ItemId = 3 },
+                              new PurchasedItem(){ Id = 4, ItemId = 4 },
+                          });
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync(new List<Plan>()
+                          {
+                              new Plan(){ Name = "Plan1", Options = new List<PlanOption>(){ new PlanOption() { Id = 1 } } },
+                              new Plan(){ Options = new List<PlanOption>(){ new PlanOption() { Id = 2 } } },
+                              new Plan(){ Name = "Plan3", Options = new List<PlanOption>(){ new PlanOption() { Id = 3 } } },
+                              new Plan(){ Name = "Plan4" },
+                          });
+
+            // test
+            var result = service.GetHallOfFameEntriesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()), Times.Once);
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count());
+            Assert.AreEqual(1, result.Count(p => p.ItemId == 1 && p.PlanName == "Plan1"));
+            Assert.AreEqual(0, result.Count(p => p.ItemId == 2));  // name is null
+            Assert.AreEqual(1, result.Count(p => p.ItemId == 3 && p.PlanName == "Plan3"));
+            Assert.AreEqual(0, result.Count(p => p.ItemId == 4));  // null options
+        }
+
+        [TestMethod]
+        public void UpdateHallOfFameStatusAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.UpdateHallOfFameStatusAsync(It.IsAny<long>(), It.IsAny<bool>()))
+                          .ReturnsAsync(false);
+
+            // test
+            var result = service.UpdateHallOfFameStatusAsync(id, true).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.UpdateHallOfFameStatusAsync(It.IsAny<long>(), It.IsAny<bool>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void UpdateHallOfFameStatusAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.UpdateHallOfFameStatusAsync(id, true).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.UpdateHallOfFameStatusAsync(It.IsAny<long>(), It.IsAny<bool>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void DeleteHallOfFameEntryAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.DeleteHallOfFameEntryAsync(It.IsAny<long>()))
+                          .ReturnsAsync(false);
+
+            // test
+            var result = service.DeleteHallOfFameEntryAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.DeleteHallOfFameEntryAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void DeleteHallOfFameEntryAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.DeleteHallOfFameEntryAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.DeleteHallOfFameEntryAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void SendEmailAsync_WithoutAttachments_Fails_ReturnsFalse()
+        {
+            // setup
+            emailServiceMock.Setup(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                            .ReturnsAsync(false);
+
+            // test
+            var result = service.SendEmailAsync("subject", "content", new List<string>() { "email1", "email2" }).Result;
+
+            // verify
+            emailServiceMock.Verify(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void SendEmailAsync_WithoutAttachments_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.SendEmailAsync("subject", "content", new List<string>() { "email1", "email2" }).Result;
+
+            // verify
+            emailServiceMock.Verify(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void SendEmailAsync_WithAttachments_Fails_ReturnsFalse()
+        {
+            // setup
+            emailServiceMock.Setup(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
+                            .ReturnsAsync(false);
+
+            // test
+            var result = service.SendEmailAsync("subject", "content", new List<string>() { "email1", "email2" }, new List<string>() { "attachment1", "attachment2" }).Result;
+
+            // verify
+            emailServiceMock.Verify(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void SendEmailAsync_WithAttachments_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.SendEmailAsync("subject", "content", new List<string>() { "email1", "email2" }, new List<string>() { "attachment1", "attachment2" }).Result;
+
+            // verify
+            emailServiceMock.Verify(r => r.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void GetCustomerPlansAsync_PlanOptionsNull_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlanOptionsAsync())
+                          .ReturnsAsync((IEnumerable<PlanOption>)null);
+            repositoryMock.Setup(r => r.GetPurchasesAsync(It.IsAny<Guid>()))
+                          .ReturnsAsync(new List<Purchase>() { new Purchase() });
+
+            // test
+            var result = service.GetCustomerPlansAsync(customerId).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlanOptionsAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchasesAsync(It.IsAny<Guid>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetCustomerPlansAsync_PurchasesNull_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlanOptionsAsync())
+                          .ReturnsAsync(new List<PlanOption>() { new PlanOption() });
+            repositoryMock.Setup(r => r.GetPurchasesAsync(It.IsAny<Guid>()))
+                          .ReturnsAsync((IEnumerable<Purchase>)null);
+
+            // test
+            var result = service.GetCustomerPlansAsync(customerId).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlanOptionsAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchasesAsync(It.IsAny<Guid>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetCustomerPlansAsync_Success_ExcludesMissingPlans_ExcludesNonCompletePurchases_ReturnsPlans()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlanOptionsAsync())
+                          .ReturnsAsync(new List<PlanOption>()
+                          {
+                              new PlanOption(){ Id = 1, Plan = new Plan(){ Name = "Plan1", ImagePathLarge = "ImagePathLarge1" } },
+                              new PlanOption(){ Id = 2, Plan = new Plan(){ Name = "Plan2", ImagePathLarge = "ImagePathLarge2" } },
+                              new PlanOption(){ Id = 4, Plan = new Plan(){ Name = "Plan4", ImagePathLarge = "ImagePathLarge4" } },
+                          });
+
+            repositoryMock.Setup(r => r.GetPurchasesAsync(It.IsAny<Guid>()))
+                          .ReturnsAsync(new List<Purchase>()
+                          {
+                              new Purchase()
+                              {
+                                  Id = 1,
+                                  TransactionId = "tran1",
+                                  QuestionnareId = 1,
+                                  Status = PurchaseStatus.Complete,
+                                  Items = new List<PurchasedItem>()
+                                  {
+                                      new PurchasedItem(){ Id = 1, Item = new Item() { Description = "Description1", Id = 1, ItemType = ItemType.Plan, Price = 10 } },
+                                      new PurchasedItem(){ Id = 2, Item = new Item() { Description = "Description2", Id = 2, ItemType = ItemType.Plan, Price = 20 } },
+                                      new PurchasedItem(){ Id = 3, Item = new Item() { Description = "Description3", Id = 3, ItemType = ItemType.Plan, Price = 30 } },
+                                  },
+                              },
+                              new Purchase()
+                              {
+                                  Id = 3,
+                                  TransactionId = "tran3",
+                                  Status = PurchaseStatus.Complete,
+                                  Items = new List<PurchasedItem>()
+                                  {
+                                      new PurchasedItem(){ Id = 4, Item = new Item() { Description = "Description4", Id = 1, ItemType = ItemType.Plan, Price = 10 } },
+                                  },
+                              },
+                              new Purchase()
+                              {
+                                  Id = 2,
+                                  TransactionId = "tran2",
+                                  QuestionnareId = 2,
+                                  Status = PurchaseStatus.Pending,  // excludes this non-complete purchase
+                              },
+                          });
+
+            // test
+            var result = service.GetCustomerPlansAsync(customerId).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlanOptionsAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchasesAsync(It.IsAny<Guid>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(0, result.Count(p => p.PlanOptionId == 30));  // checks that the non matching plan is excluded
+            // 2 purchases have questionnaire complete one doesnt
+            Assert.AreEqual(2, result.Count(p => p.QuestionnaireComplete));
+            Assert.AreEqual(1, result.Count(p => !p.QuestionnaireComplete));
+        }
+
+        [TestMethod]
+        public void GetPurchaseSummaryAsync_NotFound_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPurchasesAsync(It.IsAny<Guid>()))
+                          .ReturnsAsync((IEnumerable<Purchase>)null);
+
+            // test
+            var result = service.GetPurchaseSummaryAsync(customerId).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPurchasesAsync(It.IsAny<Guid>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetPurchaseSummaryAsync_Success_ReturnsPurchases()
+        {
+            // test
+            var result = service.GetPurchaseSummaryAsync(customerId).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPurchasesAsync(It.IsAny<Guid>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void GetPurchaseAsync_NotFound_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPurchasesAsync())
+                          .ReturnsAsync((IEnumerable<Purchase>)null);
+
+            // test
+            var result = service.GetPurchasesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPurchasesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetPurchaseAsync_PurchaseNotFound_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync(new List<Plan>() { new Plan() });
+            repositoryMock.Setup(r => r.GetPurchaseAsync(It.IsAny<long>()))
+                          .ReturnsAsync((Purchase)null);
+
+            // test
+            var result = service.GetPurchaseAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetPurchaseAsync_PlansNull_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync((IEnumerable<Plan>)null);
+            repositoryMock.Setup(r => r.GetPurchaseAsync(It.IsAny<long>()))
+                          .ReturnsAsync(new Purchase());
+
+            // test
+            var result = service.GetPurchaseAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetPurchaseAsync_Success_ReturnsPurchase()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync(new List<Plan>()
+                          {
+                                          new Plan(){ Name = "Plan1", Options = new List<PlanOption>(){ new PlanOption() { Id = 1 } } },
+                                          new Plan(){ Options = new List<PlanOption>(){ new PlanOption() { Id = 2 } } },
+                                          new Plan(){ Name = "Plan3", Options = new List<PlanOption>(){ new PlanOption() { Id = 3 } } },
+                                          new Plan(){ Name = "Plan4" },
+                          });
+            repositoryMock.Setup(r => r.GetPurchaseAsync(It.IsAny<long>()))
+                          .ReturnsAsync(new Purchase()
+                          {
+                              Customer = new Customer(),
+                              DiscountCode = new DiscountCode(),
+                              Questionnaire = new Questionnaire(),
+                              Items = new List<PurchasedItem>()
+                              {
+                                  new PurchasedItem(){ Id = 1, ItemId = 1, Item = new Item() { Description = "Description1", Id = 1, ItemType = ItemType.Plan, Price = 10 } },
+                                  new PurchasedItem(){ Id = 2, ItemId = 2, Item = new Item() { Description = "Description2", Id = 2, ItemType = ItemType.Plan, Price = 20 } },
+                                  new PurchasedItem(){ Id = 3, ItemId = 3, Item = new Item() { Description = "Description3", Id = 3, ItemType = ItemType.Plan, Price = 30 } },
+                              },
+                          });
+
+            // test
+            var result = service.GetPurchaseAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(3, result.Items.Count());
+            Assert.IsNotNull(result.Customer);
+            Assert.IsNotNull(result.DiscountCode);
+            Assert.IsNotNull(result.Questionnaire);
+        }
+
+
+        [TestMethod]
+        public void GetPurchaseAsync_Success_OptionalPropertiesNull_ReturnsPurchase()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetPlansAsync())
+                          .ReturnsAsync(new List<Plan>() { new Plan() });
+            repositoryMock.Setup(r => r.GetPurchaseAsync(It.IsAny<long>()))
+                          .ReturnsAsync(new Purchase()
+                          {
+                              Customer = new Customer(),
+                          });
+
+            // test
+            var result = service.GetPurchaseAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetPlansAsync(), Times.Once);
+            repositoryMock.Verify(r => r.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Customer);
+            Assert.IsNull(result.Items);
+            Assert.IsNull(result.DiscountCode);
+            Assert.IsNull(result.Questionnaire);
+        }
+
     }
 }

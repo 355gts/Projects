@@ -112,11 +112,11 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 jsfServiceMock.Setup(s => s.GetBlogsAsync(It.IsAny<int>()))
                               .ReturnsAsync(blogs);
-                jsfServiceMock.Setup(s => s.GetSectionImages())
+                jsfServiceMock.Setup(s => s.GetSectionImagesAsync())
                               .ReturnsAsync(sectionImages);
-                jsfServiceMock.Setup(s => s.GetKaleidoscopeImages())
+                jsfServiceMock.Setup(s => s.GetKaleidoscopeImagesAsync())
                               .ReturnsAsync(kaleidoscopeViewModel);
-                jsfServiceMock.Setup(s => s.GetHallOfFameEntries(It.IsAny<bool>(), It.IsAny<int?>()))
+                jsfServiceMock.Setup(s => s.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()))
                               .ReturnsAsync(hallOfFameViewModels);
 
                 youtubeClientMock.Setup(y => y.GetVideos(It.IsAny<long>()))
@@ -134,7 +134,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void Index_SectionImagesNull_ReturnsDefault()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.GetSectionImages())
+                jsfServiceMock.Setup(s => s.GetSectionImagesAsync())
                               .ReturnsAsync((SectionImageViewModel)null);
 
                 // test
@@ -195,7 +195,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void Index_LatestHallOfFamerNull_HallOfFameSessionFalse()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.GetHallOfFameEntries(It.IsAny<bool>(), It.IsAny<int?>()))
+                jsfServiceMock.Setup(s => s.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()))
                               .ReturnsAsync(Enumerable.Empty<HallOfFameViewModel>);
 
                 // test

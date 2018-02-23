@@ -78,25 +78,25 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
 
-        Task<AsyncResult<long>> AddImage(string imagePath);
+        Task<AsyncResult<long>> AddImageAsync(string imagePath);
 
-        Task<ImageListViewModel> GetImages();
+        Task<ImageListViewModel> GetImagesAsync();
 
-        Task<AsyncResult<long>> CreateOrUpdateImageConfiguration(ImageConfigurationViewModel imageConfiguration);
+        Task<AsyncResult<long>> CreateOrUpdateImageConfigurationAsync(ImageConfigurationViewModel imageConfiguration);
 
-        Task<ImageConfigurationViewModel> GetImageConfiguration();
+        Task<ImageConfigurationViewModel> GetImageConfigurationAsync();
 
-        Task<SectionImageViewModel> GetSectionImages();
+        Task<SectionImageViewModel> GetSectionImagesAsync();
 
-        Task<bool> AssociatePlanToPurchase(long purchasedItemId, string planPath);
+        Task<bool> AssociatePlanToPurchaseAsync(long purchasedItemId, string planPath);
 
         Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(Guid customerId);
 
-        Task<KaleidoscopeViewModel> GetKaleidoscopeImages();
+        Task<KaleidoscopeViewModel> GetKaleidoscopeImagesAsync();
 
         Task<bool> UploadHallOfFameAsync(long purchasedItemId, string beforeImage, string afterImage, string comment);
 
-        Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntries(bool onlyEnabled = true, int? numberOfEntries = null);
+        Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
 
         Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status);
         Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId);
