@@ -110,36 +110,36 @@ namespace JoelScottFitness.Data
                 var plan1 = new Plan()
                 {
                     Active = true,
-                    BannerHeader = "Get Leaner And Stronger",
+                    BannerHeader = "Get Shredded!",
                     CreatedDate = DateTime.UtcNow,
-                    Description = "It doesn't matter what shape you're in, your age, or how many diet programs you've tried. You can transform your body and become leaner and stronger",
-                    ImagePathLarge = "/Content/Images/Plans/male-plan1.jpg",
-                    Name = "Lean Body",
+                    Description = "Get ready to burn fat, boost confidence and get in the best shape of your life! With as little cardio as possible and an enjoyable diet, get ready for.. The Shortcut to Shred!",
+                    ImagePathLarge = "/Content/Images/Plans/ShortcutToShred.jpg",
+                    Name = "Shortcut to Shred",
                     TargetGender = Gender.Male,
                     Options = new List<PlanOption>()
                     {
                         new PlanOption()
                         {
-                            Description = "12 Week Daily Trainer",
+                            Description = "4 Week Shred",
+                            Duration = 4,
+                            ItemType = ItemType.Plan,
+                            Price = 19.99,
+                        },
+
+                        new PlanOption()
+                        {
+                            Description = "8 Week Shred",
+                            Duration = 8,
+                            ItemType = ItemType.Plan,
+                            Price = 29.99,
+                        },
+
+                        new PlanOption()
+                        {
+                            Description = "12 Week Shred",
                             Duration = 12,
                             ItemType = ItemType.Plan,
-                            Price = 28.99,
-                        },
-
-                        new PlanOption()
-                        {
-                            Description = "18 Week Daily Trainer",
-                            Duration = 18,
-                            ItemType = ItemType.Plan,
-                            Price = 38.99,
-                        },
-
-                        new PlanOption()
-                        {
-                            Description = "24 Week Daily Trainer",
-                            Duration = 24,
-                            ItemType = ItemType.Plan,
-                            Price = 45.99,
+                            Price = 39.99,
                         },
                     },
                 };
@@ -148,248 +148,178 @@ namespace JoelScottFitness.Data
                     Active = true,
                     BannerHeader = "Get Shredded!",
                     CreatedDate = DateTime.UtcNow,
-                    Description = "Get ready to burn fat, build muscle, boost strength, and get absolutely shredded in only six weeks. Get ready to achieve the best shape of your life. Get ready for Shortcut to Shred.",
-                    ImagePathLarge = "/Content/Images/Plans/male-plan2.jpg",
-                    Name = "Shortcut to Shred",
+                    Description = "You want it all! Solid muscle, with impressive strength to back it up. Combining compound strength training with a bodybuilding approach.. GET BIGGER, GET STRONGER!",
+                    ImagePathLarge = "/Content/Images/Plans/TheHulkEffect.jpg",
+                    Name = "The Hulk Effect",
                     TargetGender = Gender.Male,
                     Options = new List<PlanOption>()
                     {
                         new PlanOption()
                         {
-                            Description = "6 Week Shred",
-                            Duration = 6,
+                            Description = "4 Week Plan",
+                            Duration = 4,
                             ItemType = ItemType.Plan,
-                            Price = 18.99,
+                            Price = 19.99,
                         },
                         new PlanOption()
                         {
-                            Description = "12 Week Shred",
+                            Description = "8 Week Plan",
+                            Duration = 8,
+                            ItemType = ItemType.Plan,
+                            Price = 29.99,
+                        },
+                        new PlanOption()
+                        {
+                            Description = "12 Week Plan",
                             Duration = 12,
                             ItemType = ItemType.Plan,
-                            Price = 25.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "24 Week Shred",
-                            Duration = 24,
-                            ItemType = ItemType.Plan,
-                            Price = 45.99,
+                            Price = 39.99,
                         },
                     },
                 };
                 var plan3 = new Plan()
                 {
                     Active = true,
-                    BannerHeader = "The Total-Body Fitness Plan",
+                    BannerHeader = "Muscle Building Blueprint",
                     CreatedDate = DateTime.UtcNow,
-                    Description = "You want it all: a shredded, muscular physique; strength that can be expressed through explosive power; and a racecar engine under the hood. To get there, training the same old way won’t suffice. Ripped Remix is an intense 4-week training plan designed to help you master your body, shake up your workouts, torch fat, and build new levels of strength.",
-                    ImagePathLarge = "/Content/Images/Plans/male-plan3.jpg",
-                    Name = "Ripped",
+                    Description = "Project Mass is a next level training, nutrition, and supplement program, designed to build as much muscle as possible, in the shortest space of time.. This is how you grow!",
+                    ImagePathLarge = "/Content/Images/Plans/ProjectMass.jpg",
+                    Name = "Project Mass",
                     TargetGender = Gender.Male,
                     Options = new List<PlanOption>()
                     {
                         new PlanOption()
                         {
-                            Description = "28 Day Plan",
+                            Description = "4 Week Plan",
                             Duration = 4,
                             ItemType = ItemType.Plan,
-                            Price = 18.99,
+                            Price = 19.99,
                         },
                         new PlanOption()
                         {
-                            Description = "42 Day Plan",
-                            Duration = 6,
-                            ItemType = ItemType.Plan,
-                            Price = 25.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "58 Day Plan",
+                            Description = "8 Week Plan",
                             Duration = 8,
                             ItemType = ItemType.Plan,
-                            Price = 30.99,
+                            Price = 29.99,
+                        },
+                        new PlanOption()
+                        {
+                            Description = "12 Week Plan",
+                            Duration = 12,
+                            ItemType = ItemType.Plan,
+                            Price = 39.99,
                         },
                     },
                 };
                 var plan4 = new Plan()
                 {
                     Active = true,
-                    BannerHeader = "Muscle-Building Trainer",
+                    BannerHeader = "Shape & Strength Shortcut",
                     CreatedDate = DateTime.UtcNow,
-                    Description = "Project Mass is a cutting-edge training, nutrition, and supplement program designed to help you build maximum size. This is how you grow.",
-                    ImagePathLarge = "/Content/Images/Plans/male-plan4.jpg",
-                    Name = "Mass Effect",
-                    TargetGender = Gender.Male,
+                    Description = "Shape up, gain strength, gain confidence.. Look wonderful!",
+                    ImagePathLarge = "/Content/Images/Plans/WonderWomanPhysique.jpg",
+                    Name = "Wonder Woman Physique",
+                    TargetGender = Gender.Female,
                     Options = new List<PlanOption>()
                     {
                         new PlanOption()
                         {
-                            Description = "14 Week Plan",
+                            Description = "4 Week Plan",
                             Duration = 14,
                             ItemType = ItemType.Plan,
-                            Price = 45.99,
+                            Price = 19.99,
                         },
                         new PlanOption()
                         {
-                            Description = "21 Week Plan",
-                            Duration = 6,
-                            ItemType = ItemType.Plan,
-                            Price = 60.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "28 Week Plan",
+                            Description = "8 Week Plan",
                             Duration = 8,
                             ItemType = ItemType.Plan,
-                            Price = 65.99,
+                            Price = 29.99,
+                        },
+                        new PlanOption()
+                        {
+                            Description = "12 Week Plan",
+                            Duration = 12,
+                            ItemType = ItemType.Plan,
+                            Price = 39.99,
                         },
                     },
                 };
                 var plan5 = new Plan()
                 {
                     Active = true,
-                    BannerHeader = "Become a Triple Threat!",
+                    BannerHeader = "Booty Building Trainer",
                     CreatedDate = DateTime.UtcNow,
-                    Description = "You don't have to choose between muscle, strength, and conditioning. You can train to be both athlete and Adonis, functional and ferocious. Harness the strength that comes from wielding the weights, while creating an aerobic engine to power you through any challenge.",
-                    ImagePathLarge = "/Content/Images/Plans/female-plan1.jpg",
-                    Name = "Triple Threat",
+                    Description = "Specified training to get the best results in the shortest space of time.. Get ready to blow up that butt!",
+                    ImagePathLarge = "/Content/Images/Plans/UltimateBootyBuilder.jpg",
+                    Name = "Ultimate Booty Builder",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOption>()
                     {
                         new PlanOption()
                         {
                             Description = "4 Week Plan",
-                            Duration = 4,
+                            Duration = 14,
                             ItemType = ItemType.Plan,
-                            Price = 20.99,
+                            Price = 19.99,
                         },
                         new PlanOption()
                         {
                             Description = "8 Week Plan",
-                            Duration = 6,
+                            Duration = 8,
                             ItemType = ItemType.Plan,
-                            Price = 30.99,
+                            Price = 29.99,
                         },
                         new PlanOption()
                         {
                             Description = "12 Week Plan",
                             Duration = 12,
                             ItemType = ItemType.Plan,
-                            Price = 27.99,
+                            Price = 39.99,
                         },
                     },
                 };
                 var plan6 = new Plan()
                 {
                     Active = true,
-                    BannerHeader = "Hit the Beach like never before",
+                    BannerHeader = "Bikini ready, in no time!",
                     CreatedDate = DateTime.UtcNow,
-                    Description = "Have you been endlessly searching for workout tips and plans to achieve your fitness goals? Well look no further with the Bikini Body Guide- We have the ultimate supplement, diet and workout regime for you to follow this summer.",
-                    ImagePathLarge = "/Content/Images/Plans/female-plan2.jpg",
-                    Name = "Bikini Body",
+                    Description = "Holiday booked? Summer on the way? Dust off those bikinis and get the body you've always wanted!",
+                    ImagePathLarge = "/Content/Images/Plans/BeachBody.jpg",
+                    Name = "Beach Body",
                     TargetGender = Gender.Female,
                     Options = new List<PlanOption>()
                     {
                         new PlanOption()
                         {
                             Description = "4 Week Plan",
-                            Duration = 4,
+                            Duration = 14,
                             ItemType = ItemType.Plan,
-                            Price = 20.99,
+                            Price = 19.99,
                         },
                         new PlanOption()
                         {
                             Description = "8 Week Plan",
-                            Duration = 6,
+                            Duration = 8,
                             ItemType = ItemType.Plan,
-                            Price = 30.99,
+                            Price = 29.99,
                         },
                         new PlanOption()
                         {
                             Description = "12 Week Plan",
                             Duration = 12,
                             ItemType = ItemType.Plan,
-                            Price = 27.99,
+                            Price = 39.99,
                         },
                     },
                 };
-                var plan7 = new Plan()
-                {
-                    Active = true,
-                    BannerHeader = "Your Transformation Plan!",
-                    CreatedDate = DateTime.UtcNow,
-                    Description = "My very own LiveFit fitness plan, which will help you lose weight, build shapely muscle, and get fit for life!",
-                    ImagePathLarge = "/Content/Images/Plans/female-plan3.jpg",
-                    Name = "Live Fit",
-                    TargetGender = Gender.Female,
-                    Options = new List<PlanOption>()
-                    {
-                        new PlanOption()
-                        {
-                            Description = "4 Week Plan",
-                            Duration = 4,
-                            ItemType = ItemType.Plan,
-                            Price = 20.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "8 Week Plan",
-                            Duration = 6,
-                            ItemType = ItemType.Plan,
-                            Price = 30.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "12 Week Plan",
-                            Duration = 12,
-                            ItemType = ItemType.Plan,
-                            Price = 27.99,
-                        },
-                    },
-                };
-                var plan8 = new Plan()
-                {
-                    Active = true,
-                    BannerHeader = "The Do-Anywhere CrossFit Workout",
-                    CreatedDate = DateTime.UtcNow,
-                    Description = "No time? No equipment? No space? No problem. This travel-friendly, CrossFit-inspired workout will blast fat and sculpt muscle in minutes. No excuses!",
-                    ImagePathLarge = "/Content/Images/Plans/female-plan4.jpg",
-                    Name = "Crossfit Crazy",
-                    TargetGender = Gender.Female,
-                    Options = new List<PlanOption>()
-                    {
-                        new PlanOption()
-                        {
-                            Description = "4 Week Plan",
-                            Duration = 4,
-                            ItemType = ItemType.Plan,
-                            Price = 20.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "8 Week Plan",
-                            Duration = 6,
-                            ItemType = ItemType.Plan,
-                            Price = 30.99,
-                        },
-                        new PlanOption()
-                        {
-                            Description = "12 Week Plan",
-                            Duration = 12,
-                            ItemType = ItemType.Plan,
-                            Price = 27.99,
-                        },
-                    },
-                };
-                
+
                 context.Plans.Add(plan1);
                 context.Plans.Add(plan2);
                 context.Plans.Add(plan3);
                 context.Plans.Add(plan4);
                 context.Plans.Add(plan5);
                 context.Plans.Add(plan6);
-                context.Plans.Add(plan7);
-                context.Plans.Add(plan8);
                 context.SaveChanges();
             }
 
@@ -400,7 +330,7 @@ namespace JoelScottFitness.Data
                     Randomize = true,
                 });
                 context.SaveChanges();
-        }
+            }
 
             if (!context.Roles.Any())
             {
@@ -413,12 +343,12 @@ namespace JoelScottFitness.Data
                 {
                     Name = JsfRoles.Admin
                 };
-                
+
                 context.Roles.Add(userRole);
                 context.Roles.Add(adminRole);
                 context.SaveChanges();
             }
-            
+
             base.Seed(context);
         }
     }

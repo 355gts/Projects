@@ -33,16 +33,16 @@
       <Value Profile="(Default)">{0} {1} - {2} - {3} - {4}.pdf</Value>
     </Setting>
     <Setting Name="DefaultSectionImage1" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/section1.jpg</Value>
+      <Value Profile="(Default)">/Content/Images/Default/section1.jpg</Value>
     </Setting>
     <Setting Name="DefaultSectionImage2" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/section2.jpg</Value>
+      <Value Profile="(Default)">/Content/Images/Default/section2.jpg</Value>
     </Setting>
     <Setting Name="DefaultSectionImage3" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/section3.jpg</Value>
+      <Value Profile="(Default)">/Content/Images/Default/section3.jpg</Value>
     </Setting>
     <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">/Content/Images/banner.jpg</Value>
+      <Value Profile="(Default)">/Content/Images/Default/banner.jpg</Value>
     </Setting>
     <Setting Name="BeforeFileNameFormat" Type="System.String" Scope="Application">
       <Value Profile="(Default)">{0}_BEFORE_{1}</Value>
