@@ -109,8 +109,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 // verify
                 fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.UploadHallOfFameAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-
-
+                
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Data);
 

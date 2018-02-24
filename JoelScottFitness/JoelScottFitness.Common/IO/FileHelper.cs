@@ -28,5 +28,10 @@ namespace JoelScottFitness.Common.IO
         {
             return FileUtility.UploadFile(postedFile, directory, name);
         }
+
+        public string MapPath(string file)
+        {
+            return FileUtility.MapPath(file);
+        }
     }
 }

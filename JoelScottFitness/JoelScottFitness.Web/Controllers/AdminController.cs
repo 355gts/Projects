@@ -381,29 +381,48 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UploadPlan(UploadPlanViewModel uploadPlanViewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(uploadPlanViewModel);
+
+            var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
+            if (customer == null)
             {
-                var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId));
+                return View(uploadPlanViewModel);
+            }
 
-                string fileName = string.Format(Settings.Default.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd"));
+            string fileName = string.Format(Settings.Default.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd"));
 
-                var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
-                if (!uploadResult.Success)
+            var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
+            if (!uploadResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                return View(uploadPlanViewModel);
+            }
+
+            if (!await jsfService.AssociatePlanToPurchaseAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath))
+            {
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                return View(uploadPlanViewModel);
+            }
+
+            var purchaseViewModel = await jsfService.GetPurchaseAsync(uploadPlanViewModel.PurchaseId);
+            if (purchaseViewModel == null)
+            {
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                return View(uploadPlanViewModel);
+            }
+
+            // if none of the plans require action then they are all ready
+            if (purchaseViewModel.Items != null && purchaseViewModel.Items.Any() && !purchaseViewModel.Items.Any(i => i.RequiresAction))
+            {
+                var planPaths = purchaseViewModel.Items.Select(i => fileHelper.MapPath(i.PlanPath)).ToList();
+
+                // send confirmation email
+                if (!await SendOrderCompleteEmail(purchaseViewModel, planPaths))
                 {
-                    // TODO what happens when upload fails
-                }
-
-                var result = await jsfService.AssociatePlanToPurchaseAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath);
-
-                var purchaseViewModel = await jsfService.GetPurchaseAsync(uploadPlanViewModel.PurchaseId);
-
-                // if none of the plans require action then they are all ready
-                if (!purchaseViewModel.Items.Any(i => i.RequiresAction))
-                {
-                    var planPaths = purchaseViewModel.Items.Select(i => Server.MapPath(i.PlanPath)).ToList();
-
-                    // send confirmation email
-                    await SendOrderCompleteEmail(purchaseViewModel, planPaths);
+                    ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                    return View(uploadPlanViewModel);
                 }
             }
 
@@ -489,7 +508,7 @@ namespace JoelScottFitness.Web.Controllers
             var uploadResult = fileHelper.UploadFile(postedFile, directory, name);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, $"Failed to save file '{postedFile.FileName}'.");
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToUploadFileErrorMessage, postedFile.FileName));
             }
 
             return uploadResult;

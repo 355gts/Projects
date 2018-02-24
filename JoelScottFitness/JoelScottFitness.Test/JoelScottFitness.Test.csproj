@@ -99,6 +99,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminController\AdminController.cs" />
+    <Compile Include="Controllers\AdminController\AdminController_UploadPlan.cs" />
     <Compile Include="Controllers\HomeController\HomeController.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ApplyDiscountCode.cs" />
     <Compile Include="Controllers\HomeController\HomeController_BeforeAndAfter.cs" />

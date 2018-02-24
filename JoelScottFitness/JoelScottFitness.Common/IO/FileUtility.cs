@@ -27,7 +27,7 @@ namespace JoelScottFitness.Common.IO
                 Directory.CreateDirectory(path);
                 success = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Warn($"Failed to create directory '{path}', error details: '{ex.Message}'.");
             }
@@ -74,6 +74,11 @@ namespace JoelScottFitness.Common.IO
             }
 
             return uploadResult;
+        }
+
+        public static string MapPath(string file)
+        {
+            return HttpContext.Current.Server.MapPath(file);
         }
     }
 }

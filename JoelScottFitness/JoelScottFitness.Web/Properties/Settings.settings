@@ -140,5 +140,23 @@
     <Setting Name="FailedToFindUserErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to find user with account name '{0}';</Value>
     </Setting>
+    <Setting Name="FailedToUploadPlanForCustomerErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to upload plan associated to purchase id '{0}' for customer with id '{1}'.</Value>
+    </Setting>
+    <Setting Name="FailedToAssociatePlanToPurchaseErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to associate plan '{0}' to purchase with id '{1}' for customer with id '{2}'.</Value>
+    </Setting>
+    <Setting Name="FailedToFindPurchaseErrorMessageErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to retrieve purchase with id '{0}' associated to customer with id '{1}'.</Value>
+    </Setting>
+    <Setting Name="FailedToSendOrderCompleteEmailErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to send order complete email for purchase with id '{0}' associated to customer with id '{1}'.</Value>
+    </Setting>
+    <Setting Name="FailedToFindCustomerErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to find customer with id '{0}'.</Value>
+    </Setting>
+    <Setting Name="FailedToUploadFileErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to upload '{0}'.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

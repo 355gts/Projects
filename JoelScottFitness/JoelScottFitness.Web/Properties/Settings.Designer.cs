@@ -441,5 +441,62 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["FailedToFindUserErrorMessage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to upload plan associated to purchase id \'{0}\' for customer with id \'{1}\'." +
+            "")]
+        public string FailedToUploadPlanForCustomerErrorMessage {
+            get {
+                return ((string)(this["FailedToUploadPlanForCustomerErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to associate plan \'{0}\' to purchase with id \'{1}\' for customer with id \'{2" +
+            "}\'.")]
+        public string FailedToAssociatePlanToPurchaseErrorMessage {
+            get {
+                return ((string)(this["FailedToAssociatePlanToPurchaseErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve purchase with id \'{0}\' associated to customer with id \'{1}\'.")]
+        public string FailedToFindPurchaseErrorMessageErrorMessage {
+            get {
+                return ((string)(this["FailedToFindPurchaseErrorMessageErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to send order complete email for purchase with id \'{0}\' associated to cust" +
+            "omer with id \'{1}\'.")]
+        public string FailedToSendOrderCompleteEmailErrorMessage {
+            get {
+                return ((string)(this["FailedToSendOrderCompleteEmailErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to find customer with id \'{0}\'.")]
+        public string FailedToFindCustomerErrorMessage {
+            get {
+                return ((string)(this["FailedToFindCustomerErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to upload \'{0}\'.")]
+        public string FailedToUploadFileErrorMessage {
+            get {
+                return ((string)(this["FailedToUploadFileErrorMessage"]));
+            }
+        }
     }
 }
