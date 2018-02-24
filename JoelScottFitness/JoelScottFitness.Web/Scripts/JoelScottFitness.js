@@ -159,7 +159,7 @@ function triggerCarousel() {
 
 // upload before and after images
 function showUploadModal(id) {
-    $('#PurchasedItemId').val(id);
+    $('#purchased-item-id').val(id);
     $('#upload-title').text('Upload Before and After');
     $('#upload-sub-title').text('Show the world your transformation!');
     $('#upload-modal').modal();
@@ -506,29 +506,3 @@ function addBlogImage(blogId) {
 $(function () {
     $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
 });
-
-function uploadBeforeAndAfter() {
-
-    var content = new FormData();
-    content.append("PurchasedItemId", $('.purchased-item-id').val());
-
-    $.ajax({
-        contentType: 'multipart/form-data',
-        cache: false,
-        type: 'POST',
-        url: '/Home/BeforeAndAfter',
-        data: content,
-        success: function (data) {
-            if (data.Success) { 
-                console.log('success');
-            } else {
-                console.log('Oops');
-            }
-        },
-        error: function (event, jqxhr, settings, thrownError){
-            console.log(jqxhr.error);
-        }
-    });
-
-    return false;
-}

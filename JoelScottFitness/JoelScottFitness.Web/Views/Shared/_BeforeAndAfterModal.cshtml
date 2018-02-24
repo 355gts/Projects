@@ -7,35 +7,38 @@
                 <br />
                 <div id="upload-sub-title" class=" upload-modal-sub-title"></div>
             </div>
-            <form id="image-upload" action="/Home/BeforeAndAfter" method="POST" enctype="multipart/form-data">
+            <form id="upload-form" action="/Home/BeforeAndAfter" method="POST" enctype="multipart/form-data">
                 <div class="modal-body upload-modal-body">
                     <div class="form-horizontal">
                         @Html.AntiForgeryToken()
-                        <input type="hidden" id="PurchasedItemId" name="PurchasedItemId" class="purchased-item-id" />
+                        <input type="hidden" id="purchased-item-id" />
                         <div class="form-group">
                             <label class="control-label col-xs-12 upload-modal-label" for="BeforeFile">Before</label>
                             <div class="col-xs-12" style="padding:0">
-                                <input type="file" id="BeforeFile" name="BeforeFile" class="upload-modal-file before-image" />
+                                <input type="file" class="upload-modal-file" id="before-image" size="3072" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="BeforeFile" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-12 upload-modal-label" for="AfterFile">After</label>
                             <div class="col-xs-12" style="padding:0">
-                                <input type="file" id="AfterFile" name="AfterFile" class="upload-modal-file after-image" />
+                                <input type="file" class="upload-modal-file" id="after-image" size="3072" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="AfterFile" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-12 upload-modal-label" for="Comment">Comment</label>
                             <div class="col-xs-12" style="padding:10px;padding-left:20px;padding-right:20px">
-                                <textarea class="form-control upload-modal-textarea comment" cols="20" id="Comment" name="Comment" rows="2"></textarea>
+                                <textarea class="form-control upload-modal-textarea" id="comment" cols="20" rows="2"></textarea>
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Comment" data-valmsg-replace="true"></span>
                             </div>
                         </div>
+                        <div style="position:relative;text-align:center">
+                            <label id="validation-summary" class="text-danger form-validation-summary" style="font-size:14pt" hidden="hidden"></label>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" onclick="uploadBeforeAndAfter()" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" />
+                                <button type="submit" value="Submit" class="btn btn-default basket-next-button basket-button" id="upload-button" style="width:270px;font-size:18px;">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -49,5 +52,94 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+
+        var uploadForm = document.getElementById('upload-form');
+        var uploadButton = document.getElementById('upload-button');
+        var beforeFileInput = document.getElementById('before-image');
+        var afterFileInput = document.getElementById('after-image');
+        var validationSummary = document.getElementById('validation-summary');
+
+
+        uploadForm.onsubmit = function (event) {
+            event.preventDefault();
+
+            validationSummary.innerHTML = '';
+            validationSummary.hidden = true;
+
+            // Update button text.
+            uploadButton.innerHTML = 'Uploading...<i class="fa fa-spinner fa-pulse" aria-hidden="true"></i>';
+
+            // check valid file types
+            if (beforeFileInput.files.length <= 0 || afterFileInput.files.length <= 0) {
+                validationSummary.innerHTML = 'Please select image files.';
+                validationSummary.hidden = false;
+                uploadButton.innerHTML = 'Submit';
+                return;
+            }
+
+            if ($('#comment').val().trim(' ').length <= 0) {
+                validationSummary.innerHTML = 'Please enter a comment.';
+                validationSummary.hidden = false;
+                uploadButton.innerHTML = 'Submit';
+                return;
+            }
+            
+            var beforeFile = beforeFileInput.files[0];
+            var afterFile = afterFileInput.files[0];
+            
+            var formData = new FormData();
+            formData.append('BeforeFile', beforeFile, beforeFile.name);
+            formData.append('AfterFile', afterFile, afterFile.name);
+            formData.append('Comment', $('#comment').val().trim(' '));
+            formData.append('PurchasedItemId', $('#purchased-item-id').val());
+            formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
+
+            // check valid file types
+            if (!checkFileType(beforeFile.name) || !checkFileType(afterFile.name)) {
+                validationSummary.innerHTML = 'Files must be images.';
+                validationSummary.hidden = false;
+                uploadButton.innerHTML = 'Submit';
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Home/BeforeAndAfter', true);
+            // Set up a handler for when the request finishes.
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // File(s) uploaded.
+                    uploadButton.innerHTML = 'Submit';
+                    var responseData = JSON.parse(xhr.response);
+                    if (responseData.Success === false) {
+                        validationSummary.innerHTML = responseData.ErrorMessage;
+                        validationSummary.hidden = false;
+                    }
+                    else {
+                        $('#upload-modal').modal('hide');
+                    }
+                } else {
+                    validationSummary.innerHTML = 'Oops! something went wrong please try again later.';
+                    validationSummary.hidden = false;
+                    uploadButton.innerHTML = 'Submit';
+                }
+            };
+
+            xhr.send(formData);
+    }
+    });
+
+    function checkFileType(filename) {
+        var extension = filename.toLowerCase().substring(filename.lastIndexOf('.')+1);
+        if ($.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) < 0) {
+            return false;
+        }
+        return true;
+    }
+
+
+</script>
 
 

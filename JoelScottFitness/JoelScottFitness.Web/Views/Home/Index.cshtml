@@ -1,7 +1,7 @@
 ﻿@model JoelScottFitness.Common.Models.IndexViewModel
 @using System.Text;
 
-<div style="position:relative;z-index:2;background-color:white;text-align:center">
+<div style="position:relative;z-index:2;background-color:white;text-align:center;height:100vh">
     <div class="title-wrapper">
        <div class="title-welcome-wrapper">
            WELCOME TO
@@ -11,20 +11,21 @@
         </div>
     </div>
 
-    <div style="padding-bottom:120px;padding-top:50px;width:100vw;padding-left:20px;padding-right:20px">
+    <div style="padding-bottom:20px;padding-top:50px;width:100vw;padding-left:20px;padding-right:20px">
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
             </p>
 
         <div style="clear:both"></div>
     </div>
-    <div style="width:100vw">
+    <div style="width:100vw;position:absolute;bottom:10px">
             <div class="believe-achieve-logo-wrapper">
-                <div class="believe-achieve-logo-footer believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
+                <div class="believe-achieve-logo-footer believe-achieve-logo-bottom-center" style="padding-bottom:80px">
                     <img src="~/Content/Images/Logos/believe-achieve-black.svg" />
                 </div>
             </div>
     </div>
+    <div style="clear:both"></div>
 </div>
 <input id="splash-image" type="hidden" style="display:none" value="@Model.SectionImages.SplashImage" />
 
