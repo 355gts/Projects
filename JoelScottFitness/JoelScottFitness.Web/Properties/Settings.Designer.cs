@@ -432,5 +432,14 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["FailedToSendMessageErrorMessage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to find user with account name \'{0}\';")]
+        public string FailedToFindUserErrorMessage {
+            get {
+                return ((string)(this["FailedToFindUserErrorMessage"]));
+            }
+        }
     }
 }

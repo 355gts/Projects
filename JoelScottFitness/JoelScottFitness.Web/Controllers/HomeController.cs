@@ -19,9 +19,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-// TODO - Sort NAV spacing for IPAD Vertical -- pad/margin left
-// TODO - figure out why image upload on ipad fails < maybe have new view rather than popup
-// TODO - submit button on before and after popup does not display correctly on ipad.
 // TODO - see if can get Admin drop down to work on ipad
 
 namespace JoelScottFitness.Web.Controllers
@@ -583,10 +580,8 @@ namespace JoelScottFitness.Web.Controllers
             var userId = User.Identity.Name;
 
             var customerDetails = await jsfService.GetCustomerDetailsAsync(userId);
-
-            // TODO handle this error i.e. no user
             if (customerDetails == null)
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToFindUserErrorMessage, userId) });
 
             var purchases = await jsfService.GetPurchaseSummaryAsync(customerDetails.Id);
 
@@ -600,10 +595,8 @@ namespace JoelScottFitness.Web.Controllers
             var userId = User.Identity.Name;
 
             var customerDetails = await jsfService.GetCustomerDetailsAsync(userId);
-
-            // TODO handle this error i.e. no user
             if (customerDetails == null)
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToFindUserErrorMessage, userId) });
 
             var purchase = await jsfService.GetCustomerPlansAsync(customerDetails.Id);
 
@@ -670,7 +663,7 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<JsonResult> BeforeAndAfter(BeforeAndAfterViewModel model)
         {
             if (!ModelState.IsValid)
-                return new JsonResult() { Data = new { Success = false, ErrorMessage = Resources.GenericErrorMessage } };
+                return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
 
             var beforeImageFilename = string.Format(Settings.Default.BeforeFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.BeforeFile.FileName));
             var afterImageFilename = string.Format(Settings.Default.AfterFileNameFormat, model.PurchasedItemId, Path.GetFileName(model.AfterFile.FileName));
@@ -681,16 +674,16 @@ namespace JoelScottFitness.Web.Controllers
             if (!beforeUploadResult.Success || !afterUploadResult.Success)
             {
                 logger.Warn(string.Format(Settings.Default.FailedToUploadHallOfFameImagesErrorMessage, model.PurchasedItemId));
-                return new JsonResult() { Data = new { Success = false, ErrorMessage = Resources.GenericErrorMessage } };
+                return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
             }
 
             if (!await jsfService.UploadHallOfFameAsync(model.PurchasedItemId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
             {
                 logger.Warn(string.Format(Settings.Default.FailedToUploadHallOfFameErrorMessage, model.PurchasedItemId));
-                return new JsonResult() { Data = new { Success = false, ErrorMessage = Resources.GenericErrorMessage } };
+                return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
             }
 
-            return new JsonResult() { Data = new { Success = true } };
+            return new JsonResult() { Data = new { success = true } };
         }
 
         [HttpGet]

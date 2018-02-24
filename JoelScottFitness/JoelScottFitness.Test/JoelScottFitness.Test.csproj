@@ -111,6 +111,8 @@
     <Compile Include="Controllers\HomeController\HomeController_ExistingCustomerDetails.cs" />
     <Compile Include="Controllers\HomeController\HomeController_GuestDetails.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Index.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_MyAccount.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_MyPlans.cs" />
     <Compile Include="Controllers\HomeController\HomeController_RemoveDiscountCode.cs" />
     <Compile Include="Helpers\MockHttpSessionBase.cs" />
     <Compile Include="Helpers\MapperHelper.cs" />

@@ -113,8 +113,8 @@
                     // File(s) uploaded.
                     uploadButton.innerHTML = 'Submit';
                     var responseData = JSON.parse(xhr.response);
-                    if (responseData.Success === false) {
-                        validationSummary.innerHTML = responseData.ErrorMessage;
+                    if (responseData.success === false) {
+                        validationSummary.innerHTML = responseData.errorMessage;
                         validationSummary.hidden = false;
                     }
                     else {

@@ -7,6 +7,17 @@
         </div>
         <div style="clear:both"></div>
     </div>
+@{
+    if (Model == null || !Model.Any())
+    {
+        <div class="row col-xs-12" style="margin:0px">
+            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                NO PURCHASES
+            </div>
+        </div>
+    }
+    else
+    {
     <div class="row">
         <table class="table">
             <tr style="font-size:14pt">
@@ -70,4 +81,6 @@
             }
         </table>
         </div>
+        }
+    }
     </div>
