@@ -80,6 +80,8 @@ namespace JoelScottFitness.Services.Services
 
         Task<AsyncResult<long>> AddImageAsync(string imagePath);
 
+        Task<bool> DeleteImageAsync(long imageId);
+
         Task<ImageListViewModel> GetImagesAsync();
 
         Task<AsyncResult<long>> CreateOrUpdateImageConfigurationAsync(ImageConfigurationViewModel imageConfiguration);

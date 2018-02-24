@@ -329,31 +329,43 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> UploadImage(HttpPostedFileBase[] postedFile)
         {
-            var postedFiles = postedFile.ToList();
-
-            foreach (var file in postedFile)
+            if (postedFile != null && postedFile.Where(p => p != null).Any())
             {
-                var uploadResult = fileHelper.UploadFile(file, Settings.Default.ImageDirectory);
-
-                // TODO what when upload fails
-
-                var result = await jsfService.AddImageAsync(uploadResult.UploadPath);
-
-                if (!result.Success)
+                foreach (var file in postedFile)
                 {
-                    // TODO log error
-                }
+                    var uploadResult = fileHelper.UploadFile(file, Settings.Default.ImageDirectory);
+                    if (!uploadResult.Success)
+                        return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Settings.Default.FailedToUploadFileErrorMessage, file.FileName) });
 
+                    var result = await jsfService.AddImageAsync(uploadResult.UploadPath);
+                    if (!result.Success)
+                        return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Settings.Default.FailedToAddImageToDatabaseErrorMessage, uploadResult.UploadPath) });
+                }
             }
+
+            return RedirectToAction("ImageConfiguration", "Admin");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> DeleteImage(long imageId)
+        {
+            var result = await jsfService.DeleteImageAsync(imageId);
+            if (!result)
+                return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Settings.Default.FailedToDeleteImageErrorMessage, imageId) });
 
             return RedirectToAction("ImageConfiguration", "Admin");
         }
 
         [HttpGet]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> ImageConfiguration(string imageConfigurationError = null)
+        public async Task<ActionResult> ImageConfiguration(string errorMessage = null)
         {
             var imageConfiguration = await jsfService.GetImageConfigurationAsync();
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                ViewBag.ErrorMessage = errorMessage;
 
             return View(imageConfiguration);
         }
@@ -368,7 +380,7 @@ namespace JoelScottFitness.Web.Controllers
                 var result = await jsfService.CreateOrUpdateImageConfigurationAsync(imageConfiguration);
 
                 if (!result.Success)
-                    return RedirectToAction("ImageConfiguration", "Admin", new { imageConfigurationError = "An error occured configuring images." });
+                    return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = "An error occured configuring images." });
 
                 return RedirectToAction("ImageConfiguration", "Admin");
             }

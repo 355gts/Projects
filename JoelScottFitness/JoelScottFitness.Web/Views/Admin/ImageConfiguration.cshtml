@@ -20,14 +20,22 @@
                 @using (Html.BeginForm("UploadImage", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.AntiForgeryToken()
-                    
+
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <input type="file" id="postedFile" name="postedFile" />
                         </td>
                         <td>
                             <input type="submit" value="Upload" class="btn btn-default" style="float:right" />
                         </td>
+                    </tr>
+                    <tr>
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <td colspan="3">
+                                <label id="validation-summary" class="text-danger form-validation-summary" style="font-size:10pt">@ViewBag.ErrorMessage</label>
+                            </td>
+                        }
                     </tr>
                 }
 
@@ -35,7 +43,7 @@
                 {
                     @Html.AntiForgeryToken()
                     <tr>
-                        <td colspan="2">
+                        <td colspan="3">
                             <label>Configure Images</label>
                         </td>
                     </tr>
@@ -43,8 +51,8 @@
                         <td>
                             <label>Splash Image Id</label>
                         </td>
-                        <td>
-                            @Html.EditorFor(model => model.SplashImageId, new { htmlAttributes = new { @class = "form-control" } })
+                        <td colspan="2">
+                            @Html.EditorFor(model => model.SplashImageId, new { htmlAttributes = new { @class = "form-control", @style = "min-width:100%" } })
                             @Html.ValidationMessageFor(model => model.SplashImageId, "", new { @class = "text-danger" })
                         </td>
                     </tr>
@@ -53,8 +61,8 @@
                         <td>
                             <label>Section Image 1</label>
                         </td>
-                        <td>
-                            @Html.EditorFor(model => model.SectionImage1Id, new { htmlAttributes = new { @class = "form-control" } })
+                        <td colspan="2">
+                            @Html.EditorFor(model => model.SectionImage1Id, new { htmlAttributes = new { @class = "form-control", @style = "min-width:100%" } })
                             @Html.ValidationMessageFor(model => model.SectionImage1Id, "", new { @class = "text-danger" })
                         </td>
                     </tr>
@@ -63,8 +71,8 @@
                         <td>
                             <label>Section Image 2:</label>
                         </td>
-                        <td>
-                            @Html.EditorFor(model => model.SectionImage2Id, new { htmlAttributes = new { @class = "form-control" } })
+                        <td colspan="2">
+                            @Html.EditorFor(model => model.SectionImage2Id, new { htmlAttributes = new { @class = "form-control", @style = "min-width:100%" } })
                             @Html.ValidationMessageFor(model => model.SectionImage2Id, "", new { @class = "text-danger" })
                         </td>
                     </tr>
@@ -72,8 +80,8 @@
                         <td>
                             <label>Section Image 3:</label>
                         </td>
-                        <td>
-                            @Html.EditorFor(model => model.SectionImage3Id, new { htmlAttributes = new { @class = "form-control" } })
+                        <td colspan="2">
+                            @Html.EditorFor(model => model.SectionImage3Id, new { htmlAttributes = new { @class = "form-control", @style = "min-width:100%" } })
                             @Html.ValidationMessageFor(model => model.SectionImage3Id, "", new { @class = "text-danger" })
                         </td>
                     </tr>
@@ -81,17 +89,25 @@
                         <td>
                             <label>Randomize:</label>
                         </td>
-                        <td>
-                            @Html.CheckBoxFor(model => model.Randomize, new { htmlAttributes = new { @class = "form-control" } })
+                        <td colspan="2">
+                            @Html.CheckBoxFor(model => model.Randomize, new { htmlAttributes = new { @class = "form-control", @style = "min-width:100%" } })
                             @Html.ValidationMessageFor(model => model.Randomize, "", new { @class = "text-danger" })
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            
+                        <td colspan="3" style="text-align:right">
+                            <input type="submit" value="Save" class="btn btn-default" />
                         </td>
-                        <td>
-                            <input type="submit" value="Save" class="btn btn-default" style="float:right" />
+                    </tr>
+                }
+                @using (Html.BeginForm("DeleteImage", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td colspan="1" style="text-align:right">
+                            <input type="submit" value="Delete" class="btn btn-default" />
+                        <td colspan="2" style="text-align:left">
+                            <input class="form-control text-box single-line" name="imageId" id="imageId" placeholder="Image Id" type="number" style="min-width:100%">
                         </td>
                     </tr>
                 }
@@ -129,8 +145,8 @@
                         itemActive = null;
                     }
 
-                    imageElements = imageElements + "<div class='item "+ itemActive + "'>" +
-                                                        "<div style=\"background-image: url('"+image.ImagePath+"');\" class='image-config-carousel-item'>" +
+                    imageElements = imageElements + "<div class='item " + itemActive + "'>" +
+                                                        "<div style=\"background-image: url('" + image.ImagePath + "');\" class='image-config-carousel-item'>" +
                                                             "<h3>Image Id: " + image.Id + "</h3>" +
                                                         "</div>" +
                                                     "</div>";
@@ -140,7 +156,7 @@
 
                 htmlListElements = new HtmlString(listElements);
                 htmlImageElements = new HtmlString(imageElements);
-        
+
                 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="width:100%;height:400px;overflow:hidden">
                     <!-- Indicators -->
                     <ol id="carousel-indicators" class="carousel-indicators">
@@ -163,7 +179,7 @@
                     </a>
                 </div>
 
-             }
+            }
         </div>
     </div>
     <div class="row" style="height:60px">

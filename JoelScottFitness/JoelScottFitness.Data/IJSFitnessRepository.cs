@@ -73,6 +73,8 @@ namespace JoelScottFitness.Data
 
         Task<AsyncResult<long>> AddImageAsync(Image image);
 
+        Task<bool> DeleteImageAsync(long imageId);
+
         Task<IEnumerable<Image>> GetImagesAsync();
 
         Task<AsyncResult<long>> CreateOrUpdateImageConfigurationAsync(ImageConfiguration imageConfiguration);

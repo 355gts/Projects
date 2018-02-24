@@ -498,5 +498,23 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["FailedToUploadFileErrorMessage"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to add image \'{0}\' to database.")]
+        public string FailedToAddImageToDatabaseErrorMessage {
+            get {
+                return ((string)(this["FailedToAddImageToDatabaseErrorMessage"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to delete image with id \'{0}\'.")]
+        public string FailedToDeleteImageErrorMessage {
+            get {
+                return ((string)(this["FailedToDeleteImageErrorMessage"]));
+            }
+        }
     }
 }

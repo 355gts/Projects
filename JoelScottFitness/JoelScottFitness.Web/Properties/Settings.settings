@@ -158,5 +158,11 @@
     <Setting Name="FailedToUploadFileErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to upload '{0}'.</Value>
     </Setting>
+    <Setting Name="FailedToAddImageToDatabaseErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to add image '{0}' to database.</Value>
+    </Setting>
+    <Setting Name="FailedToDeleteImageErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to delete image with id '{0}'.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

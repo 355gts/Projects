@@ -657,5 +657,17 @@ namespace JoelScottFitness.Data
         {
             return await dbContext.Messages.FindAsync(id);
         }
+
+        public async Task<bool> DeleteImageAsync(long imageId)
+        {
+            var existingImage = await dbContext.Images.FindAsync(imageId);
+
+            if (existingImage != null)
+            {
+                dbContext.Images.Remove(existingImage);
+            }
+
+            return await SaveChangesAsync();
+        }
     }
 }

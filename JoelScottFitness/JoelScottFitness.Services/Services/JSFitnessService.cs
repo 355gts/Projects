@@ -567,5 +567,10 @@ namespace JoelScottFitness.Services.Services
 
             return mapper.Map<Message, MessageViewModel>(message);
         }
+
+        public async Task<bool> DeleteImageAsync(long imageId)
+        {
+            return await repository.DeleteImageAsync(imageId);
+        }
     }
 }
