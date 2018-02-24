@@ -113,6 +113,12 @@ namespace JoelScottFitness.Test.Services
                           .ReturnsAsync(new AuthUser());
             repositoryMock.Setup(r => r.GetPurchasesAsync(It.IsAny<Guid>()))
                           .ReturnsAsync(new List<Purchase>() { new Purchase(), new Purchase() });
+            repositoryMock.Setup(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = true });
+            repositoryMock.Setup(r => r.GetMessageAsync(It.IsAny<long>()))
+                          .ReturnsAsync(new Message());
+            repositoryMock.Setup(r => r.GetMessagesAsync())
+                          .ReturnsAsync(new List<Message>() { new Message(), new Message() });
 
             paypalServiceMock.Setup(r => r.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()))
                              .Returns(new PaymentResult() { Success = true });
@@ -1864,6 +1870,124 @@ namespace JoelScottFitness.Test.Services
             Assert.IsNull(result.Items);
             Assert.IsNull(result.DiscountCode);
             Assert.IsNull(result.Questionnaire);
+        }
+
+        [TestMethod]
+        public void CreateMessageAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = false });
+
+            // test
+            var result = service.CreateMessageAsync(new CreateMessageViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
+        public void CreateMessageAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.CreateMessageAsync(new CreateMessageViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void UpdateMessageAsync_Fails_ReturnsFalse()
+        {
+            // setup
+            repositoryMock.Setup(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()))
+                          .ReturnsAsync(new AsyncResult<long>() { Success = false });
+
+            // test
+            var result = service.UpdateMessageAsync(new MessageViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.Success);
+        }
+
+        [TestMethod]
+        public void UpdateMessageAsync_Success_ReturnsTrue()
+        {
+            // test
+            var result = service.UpdateMessageAsync(new MessageViewModel()).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.CreateOrUpdateMessageAsync(It.IsAny<Message>()), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void GetMessagesAsync_NotFound_ReturnsEmptyList()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetMessagesAsync())
+                          .ReturnsAsync((IEnumerable<Message>)null);
+
+            // test
+            var result = service.GetMessagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetMessagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetMessagesAsync_Success_ReturnsMessages()
+        {
+            // test
+            var result = service.GetMessagesAsync().Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetMessagesAsync(), Times.Once);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void GetMessageAsync_NotFound_ReturnsNull()
+        {
+            // setup
+            repositoryMock.Setup(r => r.GetMessageAsync(It.IsAny<long>()))
+                          .ReturnsAsync((Message)null);
+
+            // test
+            var result = service.GetMessageAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetMessageAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetMessageAsync_Success_ReturnsMessage()
+        {
+            // test
+            var result = service.GetMessageAsync(id).Result;
+
+            // verify
+            repositoryMock.Verify(r => r.GetMessageAsync(It.IsAny<long>()), Times.Once);
+
+            Assert.IsNotNull(result);
         }
 
     }

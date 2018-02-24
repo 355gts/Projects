@@ -1,0 +1,23 @@
+﻿@model JoelScottFitness.Common.Models.CreateMessageViewModel
+
+@{
+    Layout = "~/Views/Shared/_EmailLayout.cshtml";
+}
+<div class="email-content-wrapper">
+    <div class="email-content-container">
+        <br>
+        <p style="color:black;white-space:normal;text-align:left">
+            <label style="font-weight:bold">Name:</label> &nbsp; @Model.Name
+            <br /><br />
+            <label style="font-weight:bold">Email Address:</label> &nbsp; @Model.EmailAddress
+            <br /><br />
+            <label style="font-weight:bold">Subject:</label> &nbsp; @Model.Subject
+            <br /><br />
+            <label style="font-weight:bold">Message:</label>
+            <br /><br />
+            @Html.Raw(@Model.Message.Replace("\r\n", "<br/>"))
+            <br /><hr /><br />
+            To respond click <a href=@string.Format("{0}/Admin/Messages", TempData["RootUri"]) target="_blank" rel="noopener noreferrer" style="font-weight:bold;color:black;text-decoration:none">here</a>
+        </p>
+    </div>
+</div>

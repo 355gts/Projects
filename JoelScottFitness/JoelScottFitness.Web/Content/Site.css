@@ -168,6 +168,11 @@ textarea {
     width: 80vw;
 }
 
+@media (min-width:400px) and (max-width:768px){
+    .navbar-pad {
+        margin-left: 200px;
+    }
+}
 
 .navbar-left {
     z-index: 1000;

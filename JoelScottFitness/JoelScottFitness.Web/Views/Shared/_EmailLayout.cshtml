@@ -217,28 +217,28 @@
         <div class="email-banner-wrapper">
             <div class="email-banner-wrapper-logo">
                 <a href="http://www.joelscottfitness.com" target="_blank">
-                    <img class="email-banner-wrapper-logo-img" src="http://ISVPNKLT0000082/Content/Images/Logos/jsf-white.svg">
+                    <img class="email-banner-wrapper-logo-img" src='@string.Format("{0}/Content/Images/Logos/jsf-white.svg", TempData["RootUri"])'/>
                 </a>
             </div>
             <div class="email-social-wrapper">
                 <span class="email-social-icon-wrapper">
                     <a href="https://www.facebook.com/Joelscottfitness-346355882365048/" target="_blank" id="facebook" rel="noopener noreferrer" class="email-social-link">
-                        <img data-imagetype="External" src="http://ISVPNKLT0000082/Content/Images/Logos/facebook-grey.png" width="40" height="40" alt="Facebook" class="email-social-icon">
+                        <img data-imagetype="External" src='@string.Format("{0}/Content/Images/Logos/facebook-grey.png", TempData["RootUri"])' width="40" height="40" alt="Facebook" class="email-social-icon">
                     </a>
                 </span>
                 <span class="email-social-icon-wrapper">
                     <a href="https://www.instagram.com/joelscottfitness/" target="_blank" id="instagram" rel="noopener noreferrer" class="email-social-link">
-                        <img data-imagetype="External" src="http://ISVPNKLT0000082/Content/Images/Logos/instagram-grey.png" width="40" height="40" alt="Instagram" class="email-social-icon">
+                        <img data-imagetype="External" src='@string.Format("{0}/Content/Images/Logos/instagram-grey.png", TempData["RootUri"])' width="40" height="40" alt="Instagram" class="email-social-icon">
                     </a>
                 </span>
                 <span class="email-social-icon-wrapper">
                     <a href="https://twitter.com/JoelSFitness/" target="_blank" id="twitter" rel="noopener noreferrer" class="email-social-link">
-                        <img data-imagetype="External" src="http://ISVPNKLT0000082/Content/Images/Logos/twitter-grey.png" width="40" height="40" alt="Twitter" class="email-social-icon">
+                        <img data-imagetype="External" src='@string.Format("{0}/Content/Images/Logos/twitter-grey.png", TempData["RootUri"])' width="40" height="40" alt="Twitter" class="email-social-icon">
                     </a>
                 </span>
                 <span class="email-social-icon-wrapper">
                     <a href="https://www.youtube.com/user/JoelScottFitness/" target="_blank" id="youtube" rel="noopener noreferrer" class="email-social-link social-link-twitter">
-                        <img data-imagetype="External" src="http://ISVPNKLT0000082/Content/Images/Logos/youtube-grey.png" alt="YouTube" class="email-social-icon">
+                        <img data-imagetype="External" src='@string.Format("{0}/Content/Images/Logos/youtube-grey.png", TempData["RootUri"])' alt="YouTube" class="email-social-icon">
                     </a>
                 </span>
             </div>
@@ -248,7 +248,7 @@
 
         <div class="email-footer-wrapper">
             <div class="email-footer-logo">
-                <img src="http://ISVPNKLT0000082/Content/Images/Logos/jsf-black.svg" />
+                <img src='@string.Format("{0}/Content/Images/Logos/jsf-black.svg", TempData["RootUri"])'/>
             </div>
         </div>
     </div>

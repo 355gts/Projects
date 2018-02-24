@@ -397,8 +397,8 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Failed to create message for Nam: \'{0}\', Email Address \'{1}\', Subject \'{2}\', Mess" +
-            "age \'{3}\'.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to create message for Name: \'{0}\', Email Address \'{1}\', Subject \'{2}\', Mes" +
+            "sage \'{3}\'.")]
         public string FailedToCreateMessageErrorMessage {
             get {
                 return ((string)(this["FailedToCreateMessageErrorMessage"]));
@@ -411,6 +411,25 @@ namespace JoelScottFitness.Web.Properties {
         public string MessageResponseSubject {
             get {
                 return ((string)(this["MessageResponseSubject"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blackmore__s@hotmail.com")]
+        public string JoelScottFitnessEmaillAddress {
+            get {
+                return ((string)(this["JoelScottFitnessEmaillAddress"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to send message for Name: \'{0}\', Email Address \'{1}\', Subject \'{2}\', Messa" +
+            "ge \'{3}\'.")]
+        public string FailedToSendMessageErrorMessage {
+            get {
+                return ((string)(this["FailedToSendMessageErrorMessage"]));
             }
         }
     }

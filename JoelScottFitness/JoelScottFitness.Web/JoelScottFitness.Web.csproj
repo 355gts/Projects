@@ -462,6 +462,7 @@
     <Content Include="Views\Admin\Messages.cshtml" />
     <Content Include="Views\Admin\Message.cshtml" />
     <Content Include="Views\Shared\_EmailMessageResponse.cshtml" />
+    <Content Include="Views\Shared\_EmailMessageReceived.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

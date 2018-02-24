@@ -18,6 +18,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
+// TODO - Sort NAV spacing for IPAD Vertical -- pad/margin left
+// TODO - figure out why image upload on ipad fails < maybe have new view rather than popup
+// TODO - submit button on before and after popup does not display correctly on ipad.
+// TODO - see if can get Admin drop down to work on ipad
+
 namespace JoelScottFitness.Web.Controllers
 {
     public class HomeController : Controller
@@ -635,7 +640,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var createMessageResult = await jsfService.CreateMessageAsync(messageViewModel);
             if (!createMessageResult.Success)
-                RedirectToAction("Error", "Home", new
+                return RedirectToAction("Error", "Home", new
                 {
                     errorMessage = string.Format(Settings.Default.FailedToCreateMessageErrorMessage,
                                                                                             messageViewModel.Name,
@@ -643,6 +648,18 @@ namespace JoelScottFitness.Web.Controllers
                                                                                             messageViewModel.Subject,
                                                                                             messageViewModel.Message)
                 });
+
+            if (!await SendMessageReceivedEmail(messageViewModel))
+            {
+                return RedirectToAction("Error", "Home", new
+                {
+                    errorMessage = string.Format(Settings.Default.FailedToSendMessageErrorMessage,
+                                                                            messageViewModel.Name,
+                                                                            messageViewModel.EmailAddress,
+                                                                            messageViewModel.Subject,
+                                                                            messageViewModel.Message)
+                });
+            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -747,6 +764,13 @@ namespace JoelScottFitness.Web.Controllers
             paymentCompletionResult.PurchaseId = ((long?)Session[SessionKeys.PurchaseId]).HasValue ? ((long?)Session[SessionKeys.PurchaseId]).Value : long.MinValue;
 
             return paymentCompletionResult;
+        }
+
+        private async Task<bool> SendMessageReceivedEmail(CreateMessageViewModel messageViewModel)
+        {
+            var email = this.RenderRazorViewToString("_EmailMessageReceived", messageViewModel, RootUri);
+
+            return await jsfService.SendEmailAsync("New Customer Enquiry", email, new List<string>() { Settings.Default.JoelScottFitnessEmaillAddress });
         }
     }
 }

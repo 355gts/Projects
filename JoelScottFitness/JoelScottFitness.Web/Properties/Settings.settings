@@ -126,10 +126,16 @@
       <Value Profile="(Default)">Failed to upload hall of fame associated to purchase item id '{0}'.</Value>
     </Setting>
     <Setting Name="FailedToCreateMessageErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to create message for Nam: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</Value>
+      <Value Profile="(Default)">Failed to create message for Name: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</Value>
     </Setting>
     <Setting Name="MessageResponseSubject" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Re: {0}</Value>
+    </Setting>
+    <Setting Name="JoelScottFitnessEmaillAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Blackmore__s@hotmail.com</Value>
+    </Setting>
+    <Setting Name="FailedToSendMessageErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to send message for Name: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</Value>
     </Setting>
   </Settings>
 </SettingsFile>
