@@ -279,7 +279,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0}/Home/CompletePayment?")]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0}/Home/ConfirmPurchase?")]
         public string CallbackUri {
             get {
                 return ((string)(this["CallbackUri"]));

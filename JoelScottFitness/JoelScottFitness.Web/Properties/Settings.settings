@@ -87,7 +87,7 @@
       <Value Profile="(Default)">The confirmPurchaseViewModel was null</Value>
     </Setting>
     <Setting Name="CallbackUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0}/Home/CompletePayment?</Value>
+      <Value Profile="(Default)">{0}/Home/ConfirmPurchase?</Value>
     </Setting>
     <Setting Name="PaymentCompletionParameterNullErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Payment completion parameter '{0}' is null or empty, cannot complete transaction.</Value>

@@ -55,6 +55,7 @@
     <Compile Include="Enumerations\CreditCardType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
     <Compile Include="Enumerations\ItemType.cs" />
+    <Compile Include="Enumerations\PurchaseStatus.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="IO\FileHelper.cs" />
     <Compile Include="IO\FileUtility.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BasketViewModel.cs" />
     <Compile Include="Models\BeforeAndAfterViewModel.cs" />
     <Compile Include="Models\BlogImageViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Models\ItemViewModel.cs" />
     <Compile Include="Models\MailingListItemViewModel.cs" />
     <Compile Include="Models\MediaViewModel.cs" />
+    <Compile Include="Models\PaymentOptionViewModel.cs" />
     <Compile Include="Models\PlanOptionViewModel.cs" />
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\PurchasedHistoryItemViewModel.cs" />

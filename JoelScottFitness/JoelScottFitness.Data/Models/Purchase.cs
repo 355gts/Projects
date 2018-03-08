@@ -1,4 +1,4 @@
-﻿using JoelScottFitness.Data.Enumerations;
+﻿using JoelScottFitness.Common.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,16 +19,16 @@ namespace JoelScottFitness.Data.Models
 
         [Required]
         public string TransactionId { get; set; }
-        
+
         [ForeignKey("DiscountCode")]
         public long? DiscountCodeId { get; set; }
 
         public DiscountCode DiscountCode { get; set; }
-        
+
         [ForeignKey("Customer")]
         [Required]
         public Guid CustomerId { get; set; }
-        
+
         public Customer Customer { get; set; }
 
         [Required]

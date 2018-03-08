@@ -4,7 +4,6 @@ using JoelScottFitness.Common.Extensions;
 using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
-using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Constants;
 using JoelScottFitness.Web.Extensions;
@@ -206,7 +205,7 @@ namespace JoelScottFitness.Web.Controllers
                 await UpdateMailingList(customer.EmailAddress);
             }
 
-            return RedirectToAction("ConfirmPurchase", "Home", new { customerId = customerResult.Result });
+            return RedirectToAction("PaymentOptions", "Home", new { customerId = customerResult.Result });
         }
 
         [HttpGet]
@@ -247,43 +246,20 @@ namespace JoelScottFitness.Web.Controllers
             if (!customerResult.Success)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress) });
 
-            return RedirectToAction("ConfirmPurchase", "Home", new { customerId = customerResult.Result });
+            return RedirectToAction("PaymentOptions", "Home", new { customerId = customerResult.Result });
         }
 
         [HttpGet]
-        public async Task<ActionResult> ConfirmPurchase(Guid customerId)
+        public ActionResult ConfirmPurchase()
         {
-            var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
+            if (string.IsNullOrEmpty(Request.Params[SessionKeys.PayerId]))
+                return RedirectToAction("Error", "Home", new { errorMessage = "Payer id null" });
 
-            if (customerId == null || customerId == Guid.Empty)
-                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+            Session.Add(SessionKeys.PayerId, Request.Params[SessionKeys.PayerId]);
 
-            var basket = basketHelper.GetBasketItems();
-            if (basket == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsNullErrorMessage, customerId) });
-
-            var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
-            if (basketItems == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsAsyncNullErrorMessage, customerId, string.Join(",", basket.Keys.ToList())) });
-
-            // map the quantities to the items
-            foreach (var basketItem in basketItems)
-            {
-                basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : Settings.Default.DefaultItemQuantity;
-            }
-
-            var customerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
-            if (customerDetails == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId) });
-
-            confirmPurchaseViewModel.CustomerDetails = customerDetails;
-            confirmPurchaseViewModel.BasketItems = basketItems;
-
-            if (Session[SessionKeys.DiscountCode] != null)
-            {
-                confirmPurchaseViewModel.DiscountCodeId = ((DiscountCodeViewModel)Session[SessionKeys.DiscountCode]).Id;
-                confirmPurchaseViewModel.DiscountCode = (DiscountCodeViewModel)Session[SessionKeys.DiscountCode];
-            }
+            var confirmPurchaseViewModel = (ConfirmPurchaseViewModel)Session[SessionKeys.ConfirmPurchaseViewModel];
+            if (confirmPurchaseViewModel == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = "Confirm purchase view model null" });
 
             return View(confirmPurchaseViewModel);
         }
@@ -410,15 +386,101 @@ namespace JoelScottFitness.Web.Controllers
         {
             var basket = basketHelper.GetBasketItems();
 
-            var basketItems = await jsfService.GetBasketItemsAsync(basket.Keys.ToList());
+            long? discountCodeId = null;
+            if (Session[SessionKeys.DiscountCode] != null)
+                discountCodeId = ((DiscountCodeViewModel)Session[SessionKeys.DiscountCode]).Id;
+
+            var basketViewModel = await jsfService.GetBasketAsync(basket.Keys.ToList(), discountCodeId);
 
             // map the quantities to the items
-            foreach (var basketItem in basketItems)
+            foreach (var basketItem in basketViewModel.SelectedOptions)
             {
                 basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : 1;
             }
 
-            return View(basketItems);
+            return View(basketViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult PaymentOptions(Guid customerId)
+        {
+            if (customerId == null || customerId == Guid.Empty)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+
+            var paymentOptionViewModel = new PaymentOptionViewModel() { CustomerId = customerId };
+
+            return View(paymentOptionViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CheckoutWithPaypal(Guid customerId)
+        {
+            if (customerId == null || customerId == Guid.Empty)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+
+            // method used to initiate the paypal payment transaction
+            string callbackUri = string.Format(Settings.Default.CallbackUri, RootUri);
+
+            var confirmPurchaseViewModel = new ConfirmPurchaseViewModel();
+
+            if (customerId == null || customerId == Guid.Empty)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+
+            var basket = basketHelper.GetBasketItems();
+            if (basket == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsNullErrorMessage, customerId) });
+
+            var basketViewModel = await jsfService.GetBasketAsync(basket.Keys.ToList());
+            if (basketViewModel == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsAsyncNullErrorMessage, customerId, string.Join(",", basket.Keys.ToList())) });
+
+            // map the quantities to the items
+            foreach (var basketItem in basketViewModel.SelectedOptions)
+            {
+                basketItem.Quantity = basket.ContainsKey(basketItem.Id) ? basket[basketItem.Id].Quantity : Settings.Default.DefaultItemQuantity;
+            }
+
+            var customerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
+            if (customerDetails == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId) });
+
+            confirmPurchaseViewModel.CustomerDetails = customerDetails;
+            confirmPurchaseViewModel.BasketItems = basketViewModel.SelectedOptions;
+
+            if (Session[SessionKeys.DiscountCode] != null)
+            {
+                confirmPurchaseViewModel.DiscountCodeId = ((DiscountCodeViewModel)Session[SessionKeys.DiscountCode]).Id;
+                confirmPurchaseViewModel.DiscountCode = (DiscountCodeViewModel)Session[SessionKeys.DiscountCode];
+            }
+
+            var plans = await jsfService.GetPlansAsync();
+            if (plans == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.FailedToRetrievePlansErrorMessage });
+
+            // map the plans back to the items
+            confirmPurchaseViewModel.BasketItems.ToList().ForEach(i =>
+            {
+                i.Plan = plans.First(p => p.Id == i.PlanId);
+                if (confirmPurchaseViewModel.DiscountCode != null)
+                {
+                    i.Price = Math.Round(i.Price - (i.Price / 100 * confirmPurchaseViewModel.DiscountCode.PercentDiscount), 2);
+                }
+            });
+
+            var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, callbackUri);
+            if (!paymentInitiationResult.Success)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage) });
+
+            Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
+            Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
+
+            confirmPurchaseViewModel.PayPalReference = paymentInitiationResult.PaymentId;
+            confirmPurchaseViewModel.TransactionId = paymentInitiationResult.TransactionId;
+
+            Session.Add(SessionKeys.ConfirmPurchaseViewModel, confirmPurchaseViewModel);
+
+            return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
 
         [HttpPost]
@@ -471,7 +533,8 @@ namespace JoelScottFitness.Web.Controllers
             return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
 
-        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> CompletePayment()
         {
             // retrieve parameters from request to complete payment
@@ -483,13 +546,18 @@ namespace JoelScottFitness.Web.Controllers
             var paymentResult = jsfService.CompletePayPalPayment(paymentCompletionResult.PaymentId, paymentCompletionResult.PayerId);
             if (!paymentResult.Success)
             {
-                await jsfService.UpdatePurchaseStatusAsync(paymentCompletionResult.TransactionId, PurchaseStatus.Failed);
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage) });
             }
 
-            // update the purchase to complete
-            if (!await jsfService.UpdatePurchaseStatusAsync(paymentCompletionResult.TransactionId, PurchaseStatus.Complete))
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUpdatePurchaseStatusErrorMessage, paymentCompletionResult.TransactionId) });
+            var confirmPurchaseViewModel = (ConfirmPurchaseViewModel)Session[SessionKeys.ConfirmPurchaseViewModel];
+            if (confirmPurchaseViewModel == null)
+                return RedirectToAction("Error", "Home", new { errorMessage = "Confirm purchase view model null" });
+
+            confirmPurchaseViewModel.PurchaseStatus = PurchaseStatus.Complete;
+            // save the pending purchase details in the database
+            var savePurchaseResult = await jsfService.SavePurchaseAsync(confirmPurchaseViewModel);
+            if (!savePurchaseResult.Success)
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSaveItemsForPurchase, confirmPurchaseViewModel.CustomerDetails.EmailAddress) });
 
             // check whether the hall of fame is visible and re-add it after session is cleared
             var hallOfFameVisible = false;
@@ -502,9 +570,9 @@ namespace JoelScottFitness.Web.Controllers
             // re-add this to the session
             Session[SessionKeys.HallOfFame] = hallOfFameVisible;
 
-            var purchaseViewModel = await jsfService.GetPurchaseAsync(paymentCompletionResult.PurchaseId);
+            var purchaseViewModel = await jsfService.GetPurchaseAsync(savePurchaseResult.Result);
             if (purchaseViewModel == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToRetrievePurchaseErrorMessage, paymentCompletionResult.PurchaseId, paymentCompletionResult.TransactionId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToRetrievePurchaseErrorMessage, savePurchaseResult.Result, paymentCompletionResult.TransactionId) });
 
             // send confirmation email
             if (!await SendOrderConfirmationEmail(purchaseViewModel))
@@ -724,7 +792,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var paymentCompletionResult = new PaymentCompletionResult() { Success = true };
 
-            if (string.IsNullOrEmpty(Request.Params[SessionKeys.PayerId]))
+            if (string.IsNullOrEmpty((string)Session[SessionKeys.PayerId]))
             {
                 paymentCompletionResult.Success = false;
                 logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PayerId));
@@ -742,16 +810,16 @@ namespace JoelScottFitness.Web.Controllers
                 logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.TransactionId));
             }
 
-            if (!((long?)Session[SessionKeys.PurchaseId]).HasValue)
-            {
-                paymentCompletionResult.Success = false;
-                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PurchaseId));
-            }
+            //if (!((long?)Session[SessionKeys.PurchaseId]).HasValue)
+            //{
+            //    paymentCompletionResult.Success = false;
+            //    logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PurchaseId));
+            //}
 
-            paymentCompletionResult.PayerId = Request.Params[SessionKeys.PayerId];
+            paymentCompletionResult.PayerId = (string)Session[SessionKeys.PayerId];
             paymentCompletionResult.PaymentId = (string)Session[SessionKeys.PaymentId];
             paymentCompletionResult.TransactionId = (string)Session[SessionKeys.TransactionId];
-            paymentCompletionResult.PurchaseId = ((long?)Session[SessionKeys.PurchaseId]).HasValue ? ((long?)Session[SessionKeys.PurchaseId]).Value : long.MinValue;
+            //paymentCompletionResult.PurchaseId = ((long?)Session[SessionKeys.PurchaseId]).HasValue ? ((long?)Session[SessionKeys.PurchaseId]).Value : long.MinValue;
 
             return paymentCompletionResult;
         }

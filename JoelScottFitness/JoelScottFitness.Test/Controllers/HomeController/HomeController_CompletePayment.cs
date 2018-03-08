@@ -1,7 +1,7 @@
-﻿using JoelScottFitness.Common.IO;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
-using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
 using JoelScottFitness.Web.Constants;
@@ -293,7 +293,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.UpdatePurchaseStatusAsync(It.IsAny<string>(), It.IsAny<PurchaseStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
-                
+
                 Assert.IsNotNull(result);
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);

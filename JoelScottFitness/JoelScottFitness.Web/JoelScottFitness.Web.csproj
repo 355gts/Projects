@@ -274,6 +274,7 @@
     <Content Include="Content\Images\Logos\instagram-black.png" />
     <Content Include="Content\Images\Logos\instagram-grey.png" />
     <Content Include="Content\Images\Logos\instagram-white.png" />
+    <Content Include="Content\Images\Logos\PP_logo_h_100x26.png" />
     <Content Include="Content\Images\Logos\twitter-black.png" />
     <Content Include="Content\Images\Logos\twitter-grey.png" />
     <Content Include="Content\Images\Logos\twitter-white.png" />
@@ -468,6 +469,7 @@
     <Content Include="Views\Admin\Message.cshtml" />
     <Content Include="Views\Shared\_EmailMessageResponse.cshtml" />
     <Content Include="Views\Shared\_EmailMessageReceived.cshtml" />
+    <Content Include="Views\Home\PaymentOptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

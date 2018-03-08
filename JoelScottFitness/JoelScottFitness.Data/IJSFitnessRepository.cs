@@ -1,6 +1,5 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Results;
-using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using System;

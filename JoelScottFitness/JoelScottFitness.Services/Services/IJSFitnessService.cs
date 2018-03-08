@@ -1,7 +1,6 @@
 ﻿using JoelScottFitness.Common.Enumerations;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
-using JoelScottFitness.Data.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -60,7 +59,7 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> UpdateMailingListAsync(MailingListItemViewModel mailingListItem);
 
-        Task<IEnumerable<SelectedPlanOptionViewModel>> GetBasketItemsAsync(IEnumerable<long> ids);
+        Task<BasketViewModel> GetBasketAsync(IEnumerable<long> ids, long? discountCodeId = null);
 
         Task<UserViewModel> GetUserAsync(string userName);
 

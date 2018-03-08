@@ -3,7 +3,6 @@ using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
-using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.PayPal.Services;
@@ -309,11 +308,20 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.UpdateMailingListAsync(repoMailingListItem);
         }
-        public async Task<IEnumerable<SelectedPlanOptionViewModel>> GetBasketItemsAsync(IEnumerable<long> ids)
+        public async Task<BasketViewModel> GetBasketAsync(IEnumerable<long> ids, long? discountCodeId = null)
         {
+            BasketViewModel basket = new BasketViewModel();
             var repoPlanOptions = await repository.GetBasketItemsAsync(ids);
+            if (discountCodeId.HasValue)
+            {
+                var repoDiscountCode = await repository.GetDiscountCodeAsync(discountCodeId.Value);
+                basket.DiscountCode = mapper.Map<DiscountCode, DiscountCodeViewModel>(repoDiscountCode);
+                basket.DiscountCodeId = repoDiscountCode.Id;
+            }
 
-            return mapper.MapEnumerable<PlanOption, SelectedPlanOptionViewModel>(repoPlanOptions);
+            basket.SelectedOptions = mapper.MapEnumerable<PlanOption, SelectedPlanOptionViewModel>(repoPlanOptions);
+
+            return basket;
         }
 
         public async Task<UserViewModel> GetUserAsync(string userName)

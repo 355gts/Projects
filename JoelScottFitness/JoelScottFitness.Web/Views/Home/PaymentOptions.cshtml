@@ -1,0 +1,21 @@
+﻿@model JoelScottFitness.Common.Models.PaymentOptionViewModel
+
+<div class="container page-container">
+    <div class="row">
+        <div class="col-xs-12 title-format">
+            PAYMENT OPTIONS
+        </div>
+        <div style="clear:both"></div>
+    </div>
+
+    <div class="form-group row active-button-row-wrapper" style="margin-top:60px">
+        @using (Html.BeginForm("CheckoutWithPaypal", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CustomerId, new { @style = "display:none" })
+            <div class="active-button-wrapper">
+                <button type="submit" class="btn btn-primary active-button" style="width:270px;font-size:18px;text-align:center;background-color:#ffc438"><img src="~/Content/Images/Logos/PP_logo_h_100x26.png"/></button>
+            </div>
+        }
+    </div>
+</div>

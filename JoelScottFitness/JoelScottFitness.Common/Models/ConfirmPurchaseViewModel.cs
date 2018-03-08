@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using JoelScottFitness.Common.Enumerations;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
@@ -25,5 +26,8 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         public string TransactionId { get; set; }
+
+        [Required]
+        public PurchaseStatus PurchaseStatus { get; set; }
     }
 }

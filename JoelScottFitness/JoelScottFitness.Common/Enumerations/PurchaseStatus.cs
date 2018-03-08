@@ -1,9 +1,9 @@
-﻿namespace JoelScottFitness.Data.Enumerations
+﻿namespace JoelScottFitness.Common.Enumerations
 {
     public enum PurchaseStatus
     {
         Pending,
         Complete,
-        Failed        
+        Failed
     }
 }

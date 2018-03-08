@@ -1,5 +1,6 @@
-﻿@model IEnumerable<JoelScottFitness.Common.Models.SelectedPlanOptionViewModel>
+﻿@model JoelScottFitness.Common.Models.BasketViewModel
 @using System.Linq;
+@using JoelScottFitness.Common.Models;
 
 <div class="container page-container">
     <div class="row">
@@ -14,10 +15,22 @@
         </div>
         <div style="clear:both"></div>
     </div>
+    
+    @if (Model.DiscountCode != null)
+    {
+        @Html.HiddenFor(model => Model.DiscountCodeId, new { @style = "display:none", @class = "discount-code-id" })
+        <input type="hidden" class="discount" value="@Model.DiscountCode.PercentDiscount" />
+    }
+    else
+    {
+        <input type="hidden" class="discount" value="0" />
+        <input type="hidden" id="DiscountCodeId" name="DiscountCodeId" class="discount-code-id" value="0" />
+    }
     <div style="clear:both"></div>
     <div class="large-table">
         <div id="basket-wrapper" class="basket-wrapper">
             <fieldset>
+
                 <legend class="basket-legend">Basket Items</legend>
                 <table class="table table-striped">
                     <thead>
@@ -30,10 +43,13 @@
                         </tr>
                     </thead>
                     <tbody>
+
+
                         @{
+
                             var itemCountLarge = 0;
 
-                            foreach (var planOption in Model)
+                            foreach (var planOption in Model.SelectedOptions)
                             {
                                 <tr id="basket-item-row-@itemCountLarge" class="basket-item-row-@itemCountLarge basket-item">
                                     <td class="col-sm-3" scope="row">@Html.TextBox("BasketItems[" + @itemCountLarge + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Plan_Name" })</td>
@@ -52,12 +68,40 @@
                         }
                     </tbody>
                     <tfoot>
+                        @{
+                            string applyStyle = string.Empty;
+                            string removeStyle = string.Empty;
+                            string discountDescription = string.Empty;
+
+                            if (Session["DiscountCode"] != null)
+                            {
+                                applyStyle = "basket-hide-element";
+                                var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+                                discountDescription = string.Format("{0} - {1}% Discount!", discountCode.Code, discountCode.PercentDiscount.ToString());
+                            }
+                            else
+                            {
+                                removeStyle = "basket-hide-element";
+                            }
+                            <tr class="remove-discount-code-wrapper @removeStyle">
+                                <td></td>
+                                <td></td>
+                                <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-large" style="text-align:right"><button type="button" onclick="removeDiscountCode()">Remove</button></div></td>
+                                <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" class="basket-value-new basket-discount-description" readonly="readonly" value="@discountDescription" style="text-align:center;padding-top:3px" /></div></td>
+                            </tr>
+                                <tr class="apply-discount-code-wrapper @applyStyle">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-large"><button type="button" onclick="applyDiscountCode('basket-discount-code-input-large')">Apply</button></div></td>
+                                    <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" placeholder="Discount Code" class="basket-discount-code-input-large basket-discount-input" style="text-align:center" /></div></td>
+                                </tr>
+                        }
                         <tr class="basket-total-row">
                             <td></td>
                             <td></td>
                             <td><div class="basket-total-large">Total:</div></td>
                             <td>
-                                <input id="basket-total" class="basket-total basket-total-large-input" style="width:100%;border:none;text-align:center" value="£@Math.Round(Model.Sum(s => s.Price * s.Quantity),2)" />
+                                <input id="basket-total" class="basket-total basket-total-large-input" style="width:100%;border:none;text-align:center" value="£@Math.Round(Model.SelectedOptions.Sum(s => s.Price * s.Quantity),2)" />
                             </td>
                             <td></td>
                         </tr>
@@ -77,7 +121,7 @@
 
                 @{
                     var itemCount = 0;
-                        foreach (var planOption in Model)
+                        foreach (var planOption in Model.SelectedOptions)
                         {
                             <div class="basket-item-row-@itemCount basket-item">
                             @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
@@ -134,10 +178,34 @@
                     }
                     <table class="table">
                         <tbody>
+                            @{
+                                string applyStyleSmall = string.Empty;
+                                string removeStyleSmall = string.Empty;
+                                string discountDescriptionSmall = string.Empty;
+
+                                if (Session["DiscountCode"] != null)
+                                {
+                                    applyStyleSmall = "basket-hide-element";
+                                    var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+                                    discountDescriptionSmall = string.Format("{0} - {1}% Discount!", discountCode.Code, discountCode.PercentDiscount.ToString());
+                                }
+                                else
+                                {
+                                    removeStyleSmall = "basket-hide-element";
+                                }
+                                <tr class="remove-discount-code-wrapper @removeStyleSmall">
+                                    <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-small"><button type="button" onclick="removeDiscountCode()">Remove</button></div></td>
+                                    <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" class="basket-value-new basket-discount-description" readonly="readonly" value="@discountDescriptionSmall" style="text-align:right;padding-top:3px" /></div></td>
+                                </tr>
+                                        <tr class="apply-discount-code-wrapper @applyStyleSmall">
+                                            <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-small"><button type="button" onclick="applyDiscountCode('basket-discount-code-input-small')">Apply</button></div></td>
+                                            <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" placeholder="Discount Code" class="basket-discount-code-input-small basket-discount-input" style="text-align:center" /></div></td>
+                                        </tr>
+                            }
                             <tr class="basket-total-row">
                                 <td><div class="basket-total-small">Total:</div></td>
                                 <td style="text-align:right">
-                                    <input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Math.Round(Model.Sum(s => s.Price * s.Quantity),2)" />
+                                    <input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Math.Round(Model.SelectedOptions.Sum(s => s.Price * s.Quantity),2)" />
                                 </td>
                             </tr>
                         </tbody>

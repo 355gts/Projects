@@ -1,6 +1,5 @@
 ﻿using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
-using JoelScottFitness.Common.Results;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
 using JoelScottFitness.Web.Constants;
@@ -43,6 +42,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             SelectedPlanOptionViewModel selectedPlanOptionViewModel2;
             SelectedPlanOptionViewModel selectedPlanOptionViewModel3;
             IEnumerable<SelectedPlanOptionViewModel> selectedPlanOptionViewModels;
+            BasketViewModel basketViewModel;
             CustomerViewModel customer;
             DiscountCodeViewModel discountCode;
             long discountCodeId = 555;
@@ -65,7 +65,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 contextMock.Setup(c => c.HttpContext.Session)
                            .Returns(sessionMock);
-                
+
                 itemQuantityViewModel1 = new ItemQuantityViewModel() { Id = basketItemId1, Quantity = basketItemQuantity1 };
                 itemQuantityViewModel2 = new ItemQuantityViewModel() { Id = basketItemId2, Quantity = basketItemQuantity2 };
 
@@ -86,20 +86,25 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                     selectedPlanOptionViewModel3,
                 };
 
+                basketViewModel = new BasketViewModel()
+                {
+                    SelectedOptions = selectedPlanOptionViewModels
+                };
+
                 customer = new CustomerViewModel()
                 {
                     Id = customerId,
                 };
-                
+
                 basketHelperMock.Setup(b => b.GetBasketItems())
                                 .Returns(sessionBasketItems);
 
-                jsfServiceMock.Setup(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()))
-                              .ReturnsAsync(selectedPlanOptionViewModels);
+                jsfServiceMock.Setup(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()))
+                              .ReturnsAsync(basketViewModel);
 
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
                               .ReturnsAsync(customer);
-                
+
                 controller = new CON.HomeController(jsfServiceMock.Object,
                                                     youtubeClientMock.Object,
                                                     basketHelperMock.Object,
@@ -112,13 +117,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void ConfirmPurchase_CustomerIdNull_ReturnRedirectToRouteResult()
             {
                 // test
-                var result = controller.ConfirmPurchase(Guid.Empty).Result as RedirectToRouteResult;
+                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Never);
-                jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Never);
+                jsfServiceMock.Verify(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
-                
+
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
@@ -133,11 +138,11 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                                 .Returns((IDictionary<long, ItemQuantityViewModel>)null);
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as RedirectToRouteResult;
+                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Never);
+                jsfServiceMock.Verify(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
 
                 Assert.IsNotNull(result);
@@ -150,15 +155,15 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void ConfirmPurchase_GetBasketItemsAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()))
-                              .ReturnsAsync((IEnumerable<SelectedPlanOptionViewModel>)null);
+                jsfServiceMock.Setup(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()))
+                              .ReturnsAsync((BasketViewModel)null);
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as RedirectToRouteResult;
+                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
 
                 Assert.IsNotNull(result);
@@ -175,11 +180,11 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                               .ReturnsAsync((CustomerViewModel)null);
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as RedirectToRouteResult;
+                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
@@ -192,11 +197,11 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void ConfirmPurchase_ApplyDiscountCode_ReturnsView()
             {
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as ViewResult;
+                var result = controller.ConfirmPurchase() as ViewResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
@@ -228,11 +233,11 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 sessionMock[SessionKeys.DiscountCode] = null;
 
                 // test
-                var result = controller.ConfirmPurchase(customerId).Result as ViewResult;
+                var result = controller.ConfirmPurchase() as ViewResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasketItems(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.GetBasketAsync(It.IsAny<IEnumerable<long>>(), It.IsAny<long?>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
@@ -248,7 +253,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(3, resultModel.BasketItems.Count());
                 Assert.AreEqual(basketItemQuantity1, resultModel.BasketItems.First(b => b.Id == basketItemId1).Quantity);
                 Assert.AreEqual(basketItemQuantity2, resultModel.BasketItems.First(b => b.Id == basketItemId2).Quantity);
-                
+
                 // check item is set to default quantity
                 Assert.AreEqual(basketItemDefaultQuantity, resultModel.BasketItems.First(b => b.Id == basketItemId3).Quantity);
 

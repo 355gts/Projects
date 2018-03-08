@@ -3,7 +3,6 @@ using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Data;
-using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using JoelScottFitness.Identity.Models;
 using JoelScottFitness.PayPal.Services;
@@ -773,26 +772,26 @@ namespace JoelScottFitness.Test.Services
             repositoryMock.Setup(r => r.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()))
                           .ReturnsAsync((IEnumerable<PlanOption>)null);
             // test
-            var result = service.GetBasketItemsAsync(new List<long>() { id }).Result;
+            var result = service.GetBasketAsync(new List<long>() { id }).Result;
 
             // verify
             repositoryMock.Verify(r => r.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Once);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(0, result.Count());
+            Assert.AreEqual(0, result.SelectedOptions.Count());
         }
 
         [TestMethod]
         public void GetBasketItemsAsync_Success_ReturnsBasketItems()
         {
             // test
-            var result = service.GetBasketItemsAsync(new List<long>() { id }).Result;
+            var result = service.GetBasketAsync(new List<long>() { id }).Result;
 
             // verify
             repositoryMock.Verify(r => r.GetBasketItemsAsync(It.IsAny<IEnumerable<long>>()), Times.Once);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count());
+            Assert.AreEqual(2, result.SelectedOptions.Count());
         }
 
         [TestMethod]

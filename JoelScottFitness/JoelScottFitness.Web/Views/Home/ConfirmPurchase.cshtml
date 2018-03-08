@@ -66,7 +66,7 @@
     </div>
 
     <div class="large-table">
-        @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("CompletePayment", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "checkout-form" }))
         {
             @Html.AntiForgeryToken()
 
@@ -137,32 +137,20 @@
                         <tfoot>
 
                             @{
-                                string applyStyle = string.Empty;
-                                string removeStyle = string.Empty;
                                 string discountDescription = string.Empty;
 
                                 if (Session["DiscountCode"] != null)
                                 {
-                                    applyStyle = "basket-hide-element";
                                     var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
                                     discountDescription = string.Format("{0} - {1}% Discount!", discountCode.Code, discountCode.PercentDiscount.ToString());
-                                }
-                                else
-                                {
-                                    removeStyle = "basket-hide-element";
-                                }
-                                <tr class="remove-discount-code-wrapper @removeStyle">
+
+                                <tr class="apply-discount-code-wrapper">
                                     <td></td>
                                     <td></td>
-                                    <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-large" style="text-align:right"><button type="button" onclick="removeDiscountCode()">Remove</button></div></td>
-                                    <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" class="basket-value-new basket-discount-description" readonly="readonly" value="@discountDescription" style="text-align:center;padding-top:3px"/></div></td>
+                                    <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-large"><label>Discount Code:</label></div></td>
+                                    <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" class="basket-value-new basket-discount-description" readonly="readonly" value="@discountDescription" style="text-align:center;padding-top:3px" /></div></td>
                                 </tr>
-                                <tr class="apply-discount-code-wrapper @applyStyle">
-                                    <td></td>
-                                    <td></td>
-                                    <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-large"><button type="button" onclick="applyDiscountCode('basket-discount-code-input-large')">Apply</button></div></td>
-                                    <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" placeholder="Discount Code" class="basket-discount-code-input-large basket-discount-input" style="text-align:center" /></div></td>
-                                </tr>
+                                }
                             }
 
 
@@ -187,7 +175,7 @@
     </div>
 
     <div class="small-table" style="position:relative">
-        @using (Html.BeginForm("Checkout", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("CompletePayment", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "checkout-form" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(model => model.CustomerDetails.Id, new { @style = "display:none" })
@@ -279,28 +267,18 @@
                         <table class="table">
                             <tbody>
                                     @{
-                                        string applyStyle = string.Empty;
-                                        string removeStyle = string.Empty;
                                         string discountDescription = string.Empty;
 
                                         if (Session["DiscountCode"] != null)
                                         {
-                                            applyStyle = "basket-hide-element";
                                             var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
                                             discountDescription = string.Format("{0} - {1}% Discount!", discountCode.Code, discountCode.PercentDiscount.ToString());
-                                        }
-                                        else
-                                        {
-                                            removeStyle = "basket-hide-element";
-                                        }
-                                        <tr class="remove-discount-code-wrapper @removeStyle">
-                                            <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-small"><button type="button" onclick="removeDiscountCode()">Remove</button></div></td>
+                                        
+                                        <tr class="apply-discount-code-wrapper">
+                                            <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-small"><label>Discount Code:</label></div></td>
                                             <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" class="basket-value-new basket-discount-description" readonly="readonly" value="@discountDescription" style="text-align:right;padding-top:3px" /></div></td>
                                         </tr>
-                                        <tr class="apply-discount-code-wrapper @applyStyle">
-                                            <td class="basket-discount-code-wrapper"><div class="basket-discount-code-button-wrapper-small"><button type="button" onclick="applyDiscountCode('basket-discount-code-input-small')">Apply</button></div></td>
-                                            <td class="basket-discount-code-wrapper"><div style="position:relative"><input type="text" placeholder="Discount Code" class="basket-discount-code-input-small basket-discount-input" style="text-align:center" /></div></td>
-                                        </tr>
+                                        }
                                     }
                                 <tr class="basket-total-row">
                                     <td><div class="basket-total-small">Total:</div></td>
@@ -326,5 +304,25 @@
 <script type="text/javascript">
     $(document).ready(function () {
         calculateBasketItemTotals();
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var checkoutButtons = document.getElementsByClassName('active-button');
+        var checkoutForms = document.getElementsByClassName('checkout-form');
+
+        // Update button text.
+        for (var i = 0; i < checkoutForms.length; i++) {
+
+            checkoutForms[i].onsubmit = function (event) {
+                event.preventDefault();
+
+                for (var x = 0; x < checkoutButtons.length; x++) {
+                    checkoutButtons[x].innerHTML = 'Working...<i class="fa fa-spinner fa-pulse" aria-hidden="true"></i>';
+                }
+            }
+        }
     });
 </script>

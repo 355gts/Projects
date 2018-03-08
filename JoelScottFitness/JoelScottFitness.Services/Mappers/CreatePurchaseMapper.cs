@@ -1,6 +1,6 @@
-﻿using JoelScottFitness.Common.Mapper;
+﻿using JoelScottFitness.Common.Enumerations;
+using JoelScottFitness.Common.Mapper;
 using JoelScottFitness.Common.Models;
-using JoelScottFitness.Data.Enumerations;
 using JoelScottFitness.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace JoelScottFitness.Services.Mappers
             purchase.DiscountCodeId = fromObject.DiscountCodeId;
             purchase.PayPalReference = fromObject.PayPalReference;
             purchase.PurchaseDate = DateTime.UtcNow;
-            purchase.Status = PurchaseStatus.Pending;
+            purchase.Status = PurchaseStatus.Complete;
             purchase.TotalAmount = fromObject.BasketItems.Sum(i => (i.Price * i.Quantity));
             purchase.TransactionId = fromObject.TransactionId;
 

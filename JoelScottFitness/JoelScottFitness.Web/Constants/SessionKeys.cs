@@ -17,5 +17,7 @@
         public const string DiscountCode = "DiscountCode";
 
         public const string Christmas = "Christmas";
+
+        public const string ConfirmPurchaseViewModel = "ConfirmPurchaseViewModel";
     }
 }
