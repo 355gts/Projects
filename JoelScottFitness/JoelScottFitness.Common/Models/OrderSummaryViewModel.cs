@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace JoelScottFitness.Common.Models
 {
     [DataContract]
-    public class PurchaseSummaryViewModel : BaseViewModel
+    public class OrderSummaryViewModel : BaseViewModel
     {
         [Required]
         [DataMember(IsRequired = true)]
@@ -41,11 +41,11 @@ namespace JoelScottFitness.Common.Models
         [Required]
         [DataMember(IsRequired = true)]
         public bool QuestionnaireComplete { get; set; }
-        
+
         [Required]
         [DataMember(IsRequired = true)]
         public bool RequiresAction { get; set; }
 
-        public ICollection<PurchasedHistoryItemViewModel> Items { get; set; }
+        public ICollection<OrderItemViewModel> Items { get; set; }
     }
 }

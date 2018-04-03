@@ -8,7 +8,7 @@ namespace JoelScottFitness.Services.Mappers
     sealed class CustomerMapper : ITypeMapper<CustomerViewModel, Customer>, ITypeMapper<Customer, CustomerViewModel>
     {
         AddressMapper addressMapper = new AddressMapper();
-        PurchaseMapper purchaseMapper = new PurchaseMapper();
+        OrderMapper purchaseMapper = new OrderMapper();
         UserMapper userMapper = new UserMapper();
 
         public Customer Map(CustomerViewModel fromObject, Customer toObject = null)

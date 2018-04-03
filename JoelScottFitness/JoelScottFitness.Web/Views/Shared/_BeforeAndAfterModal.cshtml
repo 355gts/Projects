@@ -11,7 +11,7 @@
                 <div class="modal-body upload-modal-body">
                     <div class="form-horizontal">
                         @Html.AntiForgeryToken()
-                        <input type="hidden" id="purchased-item-id" />
+                        <input type="hidden" id="order-id" />
                         <div class="form-group">
                             <label class="control-label col-xs-12 upload-modal-label" for="BeforeFile">Before</label>
                             <div class="col-xs-12" style="padding:0">
@@ -97,7 +97,7 @@
             formData.append('BeforeFile', beforeFile, beforeFile.name);
             formData.append('AfterFile', afterFile, afterFile.name);
             formData.append('Comment', $('#comment').val().trim(' '));
-            formData.append('PurchasedItemId', $('#purchased-item-id').val());
+            formData.append('OrderId', $('#order-id').val());
             formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
 
             // check valid file types

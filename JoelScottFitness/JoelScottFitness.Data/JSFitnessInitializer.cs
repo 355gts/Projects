@@ -120,26 +120,35 @@ namespace JoelScottFitness.Data
                     {
                         new PlanOption()
                         {
+                            Name = "Shortcut to Shred",
                             Description = "4 Week Shred",
                             Duration = 4,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/ShortcutToShred.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 19.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
 
                         new PlanOption()
                         {
+                            Name = "Shortcut to Shred",
                             Description = "8 Week Shred",
                             Duration = 8,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/ShortcutToShred.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 29.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
 
                         new PlanOption()
                         {
+                            Name = "Shortcut to Shred",
                             Description = "12 Week Shred",
                             Duration = 12,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/ShortcutToShred.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 39.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                     },
                 };
@@ -156,24 +165,33 @@ namespace JoelScottFitness.Data
                     {
                         new PlanOption()
                         {
+                            Name = "The Hulk Effect",
                             Description = "4 Week Plan",
                             Duration = 4,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/TheHulkEffect.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 19.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "The Hulk Effect",
                             Description = "8 Week Plan",
                             Duration = 8,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/TheHulkEffect.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 29.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "The Hulk Effect",
                             Description = "12 Week Plan",
                             Duration = 12,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/TheHulkEffect.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 39.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                     },
                 };
@@ -190,24 +208,33 @@ namespace JoelScottFitness.Data
                     {
                         new PlanOption()
                         {
+                            Name = "Project Mass",
                             Description = "4 Week Plan",
                             Duration = 4,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/ProjectMass.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 19.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Project Mass",
                             Description = "8 Week Plan",
                             Duration = 8,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/ProjectMass.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 29.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Project Mass",
                             Description = "12 Week Plan",
                             Duration = 12,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/ProjectMass.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 39.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                     },
                 };
@@ -224,24 +251,33 @@ namespace JoelScottFitness.Data
                     {
                         new PlanOption()
                         {
+                            Name = "Wonder Woman Physique",
                             Description = "4 Week Plan",
                             Duration = 14,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/WonderWomanPhysique.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 19.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Wonder Woman Physique",
                             Description = "8 Week Plan",
                             Duration = 8,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/WonderWomanPhysique.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 29.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Wonder Woman Physique",
                             Description = "12 Week Plan",
                             Duration = 12,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/WonderWomanPhysique.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 39.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                     },
                 };
@@ -258,24 +294,33 @@ namespace JoelScottFitness.Data
                     {
                         new PlanOption()
                         {
+                            Name = "Ultimate Booty Builder",
                             Description = "4 Week Plan",
                             Duration = 14,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/UltimateBootyBuilder.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 19.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Ultimate Booty Builder",
                             Description = "8 Week Plan",
                             Duration = 8,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/UltimateBootyBuilder.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 29.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Ultimate Booty Builder",
                             Description = "12 Week Plan",
                             Duration = 12,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/UltimateBootyBuilder.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 39.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                     },
                 };
@@ -292,24 +337,33 @@ namespace JoelScottFitness.Data
                     {
                         new PlanOption()
                         {
+                            Name = "Beach Body",
                             Description = "4 Week Plan",
                             Duration = 14,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/BeachBody.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 19.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Beach Body",
                             Description = "8 Week Plan",
                             Duration = 8,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/BeachBody.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 29.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                         new PlanOption()
                         {
+                            Name = "Beach Body",
                             Description = "12 Week Plan",
                             Duration = 12,
-                            ItemType = ItemType.Plan,
+                            ImagePath = "/Content/Images/Plans/BeachBody.jpg",
+                            ItemCategory = ItemCategory.Plan,
                             Price = 39.99,
+                            CreatedDate = DateTime.UtcNow,
                         },
                     },
                 };

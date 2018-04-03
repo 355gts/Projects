@@ -4,20 +4,20 @@ using JoelScottFitness.Data.Models;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class HallOfFameMapper : ITypeMapper<PurchasedItem, HallOfFameViewModel>
+    sealed class HallOfFameMapper : ITypeMapper<CustomerPlan, HallOfFameViewModel>
     {
-        public HallOfFameViewModel Map(PurchasedItem fromObject, HallOfFameViewModel toObject = null)
+        public HallOfFameViewModel Map(CustomerPlan fromObject, HallOfFameViewModel toObject = null)
         {
             var hallOfFameEntry = toObject ?? new HallOfFameViewModel();
 
-            hallOfFameEntry.PurchasedItemId = fromObject.Id;
             hallOfFameEntry.AfterImagePath = fromObject.AfterImage;
             hallOfFameEntry.BeforeImagePath = fromObject.BeforeImage;
             hallOfFameEntry.Comment = fromObject.Comment;
-            hallOfFameEntry.Name = $"{fromObject.Purchase?.Customer?.Firstname} {fromObject.Purchase?.Customer?.Surname}";
-            hallOfFameEntry.PlanDescription = fromObject.Item?.Description;
-            hallOfFameEntry.ItemId = fromObject.ItemId;
             hallOfFameEntry.Enabled = fromObject.HallOfFameEnabled;
+            hallOfFameEntry.Name = $"{fromObject.Order?.Customer?.Firstname} {fromObject.Order?.Customer?.Surname}";
+            hallOfFameEntry.OrderId = fromObject.OrderId;
+            hallOfFameEntry.PlanDescription = fromObject.Item?.Description;
+            hallOfFameEntry.PlanName = fromObject.Item?.Name;
 
             return hallOfFameEntry;
         }

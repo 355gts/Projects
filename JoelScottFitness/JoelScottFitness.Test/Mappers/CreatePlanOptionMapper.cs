@@ -12,17 +12,18 @@ namespace JoelScottFitness.Test.Mappers
         [TestClass]
         public class WebToRepo
         {
+            CreatePlanOptionViewModel webObject = new CreatePlanOptionViewModel()
+            {
+                Description = "Description",
+                Duration = 4,
+                ItemCategory = ItemCategory.Plan,
+                Price = 20.99,
+                Name = "Name"
+            };
+
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var webObject = new CreatePlanOptionViewModel()
-                {
-                    Description = "4 Week Plan",
-                    Duration = 4,
-                    ItemType = ItemType.Plan,
-                    Price = 20.99,
-                };
-
                 var mapper = new Map.CreatePlanOptionMapper();
 
                 var result = mapper.Map(webObject);
@@ -33,15 +34,7 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var webObject = new CreatePlanOptionViewModel()
-                {
-                    Description = "4 Week Plan",
-                    Duration = 4,
-                    ItemType = ItemType.Plan,
-                    Price = 20.99,
-                };
-
-                PlanOption toObject = new PlanOption();
+                var toObject = new PlanOption();
 
                 var mapper = new Map.CreatePlanOptionMapper();
 
@@ -52,10 +45,12 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(CreatePlanOptionViewModel webObject, PlanOption repoObject)
             {
+                Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(repoObject.Duration, webObject.Duration);
-                Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
+                Assert.AreEqual(repoObject.ItemCategory, webObject.ItemCategory);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
+                Assert.IsFalse(repoObject.ItemDiscontinued);
             }
         }
     }

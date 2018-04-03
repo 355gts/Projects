@@ -10,7 +10,7 @@ using Map = JoelScottFitness.Services.Mappers;
 namespace JoelScottFitness.Test.Mappers
 {
     [TestClass]
-    public class PurchaseMapper
+    public class OrderMapper
     {
         [TestClass]
         public class RepoToWeb
@@ -18,7 +18,7 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var repoObject = new Purchase()
+                var repoObject = new Order()
                 {
                     CustomerId = Guid.NewGuid(),
                     DiscountCodeId = 456,
@@ -28,23 +28,21 @@ namespace JoelScottFitness.Test.Mappers
                     TransactionId = "SalesReference",
                     TotalAmount = 1234,
                     QuestionnareId = 333,
-                    Items = new List<PurchasedItem>()
+                    Items = new List<OrderItem>()
                     {
-                        new PurchasedItem()
+                        new OrderItem()
                         {
                             ItemId = 456,
                             Quantity= 23,
-                            Item = new Item()
-                            {
-                                Description = "Description",
-                                ItemType = ItemType.Plan,
-                                Price = 2.34,
-                            },
+                            //Description = "Description",
+                            ItemCategory = ItemCategory.Plan,
+                            Price = 2.34,
+                            //Name = "Name",
                         }
                     }
                 };
 
-                var mapper = new Map.PurchaseMapper();
+                var mapper = new Map.OrderMapper();
 
                 var result = mapper.Map(repoObject);
 
@@ -54,7 +52,7 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var repoObject = new Purchase()
+                var repoObject = new Order()
                 {
                     CustomerId = Guid.NewGuid(),
                     DiscountCodeId = 456,
@@ -64,32 +62,30 @@ namespace JoelScottFitness.Test.Mappers
                     TransactionId = "TransactionId",
                     TotalAmount = 1234,
                     QuestionnareId = 333,
-                    Items = new List<PurchasedItem>()
+                    Items = new List<OrderItem>()
                     {
-                        new PurchasedItem()
+                        new OrderItem()
                         {
                             ItemId = 456,
                             Quantity = 23,
-                            Item = new Item()
-                            {
-                                Description = "Description",
-                                ItemType = ItemType.Plan,
-                                Price = 2.34,
-                            },
+                            //Description = "Description",
+                            ItemCategory = ItemCategory.Plan,
+                            Price = 2.34,
+                            //Name = "Name",
                         }
                     }
                 };
 
                 PurchaseHistoryViewModel toObject = new PurchaseHistoryViewModel();
 
-                var mapper = new Map.PurchaseMapper();
+                var mapper = new Map.OrderMapper();
 
                 mapper.Map(repoObject, toObject);
 
                 AssertAreEqual(repoObject, toObject);
             }
 
-            private void AssertAreEqual(Purchase repoObject, PurchaseHistoryViewModel webObject)
+            private void AssertAreEqual(Order repoObject, PurchaseHistoryViewModel webObject)
             {
                 Assert.AreEqual(repoObject.CustomerId, webObject.CustomerId);
                 Assert.AreEqual(repoObject.DiscountCodeId, webObject.DiscountCodeId);
@@ -104,7 +100,7 @@ namespace JoelScottFitness.Test.Mappers
 
                 var repoItem = repoObject.Items.First();
                 var webItem = webObject.Items.First();
-                
+
                 Assert.AreEqual(repoItem.ItemId, webItem.ItemId);
                 Assert.AreEqual(repoItem.Quantity, webItem.Quantity);
             }

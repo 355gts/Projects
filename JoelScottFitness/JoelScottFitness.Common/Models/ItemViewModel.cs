@@ -12,6 +12,10 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
+        public bool ItemDiscontinued { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public DateTime CreatedDate { get; set; }
 
         [DataMember(IsRequired = false)]

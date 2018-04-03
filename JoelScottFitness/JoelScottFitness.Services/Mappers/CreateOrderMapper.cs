@@ -8,26 +8,26 @@ using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class CreatePurchaseMapper : ITypeMapper<ConfirmPurchaseViewModel, Purchase>
+    sealed class CreateOrderMapper : ITypeMapper<ConfirmPurchaseViewModel, Order>
     {
-        CreatePurchaseItemMapper createPurchasedItemMapper = new CreatePurchaseItemMapper();
+        AddOrderItemMapper createPurchasedItemMapper = new AddOrderItemMapper();
 
-        public Purchase Map(ConfirmPurchaseViewModel fromObject, Purchase toObject = null)
+        public Order Map(ConfirmPurchaseViewModel fromObject, Order toObject = null)
         {
-            var purchase = toObject ?? new Purchase();
+            var purchase = toObject ?? new Order();
 
             purchase.CustomerId = fromObject.CustomerDetails.Id;
-            purchase.DiscountCodeId = fromObject.DiscountCodeId;
+            purchase.DiscountCodeId = fromObject.Basket?.DiscountCode?.Id;
             purchase.PayPalReference = fromObject.PayPalReference;
             purchase.PurchaseDate = DateTime.UtcNow;
             purchase.Status = PurchaseStatus.Complete;
-            purchase.TotalAmount = fromObject.BasketItems.Sum(i => (i.Price * i.Quantity));
+            purchase.TotalAmount = fromObject.Basket.Total;
             purchase.TransactionId = fromObject.TransactionId;
 
-            if (fromObject.BasketItems != null && fromObject.BasketItems.Any())
+            if (fromObject.Basket != null && fromObject.Basket.Items != null && fromObject.Basket.Items.Any())
             {
-                var items = new List<PurchasedItem>();
-                foreach (var item in fromObject.BasketItems)
+                var items = new List<OrderItem>();
+                foreach (var item in fromObject.Basket.Items.Select(s => s.Value).ToList())
                 {
                     items.Add(createPurchasedItemMapper.Map(item));
                 }

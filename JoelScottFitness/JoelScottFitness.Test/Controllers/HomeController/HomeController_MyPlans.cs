@@ -68,7 +68,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<string>()))
                               .ReturnsAsync(customerViewModel);
                 jsfServiceMock.Setup(s => s.GetCustomerPlansAsync(It.IsAny<Guid>()))
-                              .ReturnsAsync(new List<PurchasedHistoryItemViewModel>() { new PurchasedHistoryItemViewModel(), new PurchasedHistoryItemViewModel() });
+                              .ReturnsAsync(new List<CustomerPlanViewModel>() { new CustomerPlanViewModel(), new CustomerPlanViewModel() });
 
                 controller = new CON.HomeController(jsfServiceMock.Object,
                                                     youtubeClientMock.Object,
@@ -104,7 +104,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             {
                 // setup
                 jsfServiceMock.Setup(s => s.GetCustomerPlansAsync(It.IsAny<Guid>()))
-                              .ReturnsAsync((IEnumerable<PurchasedHistoryItemViewModel>)null);
+                              .ReturnsAsync((IEnumerable<CustomerPlanViewModel>)null);
 
                 // test
                 var result = controller.MyPlans().Result as ViewResult;
@@ -128,7 +128,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.GetCustomerPlansAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
-                var purchaseHistoryItemsViewModel = (IEnumerable<PurchasedHistoryItemViewModel>)result.Model;
+                var purchaseHistoryItemsViewModel = (IEnumerable<OrderItemViewModel>)result.Model;
                 Assert.AreEqual(2, purchaseHistoryItemsViewModel.Count());
             }
         }

@@ -14,24 +14,24 @@ namespace JoelScottFitness.Test.Mappers
         [TestClass]
         public class RepoToWeb
         {
+            Plan repoObject = new Plan()
+            {
+                Active = true,
+                BannerHeader = "Test Banner",
+                CreatedDate = new DateTime(2017, 11, 11, 19, 03, 32),
+                Description = "Test Description",
+                Id = 123,
+                ImagePathLarge = "Image Large",
+                ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
+                Name = "Test Name",
+                TargetGender = Gender.Female,
+                Options = new List<PlanOption>(),
+                BannerColour = BannerColour.White,
+            };
+
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var repoObject = new Plan()
-                {
-                    Active = true,
-                    BannerHeader = "Test Banner",
-                    CreatedDate = new DateTime(2017, 11, 11, 19, 03, 32),
-                    Description = "Test Description",
-                    Id = 123,
-                    ImagePathLarge = "Image Large",
-                    ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
-                    Name = "Test Name",
-                    TargetGender = Gender.Female,
-                    Options = new List<PlanOption>(),
-                    BannerColour = BannerColour.White,
-                };
-
                 var mapper = new Map.PlanMapper();
 
                 var result = mapper.Map(repoObject);
@@ -42,25 +42,10 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var repoObject = new Plan()
-                {
-                    Active = true,
-                    BannerHeader = "Test Banner",
-                    CreatedDate = new DateTime(2017, 11, 11, 19, 03, 32),
-                    Description = "Test Description",
-                    Id = 123,
-                    ImagePathLarge = "Image Large",
-                    ModifiedDate = new DateTime(2017, 12, 13, 19, 03, 32),
-                    Name = "Test Name",
-                    TargetGender = Gender.Female,
-                    Options = new List<PlanOption>(),
-                    BannerColour = BannerColour.White,
-                };
-
                 PlanViewModel toObject = new PlanViewModel();
 
                 var mapper = new Map.PlanMapper();
-                
+
                 mapper.Map(repoObject, toObject);
 
                 AssertAreEqual(repoObject, toObject);
@@ -68,15 +53,16 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(Plan repoObject, PlanViewModel webObject)
             {
+                Assert.AreEqual(repoObject.Active, webObject.Active);
+                Assert.AreEqual(repoObject.BannerColour, webObject.BannerColour);
                 Assert.AreEqual(repoObject.BannerHeader, webObject.BannerHeader);
                 Assert.AreEqual(repoObject.CreatedDate, webObject.CreatedDate);
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
                 Assert.AreEqual(repoObject.ImagePathLarge, webObject.ImagePathLarge);
-                Assert.IsNotNull(webObject.ModifiedDate);
                 Assert.AreEqual(repoObject.Name, webObject.Name);
                 Assert.AreEqual(repoObject.TargetGender, webObject.TargetGender);
-                Assert.AreEqual(repoObject.BannerColour, webObject.BannerColour);
+                Assert.IsNotNull(webObject.ModifiedDate);
                 Assert.AreEqual(0, webObject.Options.Count);
             }
         }
@@ -84,23 +70,24 @@ namespace JoelScottFitness.Test.Mappers
         [TestClass]
         public class WebToRepo
         {
+            PlanViewModel webObject = new PlanViewModel()
+            {
+                BannerHeader = "Test Banner",
+                CreatedDate = DateTime.UtcNow,
+                Description = "Test Description",
+                Id = 123,
+                ImagePathLarge = "Image Large",
+                ModifiedDate = DateTime.UtcNow,
+                Name = "Test Name",
+                TargetGender = Gender.Female,
+                Options = new List<PlanOptionViewModel>(),
+                BannerColour = BannerColour.White,
+                Active = true,
+            };
+
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var webObject = new PlanViewModel()
-                {
-                    BannerHeader = "Test Banner",
-                    CreatedDate = DateTime.UtcNow,
-                    Description = "Test Description",
-                    Id = 123,
-                    ImagePathLarge = "Image Large",
-                    ModifiedDate = DateTime.UtcNow,
-                    Name = "Test Name",
-                    TargetGender = Gender.Female,
-                    Options = new List<PlanOptionViewModel>(),
-                    BannerColour = BannerColour.White,
-                };
-
                 var mapper = new Map.PlanMapper();
 
                 var result = mapper.Map(webObject);
@@ -111,20 +98,6 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var webObject = new PlanViewModel()
-                {
-                    BannerHeader = "Test Banner",
-                    CreatedDate = DateTime.UtcNow,
-                    Description = "Test Description",
-                    Id = 123,
-                    ImagePathLarge = "Image Large",
-                    ModifiedDate = DateTime.UtcNow,
-                    Name = "Test Name",
-                    TargetGender = Gender.Female,
-                    Options = new List<PlanOptionViewModel>(),
-                    BannerColour = BannerColour.White,
-                };
-
                 Plan toObject = new Plan();
 
                 var mapper = new Map.PlanMapper();
@@ -136,6 +109,8 @@ namespace JoelScottFitness.Test.Mappers
 
             private void AssertAreEqual(PlanViewModel webObject, Plan repoObject)
             {
+                Assert.AreEqual(webObject.Active, repoObject.Active);
+                Assert.AreEqual(webObject.BannerColour, repoObject.BannerColour);
                 Assert.AreEqual(webObject.BannerHeader, repoObject.BannerHeader);
                 Assert.AreEqual(webObject.CreatedDate, repoObject.CreatedDate);
                 Assert.IsNotNull(webObject.ModifiedDate);
@@ -145,7 +120,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.ModifiedDate, repoObject.ModifiedDate);
                 Assert.AreEqual(webObject.Name, repoObject.Name);
                 Assert.AreEqual(webObject.TargetGender, repoObject.TargetGender);
-                Assert.AreEqual(webObject.BannerColour, repoObject.BannerColour);
                 Assert.AreEqual(0, repoObject.Options.Count);
             }
         }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JoelScottFitness.Common.Models.PurchaseSummaryViewModel>
+﻿@model IEnumerable<JoelScottFitness.Common.Models.OrderSummaryViewModel>
 
 <div class="container" style="font-family:'Bebas-Neue';font-size:12pt">
     <div class="row">
@@ -12,6 +12,9 @@
             <tr style="font-size:14pt">
                 <th>
                     <label>Customer Name</label>
+                </th>
+                <th>
+                    <label>Order Id</label>
                 </th>
                 <th>
                     <label>Transaction Id</label>
@@ -45,6 +48,9 @@
                     @Html.HiddenFor(modelItem => item.DiscountCodeId, new { @style = "display:none" })
                     <td>
                         @Html.DisplayFor(modelItem => item.CustomerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.TransactionId)

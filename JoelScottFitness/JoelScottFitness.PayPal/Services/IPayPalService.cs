@@ -8,11 +8,11 @@ namespace JoelScottFitness.PayPal.Services
     {
         void InitialisePayment();
 
-        void AddItems(IEnumerable<SelectedPlanOptionViewModel> items);
+        void AddItems(IEnumerable<BasketItemViewModel> items);
 
-        void AddItem(SelectedPlanOptionViewModel item);
+        void AddItem(BasketItemViewModel item);
 
-        void RemoveItem(PlanOptionViewModel item);
+        void RemoveItem(BasketItemViewModel item);
 
         void RemoveAllItems();
 
@@ -27,7 +27,7 @@ namespace JoelScottFitness.PayPal.Services
         PaymentResult PayWithCreditCard();
 
         PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
-        
+
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
     }
 }

@@ -101,9 +101,9 @@ namespace JoelScottFitness.Data
 
         public virtual DbSet<PlanOption> PlanOptions { get; set; }
 
-        public virtual DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
 
-        public virtual DbSet<PurchasedItem> PurchasedItems { get; set; }
+        public virtual DbSet<OrderItem> OrderItems { get; set; }
 
         public virtual DbSet<MailingListItem> MailingList { get; set; }
 
@@ -114,5 +114,7 @@ namespace JoelScottFitness.Data
         public virtual DbSet<ImageConfiguration> ImageConfigurations { get; set; }
 
         public virtual DbSet<Message> Messages { get; set; }
+
+        public virtual DbSet<CustomerPlan> CustomerPlans { get; set; }
     }
 }

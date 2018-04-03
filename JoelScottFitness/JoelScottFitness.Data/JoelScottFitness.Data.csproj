@@ -65,6 +65,7 @@
     <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\CustomerPlan.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\BaseRecord.cs" />
@@ -77,8 +78,8 @@
     <Compile Include="Models\MailingListItem.cs" />
     <Compile Include="Models\PlanOption.cs" />
     <Compile Include="Models\Plan.cs" />
-    <Compile Include="Models\Purchase.cs" />
-    <Compile Include="Models\PurchasedItem.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Questionnaire.cs" />
     <Compile Include="Modules\DataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -61,7 +61,16 @@ namespace JoelScottFitness.Services.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to questionnaire associate questionnaire to purchase with id &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Failed to associate questionnaire to plans for order id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToAssociateQuestionnaireToPlansErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToAssociateQuestionnaireToPlansErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to associate questionnaire to purchase with id &apos;{0}&apos;..
         /// </summary>
         internal static string FailedToAssociateQuestionnaireToPurchaseErrorMessage {
             get {

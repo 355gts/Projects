@@ -1,4 +1,4 @@
-﻿@model IEnumerable<JoelScottFitness.Common.Models.PurchasedHistoryItemViewModel>
+﻿@model IEnumerable<JoelScottFitness.Common.Models.CustomerPlanViewModel>
 
 <div class="container page-container" style="font-family:'Bebas-Neue';font-size:12pt">
     <div class="row">
@@ -24,6 +24,7 @@
                     string greyscaleClass;
                     foreach (var item in Model)
                     {
+                        @Html.HiddenFor(model => item.Id, new { @style = "display:none" });
                         greyscaleClass = string.Empty;
                         if (string.IsNullOrEmpty(item.PlanPath))
                         {
@@ -36,7 +37,7 @@
                                 @if (!item.QuestionnaireComplete)
                                 {
                                     <div class="plan-questionnaire-format">
-                                        @Html.ActionLink("Complete Questionnaire", "CustomerQuestionnaire", new { transactionId = item.TransactionId })
+                                        @Html.ActionLink("Complete Questionnaire", "CustomerQuestionnaire", new { orderId = item.OrderId })
                                     </div>
                                 }
                                 else if (!string.IsNullOrEmpty(item.PlanPath))

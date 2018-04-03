@@ -4,23 +4,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Data.Models
 {
-    public class PurchasedItem : BaseRecord
+    public class CustomerPlan : BaseRecord
     {
+        [ForeignKey("Order")]
+        [Required]
+        public long OrderId { get; set; }
+
+        public Order Order { get; set; }
+
         [ForeignKey("Item")]
         [Required]
         public long ItemId { get; set; }
 
         public Item Item { get; set; }
 
+        [ForeignKey("Customer")]
         [Required]
-        public long Quantity { get; set; }
+        public Guid CustomerId { get; set; }
 
-        [ForeignKey("Purchase")]
-        [Required]
-        public long PurchaseId { get; set; }
+        public Customer Customer { get; set; }
 
-        public Purchase Purchase { get; set; }
-        
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public bool RequiresAction
@@ -41,5 +44,8 @@ namespace JoelScottFitness.Data.Models
         public DateTime? HallOfFameDate { get; set; }
 
         public bool HallOfFameEnabled { get; set; }
+
+        [Required]
+        public bool QuestionnaireComplete { get; set; }
     }
 }

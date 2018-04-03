@@ -118,6 +118,7 @@
     <Compile Include="Controllers\HomeController\HomeController_RemoveDiscountCode.cs" />
     <Compile Include="Helpers\MockHttpSessionBase.cs" />
     <Compile Include="Helpers\MapperHelper.cs" />
+    <Compile Include="Mappers\AddOrderItemMapper.cs" />
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\BlogImageMapper.cs" />
     <Compile Include="Mappers\BlogMapper.cs" />
@@ -132,12 +133,14 @@
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
     <Compile Include="Mappers\HallOfFameMapper.cs" />
     <Compile Include="Mappers\ImageConfigurationMapper.cs" />
+    <Compile Include="Mappers\CreateItemMapper.cs" />
+    <Compile Include="Mappers\ItemMapper.cs" />
     <Compile Include="Mappers\MailingListItemMapper.cs" />
     <Compile Include="Mappers\MessageMapper.cs" />
     <Compile Include="Mappers\PlanMapper.cs" />
     <Compile Include="Mappers\PlanOptionMapper.cs" />
-    <Compile Include="Mappers\PurchasedItemMapper.cs" />
-    <Compile Include="Mappers\PurchaseMapper.cs" />
+    <Compile Include="Mappers\OrderItemMapper.cs" />
+    <Compile Include="Mappers\OrderMapper.cs" />
     <Compile Include="Mappers\PurchaseSummaryMapper.cs" />
     <Compile Include="Mappers\QuestionnaireMapper.cs" />
     <Compile Include="Mappers\SectionImageConfigurationMapper.cs" />

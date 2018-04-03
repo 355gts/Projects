@@ -28,26 +28,26 @@
     </tr>
 </thead>
 <tbody>
-    @foreach (var item in @Model.Items)
+    @foreach (var orderItem in @Model.Items)
     {
         <tr>
             <td colspan="3">
                 <div style="position:relative;margin-bottom:6px;margin-top:6px">
-                    <div class="email-table-item-image" style='position:relative; background-image:url(@string.Format(@"{0}/{1}", TempData["RootUri"], item.ImagePath)'>
-                        <h2 class="email-table-item-title" style="margin:0">@item.Name</h2>
+                    <div class="email-table-item-image" style='position:relative; background-image:url(@string.Format(@"{0}/{1}", TempData["RootUri"], orderItem.Item.ImagePath)'>
+                        <h2 class="email-table-item-title" style="margin:0">@orderItem.Item.Name</h2>
                     </div>
                 </div>
             </td>
         </tr>
                     <tr>
                         <td class="email-table-item-element email-table-item-element-left">
-                            <label class="email-item-table-element-label">@item.Description</label>
+                            <label class="email-item-table-element-label">@orderItem.Item.Description</label>
                         </td>
                         <td class="email-table-item-element email-table-item-element-right">
-                            <label class="email-item-table-element-label">@string.Format(@"x{0}", item.Quantity)</label>
+                            <label class="email-item-table-element-label">@string.Format(@"x{0}", orderItem.Quantity)</label>
                         </td>
                         <td class="email-table-item-element email-table-item-element-right">
-                            <label class="email-item-table-element-label">@string.Format(@"£{0}", item.Price)</label>
+                            <label class="email-item-table-element-label">@string.Format(@"£{0}", orderItem.Price)</label>
                         </td>
                     </tr>
     }

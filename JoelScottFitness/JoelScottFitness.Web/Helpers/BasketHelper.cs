@@ -1,110 +1,143 @@
 ﻿using JoelScottFitness.Common.Models;
-using JoelScottFitness.Services.Services;
 using JoelScottFitness.Web.Constants;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Web;
 
 namespace JoelScottFitness.Web.Helpers
 {
     public class BasketHelper : IBasketHelper
     {
-        private readonly IJSFitnessService jsfService;
-
-        public BasketHelper(IJSFitnessService jsfService)
+        public bool AddItemToBasket(long id, string name, string description, double price)
         {
-            if (jsfService == null)
-                throw new ArgumentNullException(nameof(jsfService));
+            var basket = GetBasket();
 
-            this.jsfService = jsfService;        
-        }
-
-        public async Task AddItemToBasket(long id)
-        {
-            var basket = GetBasketItems();
-
-            if (!basket.ContainsKey(id))
+            if (!basket.Items.ContainsKey(id))
             {
-                var planOption = await jsfService.GetPlanOptionAsync(id);
-
-                if (planOption != null)
+                var basketItem = new BasketItemViewModel()
                 {
-                    basket.Add(id, new ItemQuantityViewModel()
-                    {
-                        Id = id,
-                        Price = planOption.Price,
-                        Quantity = 1, // 1 is the default quantity
-                    });
+                    Id = id,
+                    Name = name,
+                    Description = description,
+                    Price = price,
+                    Quantity = 1,
+                };
+
+                // apply the discount code to the new item
+                if (basket.DiscountCode != null)
+                {
+                    basketItem.ItemDiscounted = true;
+                    basketItem.DiscountPercent = basket.DiscountCode.PercentDiscount;
                 }
+
+                basket.Items.Add(id, basketItem);
+
+                SaveBasket(basket);
+                return true;
             }
 
-            HttpContext.Current.Session[SessionKeys.Basket] = basket;
+            return false;
         }
 
         public void RemoveItemFromBasket(long id)
         {
-            var basket = GetBasketItems();
+            var basket = GetBasket();
 
-            if (basket.ContainsKey(id))
+            if (basket.Items.ContainsKey(id))
             {
-                basket.Remove(id);
+                basket.Items.Remove(id);
+                SaveBasket(basket);
             }
-
-            HttpContext.Current.Session[SessionKeys.Basket] = basket;
         }
 
-        public ItemQuantityViewModel IncreaseItemQuantity(long id)
+        public BasketItemViewModel IncreaseItemQuantity(long id)
         {
-            var basket = GetBasketItems();
+            var basket = GetBasket();
 
-            if (basket.ContainsKey(id))
+            if (basket.Items.ContainsKey(id))
             {
-                basket[id].Quantity = ++basket[id].Quantity;
+                basket.Items[id].Quantity = ++basket.Items[id].Quantity;
 
-                HttpContext.Current.Session[SessionKeys.Basket] = basket;
+                SaveBasket(basket);
             }
 
-            return new ItemQuantityViewModel() { Id = id, Quantity = basket[id].Quantity };
+            return new BasketItemViewModel() { Id = id, Quantity = basket.Items[id].Quantity };
         }
 
-        public ItemQuantityViewModel DecreaseItemQuantity(long id)
+        public BasketItemViewModel DecreaseItemQuantity(long id)
         {
-            var basket = GetBasketItems();
+            var basket = GetBasket();
 
             // only permit the customer to decrease the quantity to 1
-            if (basket.ContainsKey(id) && basket[id].Quantity > 1)
+            if (basket.Items.ContainsKey(id) && basket.Items[id].Quantity > 1)
             {
-                basket[id].Quantity = --basket[id].Quantity;
+                basket.Items[id].Quantity = --basket.Items[id].Quantity;
 
-                HttpContext.Current.Session[SessionKeys.Basket] = basket;
+                SaveBasket(basket);
             }
 
-            return new ItemQuantityViewModel() { Id = id, Quantity = basket[id].Quantity };
+            return new BasketItemViewModel() { Id = id, Quantity = basket.Items[id].Quantity };
         }
 
-        public IDictionary<long, ItemQuantityViewModel> GetBasketItems()
+        public BasketViewModel GetBasket()
         {
             if (HttpContext.Current.Session[SessionKeys.Basket] == null)
             {
-                HttpContext.Current.Session[SessionKeys.Basket] = new Dictionary<long, ItemQuantityViewModel>();
+                var basket = new BasketViewModel()
+                {
+                    Items = new Dictionary<long, BasketItemViewModel>()
+                };
+                SaveBasket(basket);
             }
 
-            return (Dictionary<long, ItemQuantityViewModel>)HttpContext.Current.Session[SessionKeys.Basket];
+            return (BasketViewModel)HttpContext.Current.Session[SessionKeys.Basket];
         }
 
-        public double CalculateTotalCost()
+        public bool AddDiscountCode(DiscountCodeViewModel discountCode)
         {
-            double total = 0;
+            var basket = GetBasket();
 
-            var basket = GetBasketItems();
-
-            foreach (var item in basket)
+            if (basket.Items != null && basket.Items.Any())
             {
-                total += item.Value.Quantity * item.Value.Price;
+                basket.DiscountCode = discountCode;
+
+                var percentDiscount = basket.DiscountCode.PercentDiscount;
+                basket.Items.Values.ToList().ForEach(i =>
+                {
+                    // apply the discount to all items
+                    i.DiscountPercent = percentDiscount;
+                    i.ItemDiscounted = true;
+                });
+
+                SaveBasket(basket);
+
+                return true;
+            }
+            return false;
+        }
+
+        public void RemoveDiscountCode()
+        {
+            var basket = GetBasket();
+
+            basket.DiscountCode = null;
+
+            if (basket.Items != null && basket.Items.Any())
+            {
+                basket.Items.Values.ToList().ForEach(i =>
+                {
+                    // remove the discount code from all items
+                    i.DiscountPercent = 0;
+                    i.ItemDiscounted = false;
+                });
             }
 
-            return total;
+            SaveBasket(basket);
+        }
+
+        private void SaveBasket(BasketViewModel basket)
+        {
+            HttpContext.Current.Session[SessionKeys.Basket] = basket;
         }
     }
 }

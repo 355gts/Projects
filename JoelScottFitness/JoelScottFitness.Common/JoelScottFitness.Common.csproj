@@ -54,7 +54,7 @@
     <Compile Include="Enumerations\BlogCaptionTextColour.cs" />
     <Compile Include="Enumerations\CreditCardType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
-    <Compile Include="Enumerations\ItemType.cs" />
+    <Compile Include="Enumerations\ItemCategory.cs" />
     <Compile Include="Enumerations\PurchaseStatus.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="IO\FileHelper.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BasketItemViewModel.cs" />
     <Compile Include="Models\BasketViewModel.cs" />
     <Compile Include="Models\BeforeAndAfterViewModel.cs" />
     <Compile Include="Models\BlogImageViewModel.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Models\CreateBlogViewModel.cs" />
     <Compile Include="Models\CreateMessageViewModel.cs" />
     <Compile Include="Models\CreateDiscountCodeViewModel.cs" />
+    <Compile Include="Models\CreateCustomerPlanViewModel.cs" />
+    <Compile Include="Models\CustomerPlanViewModel.cs" />
     <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\HallOfFameViewModel.cs" />
     <Compile Include="Models\ImageConfigurationViewModel.cs" />
@@ -99,9 +102,9 @@
     <Compile Include="Models\PaymentOptionViewModel.cs" />
     <Compile Include="Models\PlanOptionViewModel.cs" />
     <Compile Include="Models\PlanViewModel.cs" />
-    <Compile Include="Models\PurchasedHistoryItemViewModel.cs" />
+    <Compile Include="Models\OrderItemViewModel.cs" />
     <Compile Include="Models\PurchaseHistoryViewModel.cs" />
-    <Compile Include="Models\PurchaseSummaryViewModel.cs" />
+    <Compile Include="Models\OrderSummaryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
     <Compile Include="Models\CallbackViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />

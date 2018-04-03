@@ -7,15 +7,15 @@ using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class PurchaseMapper : ITypeMapper<Purchase, PurchaseHistoryViewModel>
+    sealed class OrderMapper : ITypeMapper<Order, PurchaseHistoryViewModel>
     {
-        PurchasedItemMapper purchasedItemMapper = new PurchasedItemMapper();
+        OrderItemMapper purchasedItemMapper = new OrderItemMapper();
 
-        public PurchaseHistoryViewModel Map(Purchase fromObject, PurchaseHistoryViewModel toObject = null)
+        public PurchaseHistoryViewModel Map(Order fromObject, PurchaseHistoryViewModel toObject = null)
         {
             var purchase = toObject ?? new PurchaseHistoryViewModel();
 
-            purchase.CustomerId = fromObject.CustomerId;
+            purchase.CustomerId = fromObject.CustomerId.Value;
             purchase.DiscountCodeId = fromObject.DiscountCodeId;
             purchase.Id = fromObject.Id;
             purchase.PayPalReference = fromObject.PayPalReference;
@@ -27,7 +27,7 @@ namespace JoelScottFitness.Services.Mappers
 
             if (fromObject.Items != null && fromObject.Items.Any())
             {
-                var items = new List<PurchasedHistoryItemViewModel>();
+                var items = new List<OrderItemViewModel>();
                 foreach (var item in fromObject.Items)
                 {
                     items.Add(purchasedItemMapper.Map(item));

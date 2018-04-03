@@ -40,7 +40,7 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<Purchase>(),
+                    PurchaseHistory = new List<Order>(),
                     User = new AuthUser()
                     {
                         Id = 123,
@@ -81,7 +81,7 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<Purchase>(),
+                    PurchaseHistory = new List<Order>(),
                     User = new AuthUser()
                     {
                         Id = 123,

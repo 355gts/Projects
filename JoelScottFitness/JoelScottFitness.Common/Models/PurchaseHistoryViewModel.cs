@@ -48,6 +48,6 @@ namespace JoelScottFitness.Common.Models
         public QuestionnaireViewModel Questionnaire { get; set; }
 
         [DataMember(IsRequired = true)]
-        public ICollection<PurchasedHistoryItemViewModel> Items { get; set; }
+        public ICollection<OrderItemViewModel> Items { get; set; }
     }
 }

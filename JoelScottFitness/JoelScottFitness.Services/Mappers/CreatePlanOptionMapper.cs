@@ -6,14 +6,15 @@ namespace JoelScottFitness.Services.Mappers
 {
     sealed class CreatePlanOptionMapper : ITypeMapper<CreatePlanOptionViewModel, PlanOption>
     {
+        CreateItemMapper itemMapper = new CreateItemMapper();
+
         public PlanOption Map(CreatePlanOptionViewModel fromObject, PlanOption toObject = null)
         {
             var planOption = toObject ?? new PlanOption();
 
-            planOption.Description = fromObject.Description;
+            itemMapper.Map(fromObject, planOption);
+
             planOption.Duration = fromObject.Duration;
-            planOption.ItemType = fromObject.ItemType;
-            planOption.Price = fromObject.Price;
 
             return planOption;
         }

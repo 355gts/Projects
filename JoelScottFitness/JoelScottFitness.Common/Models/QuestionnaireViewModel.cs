@@ -11,8 +11,8 @@ namespace JoelScottFitness.Common.Models
     {
         [Required]
         [DataMember(IsRequired = true)]
-        public long PurchaseId { get; set; }
-        
+        public long OrderId { get; set; }
+
         [Required]
         [DataMember(IsRequired = true)]
         [Range(0, Int32.MaxValue, ErrorMessage = "Age must be a number")]

@@ -42,9 +42,9 @@ namespace JoelScottFitness.Data
 
         DbSet<PlanOption> PlanOptions { get; set; }
 
-        DbSet<Purchase> Purchases { get; set; }
+        DbSet<Order> Orders { get; set; }
 
-        DbSet<PurchasedItem> PurchasedItems { get; set; }
+        DbSet<OrderItem> OrderItems { get; set; }
 
         DbSet<MailingListItem> MailingList { get; set; }
 
@@ -55,5 +55,7 @@ namespace JoelScottFitness.Data
         DbSet<ImageConfiguration> ImageConfigurations { get; set; }
 
         DbSet<Message> Messages { get; set; }
+
+        DbSet<CustomerPlan> CustomerPlans { get; set; }
     }
 }

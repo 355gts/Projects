@@ -49,9 +49,9 @@ namespace JoelScottFitness.Services.Services
 
         Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id);
 
-        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId);
+        Task<IEnumerable<OrderSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId);
 
-        Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync();
+        Task<IEnumerable<OrderSummaryViewModel>> GetPurchasesAsync();
 
         PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
 
@@ -59,15 +59,13 @@ namespace JoelScottFitness.Services.Services
 
         Task<bool> UpdateMailingListAsync(MailingListItemViewModel mailingListItem);
 
-        Task<BasketViewModel> GetBasketAsync(IEnumerable<long> ids, long? discountCodeId = null);
-
         Task<UserViewModel> GetUserAsync(string userName);
 
         Task<AsyncResult<long>> SavePurchaseAsync(ConfirmPurchaseViewModel confirmPurchaseViewModel);
 
         Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status);
 
-        Task<PurchaseHistoryViewModel> GetPurchaseByTransactionIdAsync(string transactionId);
+        Task<PurchaseHistoryViewModel> GetPurchaseByOrderIdAsync(long orderId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaire);
 
@@ -89,18 +87,18 @@ namespace JoelScottFitness.Services.Services
 
         Task<SectionImageViewModel> GetSectionImagesAsync();
 
-        Task<bool> AssociatePlanToPurchaseAsync(long purchasedItemId, string planPath);
+        Task<bool> UploadCustomerPlanAsync(long orderId, string planPath);
 
-        Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(Guid customerId);
+        Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansAsync(Guid customerId);
 
         Task<KaleidoscopeViewModel> GetKaleidoscopeImagesAsync();
 
-        Task<bool> UploadHallOfFameAsync(long purchasedItemId, string beforeImage, string afterImage, string comment);
+        Task<bool> UploadHallOfFameAsync(long orderId, string beforeImage, string afterImage, string comment);
 
         Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
 
-        Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status);
-        Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId);
+        Task<bool> UpdateHallOfFameStatusAsync(long orderId, bool status);
+        Task<bool> DeleteHallOfFameEntryAsync(long orderId);
 
         Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers);
 
@@ -113,5 +111,11 @@ namespace JoelScottFitness.Services.Services
         Task<IEnumerable<MessageViewModel>> GetMessagesAsync();
 
         Task<MessageViewModel> GetMessageAsync(long id);
+
+        Task<AsyncResult<long>> CreateCustomerPlanAsync(CreateCustomerPlanViewModel customerPlan);
+
+        Task<AsyncResult<long>> UpdateCustomerPlanAsync(CustomerPlanViewModel customerPlan);
+
+        Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansForPurchaseAsync(long orderId);
     }
 }

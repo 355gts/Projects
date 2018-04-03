@@ -74,15 +74,15 @@ namespace JoelScottFitness.PayPal.Services
             payer.payment_method = "credit_card";
         }
 
-        public void AddItem(SelectedPlanOptionViewModel item)
+        public void AddItem(BasketItemViewModel item)
         {
-            var paypalItem = mapper.Map<SelectedPlanOptionViewModel, Item>(item);
+            var paypalItem = mapper.Map<BasketItemViewModel, Item>(item);
 
             if (!itemList.items.Contains(paypalItem))
                 itemList.items.Add(paypalItem);
         }
 
-        public void AddItems(IEnumerable<SelectedPlanOptionViewModel> items)
+        public void AddItems(IEnumerable<BasketItemViewModel> items)
         {
             foreach (var item in items)
             {
@@ -130,9 +130,9 @@ namespace JoelScottFitness.PayPal.Services
             itemList.items = new List<Item>();
         }
 
-        public void RemoveItem(PlanOptionViewModel item)
+        public void RemoveItem(BasketItemViewModel item)
         {
-            var paypalItem = mapper.Map<PlanOptionViewModel, Item>(item);
+            var paypalItem = mapper.Map<BasketItemViewModel, Item>(item);
 
             if (itemList.items.Contains(paypalItem))
             {
@@ -179,7 +179,8 @@ namespace JoelScottFitness.PayPal.Services
                 var transactionId = Convert.ToString((new Random()).Next(100000));
 
                 // add items to transaction
-                AddItems(confirmPurchaseViewModel.BasketItems);
+                AddItems(confirmPurchaseViewModel.Basket.Items.Select(s => s.Value).ToList());
+
                 SetBillingAddress(confirmPurchaseViewModel.CustomerDetails.BillingAddress);
 
                 var createdPayment = this.CreatePayment(apiContext, transactionId, baseUri + "guid=" + transactionId);
@@ -205,7 +206,7 @@ namespace JoelScottFitness.PayPal.Services
                     TransactionId = transactionId,
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string erroMessage = string.Format(Settings.Default.PayPalExceptionOccuredCreatingPaymentErrorMessage, confirmPurchaseViewModel.CustomerDetails.EmailAddress, ex.Message);
                 logger.Warn(erroMessage);
@@ -240,7 +241,7 @@ namespace JoelScottFitness.PayPal.Services
                     Success = true,
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string erroMessage = string.Format(Settings.Default.PayPalPaymentExceptionErrorMessage, paymentId, payerId, ex.Message);
                 logger.Warn(erroMessage);

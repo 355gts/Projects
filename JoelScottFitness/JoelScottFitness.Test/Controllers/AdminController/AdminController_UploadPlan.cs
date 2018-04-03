@@ -34,8 +34,8 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             string planPath2 = "planPath2";
             CustomerViewModel customerViewModel;
             PurchaseHistoryViewModel purchaseHistoryViewModel;
-            PurchasedHistoryItemViewModel purchasedHistoryItemViewModel1;
-            PurchasedHistoryItemViewModel purchasedHistoryItemViewModel2;
+            OrderItemViewModel purchasedHistoryItemViewModel1;
+            OrderItemViewModel purchasedHistoryItemViewModel2;
             UploadPlanViewModel uploadPlanViewModel;
             string requestUrl = "requesturl";
             string requestScheme = "https";
@@ -101,13 +101,13 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                     PostedFile = fileMock.Object,
                 };
 
-                purchasedHistoryItemViewModel1 = new PurchasedHistoryItemViewModel() { PlanPath = planPath1, RequiresAction = false };
-                purchasedHistoryItemViewModel2 = new PurchasedHistoryItemViewModel() { PlanPath = planPath2, RequiresAction = false };
+                purchasedHistoryItemViewModel1 = new OrderItemViewModel() { /*PlanPath = planPath1,*/ RequiresAction = false };
+                purchasedHistoryItemViewModel2 = new OrderItemViewModel() { /*PlanPath = planPath2,*/ RequiresAction = false };
                 purchaseHistoryViewModel = new PurchaseHistoryViewModel()
                 {
                     Customer = customerViewModel,
                     TransactionId = transactionId,
-                    Items = new List<PurchasedHistoryItemViewModel>()
+                    Items = new List<OrderItemViewModel>()
                     {
                         purchasedHistoryItemViewModel1,
                         purchasedHistoryItemViewModel2,
@@ -116,7 +116,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
                               .ReturnsAsync(customerViewModel);
-                jsfServiceMock.Setup(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()))
+                jsfServiceMock.Setup(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()))
                               .Callback<long, string>((a, b) => { uploadPathCallback = b; })
                               .ReturnsAsync(true);
                 jsfServiceMock.Setup(s => s.GetPurchaseAsync(It.IsAny<long>()))
@@ -148,7 +148,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -173,7 +173,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -198,7 +198,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -218,7 +218,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             public void UploadPlan_AssociatePlanToPurchaseAsyncFails_ReturnsViewResult()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()))
+                jsfServiceMock.Setup(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()))
                               .ReturnsAsync(false);
 
                 // test
@@ -226,7 +226,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -251,7 +251,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -276,7 +276,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 
@@ -301,7 +301,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -328,7 +328,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -352,7 +352,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.AssociatePlanToPurchaseAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetPurchaseAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 

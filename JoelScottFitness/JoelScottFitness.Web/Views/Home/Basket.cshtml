@@ -18,13 +18,13 @@
     
     @if (Model.DiscountCode != null)
     {
-        @Html.HiddenFor(model => Model.DiscountCodeId, new { @style = "display:none", @class = "discount-code-id" })
+        @*@Html.HiddenFor(model => Model.DiscountCodeId, new { @style = "display:none", @class = "discount-code-id" })*@
         <input type="hidden" class="discount" value="@Model.DiscountCode.PercentDiscount" />
     }
     else
     {
         <input type="hidden" class="discount" value="0" />
-        <input type="hidden" id="DiscountCodeId" name="DiscountCodeId" class="discount-code-id" value="0" />
+        @*<input type="hidden" id="DiscountCodeId" name="DiscountCodeId" class="discount-code-id" value="0" />*@
     }
     <div style="clear:both"></div>
     <div class="large-table">
@@ -49,19 +49,19 @@
 
                             var itemCountLarge = 0;
 
-                            foreach (var planOption in Model.SelectedOptions)
+                            foreach (var item in Model.Items.Values)
                             {
                                 <tr id="basket-item-row-@itemCountLarge" class="basket-item-row-@itemCountLarge basket-item">
-                                    <td class="col-sm-3" scope="row">@Html.TextBox("BasketItems[" + @itemCountLarge + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Plan_Name" })</td>
-                                    <td class="col-sm-5"> @Html.TextBox("BasketItems[" + @itemCountLarge + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Decription" })</td>
+                                    <td class="col-sm-3" scope="row">@Html.TextBox("BasketItems[" + @itemCountLarge + "].Name", item.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Name" })</td>
+                                    <td class="col-sm-5"> @Html.TextBox("BasketItems[" + @itemCountLarge + "].Description", item.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Decription" })</td>
                                     <td class="" style="display:inline-flex;text-align:center">
-                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@planOption.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-plus"></i></button>
-                                        @Html.TextBox("BasketItems[" + @itemCountLarge + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCountLarge, @id = "BasketItems[" + @itemCountLarge + "].Quantity", @style = "text-align:center;width:60px" })
-                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@planOption.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-minus"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@item.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-plus"></i></button>
+                                        @Html.TextBox("BasketItems[" + @itemCountLarge + "].Quantity", item.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCountLarge, @id = "BasketItems[" + @itemCountLarge + "].Quantity", @style = "text-align:center;width:60px" })
+                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@item.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-minus"></i></button>
                                     </td>
-                                    <td class="col-sm-2"><div style="position:relative;"> <input id="basket-item-price" class="basket-value-new" name="Price" readonly="readonly" type="text" value="£@planOption.Price" style="text-align:center">
-                                                             <input id="basket-item-hidden-price" class="basket-value-new" name="Price" readonly="readonly" type="hidden" value="@planOption.Price" style="text-align:center"></div></td>
-                                    <td class="col-sm-1"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCountLarge')"><i class="fa fa-close"></i></button>
+                                    <td class="col-sm-2"><div style="position:relative;"> <input id="basket-item-price" class="basket-value-new" name="Price" readonly="readonly" type="text" value="£@item.Price" style="text-align:center">
+                                                             <input id="basket-item-hidden-price" class="basket-value-new" name="Price" readonly="readonly" type="hidden" value="@item.Price" style="text-align:center"></div></td>
+                                    <td class="col-sm-1"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@item.Id','basket-item-row-@itemCountLarge')"><i class="fa fa-close"></i></button>
                                 </tr>
                                 itemCountLarge++;
                             }
@@ -73,10 +73,10 @@
                             string removeStyle = string.Empty;
                             string discountDescription = string.Empty;
 
-                            if (Session["DiscountCode"] != null)
+                            if (Model.DiscountCode != null)
                             {
                                 applyStyle = "basket-hide-element";
-                                var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+                                var discountCode = Model.DiscountCode;
                                 discountDescription = string.Format("{0} - {1}% Discount!", discountCode.Code, discountCode.PercentDiscount.ToString());
                             }
                             else
@@ -101,7 +101,7 @@
                             <td></td>
                             <td><div class="basket-total-large">Total:</div></td>
                             <td>
-                                <input id="basket-total" class="basket-total basket-total-large-input" style="width:100%;border:none;text-align:center" value="£@Math.Round(Model.SelectedOptions.Sum(s => s.Price * s.Quantity),2)" />
+                                <input id="basket-total" class="basket-total basket-total-large-input" style="width:100%;border:none;text-align:center" value="£@Model.Total" />
                             </td>
                             <td></td>
                         </tr>
@@ -121,29 +121,27 @@
 
                 @{
                     var itemCount = 0;
-                        foreach (var planOption in Model.SelectedOptions)
+                        foreach (var item in Model.Items.Values)
                         {
                             <div class="basket-item-row-@itemCount basket-item">
-                            @Html.Hidden("BasketItems[" + @itemCount + "].Duration", planOption.Duration, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Duration" })
-                            @Html.Hidden("BasketItems[" + @itemCount + "].Id", planOption.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
-                            @Html.Hidden("BasketItems[" + @itemCount + "].ItemDiscontinued", planOption.ItemDiscontinued, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemDiscontinued" })
-                            @Html.Hidden("BasketItems[" + @itemCount + "].ItemType", planOption.ItemType, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemType" })
-                            @Html.Hidden("BasketItems[" + @itemCount + "].PlanId", planOption.PlanId, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].PlanId" })
-                            @Html.Hidden("BasketItems[" + @itemCount + "].Price", planOption.Price, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Price" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].Description", item.Description, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Description" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].Id", item.Id, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Id" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].ItemCategory", item.ItemCategory, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].ItemType" })
+                            @Html.Hidden("BasketItems[" + @itemCount + "].Price", item.Price, new { @style = "display:none", @id = "BasketItems[" + @itemCount + "].Price" })
                             <table class="table table-striped basket-small">
                                 <tbody>
                                     <tr>
                                         <th colspan="2" scope="col" style="text-align:left">Plan</th>
-                                        <td colspan="1" style="text-align:right" ><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@planOption.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></td>
+                                        <td colspan="1" style="text-align:right" ><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@item.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" scope="row">@Html.TextBox("BasketItems[" + @itemCount + "].Plan_Name", planOption.Plan.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Plan_Name", @style = "text-align:center" })</td>
+                                        <td colspan="3" scope="row">@Html.TextBox("BasketItems[" + @itemCount + "].Name", item.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Name", @style = "text-align:center" })</td>
                                     </tr>
                                     <tr>
                                         <th colspan="3" scope="col" style="text-align:left">Description</th>
                                     </tr>
                                     <tr>
-                                        <td colspan="3">@Html.TextBox("BasketItems[" + @itemCount + "].Description", planOption.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Decription", @style = "text-align:center" })</td>
+                                        <td colspan="3">@Html.TextBox("BasketItems[" + @itemCount + "].Description", item.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Decription", @style = "text-align:center" })</td>
                                     </tr>
                                     <tr>
                                         <th colspan="3" scope="col" style="text-align:left">Quantity</th>
@@ -151,21 +149,21 @@
                                     <tr>
 
                                         <td>
-                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@planOption.Id','basket-quantity-new-@itemCount')"><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@item.Id','basket-quantity-new-@itemCount')"><i class="fa fa-plus"></i></button>
                                         </td>
                                         <td>
-                                            @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", planOption.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCount, @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center;width:100%" })
+                                            @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", item.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCount, @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center;width:100%" })
                                         </td>
                                         <td style="text-align:right">
-                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@planOption.Id','basket-quantity-new-@itemCount')"><i class="fa fa-minus"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@item.Id','basket-quantity-new-@itemCount')"><i class="fa fa-minus"></i></button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="col" style="text-align:left">Price</th>
                                         <td colspan="2">
                                             <div style="position:relative;">
-                                                <input class="basket-value-new basket-item-price" id="basket-item-price" name="Price" readonly="readonly" type="text" value="£@planOption.Price" style="text-align:right">
-                                                <input type="hidden" class="basket-item-hidden-price" id="basket-item-hidden-price" value="@planOption.Price" />
+                                                <input class="basket-value-new basket-item-price" id="basket-item-price" name="Price" readonly="readonly" type="text" value="£@item.Price" style="text-align:right">
+                                                <input type="hidden" class="basket-item-hidden-price" id="basket-item-hidden-price" value="@item.Price" />
                                             </div>
                                         </td>
                                     </tr>
@@ -183,10 +181,10 @@
                                 string removeStyleSmall = string.Empty;
                                 string discountDescriptionSmall = string.Empty;
 
-                                if (Session["DiscountCode"] != null)
+                                if (Model.DiscountCode != null)
                                 {
                                     applyStyleSmall = "basket-hide-element";
-                                    var discountCode = (DiscountCodeViewModel)Session["DiscountCode"];
+                                    var discountCode = Model.DiscountCode;
                                     discountDescriptionSmall = string.Format("{0} - {1}% Discount!", discountCode.Code, discountCode.PercentDiscount.ToString());
                                 }
                                 else
@@ -205,7 +203,7 @@
                             <tr class="basket-total-row">
                                 <td><div class="basket-total-small">Total:</div></td>
                                 <td style="text-align:right">
-                                    <input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Math.Round(Model.SelectedOptions.Sum(s => s.Price * s.Quantity),2)" />
+                                    <input id="basket-total" class="basket-total basket-total-small-input" style="width:100%;border:none;text-align:right" value="£@Model.Total" />
                                 </td>
                             </tr>
                         </tbody>
@@ -216,7 +214,7 @@
         </div>
     </div>
     <div class="active-button-wrapper active-basket-button-wrapper">
-        <a href="/Home/Lobby?ReturnUrl=/Home/ConfirmPurchase&AppendCustomerId=true" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" type="button">Next</a>
+        <a href="/Home/Lobby?ReturnUrl=/Home/PaymentOptions&AppendCustomerId=true" class="btn btn-default basket-next-button basket-button" style="width:270px;font-size:18px;" type="button">Next</a>
     </div>
 </div>
 

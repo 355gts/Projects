@@ -38,6 +38,8 @@ namespace JoelScottFitness.Data.Models
 
         public AuthUser User { get; set; }
 
-        public ICollection<Purchase> PurchaseHistory { get; set; }
+        public ICollection<Order> PurchaseHistory { get; set; }
+
+        public ICollection<CustomerPlan> Plans { get; set; }
     }
 }

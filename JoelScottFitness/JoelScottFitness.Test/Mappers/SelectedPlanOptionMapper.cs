@@ -20,7 +20,7 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     Description = "4 Week Plan",
                     Duration = 4,
-                    ItemType = ItemType.Plan,
+                    ItemCategory = ItemCategory.Plan,
                     Price = 20.99,
                     PlanId = 12,
                     Id = 34,
@@ -52,7 +52,7 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     Description = "4 Week Plan",
                     Duration = 4,
-                    ItemType = ItemType.Plan,
+                    ItemCategory = ItemCategory.Plan,
                     Price = 20.99,
                     PlanId = 12,
                     Id = 34,
@@ -84,7 +84,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.Description, webObject.Description);
                 Assert.AreEqual(repoObject.Duration, webObject.Duration);
                 Assert.AreEqual(repoObject.Id, webObject.Id);
-                Assert.AreEqual(repoObject.ItemType, webObject.ItemType);
+                Assert.AreEqual(repoObject.ItemCategory, webObject.ItemCategory);
                 Assert.AreEqual(repoObject.PlanId, webObject.PlanId);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
 

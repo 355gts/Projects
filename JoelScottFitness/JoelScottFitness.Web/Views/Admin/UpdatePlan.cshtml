@@ -94,7 +94,6 @@
                 }
                 <table class="table">
                     <tr>
-
                         <th>
                             Description
                         </th>
@@ -115,7 +114,7 @@
                             {
                                 <tr>
                                     @Html.Hidden("Options[" + @itemCount + "].Id", item.Id, new { @class = "basket-value", @id = "Options[" + @itemCount + "].Id" })
-                                    @Html.Hidden("Options[" + @itemCount + "].ItemType", item.ItemType, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ItemType" })
+                                    @Html.Hidden("Options[" + @itemCount + "].ItemType", item.ItemCategory, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ItemCategory" })
                                     @Html.Hidden("Options[" + @itemCount + "].PlanId", item.PlanId, new { @class = "basket-value", @id = "Options[" + @itemCount + "].PlanId" })
                                     @Html.Hidden("Options[" + @itemCount + "].CreatedDate", item.CreatedDate, new { @class = "basket-value", @id = "Options[" + @itemCount + "].CreatedDate" })
                                     @Html.Hidden("Options[" + @itemCount + "].ModifiedDate", item.ModifiedDate, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ModifiedDate" })

@@ -9,18 +9,21 @@ namespace JoelScottFitness.Common.Models
     {
         [Required]
         [DataMember(IsRequired = true)]
+        public string Name { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public string Description { get; set; }
 
         [Required]
         [DataMember(IsRequired = true)]
         public double Price { get; set; }
-        
+
         [Required]
         [DataMember(IsRequired = true)]
-        public ItemType ItemType { get; set; }
-        
-        [Required]
-        [DataMember(IsRequired = true)]
-        public bool ItemDiscontinued { get; set; }
+        public ItemCategory ItemCategory { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public string ImagePath { get; set; }
     }
 }

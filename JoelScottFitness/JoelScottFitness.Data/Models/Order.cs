@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JoelScottFitness.Data.Models
 {
-    public class Purchase : BaseRecord
+    public class Order : BaseRecord
     {
         [Required]
         public DateTime PurchaseDate { get; set; }
@@ -26,15 +26,14 @@ namespace JoelScottFitness.Data.Models
         public DiscountCode DiscountCode { get; set; }
 
         [ForeignKey("Customer")]
-        [Required]
-        public Guid CustomerId { get; set; }
+        public Guid? CustomerId { get; set; }
 
         public Customer Customer { get; set; }
 
         [Required]
         public PurchaseStatus Status { get; set; }
 
-        public ICollection<PurchasedItem> Items { get; set; }
+        public ICollection<OrderItem> Items { get; set; }
 
         [ForeignKey("Questionnaire")]
         public long? QuestionnareId { get; set; }

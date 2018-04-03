@@ -278,20 +278,19 @@ namespace JoelScottFitness.Data
                                   .ToListAsync();
         }
 
-        public async Task<Purchase> GetPurchaseAsync(long id)
+        public async Task<Order> GetOrdersAsync(long id)
         {
-            return await dbContext.Purchases
+            return await dbContext.Orders
                                   .Include(p => p.Customer)
-                                  .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
                                   .Include(p => p.Questionnaire)
                                   .Include("Items.Item")
                                   .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Purchase>> GetPurchasesAsync(Guid customerId)
+        public async Task<IEnumerable<Order>> GetPurchasesAsync(Guid customerId)
         {
-            return await dbContext.Purchases
+            return await dbContext.Orders
                                   .Include(p => p.Customer)
                                   .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
@@ -302,9 +301,9 @@ namespace JoelScottFitness.Data
                                   .ToListAsync();
         }
 
-        public async Task<IEnumerable<Purchase>> GetPurchasesAsync()
+        public async Task<IEnumerable<Order>> GetPurchasesAsync()
         {
-            return await dbContext.Purchases
+            return await dbContext.Orders
                                   .Include(p => p.Customer)
                                   .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
@@ -369,9 +368,9 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync(u => u.UserName.ToLower() == userName.ToLower());
         }
 
-        public async Task<AsyncResult<long>> SavePurchaseAsync(Purchase purchase)
+        public async Task<AsyncResult<long>> SavePurchaseAsync(Order purchase)
         {
-            dbContext.Purchases.Add(purchase);
+            dbContext.Orders.Add(purchase);
 
             if (await SaveChangesAsync())
                 return new AsyncResult<long>() { Success = true, Result = purchase.Id };
@@ -383,7 +382,7 @@ namespace JoelScottFitness.Data
         {
             bool success = false;
 
-            var purchase = await dbContext.Purchases
+            var purchase = await dbContext.Orders
                                           .FirstOrDefaultAsync(p => p.TransactionId == transactionId);
 
             if (purchase != null)
@@ -398,11 +397,11 @@ namespace JoelScottFitness.Data
             return success;
         }
 
-        public async Task<bool> AssociateQuestionnaireToPurchaseAsync(long purchaseId, long questionnaireId)
+        public async Task<bool> AssociateQuestionnaireToPurchaseAsync(long orderId, long questionnaireId)
         {
             bool success = false;
 
-            var purchase = await dbContext.Purchases.FindAsync(purchaseId);
+            var purchase = await dbContext.Orders.FindAsync(orderId);
 
             if (purchase != null)
             {
@@ -416,10 +415,31 @@ namespace JoelScottFitness.Data
             return success;
         }
 
-        public async Task<Purchase> GetPurchaseByTransactionIdAsync(string transactionId)
+        public async Task<bool> AssociateQuestionnaireToPlansAsync(long orderId)
         {
-            return await dbContext.Purchases
-                                  .FirstOrDefaultAsync(p => p.TransactionId == transactionId);
+            bool success = false;
+
+            var plans = await dbContext.CustomerPlans.Where(p => p.OrderId == orderId).ToListAsync();
+
+            if (plans != null && plans.Any())
+            {
+                foreach (var plan in plans)
+                {
+                    plan.QuestionnaireComplete = true;
+                    dbContext.SetPropertyModified(plan, nameof(plan.QuestionnaireComplete));
+                }
+
+                if (await SaveChangesAsync())
+                    success = true;
+            }
+
+            return success;
+        }
+
+        public async Task<Order> GetPurchaseByOrderIdAsync(long orderId)
+        {
+            return await dbContext.Orders
+                                  .FirstOrDefaultAsync(p => p.Id == orderId);
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire)
@@ -540,42 +560,40 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> AssociatePlanToPurchaseAsync(long purchasedItemId, string planPath)
+        public async Task<bool> UploadCustomerPlanAsync(long purchasedItemId, string planPath)
         {
-            var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+            var customerPlan = await dbContext.CustomerPlans.FindAsync(purchasedItemId);
 
-            if (purchasedItem == null)
+            if (customerPlan == null)
                 return false;
 
-            purchasedItem.PlanPath = planPath;
+            customerPlan.PlanPath = planPath;
 
-            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.PlanPath));
+            dbContext.SetPropertyModified(customerPlan, nameof(customerPlan.PlanPath));
 
             return await SaveChangesAsync();
         }
 
-        public async Task<PurchasedItem> GetPurchasedItemAsync(long purchasedItemId)
+        public async Task<OrderItem> GetPurchasedItemAsync(long purchasedItemId)
         {
-            return await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+            return await dbContext.OrderItems.FindAsync(purchasedItemId);
         }
 
-        public async Task<bool> UpdatePurchasedItemAsync(PurchasedItem purchasedItem)
+        public async Task<bool> UpdatePurchasedItemAsync(OrderItem purchasedItem)
         {
             dbContext.SetModified(purchasedItem);
 
             return await SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<PurchasedItem>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null)
+        public async Task<IEnumerable<CustomerPlan>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null)
         {
-
-            var query = dbContext.PurchasedItems
-                                      .Include(p => p.Item)
-                                      .Include(p => p.Purchase)
-                                      .Include("Purchase.Customer")
-                                      .Where(p => p.MemberOfHallOfFame)
-                                      .OrderByDescending(p => p.HallOfFameDate)
-                                      .AsQueryable();
+            var query = dbContext.CustomerPlans
+                                 .Include(p => p.Item)
+                                 .Include(p => p.Customer)
+                                 .Where(p => p.MemberOfHallOfFame)
+                                 .OrderByDescending(p => p.HallOfFameDate)
+                                 .AsQueryable();
 
             if (onlyEnabled)
                 query = query.Where(p => p.HallOfFameEnabled);
@@ -586,23 +604,23 @@ namespace JoelScottFitness.Data
             return await query.ToListAsync();
         }
 
-        public async Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status)
+        public async Task<bool> UpdateHallOfFameStatusAsync(long customerPlanId, bool status)
         {
-            var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+            var customerPlan = await dbContext.CustomerPlans.FindAsync(customerPlanId);
 
-            if (purchasedItem == null)
+            if (customerPlan == null)
                 return false;
 
-            purchasedItem.HallOfFameEnabled = status;
+            customerPlan.HallOfFameEnabled = status;
 
-            dbContext.SetPropertyModified(purchasedItem, nameof(purchasedItem.HallOfFameEnabled));
+            dbContext.SetPropertyModified(customerPlan, nameof(customerPlan.HallOfFameEnabled));
 
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId)
+        public async Task<bool> DeleteHallOfFameEntryAsync(long customerPlanId)
         {
-            var purchasedItem = await dbContext.PurchasedItems.FindAsync(purchasedItemId);
+            var purchasedItem = await dbContext.CustomerPlans.FindAsync(customerPlanId);
 
             if (purchasedItem == null)
                 return false;
@@ -667,6 +685,61 @@ namespace JoelScottFitness.Data
             }
 
             return await SaveChangesAsync();
+        }
+
+        public async Task<AsyncResult<long>> CreateCustomerPlanAsync(CustomerPlan customerPlan)
+        {
+            dbContext.CustomerPlans.Add(customerPlan);
+
+            if (await SaveChangesAsync())
+            {
+                return new AsyncResult<long>() { Success = true, Result = customerPlan.Id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<AsyncResult<long>> UpdateCustomerPlanAsync(CustomerPlan customerPlan)
+        {
+            var existingPlan = await dbContext.CustomerPlans.FindAsync(customerPlan.Id);
+
+            if (existingPlan != null)
+            {
+                dbContext.SetValues(existingPlan, customerPlan);
+                dbContext.SetModified(existingPlan);
+            }
+
+            if (await SaveChangesAsync())
+            {
+                return new AsyncResult<long>() { Success = true, Result = customerPlan.Id };
+            }
+
+            return new AsyncResult<long>() { Success = false };
+        }
+
+        public async Task<IEnumerable<CustomerPlan>> GetCustomerPlansForPurchaseAsync(long orderId)
+        {
+            return await dbContext.CustomerPlans.Where(c => c.OrderId == orderId).ToListAsync();
+        }
+
+        public async Task<CustomerPlan> GetCustomerPlanAsync(long customerPlanId)
+        {
+            return await dbContext.CustomerPlans.FindAsync(customerPlanId);
+        }
+
+        public async Task<bool> UpdateHallOfFameDetailsAsync(CustomerPlan customerPlan)
+        {
+            dbContext.SetModified(customerPlan);
+
+            return await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CustomerPlan>> GetCustomerPlansAsync(Guid customerId)
+        {
+            return await dbContext.CustomerPlans
+                                  .Include(i => i.Item)
+                                  .Where(p => p.CustomerId == customerId)
+                                  .ToListAsync();
         }
     }
 }

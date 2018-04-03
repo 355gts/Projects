@@ -1,16 +1,15 @@
 ﻿using JoelScottFitness.Common.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JoelScottFitness.Web.Helpers
 {
     public interface IBasketHelper
     {
-        Task AddItemToBasket(long id);
-        double CalculateTotalCost();
-        ItemQuantityViewModel DecreaseItemQuantity(long id);
-        IDictionary<long, ItemQuantityViewModel> GetBasketItems();
-        ItemQuantityViewModel IncreaseItemQuantity(long id);
+        bool AddItemToBasket(long id, string name, string description, double price);
+        BasketItemViewModel DecreaseItemQuantity(long id);
+        BasketViewModel GetBasket();
+        BasketItemViewModel IncreaseItemQuantity(long id);
         void RemoveItemFromBasket(long id);
+        bool AddDiscountCode(DiscountCodeViewModel discountCode);
+        void RemoveDiscountCode();
     }
 }

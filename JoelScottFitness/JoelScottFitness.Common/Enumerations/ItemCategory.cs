@@ -1,6 +1,6 @@
 ﻿namespace JoelScottFitness.Common.Enumerations
 {
-    public enum ItemType
+    public enum ItemCategory
     {
         Plan,
         Apparel

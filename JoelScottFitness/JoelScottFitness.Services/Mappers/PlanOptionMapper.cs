@@ -6,56 +6,64 @@ namespace JoelScottFitness.Services.Mappers
 {
     sealed class PlanOptionMapper : ITypeMapper<PlanOption, PlanOptionViewModel>, ITypeMapper<PlanOptionViewModel, PlanOption>
     {
+        ItemMapper itemMapper = new ItemMapper();
+
         public PlanOption Map(PlanOptionViewModel fromObject, PlanOption toObject = null)
         {
             var planOption = toObject ?? new PlanOption();
-            
-            planOption.Description = fromObject.Description;
-            planOption.Duration = fromObject.Duration;
-            planOption.Id = fromObject.Id;
-            planOption.ItemType = fromObject.ItemType;
-            planOption.PlanId = fromObject.PlanId;
-            planOption.Price = fromObject.Price;
 
-            if (fromObject.Plan != null)
-            {
-                planOption.Plan = new Plan();
-                planOption.Plan.BannerHeader = fromObject.Plan.BannerHeader;
-                planOption.Plan.CreatedDate = fromObject.Plan.CreatedDate;
-                planOption.Plan.Description = fromObject.Plan.Description;
-                planOption.Plan.Id = fromObject.Plan.Id;
-                planOption.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
-                planOption.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
-                planOption.Plan.Name = fromObject.Plan.Name;
-                planOption.Plan.TargetGender = fromObject.Plan.TargetGender;
-            }
+            itemMapper.Map(fromObject, planOption);
+
+            planOption.PlanId = fromObject.PlanId;
+            planOption.Duration = fromObject.Duration;
+
+            //if (fromObject.Plan != null)
+            //{
+            //    var plan = new Plan();
+            //    plan.BannerHeader = fromObject.Plan.BannerHeader;
+            //    plan.CreatedDate = fromObject.Plan.CreatedDate;
+            //    plan.Description = fromObject.Plan.Description;
+            //    plan.Id = fromObject.Plan.Id;
+            //    plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
+            //    plan.ModifiedDate = fromObject.Plan.ModifiedDate;
+            //    plan.Name = fromObject.Plan.Name;
+            //    plan.TargetGender = fromObject.Plan.TargetGender;
+            //    plan.Active = fromObject.Plan.Active;
+            //    plan.ModifiedDate = fromObject.Plan.ModifiedDate;
+            //    plan.BannerColour = fromObject.Plan.BannerColour;
+
+            //    planOption.Plan = plan;
+            //}
 
             return planOption;
         }
 
         public PlanOptionViewModel Map(PlanOption fromObject, PlanOptionViewModel toObject = null)
         {
-            var planOption = toObject ?? new SelectedPlanOptionViewModel();
+            var planOption = toObject ?? new PlanOptionViewModel();
 
-            planOption.Description = fromObject.Description;
-            planOption.Duration = fromObject.Duration;
-            planOption.Id = fromObject.Id;
-            planOption.ItemType = fromObject.ItemType;
+            itemMapper.Map(fromObject, planOption);
+
             planOption.PlanId = fromObject.PlanId;
-            planOption.Price = fromObject.Price;
+            planOption.Duration = fromObject.Duration;
 
-            if (fromObject.Plan != null)
-            {
-                planOption.Plan = new PlanViewModel();
-                planOption.Plan.BannerHeader = fromObject.Plan.BannerHeader;
-                planOption.Plan.CreatedDate = fromObject.Plan.CreatedDate;
-                planOption.Plan.Description = fromObject.Plan.Description;
-                planOption.Plan.Id = fromObject.Plan.Id;
-                planOption.Plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
-                planOption.Plan.ModifiedDate = fromObject.Plan.ModifiedDate;
-                planOption.Plan.Name = fromObject.Plan.Name;
-                planOption.Plan.TargetGender = fromObject.Plan.TargetGender;
-            }
+            //if (fromObject.Plan != null)
+            //{
+            //    var plan = new PlanViewModel();
+            //    plan.BannerHeader = fromObject.Plan.BannerHeader;
+            //    plan.CreatedDate = fromObject.Plan.CreatedDate;
+            //    plan.Description = fromObject.Plan.Description;
+            //    plan.Id = fromObject.Plan.Id;
+            //    plan.ImagePathLarge = fromObject.Plan.ImagePathLarge;
+            //    plan.ModifiedDate = fromObject.Plan.ModifiedDate;
+            //    plan.Name = fromObject.Plan.Name;
+            //    plan.TargetGender = fromObject.Plan.TargetGender;
+            //    plan.Active = fromObject.Plan.Active;
+            //    plan.ModifiedDate = fromObject.Plan.ModifiedDate;
+            //    plan.BannerColour = fromObject.Plan.BannerColour;
+
+            //    planOption.Plan = plan;
+            //}
 
             return planOption;
         }

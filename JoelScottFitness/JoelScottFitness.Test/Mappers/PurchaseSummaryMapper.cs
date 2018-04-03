@@ -18,7 +18,7 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var repoObject = new Purchase()
+                var repoObject = new Order()
                 {
                     CustomerId = Guid.NewGuid(),
                     DiscountCodeId = 456,
@@ -27,18 +27,16 @@ namespace JoelScottFitness.Test.Mappers
                     PurchaseDate = DateTime.UtcNow,
                     TransactionId = "SalesReference",
                     TotalAmount = 1234,
-                    Items = new List<PurchasedItem>()
+                    Items = new List<OrderItem>()
                     {
-                        new PurchasedItem()
+                        new OrderItem()
                         {
                             ItemId = 456,
                             Quantity= 23,
-                            Item = new Item()
-                            {
-                                Description = "Description",
-                                ItemType = ItemType.Plan,
-                                Price = 2.34,
-                            },
+                            //Description = "Description",
+                            ItemCategory = ItemCategory.Plan,
+                            Price = 2.34,
+                            //Name = "Name",
                         }
                     },
                     Customer = new Customer()
@@ -53,7 +51,7 @@ namespace JoelScottFitness.Test.Mappers
                     Questionnaire = new Questionnaire()
                 };
 
-                var mapper = new Map.PurchaseSummaryMapper();
+                var mapper = new Map.OrderSummaryMapper();
 
                 var result = mapper.Map(repoObject);
 
@@ -63,7 +61,7 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var repoObject = new Purchase()
+                var repoObject = new Order()
                 {
                     CustomerId = Guid.NewGuid(),
                     DiscountCodeId = 456,
@@ -72,18 +70,16 @@ namespace JoelScottFitness.Test.Mappers
                     PurchaseDate = DateTime.UtcNow,
                     TransactionId = "TransactionId",
                     TotalAmount = 1234,
-                    Items = new List<PurchasedItem>()
+                    Items = new List<OrderItem>()
                     {
-                        new PurchasedItem()
+                        new OrderItem()
                         {
                             ItemId = 456,
                             Quantity = 23,
-                            Item = new Item()
-                            {
-                                Description = "Description",
-                                ItemType = ItemType.Plan,
-                                Price = 2.34,
-                            },
+                            //Description = "Description",
+                            ItemCategory = ItemCategory.Plan,
+                            Price = 2.34,
+                            //Name = "Name",
                         }
                     },
                     Customer = new Customer()
@@ -98,16 +94,16 @@ namespace JoelScottFitness.Test.Mappers
                     Questionnaire = new Questionnaire()
                 };
 
-                PurchaseSummaryViewModel toObject = new PurchaseSummaryViewModel();
+                OrderSummaryViewModel toObject = new OrderSummaryViewModel();
 
-                var mapper = new Map.PurchaseSummaryMapper();
+                var mapper = new Map.OrderSummaryMapper();
 
                 mapper.Map(repoObject, toObject);
 
                 AssertAreEqual(repoObject, toObject);
             }
 
-            private void AssertAreEqual(Purchase repoObject, PurchaseSummaryViewModel webObject)
+            private void AssertAreEqual(Order repoObject, OrderSummaryViewModel webObject)
             {
                 Assert.AreEqual(repoObject.CustomerId, webObject.CustomerId);
                 Assert.AreEqual($"{repoObject.Customer.Firstname} {repoObject.Customer.Surname}", webObject.CustomerName);

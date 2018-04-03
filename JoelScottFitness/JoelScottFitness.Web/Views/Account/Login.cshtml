@@ -46,7 +46,7 @@
                     <p>
                     @if (ViewBag.ShowGuest != null && ViewBag.ShowGuest)
                     {
-                        @Html.ActionLink("Register", "Register", "Account", new { ReturnUrl = "/Home/ConfirmPurchase", AppendCustomerId = true }, new { @style = "color:black;text-decoration:none" })
+                        @Html.ActionLink("Register", "Register", "Account", new { ReturnUrl = "/Home/PaymentOptions", AppendCustomerId = true }, new { @style = "color:black;text-decoration:none" })
                     }
                     else
                     {

@@ -42,11 +42,11 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<Plan>> GetPlansByGenderAsync(Gender gender);
 
-        Task<Purchase> GetPurchaseAsync(long id);
+        Task<Order> GetOrdersAsync(long id);
 
-        Task<IEnumerable<Purchase>> GetPurchasesAsync(Guid customerId);
+        Task<IEnumerable<Order>> GetPurchasesAsync(Guid customerId);
 
-        Task<IEnumerable<Purchase>> GetPurchasesAsync();
+        Task<IEnumerable<Order>> GetPurchasesAsync();
 
         Task<bool> UpdateMailingListAsync(MailingListItem mailingListItem);
 
@@ -54,11 +54,11 @@ namespace JoelScottFitness.Data
 
         Task<AuthUser> GetUserAsync(string userName);
 
-        Task<AsyncResult<long>> SavePurchaseAsync(Purchase purchase);
+        Task<AsyncResult<long>> SavePurchaseAsync(Order purchase);
 
         Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status);
 
-        Task<Purchase> GetPurchaseByTransactionIdAsync(string transactionId);
+        Task<Order> GetPurchaseByOrderIdAsync(long orderId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire);
 
@@ -70,6 +70,8 @@ namespace JoelScottFitness.Data
 
         Task<bool> AssociateQuestionnaireToPurchaseAsync(long purchaseId, long questionnaireId);
 
+        Task<bool> AssociateQuestionnaireToPlansAsync(long orderId);
+
         Task<AsyncResult<long>> AddImageAsync(Image image);
 
         Task<bool> DeleteImageAsync(long imageId);
@@ -80,24 +82,36 @@ namespace JoelScottFitness.Data
 
         Task<ImageConfiguration> GetImageConfigurationAsync();
 
-        Task<bool> AssociatePlanToPurchaseAsync(long purchasedItemId, string planPath);
+        Task<bool> UploadCustomerPlanAsync(long purchasedItemId, string planPath);
 
         Task<IEnumerable<PlanOption>> GetPlanOptionsAsync();
 
-        Task<PurchasedItem> GetPurchasedItemAsync(long purchasedItemId);
+        Task<OrderItem> GetPurchasedItemAsync(long purchasedItemId);
 
-        Task<bool> UpdatePurchasedItemAsync(PurchasedItem purchasedItem);
+        Task<bool> UpdatePurchasedItemAsync(OrderItem purchasedItem);
 
-        Task<IEnumerable<PurchasedItem>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
+        Task<IEnumerable<CustomerPlan>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
 
-        Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status);
+        Task<bool> UpdateHallOfFameStatusAsync(long customerPlanId, bool status);
 
-        Task<bool> DeleteHallOfFameEntryAsync(long purchasedItemId);
+        Task<bool> DeleteHallOfFameEntryAsync(long customerPlanId);
 
         Task<AsyncResult<long>> CreateOrUpdateMessageAsync(Message message);
 
         Task<IEnumerable<Message>> GetMessagesAsync();
 
         Task<Message> GetMessageAsync(long id);
+
+        Task<AsyncResult<long>> CreateCustomerPlanAsync(CustomerPlan customerPlan);
+
+        Task<AsyncResult<long>> UpdateCustomerPlanAsync(CustomerPlan customerPlan);
+
+        Task<IEnumerable<CustomerPlan>> GetCustomerPlansForPurchaseAsync(long orderId);
+
+        Task<IEnumerable<CustomerPlan>> GetCustomerPlansAsync(Guid customerId);
+
+        Task<CustomerPlan> GetCustomerPlanAsync(long customerPlanId);
+
+        Task<bool> UpdateHallOfFameDetailsAsync(CustomerPlan customerPlan);
     }
 }

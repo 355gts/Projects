@@ -272,7 +272,6 @@ function changeQuantity(id, controlId, action) {
 
 function applyDiscountCode(codeControl) {
     $('.basket-discount-input').attr('placeholder', 'Discount Code');
-    $('.discount-code-id').val('');
 
     var code = $('.'+ codeControl).val();
 
@@ -288,13 +287,11 @@ function applyDiscountCode(codeControl) {
             success: function (data) {
                 if (data.applied == true) {
                     hideApplyDiscountCode(data.description);
-                    $('.discount-code-id').val(data.discountCodeId);
                     $('.discount').val(data.discount);
                     calculateBasketItemTotals();
                 }
                 else {
                     $('.basket-discount-input').val('').attr('placeholder', 'Invalid Code!');
-                    $('.discount-code-id').val('');
                     $('.discount').val('');
                 }
             }
@@ -381,7 +378,6 @@ function removeDiscountFromItems() {
 }
 
 function removeDiscountCode() {
-    $('.discount-code-id').val('');
     $('.discount').val('');
     
     $.ajax({

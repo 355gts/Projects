@@ -210,13 +210,13 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id)
         {
-            var purchase = await repository.GetPurchaseAsync(id);
+            var purchase = await repository.GetOrdersAsync(id);
             var plans = await repository.GetPlansAsync();
 
             if (purchase == null || plans == null || !plans.Any())
                 return null;
 
-            var purchaseViewModel = mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
+            var purchaseViewModel = mapper.Map<Order, PurchaseHistoryViewModel>(purchase);
 
             // map these objects like this to avoid circular mapper dependency
             purchaseViewModel.Customer = mapper.Map<Customer, CustomerViewModel>(purchase.Customer);
@@ -227,72 +227,44 @@ namespace JoelScottFitness.Services.Services
             if (purchase.Questionnaire != null)
                 purchaseViewModel.Questionnaire = mapper.Map<Questionnaire, QuestionnaireViewModel>(purchase.Questionnaire);
 
-            if (purchaseViewModel.Items != null && purchaseViewModel.Items.Any())
-            {
-                purchaseViewModel.Items.ToList().ForEach(pvm =>
-                {
-                    var plan = plans.Where(p => p.Options.Select(s => s.Id).Contains(pvm.ItemId)).FirstOrDefault();
-                    pvm.Name = plan?.Name;
-                    pvm.ImagePath = plan?.ImagePathLarge;
-                });
-            }
-
             return purchaseViewModel;
         }
 
-        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId)
+        public async Task<IEnumerable<OrderSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId)
         {
             var purchases = await repository.GetPurchasesAsync(customerId);
 
             if (purchases == null || !purchases.Any())
-                return Enumerable.Empty<PurchaseSummaryViewModel>();
+                return Enumerable.Empty<OrderSummaryViewModel>();
 
-            return mapper.MapEnumerable<Purchase, PurchaseSummaryViewModel>(purchases);
+            return mapper.MapEnumerable<Order, OrderSummaryViewModel>(purchases);
         }
 
-        public async Task<IEnumerable<PurchaseSummaryViewModel>> GetPurchasesAsync()
+        public async Task<IEnumerable<OrderSummaryViewModel>> GetPurchasesAsync()
         {
             var purchases = await repository.GetPurchasesAsync();
 
             if (purchases == null || !purchases.Any())
-                return Enumerable.Empty<PurchaseSummaryViewModel>();
+                return Enumerable.Empty<OrderSummaryViewModel>();
 
-            return mapper.MapEnumerable<Purchase, PurchaseSummaryViewModel>(purchases);
+            return mapper.MapEnumerable<Order, OrderSummaryViewModel>(purchases);
         }
 
-        public async Task<IEnumerable<PurchasedHistoryItemViewModel>> GetCustomerPlansAsync(Guid customerId)
+        public async Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansAsync(Guid customerId)
         {
-            var planOptions = await repository.GetPlanOptionsAsync();
-            var purchases = await repository.GetPurchasesAsync(customerId);
+            var customerPlans = await repository.GetCustomerPlansAsync(customerId);
 
-            if (planOptions == null || !planOptions.Any() || purchases == null || !purchases.Any())
-                return Enumerable.Empty<PurchasedHistoryItemViewModel>();
+            if (customerPlans == null || !customerPlans.Any())
+                return Enumerable.Empty<CustomerPlanViewModel>();
 
-            var plansViewModel = new List<PurchasedHistoryItemViewModel>();
-            foreach (var purchase in purchases.Where(p => p.Status == PurchaseStatus.Complete))
-            {
-                var mappedPlans = mapper.MapEnumerable<PurchasedItem, PurchasedHistoryItemViewModel>(purchase.Items);
-                mappedPlans.ToList().ForEach(p =>
-                {
-                    var plan = planOptions.FirstOrDefault(o => o.Id == p.PlanOptionId)?.Plan;
-                    if (plan != null)
-                    {
-                        p.QuestionnaireComplete = purchase.QuestionnareId.HasValue;
-                        p.TransactionId = purchase.TransactionId;
-                        p.Name = plan.Name;
-                        p.ImagePath = plan.ImagePathLarge;
-
-                        // add the plan/purchase only if the plan is found
-                        plansViewModel.Add(p);
-                    }
-                });
-            }
-
-            return plansViewModel;
+            return mapper.MapEnumerable<CustomerPlan, CustomerPlanViewModel>(customerPlans);
         }
 
         public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)
         {
+            // apply discount code to basket
+            //confirmPurchaseViewModel.Basket = ApplyDiscountCode(confirmPurchaseViewModel.Basket);
+
             return paypalService.InitiatePayPalPayment(confirmPurchaseViewModel, baseUri);
         }
 
@@ -308,21 +280,6 @@ namespace JoelScottFitness.Services.Services
 
             return await repository.UpdateMailingListAsync(repoMailingListItem);
         }
-        public async Task<BasketViewModel> GetBasketAsync(IEnumerable<long> ids, long? discountCodeId = null)
-        {
-            BasketViewModel basket = new BasketViewModel();
-            var repoPlanOptions = await repository.GetBasketItemsAsync(ids);
-            if (discountCodeId.HasValue)
-            {
-                var repoDiscountCode = await repository.GetDiscountCodeAsync(discountCodeId.Value);
-                basket.DiscountCode = mapper.Map<DiscountCode, DiscountCodeViewModel>(repoDiscountCode);
-                basket.DiscountCodeId = repoDiscountCode.Id;
-            }
-
-            basket.SelectedOptions = mapper.MapEnumerable<PlanOption, SelectedPlanOptionViewModel>(repoPlanOptions);
-
-            return basket;
-        }
 
         public async Task<UserViewModel> GetUserAsync(string userName)
         {
@@ -333,9 +290,37 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<AsyncResult<long>> SavePurchaseAsync(ConfirmPurchaseViewModel confirmPurchaseViewModel)
         {
-            var purchase = mapper.Map<ConfirmPurchaseViewModel, Purchase>(confirmPurchaseViewModel);
+            // apply discount code to basket
+            //confirmPurchaseViewModel.Basket = ApplyDiscountCode(confirmPurchaseViewModel.Basket);
 
-            return await repository.SavePurchaseAsync(purchase);
+            var purchase = mapper.Map<ConfirmPurchaseViewModel, Order>(confirmPurchaseViewModel);
+
+            var orderResult = await repository.SavePurchaseAsync(purchase);
+
+            // if the order went through create the customer plans
+            if (orderResult.Success && purchase.Items.Any(i => i.ItemCategory == ItemCategory.Plan))
+            {
+                foreach (var plan in purchase.Items.Where(i => i.ItemCategory == ItemCategory.Plan).ToList())
+                {
+                    for (int i = 0; i < plan.Quantity; i++)
+                    {
+                        var createPlanResult =
+                        await CreateCustomerPlanAsync(new CreateCustomerPlanViewModel()
+                        {
+                            CustomerId = confirmPurchaseViewModel.CustomerDetails.Id,
+                            OrderId = orderResult.Result,
+                            ItemId = plan.ItemId,
+                        });
+
+                        if (!createPlanResult.Success)
+                        {
+                            logger.Warn($"Failed to create plan '{plan.ItemId}' for order '{orderResult.Result}'.");
+                        }
+                    }
+                }
+            }
+
+            return orderResult;
         }
 
         public async Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status)
@@ -343,11 +328,11 @@ namespace JoelScottFitness.Services.Services
             return await repository.UpdatePurchaseStatusAsync(transactionId, status);
         }
 
-        public async Task<PurchaseHistoryViewModel> GetPurchaseByTransactionIdAsync(string transactionId)
+        public async Task<PurchaseHistoryViewModel> GetPurchaseByOrderIdAsync(long orderId)
         {
-            var purchase = await repository.GetPurchaseByTransactionIdAsync(transactionId);
+            var purchase = await repository.GetPurchaseByOrderIdAsync(orderId);
 
-            return mapper.Map<Purchase, PurchaseHistoryViewModel>(purchase);
+            return mapper.Map<Order, PurchaseHistoryViewModel>(purchase);
         }
 
         public async Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaireViewModel)
@@ -357,14 +342,21 @@ namespace JoelScottFitness.Services.Services
             var result = await repository.CreateOrUpdateQuestionnaireAsync(questionnaire);
             if (!result.Success)
             {
-                logger.Warn(string.Format(Resources.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaireViewModel.PurchaseId));
+                logger.Warn(string.Format(Resources.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaireViewModel.OrderId));
                 return result;
             }
 
             // associate the questionnaire to the purchase
-            if (!await repository.AssociateQuestionnaireToPurchaseAsync(questionnaireViewModel.PurchaseId, result.Result))
+            if (!await repository.AssociateQuestionnaireToPurchaseAsync(questionnaireViewModel.OrderId, result.Result))
             {
-                logger.Warn(string.Format(Resources.FailedToAssociateQuestionnaireToPurchaseErrorMessage, questionnaireViewModel.PurchaseId));
+                logger.Warn(string.Format(Resources.FailedToAssociateQuestionnaireToPurchaseErrorMessage, questionnaireViewModel.OrderId));
+                result.Success = false;
+            }
+
+            // associate the questionnaire to the purchase
+            if (!await repository.AssociateQuestionnaireToPlansAsync(questionnaireViewModel.OrderId))
+            {
+                logger.Warn(string.Format(Resources.FailedToAssociateQuestionnaireToPlansErrorMessage, questionnaireViewModel.OrderId));
                 result.Success = false;
             }
 
@@ -475,26 +467,26 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<ImageConfiguration, KaleidoscopeViewModel>(imageConfiguration);
         }
 
-        public async Task<bool> AssociatePlanToPurchaseAsync(long purchasedItemId, string planPath)
+        public async Task<bool> UploadCustomerPlanAsync(long purchasedItemId, string planPath)
         {
-            return await repository.AssociatePlanToPurchaseAsync(purchasedItemId, planPath);
+            return await repository.UploadCustomerPlanAsync(purchasedItemId, planPath);
         }
 
-        public async Task<bool> UploadHallOfFameAsync(long purchasedItemId, string beforeImage, string afterImage, string comment)
+        public async Task<bool> UploadHallOfFameAsync(long customerPlanId, string beforeImage, string afterImage, string comment)
         {
             bool success = false;
 
-            var purchasedItem = await repository.GetPurchasedItemAsync(purchasedItemId);
-            if (purchasedItem != null)
+            var customerPlan = await repository.GetCustomerPlanAsync(customerPlanId);
+            if (customerPlan != null)
             {
-                purchasedItem.BeforeImage = beforeImage;
-                purchasedItem.AfterImage = afterImage;
-                purchasedItem.Comment = comment;
-                purchasedItem.MemberOfHallOfFame = true;
-                purchasedItem.HallOfFameDate = DateTime.UtcNow;
-                purchasedItem.HallOfFameEnabled = false;
+                customerPlan.BeforeImage = beforeImage;
+                customerPlan.AfterImage = afterImage;
+                customerPlan.Comment = comment;
+                customerPlan.MemberOfHallOfFame = true;
+                customerPlan.HallOfFameDate = DateTime.UtcNow;
+                customerPlan.HallOfFameEnabled = false;
 
-                success = await repository.UpdatePurchasedItemAsync(purchasedItem);
+                success = await repository.UpdateHallOfFameDetailsAsync(customerPlan);
             }
 
             return success;
@@ -502,24 +494,14 @@ namespace JoelScottFitness.Services.Services
 
         public async Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null)
         {
-            var purchasedItems = await repository.GetHallOfFameEntriesAsync(onlyEnabled, numberOfEntries);
-            var plans = await repository.GetPlansAsync();
+            var hallOfFameEntries = await repository.GetHallOfFameEntriesAsync(onlyEnabled, numberOfEntries);
 
-            if (purchasedItems == null || !purchasedItems.Any() || plans == null || !plans.Any())
+            if (hallOfFameEntries == null || !hallOfFameEntries.Any())
                 return Enumerable.Empty<HallOfFameViewModel>();
 
-            var mappedHallOfFameEntriesViewModel = mapper.MapEnumerable<PurchasedItem, HallOfFameViewModel>(purchasedItems);
+            var mappedHallOfFameEntriesViewModel = mapper.MapEnumerable<CustomerPlan, HallOfFameViewModel>(hallOfFameEntries);
 
-            mappedHallOfFameEntriesViewModel.ToList().ForEach(p =>
-            {
-                var plan = plans.Where(pl => pl.Options != null && pl.Options.Select(s => s.Id).Contains(p.ItemId)).FirstOrDefault();
-                if (plan != null)
-                {
-                    p.PlanName = plan.Name;
-                }
-            });
-
-            return mappedHallOfFameEntriesViewModel.Where(s => !string.IsNullOrEmpty(s.PlanName));
+            return mappedHallOfFameEntriesViewModel;
         }
 
         public async Task<bool> UpdateHallOfFameStatusAsync(long purchasedItemId, bool status)
@@ -579,6 +561,49 @@ namespace JoelScottFitness.Services.Services
         public async Task<bool> DeleteImageAsync(long imageId)
         {
             return await repository.DeleteImageAsync(imageId);
+        }
+
+        private BasketViewModel ApplyDiscountCode(BasketViewModel basket)
+        {
+            basket.Items.Values.ToList().ForEach(i =>
+            {
+                i.ItemDiscounted = false;
+            });
+
+            // apply discount
+            if (basket.DiscountCode != null)
+            {
+                var percentDiscount = basket.DiscountCode.PercentDiscount;
+                basket.Items.Values.ToList().ForEach(i =>
+                {
+                    // apply the discount to all items
+                    i.DiscountPercent = percentDiscount;
+                    i.ItemDiscounted = true;
+                });
+            }
+
+            return basket;
+        }
+
+        public async Task<AsyncResult<long>> CreateCustomerPlanAsync(CreateCustomerPlanViewModel customerPlan)
+        {
+            var plan = mapper.Map<CreateCustomerPlanViewModel, CustomerPlan>(customerPlan);
+
+            return await repository.CreateCustomerPlanAsync(plan);
+        }
+
+        public async Task<AsyncResult<long>> UpdateCustomerPlanAsync(CustomerPlanViewModel customerPlan)
+        {
+            var plan = mapper.Map<CustomerPlanViewModel, CustomerPlan>(customerPlan);
+
+            return await repository.UpdateCustomerPlanAsync(plan);
+        }
+
+        public async Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansForPurchaseAsync(long orderId)
+        {
+            var plans = await repository.GetCustomerPlansForPurchaseAsync(orderId);
+
+            return mapper.MapEnumerable<CustomerPlan, CustomerPlanViewModel>(plans);
         }
     }
 }

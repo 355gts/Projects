@@ -70,7 +70,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                     BeforeFile = beforeFileMock.Object,
                     AfterFile = afterFileMock.Object,
                     Comment = comment,
-                    PurchasedItemId = purchasedItemId,
+                    OrderId = purchasedItemId,
                 };
 
                 contextMock.Setup(c => c.HttpContext.Session)

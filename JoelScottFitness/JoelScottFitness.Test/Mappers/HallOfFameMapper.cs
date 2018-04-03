@@ -11,31 +11,28 @@ namespace JoelScottFitness.Test.Mappers
         [TestClass]
         public class RepoToWeb
         {
+            CustomerPlan repoObject = new CustomerPlan()
+            {
+                AfterImage = "AfterImage",
+                BeforeImage = "BeforeImage",
+                Comment = "Comment",
+                HallOfFameEnabled = true,
+                Customer = new Customer()
+                {
+                    Firstname = "Firstname",
+                    Surname = "Surname",
+                },
+                OrderId = 123,
+                Item = new Item()
+                {
+                    Name = "ItemName",
+                    Description = "ItemDescription",
+                }
+            };
+
             [TestMethod]
             public void FromObject_ToNullObject()
             {
-                var repoObject = new PurchasedItem()
-                {
-                    Id = 123,
-                    BeforeImage = "BeforeImage",
-                    AfterImage = "AfterImage",
-                    Comment = "Comment",
-                    ItemId = 123,
-                    HallOfFameEnabled = true,
-                    Item = new Item()
-                    {
-                        Description = "Description",
-                    },
-                    Purchase = new Purchase()
-                    {
-                        Customer = new Customer()
-                        {
-                            Firstname = "Firstname",
-                            Surname = "Surname",
-                        }
-                    }
-                };
-
                 var mapper = new Map.HallOfFameMapper();
 
                 var result = mapper.Map(repoObject);
@@ -46,28 +43,6 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var repoObject = new PurchasedItem()
-                {
-                    Id = 123,
-                    BeforeImage = "BeforeImage",
-                    AfterImage = "AfterImage",
-                    Comment = "Comment",
-                    ItemId = 123,
-                    HallOfFameEnabled = true,
-                    Item = new Item()
-                    {
-                        Description = "Description",
-                    },
-                    Purchase = new Purchase()
-                    {
-                        Customer = new Customer()
-                        {
-                            Firstname = "Firstname",
-                            Surname = "Surname",
-                        }
-                    }
-                };
-
                 var toObject = new HallOfFameViewModel();
 
                 var mapper = new Map.HallOfFameMapper();
@@ -77,16 +52,16 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(repoObject, toObject);
             }
 
-            private void AssertAreEqual(PurchasedItem repoObject, HallOfFameViewModel webObject)
+            private void AssertAreEqual(CustomerPlan repoObject, HallOfFameViewModel webObject)
             {
-                Assert.AreEqual(repoObject.Id, webObject.PurchasedItemId);
                 Assert.AreEqual(repoObject.AfterImage, webObject.AfterImagePath);
                 Assert.AreEqual(repoObject.BeforeImage, webObject.BeforeImagePath);
-                Assert.AreEqual(repoObject.BeforeImage, webObject.BeforeImagePath);
-                Assert.AreEqual(repoObject.ItemId, webObject.ItemId);
+                Assert.AreEqual(repoObject.Comment, webObject.Comment);
                 Assert.AreEqual(repoObject.HallOfFameEnabled, webObject.Enabled);
-                Assert.AreEqual($"{repoObject.Purchase.Customer.Firstname} {repoObject.Purchase.Customer.Surname}", webObject.Name);
-                Assert.AreEqual(repoObject.Item.Description, webObject.PlanDescription);
+                Assert.AreEqual($"{repoObject.Customer?.Firstname} {repoObject.Customer?.Surname}", webObject.Name);
+                Assert.AreEqual(repoObject.OrderId, webObject.OrderId);
+                Assert.AreEqual(repoObject.Item?.Name, webObject.PlanName);
+                Assert.AreEqual(repoObject.Item?.Description, webObject.PlanDescription);
             }
         }
     }

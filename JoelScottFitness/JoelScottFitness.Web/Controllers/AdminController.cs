@@ -177,7 +177,14 @@ namespace JoelScottFitness.Web.Controllers
                 {
                     return View(plan);
                 }
+
+                // map the image path and name to the plan and options
                 plan.ImagePathLarge = uploadResult.UploadPath;
+                foreach (var planOption in plan.Options)
+                {
+                    planOption.ImagePath = uploadResult.UploadPath;
+                    planOption.Name = plan.Name;
+                }
 
                 var result = await jsfService.CreatePlanAsync(plan);
 
@@ -211,7 +218,16 @@ namespace JoelScottFitness.Web.Controllers
                     {
                         return View(plan);
                     }
+
                     plan.ImagePathLarge = uploadResult.UploadPath;
+
+                }
+
+                // map the image path and plan name to the plan and options
+                foreach (var planOption in plan.Options)
+                {
+                    planOption.ImagePath = plan.ImagePathLarge;
+                    planOption.Name = plan.Name;
                 }
 
                 var result = await jsfService.UpdatePlanAsync(plan);
@@ -412,7 +428,7 @@ namespace JoelScottFitness.Web.Controllers
                 return View(uploadPlanViewModel);
             }
 
-            if (!await jsfService.AssociatePlanToPurchaseAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath))
+            if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath))
             {
                 ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
@@ -425,18 +441,19 @@ namespace JoelScottFitness.Web.Controllers
                 return View(uploadPlanViewModel);
             }
 
+            // TODO refactor
             // if none of the plans require action then they are all ready
-            if (purchaseViewModel.Items != null && purchaseViewModel.Items.Any() && !purchaseViewModel.Items.Any(i => i.RequiresAction))
-            {
-                var planPaths = purchaseViewModel.Items.Select(i => fileHelper.MapPath(i.PlanPath)).ToList();
+            //if (purchaseViewModel.Items != null && purchaseViewModel.Items.Any() && !purchaseViewModel.Items.Any(i => i.RequiresAction))
+            //{
+            //    var planPaths = purchaseViewModel.Items.Select(i => fileHelper.MapPath(i.PlanPath)).ToList();
 
-                // send confirmation email
-                if (!await SendOrderCompleteEmail(purchaseViewModel, planPaths))
-                {
-                    ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
-                    return View(uploadPlanViewModel);
-                }
-            }
+            //    // send confirmation email
+            //    if (!await SendOrderCompleteEmail(purchaseViewModel, planPaths))
+            //    {
+            //        ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+            //        return View(uploadPlanViewModel);
+            //    }
+            //}
 
             return RedirectToAction("CustomerPlan", "Admin", new { purchaseId = uploadPlanViewModel.PurchaseId });
         }
@@ -453,9 +470,9 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> UpdateHallOfFameStatus(long purchasedItemId, bool status)
+        public async Task<ActionResult> UpdateHallOfFameStatus(long orderId, bool status)
         {
-            var result = await jsfService.UpdateHallOfFameStatusAsync(purchasedItemId, status);
+            var result = await jsfService.UpdateHallOfFameStatusAsync(orderId, status);
 
             if (result)
                 return RedirectToAction("HallOfFame", "Admin");
@@ -466,9 +483,9 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> DeleteHallOfFameStatus(long purchasedItemId)
+        public async Task<ActionResult> DeleteHallOfFameStatus(long orderId)
         {
-            var result = await jsfService.DeleteHallOfFameEntryAsync(purchasedItemId);
+            var result = await jsfService.DeleteHallOfFameEntryAsync(orderId);
 
             if (result)
                 return RedirectToAction("HallOfFame", "Admin");

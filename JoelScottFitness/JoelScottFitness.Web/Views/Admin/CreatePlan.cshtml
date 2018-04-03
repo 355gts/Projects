@@ -70,7 +70,6 @@
                 }
                     <table class="table">
                         <tr>
-
                             <th>
                                 Description
                             </th>
@@ -90,7 +89,7 @@
                                 foreach (var item in Model.Options)
                                 {
                                     <tr>
-                                        @Html.Hidden("Options[" + @itemCount + "].ItemType", item.ItemType, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ItemType" })
+                                        @Html.Hidden("Options[" + @itemCount + "].ItemCategory", item.ItemCategory, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ItemCategory" })
 
                                         <td>
                                             @Html.TextBox("Options[" + @itemCount + "].Description", item.Description, new { @id = "Options[" + @itemCount + "].Description" })

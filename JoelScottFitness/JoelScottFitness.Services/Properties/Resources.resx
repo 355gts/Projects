@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FailedToAssociateQuestionnaireToPlansErrorMessage" xml:space="preserve">
+    <value>Failed to associate questionnaire to plans for order id '{0}'.</value>
+  </data>
   <data name="FailedToAssociateQuestionnaireToPurchaseErrorMessage" xml:space="preserve">
-    <value>Failed to questionnaire associate questionnaire to purchase with id '{0}'.</value>
+    <value>Failed to associate questionnaire to purchase with id '{0}'.</value>
   </data>
   <data name="FailedToCreateOrUpdateQuestionnaireErrorMessage" xml:space="preserve">
     <value>Failed to create or update questionnaire associated to purchase with id '{0}'.</value>

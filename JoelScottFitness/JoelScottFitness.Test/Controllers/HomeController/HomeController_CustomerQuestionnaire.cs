@@ -43,7 +43,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 questionnaireViewModel = new QuestionnaireViewModel()
                 {
-                    PurchaseId = purchaseId,
+                    OrderId = purchaseId,
                 };
 
                 jsfServiceMock.Setup(s => s.CreateOrUpdateQuestionnaireAsync(It.IsAny<QuestionnaireViewModel>()))
