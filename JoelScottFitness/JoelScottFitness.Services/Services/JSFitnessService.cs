@@ -211,9 +211,8 @@ namespace JoelScottFitness.Services.Services
         public async Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id)
         {
             var purchase = await repository.GetOrdersAsync(id);
-            var plans = await repository.GetPlansAsync();
 
-            if (purchase == null || plans == null || !plans.Any())
+            if (purchase == null)
                 return null;
 
             var purchaseViewModel = mapper.Map<Order, PurchaseHistoryViewModel>(purchase);

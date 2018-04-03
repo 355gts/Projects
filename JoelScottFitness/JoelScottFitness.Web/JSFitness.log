@@ -1546,3 +1546,31 @@ Parameter name: parameters
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
 2018-04-01 10:23:29,647       [39] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1970.
+2018-04-03 20:13:27,838       [5] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1862.
+2018-04-03 20:17:20,706       [38] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1874.
+2018-04-03 20:23:53,169       [6] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1874.
+2018-04-03 20:27:07,323       [20] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1872.
+2018-04-03 20:32:22,060       [13] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1981.
+2018-04-03 20:34:56,815       [22] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 2099.
+2018-04-03 20:36:31,309       [23] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1979.
+2018-04-03 20:38:39,898       [51] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 2103.
+2018-04-03 20:47:25,968       [28] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1980.
+2018-04-03 20:49:00,903       [40] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1985.
+2018-04-03 20:50:59,390       [35] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.Web.HttpCompileException (0x80004005): D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Views\Admin\CustomerPlan.cshtml(230): error CS0411: The type arguments for method 'DisplayExtensions.DisplayFor<TModel, TValue>(HtmlHelper<TModel>, Expression<Func<TModel, TValue>>)' cannot be inferred from the usage. Try specifying the type arguments explicitly.
+   at System.Web.Compilation.AssemblyBuilder.Compile()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.GetCompiledType(String virtualPath)
+   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.

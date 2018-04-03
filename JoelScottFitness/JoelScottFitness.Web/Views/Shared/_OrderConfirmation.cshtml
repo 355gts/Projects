@@ -44,10 +44,10 @@
                             <label class="email-item-table-element-label">@orderItem.Item.Description</label>
                         </td>
                         <td class="email-table-item-element email-table-item-element-right">
-                            <label class="email-item-table-element-label">@string.Format(@"x{0}", orderItem.Quantity)</label>
+                            <label class="email-item-table-element-label">@string.Format(@"£{0} x{1}", orderItem.Price, orderItem.Quantity)</label>
                         </td>
                         <td class="email-table-item-element email-table-item-element-right">
-                            <label class="email-item-table-element-label">@string.Format(@"£{0}", orderItem.Price)</label>
+                            <label class="email-item-table-element-label">@string.Format(@"£{0}", orderItem.ItemTotal)</label>
                         </td>
                     </tr>
     }

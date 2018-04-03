@@ -27,6 +27,10 @@ namespace JoelScottFitness.Common.Models
 
         [Required]
         [DataMember(IsRequired = true)]
+        public double ItemTotal { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public ItemCategory ItemCategory { get; set; }
 
         [Required]

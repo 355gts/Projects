@@ -24,14 +24,7 @@ namespace JoelScottFitness.Common.Models
 
         public double Total
         {
-            get
-            {
-                return Math.Round(Items.Sum(i => i.Value.Price * i.Value.Quantity));
-                //var total = Items.Sum(i => i.Value.Price * i.Value.Quantity);
-                //return DiscountCode != null
-                //    ? Math.Round(total - (total / 100 * DiscountCode.PercentDiscount), 2)
-                //    : Math.Round(total, 2);
-            }
+            get { return Math.Round(Items.Sum(i => i.Value.ItemTotal), 2); }
         }
     }
 }
