@@ -36,12 +36,14 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             OrderHistoryViewModel purchaseHistoryViewModel;
             OrderItemViewModel purchasedHistoryItemViewModel1;
             OrderItemViewModel purchasedHistoryItemViewModel2;
+            CustomerPlanViewModel customerPlanViewModel1;
+            CustomerPlanViewModel customerPlanViewModel2;
             UploadPlanViewModel uploadPlanViewModel;
             string requestUrl = "requesturl";
             string requestScheme = "https";
             string emailAddress = "emailAddress";
             string postedFileName = "postedFileName";
-            long purchaseId = 123;
+            long orderId = 123;
             string transactionId = "transactionId";
             Guid customerId = Guid.NewGuid();
             RouteData routeData = new RouteData();
@@ -97,12 +99,15 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                     CustomerId = customerId,
                     Name = "Name",
                     Description = "Description",
-                    OrderId = purchaseId,
+                    OrderId = orderId,
                     PostedFile = fileMock.Object,
                 };
 
-                purchasedHistoryItemViewModel1 = new OrderItemViewModel() { /*PlanPath = planPath1, RequiresAction = false */};
-                purchasedHistoryItemViewModel2 = new OrderItemViewModel() { /*PlanPath = planPath2, RequiresAction = false */};
+                customerPlanViewModel1 = new CustomerPlanViewModel() { PlanPath = "Plan1" };
+                customerPlanViewModel2 = new CustomerPlanViewModel() { PlanPath = "Plan2" };
+
+                purchasedHistoryItemViewModel1 = new OrderItemViewModel();
+                purchasedHistoryItemViewModel2 = new OrderItemViewModel();
                 purchaseHistoryViewModel = new OrderHistoryViewModel()
                 {
                     Customer = customerViewModel,
@@ -112,6 +117,11 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                         purchasedHistoryItemViewModel1,
                         purchasedHistoryItemViewModel2,
                     },
+                    Plans = new List<CustomerPlanViewModel>()
+                    {
+                        customerPlanViewModel1,
+                        customerPlanViewModel2,
+                    }
                 };
 
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
@@ -261,7 +271,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual(string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
             }
 
             [TestMethod]
@@ -290,61 +300,6 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             }
 
             [TestMethod]
-            public void UploadPlan_PurchaseViewModelContainsEmptyList_ReturnsRedirectToRouteResult()
-            {
-                // setup
-                purchaseHistoryViewModel.Items.Remove(purchasedHistoryItemViewModel1);
-                purchaseHistoryViewModel.Items.Remove(purchasedHistoryItemViewModel2);
-
-                // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as RedirectToRouteResult;
-
-                // verify
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual("CustomerPlan", result.RouteValues["action"]);
-                Assert.AreEqual("Admin", result.RouteValues["controller"]);
-                Assert.AreEqual(purchaseId, result.RouteValues["purchaseId"]);
-
-                // verify the uploaded file name
-                Assert.AreEqual(string.Format(Settings.Default.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd")), uploadFilename);
-            }
-
-            [TestMethod]
-            public void UploadPlan_PurchaseViewModelItemsNull_ReturnsRedirectToRouteResult()
-            {
-                // setup
-                purchaseHistoryViewModel.Items = null;
-
-                // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as RedirectToRouteResult;
-
-                // verify
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual("CustomerPlan", result.RouteValues["action"]);
-                Assert.AreEqual("Admin", result.RouteValues["controller"]);
-                Assert.AreEqual(purchaseId, result.RouteValues["purchaseId"]);
-
-                // verify the uploaded file name
-                Assert.AreEqual(string.Format(Settings.Default.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd")), uploadFilename);
-            }
-
-            [TestMethod]
             public void UploadPlan_Success_ReturnsRedirectToRouteResult()
             {
                 // test
@@ -362,7 +317,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("CustomerPlan", result.RouteValues["action"]);
                 Assert.AreEqual("Admin", result.RouteValues["controller"]);
-                Assert.AreEqual(purchaseId, result.RouteValues["purchaseId"]);
+                Assert.AreEqual(orderId, result.RouteValues["orderId"]);
 
                 // verify email parameters
                 Assert.IsNotNull(emailAddressesCallback);

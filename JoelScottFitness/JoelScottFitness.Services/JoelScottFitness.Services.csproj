@@ -93,7 +93,6 @@
     <Compile Include="Mappers\OrderSummaryMapper.cs" />
     <Compile Include="Mappers\QuestionnaireMapper.cs" />
     <Compile Include="Mappers\SectionImageConfigurationMapper.cs" />
-    <Compile Include="Mappers\SelectedPlanOptionMapper.cs" />
     <Compile Include="Mappers\UiPlanMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Modules\ServiceModule.cs" />

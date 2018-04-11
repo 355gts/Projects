@@ -109,7 +109,6 @@
     <Compile Include="Models\CallbackViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\SectionImageViewModel.cs" />
-    <Compile Include="Models\SelectedPlanOptionViewModel.cs" />
     <Compile Include="Models\UiPlanViewModel.cs" />
     <Compile Include="Models\UploadPlanViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />

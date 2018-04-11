@@ -253,13 +253,13 @@ namespace JoelScottFitness.Web.Controllers
         public ActionResult ConfirmOrder()
         {
             if (string.IsNullOrEmpty(Request.Params[SessionKeys.PayerId]))
-                return RedirectToAction("Error", "Home", new { errorMessage = "Payer id null" });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.PayerIdNullErrorMessage });
 
             Session.Add(SessionKeys.PayerId, Request.Params[SessionKeys.PayerId]);
 
             var confirmOrderViewModel = (ConfirmOrderViewModel)Session[SessionKeys.ConfirmOrderViewModel];
             if (confirmOrderViewModel == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = "Confirm purchase view model null" });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.ConfirmOrderViewModelNullErrorMessage });
 
             return View(confirmOrderViewModel);
         }
@@ -272,13 +272,13 @@ namespace JoelScottFitness.Web.Controllers
             if (planOption == null)
             {
                 // TODO maybe dont move to error but respond to ajax with error
-                return RedirectToAction("Error", "Home", new { errorMessage = $"Failed to find item with id {id}." });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToFindItemErrorMessage, id) });
             }
 
             if (!basketHelper.AddItemToBasket(id, planOption.Name, planOption.Description, planOption.Price))
             {
                 // TODO maybe dont move to error but respond to ajax with error
-                return RedirectToAction("Error", "Home", new { errorMessage = $"Failed to add item wityh id {id} to basket." });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToAddItemToBasketErrorMessage, id) });
             }
 
             // TODO is this correct??
@@ -476,7 +476,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var confirmOrderViewModel = (ConfirmOrderViewModel)Session[SessionKeys.ConfirmOrderViewModel];
             if (confirmOrderViewModel == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = "Confirm purchase view model null" });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.ConfirmOrderViewModelNullErrorMessage });
 
             confirmOrderViewModel.PurchaseStatus = OrderStatus.Complete;
             // save the pending purchase details in the database
@@ -735,16 +735,9 @@ namespace JoelScottFitness.Web.Controllers
                 logger.Warn(string.Format(Resources.PaymentCompletionParameterNullErrorMessage, SessionKeys.TransactionId));
             }
 
-            //if (!((long?)Session[SessionKeys.PurchaseId]).HasValue)
-            //{
-            //    paymentCompletionResult.Success = false;
-            //    logger.Warn(string.Format(Resources.PaymentCompletionParameterNullErrorMessage, SessionKeys.PurchaseId));
-            //}
-
             paymentCompletionResult.PayerId = (string)Session[SessionKeys.PayerId];
             paymentCompletionResult.PaymentId = (string)Session[SessionKeys.PaymentId];
             paymentCompletionResult.TransactionId = (string)Session[SessionKeys.TransactionId];
-            //paymentCompletionResult.PurchaseId = ((long?)Session[SessionKeys.PurchaseId]).HasValue ? ((long?)Session[SessionKeys.PurchaseId]).Value : long.MinValue;
 
             return paymentCompletionResult;
         }

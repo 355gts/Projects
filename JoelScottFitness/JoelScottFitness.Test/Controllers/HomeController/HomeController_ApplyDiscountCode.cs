@@ -1,17 +1,13 @@
 ﻿using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
-using JoelScottFitness.Common.Results;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
-using JoelScottFitness.Web.Constants;
 using JoelScottFitness.Web.Helpers;
-using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CON = JoelScottFitness.Web.Controllers;
@@ -62,6 +58,9 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Setup(s => s.GetDiscountCodeAsync(It.IsAny<string>()))
                               .ReturnsAsync(discountCode);
 
+                basketHelperMock.Setup(b => b.AddDiscountCode(It.IsAny<DiscountCodeViewModel>()))
+                                .Returns(true);
+
                 controller = new CON.HomeController(jsfServiceMock.Object,
                                                     youtubeClientMock.Object,
                                                     basketHelperMock.Object,
@@ -107,6 +106,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetDiscountCodeAsync(It.IsAny<string>()), Times.Once);
+                basketHelperMock.Verify(b => b.AddDiscountCode(It.IsAny<DiscountCodeViewModel>()), Times.Never);
 
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Data);
@@ -115,9 +115,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify the json result contains the correct properties
                 Assert.IsFalse((bool)data["applied"]);
-
-                // verify the discount code has NOT been added to the session
-                Assert.AreEqual(0, sessionMock.Keys.Count);
             }
 
             [TestMethod]
@@ -128,6 +125,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetDiscountCodeAsync(It.IsAny<string>()), Times.Once);
+                basketHelperMock.Verify(b => b.AddDiscountCode(It.IsAny<DiscountCodeViewModel>()), Times.Once);
 
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Data);
@@ -139,11 +137,28 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(discountCode.PercentDiscount, (int)data["discount"]);
                 Assert.AreEqual($"{discountCode.PercentDiscount}% Discount!", data["description"]);
                 Assert.IsTrue((bool)data["applied"]);
+            }
 
-                // verify the discount code has been added to the session
-                Assert.AreEqual(1, sessionMock.Keys.Count);
-                var sessionDiscountCode = (DiscountCodeViewModel)sessionMock[SessionKeys.DiscountCode];
-                Assert.AreEqual(typeof(DiscountCodeViewModel), sessionDiscountCode.GetType());
+            [TestMethod]
+            public void ApplyDiscountCode_BasketHelperAddFails_Success()
+            {
+                // setup
+                basketHelperMock.Setup(b => b.AddDiscountCode(It.IsAny<DiscountCodeViewModel>()))
+                                .Returns(false);
+                // test
+                var result = controller.ApplyDiscountCode(discountCodeCode).Result as JsonResult;
+
+                // verify
+                jsfServiceMock.Verify(s => s.GetDiscountCodeAsync(It.IsAny<string>()), Times.Once);
+                basketHelperMock.Verify(b => b.AddDiscountCode(It.IsAny<DiscountCodeViewModel>()), Times.Once);
+
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.Data);
+
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
+
+                // verify the json result contains the correct properties
+                Assert.IsFalse((bool)data["applied"]);
             }
         }
     }

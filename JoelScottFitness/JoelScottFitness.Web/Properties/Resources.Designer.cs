@@ -115,6 +115,15 @@ namespace JoelScottFitness.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to add item with id {0} to basket..
+        /// </summary>
+        internal static string FailedToAddItemToBasketErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToAddItemToBasketErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to associate plan &apos;{0}&apos; to purchase with id &apos;{1}&apos; for customer with id &apos;{2}&apos;..
         /// </summary>
         internal static string FailedToAssociatePlanToPurchaseErrorMessage {
@@ -165,6 +174,15 @@ namespace JoelScottFitness.Web.Properties {
         internal static string FailedToFindCustomerErrorMessage {
             get {
                 return ResourceManager.GetString("FailedToFindCustomerErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to find item with id {0}..
+        /// </summary>
+        internal static string FailedToFindItemErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToFindItemErrorMessage", resourceCulture);
             }
         }
         
@@ -318,6 +336,24 @@ namespace JoelScottFitness.Web.Properties {
         internal static string GetCustomerDetailsAsyncErrorMessage {
             get {
                 return ResourceManager.GetString("GetCustomerDetailsAsyncErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order with id &apos;{0}&apos; was not found..
+        /// </summary>
+        internal static string OrderNotFoundErrorMessage {
+            get {
+                return ResourceManager.GetString("OrderNotFoundErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payer id null.
+        /// </summary>
+        internal static string PayerIdNullErrorMessage {
+            get {
+                return ResourceManager.GetString("PayerIdNullErrorMessage", resourceCulture);
             }
         }
         

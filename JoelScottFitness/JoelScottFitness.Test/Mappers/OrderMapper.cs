@@ -15,32 +15,36 @@ namespace JoelScottFitness.Test.Mappers
         [TestClass]
         public class RepoToWeb
         {
-            [TestMethod]
-            public void FromObject_ToNullObject()
+            Order repoObject = new Order()
             {
-                var repoObject = new Order()
-                {
-                    CustomerId = Guid.NewGuid(),
-                    DiscountCodeId = 456,
-                    Id = 789,
-                    PayPalReference = "PayPalReference",
-                    PurchaseDate = DateTime.UtcNow,
-                    TransactionId = "SalesReference",
-                    TotalAmount = 1234,
-                    QuestionnareId = 333,
-                    RequiresAction = true,
-                    Items = new List<OrderItem>()
+                CustomerId = Guid.NewGuid(),
+                DiscountCodeId = 456,
+                Id = 789,
+                PayPalReference = "PayPalReference",
+                PurchaseDate = DateTime.UtcNow,
+                TransactionId = "TransactionId",
+                TotalAmount = 1234,
+                QuestionnareId = 333,
+                RequiresAction = true,
+                Items = new List<OrderItem>()
                     {
                         new OrderItem()
                         {
                             ItemId = 456,
-                            Quantity= 23,
+                            Quantity = 23,
                             ItemCategory = ItemCategory.Plan,
                             Price = 2.34,
+                            Item = new Item()
+                            {
+                                CreatedDate = new DateTime(2018, 04, 12, 23, 04, 34),
+                            }
                         }
                     }
-                };
+            };
 
+            [TestMethod]
+            public void FromObject_ToNullObject()
+            {
                 var mapper = new Map.OrderMapper();
 
                 var result = mapper.Map(repoObject);
@@ -51,29 +55,6 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var repoObject = new Order()
-                {
-                    CustomerId = Guid.NewGuid(),
-                    DiscountCodeId = 456,
-                    Id = 789,
-                    PayPalReference = "PayPalReference",
-                    PurchaseDate = DateTime.UtcNow,
-                    TransactionId = "TransactionId",
-                    TotalAmount = 1234,
-                    QuestionnareId = 333,
-                    RequiresAction = true,
-                    Items = new List<OrderItem>()
-                    {
-                        new OrderItem()
-                        {
-                            ItemId = 456,
-                            Quantity = 23,
-                            ItemCategory = ItemCategory.Plan,
-                            Price = 2.34,
-                        }
-                    }
-                };
-
                 OrderHistoryViewModel toObject = new OrderHistoryViewModel();
 
                 var mapper = new Map.OrderMapper();

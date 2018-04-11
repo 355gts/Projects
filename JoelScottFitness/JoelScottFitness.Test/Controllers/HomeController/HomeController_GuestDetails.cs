@@ -117,7 +117,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(customerId, result.RouteValues["customerId"]);
-                Assert.AreEqual("ConfirmOrder", result.RouteValues["action"]);
+                Assert.AreEqual("PaymentOptions", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
             }
 
@@ -133,7 +133,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(customerId, result.RouteValues["customerId"]);
-                Assert.AreEqual("ConfirmOrder", result.RouteValues["action"]);
+                Assert.AreEqual("PaymentOptions", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
             }
         }

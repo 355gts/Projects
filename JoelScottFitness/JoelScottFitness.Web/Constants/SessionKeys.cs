@@ -8,8 +8,6 @@
 
         public const string TransactionId = "TransactionId";
 
-        public const string PurchaseId = "PurchaseId";
-
         public const string PayerId = "PayerID";
 
         public const string HallOfFame = "HallOfFame";

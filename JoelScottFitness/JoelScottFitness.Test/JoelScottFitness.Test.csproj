@@ -105,7 +105,6 @@
     <Compile Include="Controllers\HomeController\HomeController_ApplyDiscountCode.cs" />
     <Compile Include="Controllers\HomeController\HomeController_BeforeAndAfter.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Blogs.cs" />
-    <Compile Include="Controllers\HomeController\HomeController_Checkout.cs" />
     <Compile Include="Controllers\HomeController\HomeController_CompletePayment.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ConfirmPurchase.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Contact.cs" />
@@ -144,7 +143,6 @@
     <Compile Include="Mappers\OrderSummaryMapper.cs" />
     <Compile Include="Mappers\QuestionnaireMapper.cs" />
     <Compile Include="Mappers\SectionImageConfigurationMapper.cs" />
-    <Compile Include="Mappers\SelectedPlanOptionMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JSFitnessService.cs" />
   </ItemGroup>

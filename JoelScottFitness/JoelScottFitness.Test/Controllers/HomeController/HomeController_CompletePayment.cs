@@ -1,5 +1,4 @@
-﻿using JoelScottFitness.Common.Enumerations;
-using JoelScottFitness.Common.IO;
+﻿using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
 using JoelScottFitness.Common.Results;
 using JoelScottFitness.Services.Services;
@@ -38,11 +37,12 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             string payerId = "payerId";
             string paymentId = "paymentId";
             string transactionId = "transactionId";
-            long purchaseId = 1234;
+            long orderId = 1234;
             string requestUrl = "requesturl";
             string requestScheme = "https";
             string emailAddress = "emailAddress";
             OrderHistoryViewModel purchaseHistoryViewModel;
+            ConfirmOrderViewModel confirmOrderViewModel;
             RouteData routeData = new RouteData();
             Mock<IView> viewMock;
             Mock<IViewEngine> engineMock;
@@ -83,6 +83,14 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                     },
                 };
 
+                confirmOrderViewModel = new ConfirmOrderViewModel()
+                {
+                    CustomerDetails = new CustomerViewModel()
+                    {
+                        EmailAddress = emailAddress,
+                    }
+                };
+
                 paymentResult = new PaymentResult()
                 {
                     Success = true,
@@ -96,7 +104,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 sessionMock[SessionKeys.PayerId] = payerId;
                 sessionMock[SessionKeys.PaymentId] = paymentId;
                 sessionMock[SessionKeys.TransactionId] = transactionId;
-                sessionMock[SessionKeys.PurchaseId] = purchaseId;
+                sessionMock[SessionKeys.ConfirmOrderViewModel] = confirmOrderViewModel;
 
                 contextMock.Setup(c => c.HttpContext.Session)
                            .Returns(sessionMock);
@@ -105,14 +113,14 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 jsfServiceMock.Setup(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()))
                               .Returns(paymentResult);
-                jsfServiceMock.Setup(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()))
-                              .ReturnsAsync(true);
                 jsfServiceMock.Setup(s => s.GetOrderAsync(It.IsAny<long>()))
                               .ReturnsAsync(purchaseHistoryViewModel);
                 emailAddressesCallback = new List<string>();
                 jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
                               .Callback<string, string, IEnumerable<string>>((a, b, c) => { emailSubjectCallback = a; emailAddressesCallback = c; })
                               .ReturnsAsync(true);
+                jsfServiceMock.Setup(s => s.SaveOrderAsync(It.IsAny<ConfirmOrderViewModel>()))
+                              .ReturnsAsync(new AsyncResult<long>() { Success = true, Result = orderId });
 
                 controller = new CON.HomeController(jsfServiceMock.Object,
                                                     youtubeClientMock.Object,
@@ -126,15 +134,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void CompletePayment_PayerIdNull_ReturnsRedirectToRouteResult()
             {
                 // setup
-                requestMock.SetupGet(r => r.Params)
-                           .Returns(new NameValueCollection());
+                sessionMock.Remove(SessionKeys.PayerId);
 
                 // test
                 var result = controller.CompletePayment().Result as RedirectToRouteResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -155,7 +161,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -176,28 +181,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Never);
-                jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual("Error", result.RouteValues["action"]);
-                Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(Resources.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
-            }
-
-            [TestMethod]
-            public void CompletePayment_PurchaseIdNull_ReturnsRedirectToRouteResult()
-            {
-                // setup
-                sessionMock.Remove(SessionKeys.PurchaseId);
-
-                // test
-                var result = controller.CompletePayment().Result as RedirectToRouteResult;
-
-                // verify
-                jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -219,7 +202,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
@@ -227,28 +209,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
                 Assert.AreEqual(string.Format(Resources.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage), result.RouteValues["errorMessage"]);
-            }
-
-            [TestMethod]
-            public void CompletePayment_UpdatePurchaseStatusAsyncFails_ReturnsRedirectToRouteResult()
-            {
-                // setup
-                jsfServiceMock.Setup(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()))
-                              .ReturnsAsync(false);
-
-                // test
-                var result = controller.CompletePayment().Result as RedirectToRouteResult;
-
-                // verify
-                jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Once);
-                jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual("Error", result.RouteValues["action"]);
-                Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Resources.FailedToUpdateOrderStatusErrorMessage, transactionId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -263,14 +223,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Resources.FailedToRetrieveOrderErrorMessage, purchaseId, transactionId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToRetrieveOrderErrorMessage, orderId, transactionId), result.RouteValues["errorMessage"]);
 
                 // verify the session variables have been added
                 Assert.AreEqual(1, sessionMock.Count);
@@ -290,7 +249,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 
@@ -319,8 +277,8 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
+                jsfServiceMock.Verify(s => s.SaveOrderAsync(It.IsAny<ConfirmOrderViewModel>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 
                 Assert.IsNotNull(result);
@@ -351,7 +309,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UpdateOrderStatusAsync(It.IsAny<string>(), It.IsAny<OrderStatus>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 

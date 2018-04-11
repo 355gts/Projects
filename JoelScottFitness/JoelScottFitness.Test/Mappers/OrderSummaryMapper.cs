@@ -15,20 +15,17 @@ namespace JoelScottFitness.Test.Mappers
         [TestClass]
         public class RepoToWeb
         {
-            [TestMethod]
-            public void FromObject_ToNullObject()
+            Order repoObject = new Order()
             {
-                var repoObject = new Order()
-                {
-                    CustomerId = Guid.NewGuid(),
-                    DiscountCodeId = 456,
-                    Id = 789,
-                    PayPalReference = "PayPalReference",
-                    PurchaseDate = DateTime.UtcNow,
-                    TransactionId = "SalesReference",
-                    TotalAmount = 1234,
-                    RequiresAction = true,
-                    Items = new List<OrderItem>()
+                CustomerId = Guid.NewGuid(),
+                DiscountCodeId = 456,
+                Id = 789,
+                PayPalReference = "PayPalReference",
+                PurchaseDate = DateTime.UtcNow,
+                TransactionId = "SalesReference",
+                TotalAmount = 1234,
+                RequiresAction = true,
+                Items = new List<OrderItem>()
                     {
                         new OrderItem()
                         {
@@ -36,20 +33,31 @@ namespace JoelScottFitness.Test.Mappers
                             Quantity= 23,
                             ItemCategory = ItemCategory.Plan,
                             Price = 2.34,
+                            Item = new Item()
+                            {
+                                CreatedDate = new DateTime(2018, 04, 11, 23, 45, 09)
+                            }
                         }
                     },
-                    Customer = new Customer()
+                Customer = new Customer()
+                {
+                    Firstname = "Firstname",
+                    Surname = "Surname",
+                    Plans = new List<CustomerPlan>()
                     {
-                        Firstname = "Firstname",
-                        Surname = "Surname",
-                    },
-                    DiscountCode = new DiscountCode()
-                    {
-                        Code = "Code",
-                    },
-                    Questionnaire = new Questionnaire()
-                };
+                        new CustomerPlan(){ OrderId = 789 }
+                    }
+                },
+                DiscountCode = new DiscountCode()
+                {
+                    Code = "Code",
+                },
+                Questionnaire = new Questionnaire()
+            };
 
+            [TestMethod]
+            public void FromObject_ToNullObject()
+            {
                 var mapper = new Map.OrderSummaryMapper();
 
                 var result = mapper.Map(repoObject);
@@ -60,38 +68,20 @@ namespace JoelScottFitness.Test.Mappers
             [TestMethod]
             public void FromObject_ToObject()
             {
-                var repoObject = new Order()
-                {
-                    CustomerId = Guid.NewGuid(),
-                    DiscountCodeId = 456,
-                    Id = 789,
-                    PayPalReference = "PayPalReference",
-                    PurchaseDate = DateTime.UtcNow,
-                    TransactionId = "TransactionId",
-                    TotalAmount = 1234,
-                    RequiresAction = true,
-                    Items = new List<OrderItem>()
-                    {
-                        new OrderItem()
-                        {
-                            ItemId = 456,
-                            Quantity = 23,
-                            ItemCategory = ItemCategory.Plan,
-                            Price = 2.34,
-                        }
-                    },
-                    Customer = new Customer()
-                    {
-                        Firstname = "Firstname",
-                        Surname = "Surname",
-                    },
-                    DiscountCode = new DiscountCode()
-                    {
-                        Code = "Code",
-                    },
-                    Questionnaire = new Questionnaire()
-                };
+                repoObject.Customer.Plans = null;
 
+                OrderSummaryViewModel toObject = new OrderSummaryViewModel();
+
+                var mapper = new Map.OrderSummaryMapper();
+
+                mapper.Map(repoObject, toObject);
+
+                Assert.IsFalse(toObject.RequiresAction);
+            }
+
+            [TestMethod]
+            public void RequiresActionFalse()
+            {
                 OrderSummaryViewModel toObject = new OrderSummaryViewModel();
 
                 var mapper = new Map.OrderSummaryMapper();
@@ -112,7 +102,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.PurchaseDate, webObject.PurchaseDate);
                 Assert.AreEqual(repoObject.TransactionId, webObject.TransactionId);
                 Assert.AreEqual(repoObject.TotalAmount, webObject.TotalAmount);
-                Assert.AreEqual(repoObject.RequiresAction, webObject.RequiresAction);
+                Assert.IsTrue(webObject.RequiresAction);
                 Assert.IsTrue(webObject.QuestionnaireComplete);
 
                 Assert.IsNotNull(webObject.Items);

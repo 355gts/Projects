@@ -9,7 +9,5 @@
         public string PayerId { get; set; }
 
         public string TransactionId { get; set; }
-
-        public long PurchaseId { get; set; }
     }
 }
