@@ -101,8 +101,8 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                     PostedFile = fileMock.Object,
                 };
 
-                purchasedHistoryItemViewModel1 = new OrderItemViewModel() { /*PlanPath = planPath1,*/ RequiresAction = false };
-                purchasedHistoryItemViewModel2 = new OrderItemViewModel() { /*PlanPath = planPath2,*/ RequiresAction = false };
+                purchasedHistoryItemViewModel1 = new OrderItemViewModel() { /*PlanPath = planPath1, RequiresAction = false */};
+                purchasedHistoryItemViewModel2 = new OrderItemViewModel() { /*PlanPath = planPath2, RequiresAction = false */};
                 purchaseHistoryViewModel = new OrderHistoryViewModel()
                 {
                     Customer = customerViewModel,
@@ -183,7 +183,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual(string.Format(Resources.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
             }
 
             [TestMethod]
@@ -209,8 +209,8 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
                 Assert.AreEqual(2, controller.ModelState.Values.First().Errors.Count());
-                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Settings.Default.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId)));
-                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Settings.Default.FailedToUploadFileErrorMessage, postedFileName)));
+                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId)));
+                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadFileErrorMessage, postedFileName)));
 
             }
 
@@ -236,7 +236,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
             }
 
             [TestMethod]
@@ -261,7 +261,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
             }
 
             [TestMethod]
@@ -286,7 +286,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual(string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
             }
 
             [TestMethod]

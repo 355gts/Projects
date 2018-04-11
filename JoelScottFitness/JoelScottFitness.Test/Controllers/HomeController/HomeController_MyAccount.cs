@@ -96,7 +96,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToFindUserErrorMessage, userId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToFindUserErrorMessage, userId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]

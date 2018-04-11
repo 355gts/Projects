@@ -198,7 +198,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerResult = await jsfService.CreateCustomerAsync(customer);
             if (!customerResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.CreateGuestDetailsFailedErrorMessage, customer.EmailAddress) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.CreateGuestDetailsFailedErrorMessage, customer.EmailAddress) });
 
             if (customer.JoinMailingList)
             {
@@ -235,7 +235,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var user = await jsfService.GetUserAsync(customer.EmailAddress);
             if (user == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.UnableToFindExistingCustomerErrorMessage, customer.EmailAddress) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.UnableToFindExistingCustomerErrorMessage, customer.EmailAddress) });
 
             if (customer.JoinMailingList)
             {
@@ -244,7 +244,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerResult = await jsfService.UpdateCustomerAsync(customer);
             if (!customerResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress) });
 
             return RedirectToAction("PaymentOptions", "Home", new { customerId = customerResult.Result });
         }
@@ -409,7 +409,7 @@ namespace JoelScottFitness.Web.Controllers
         public ActionResult PaymentOptions(Guid customerId)
         {
             if (customerId == null || customerId == Guid.Empty)
-                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.CustomerIdNullErrorMessage });
 
             var paymentOptionViewModel = new PaymentOptionViewModel() { CustomerId = customerId };
 
@@ -421,21 +421,21 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> CheckoutWithPaypal(Guid customerId)
         {
             if (customerId == null || customerId == Guid.Empty)
-                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.CustomerIdNullErrorMessage });
 
             // method used to initiate the paypal payment transaction
             string callbackUri = string.Format(Settings.Default.CallbackUri, RootUri);
 
             if (customerId == null || customerId == Guid.Empty)
-                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.CustomerIdNullErrorMessage });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.CustomerIdNullErrorMessage });
 
             var basket = basketHelper.GetBasket();
             if (basket == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.BasketItemsNullErrorMessage, customerId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.BasketItemsNullErrorMessage, customerId) });
 
             var customerDetails = await jsfService.GetCustomerDetailsAsync(customerId);
             if (customerDetails == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.GetCustomerDetailsAsyncErrorMessage, customerId) });
 
             var confirmOrderViewModel = new ConfirmOrderViewModel()
             {
@@ -445,7 +445,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmOrderViewModel, callbackUri);
             if (!paymentInitiationResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage) });
 
             Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
             Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
@@ -465,13 +465,13 @@ namespace JoelScottFitness.Web.Controllers
             // retrieve parameters from request to complete payment
             var paymentCompletionResult = GetPaymentCompletionResult();
             if (!paymentCompletionResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.PaymentCompletionErrorMessage });
+                return RedirectToAction("Error", "Home", new { errorMessage = Resources.PaymentCompletionErrorMessage });
 
             // complete the paypal payment
             var paymentResult = jsfService.CompletePayPalPayment(paymentCompletionResult.PaymentId, paymentCompletionResult.PayerId);
             if (!paymentResult.Success)
             {
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage) });
             }
 
             var confirmOrderViewModel = (ConfirmOrderViewModel)Session[SessionKeys.ConfirmOrderViewModel];
@@ -482,7 +482,7 @@ namespace JoelScottFitness.Web.Controllers
             // save the pending purchase details in the database
             var savePurchaseResult = await jsfService.SaveOrderAsync(confirmOrderViewModel);
             if (!savePurchaseResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSaveItemsForPurchase, confirmOrderViewModel.CustomerDetails.EmailAddress) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToSaveItemsForPurchase, confirmOrderViewModel.CustomerDetails.EmailAddress) });
 
             // check whether the hall of fame is visible and re-add it after session is cleared
             var hallOfFameVisible = false;
@@ -497,11 +497,11 @@ namespace JoelScottFitness.Web.Controllers
 
             var purchaseViewModel = await jsfService.GetOrderAsync(savePurchaseResult.Result);
             if (purchaseViewModel == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToRetrieveOrderErrorMessage, savePurchaseResult.Result, paymentCompletionResult.TransactionId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToRetrieveOrderErrorMessage, savePurchaseResult.Result, paymentCompletionResult.TransactionId) });
 
             // send confirmation email
             if (!await SendOrderConfirmationEmail(purchaseViewModel))
-                logger.Error(string.Format(Settings.Default.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId));
+                logger.Error(string.Format(Resources.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId));
 
             // redirect them to a normal Get method incase they refresh
             return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = paymentCompletionResult.TransactionId });
@@ -559,9 +559,9 @@ namespace JoelScottFitness.Web.Controllers
             var questionnaireResult = await jsfService.CreateOrUpdateQuestionnaireAsync(questionnaire);
 
             if (!questionnaireResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaire.OrderId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaire.OrderId) });
 
-            ViewBag.Message = Settings.Default.QuestionnaireCompleteConfirmationMessage;
+            ViewBag.Message = Resources.QuestionnaireCompleteConfirmationMessage;
 
             return View(questionnaire);
         }
@@ -574,7 +574,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerDetails = await jsfService.GetCustomerDetailsAsync(userId);
             if (customerDetails == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToFindUserErrorMessage, userId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToFindUserErrorMessage, userId) });
 
             var purchases = await jsfService.GetOrderSummaryAsync(customerDetails.Id);
 
@@ -589,7 +589,7 @@ namespace JoelScottFitness.Web.Controllers
 
             var customerDetails = await jsfService.GetCustomerDetailsAsync(userId);
             if (customerDetails == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToFindUserErrorMessage, userId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToFindUserErrorMessage, userId) });
 
             var purchase = await jsfService.GetCustomerPlansAsync(customerDetails.Id);
 
@@ -629,7 +629,7 @@ namespace JoelScottFitness.Web.Controllers
             if (!createMessageResult.Success)
                 return RedirectToAction("Error", "Home", new
                 {
-                    errorMessage = string.Format(Settings.Default.FailedToCreateMessageErrorMessage,
+                    errorMessage = string.Format(Resources.FailedToCreateMessageErrorMessage,
                                                                                             messageViewModel.Name,
                                                                                             messageViewModel.EmailAddress,
                                                                                             messageViewModel.Subject,
@@ -640,7 +640,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 return RedirectToAction("Error", "Home", new
                 {
-                    errorMessage = string.Format(Settings.Default.FailedToSendMessageErrorMessage,
+                    errorMessage = string.Format(Resources.FailedToSendMessageErrorMessage,
                                                                             messageViewModel.Name,
                                                                             messageViewModel.EmailAddress,
                                                                             messageViewModel.Subject,
@@ -666,13 +666,13 @@ namespace JoelScottFitness.Web.Controllers
 
             if (!beforeUploadResult.Success || !afterUploadResult.Success)
             {
-                logger.Warn(string.Format(Settings.Default.FailedToUploadHallOfFameImagesErrorMessage, model.OrderId));
+                logger.Warn(string.Format(Resources.FailedToUploadHallOfFameImagesErrorMessage, model.OrderId));
                 return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
             }
 
             if (!await jsfService.UploadHallOfFameAsync(model.OrderId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
             {
-                logger.Warn(string.Format(Settings.Default.FailedToUploadHallOfFameErrorMessage, model.OrderId));
+                logger.Warn(string.Format(Resources.FailedToUploadHallOfFameErrorMessage, model.OrderId));
                 return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
             }
 
@@ -720,25 +720,25 @@ namespace JoelScottFitness.Web.Controllers
             if (string.IsNullOrEmpty((string)Session[SessionKeys.PayerId]))
             {
                 paymentCompletionResult.Success = false;
-                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PayerId));
+                logger.Warn(string.Format(Resources.PaymentCompletionParameterNullErrorMessage, SessionKeys.PayerId));
             }
 
             if (string.IsNullOrEmpty((string)Session[SessionKeys.PaymentId]))
             {
                 paymentCompletionResult.Success = false;
-                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PaymentId));
+                logger.Warn(string.Format(Resources.PaymentCompletionParameterNullErrorMessage, SessionKeys.PaymentId));
             }
 
             if (string.IsNullOrEmpty((string)Session[SessionKeys.TransactionId]))
             {
                 paymentCompletionResult.Success = false;
-                logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.TransactionId));
+                logger.Warn(string.Format(Resources.PaymentCompletionParameterNullErrorMessage, SessionKeys.TransactionId));
             }
 
             //if (!((long?)Session[SessionKeys.PurchaseId]).HasValue)
             //{
             //    paymentCompletionResult.Success = false;
-            //    logger.Warn(string.Format(Settings.Default.PaymentCompletionParameterNullErrorMessage, SessionKeys.PurchaseId));
+            //    logger.Warn(string.Format(Resources.PaymentCompletionParameterNullErrorMessage, SessionKeys.PurchaseId));
             //}
 
             paymentCompletionResult.PayerId = (string)Session[SessionKeys.PayerId];

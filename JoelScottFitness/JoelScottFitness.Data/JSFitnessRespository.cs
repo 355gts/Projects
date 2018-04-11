@@ -306,6 +306,7 @@ namespace JoelScottFitness.Data
         {
             return await dbContext.Orders
                                   .Include(p => p.Customer)
+                                  .Include("Customer.Plans")
                                   .Include(p => p.DiscountCode)
                                   .Include(p => p.Items)
                                   .Include("Items.Item")

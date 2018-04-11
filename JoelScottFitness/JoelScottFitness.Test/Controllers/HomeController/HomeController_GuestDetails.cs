@@ -99,7 +99,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.CreateGuestDetailsFailedErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.CreateGuestDetailsFailedErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]

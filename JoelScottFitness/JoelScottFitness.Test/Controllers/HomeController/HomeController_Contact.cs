@@ -55,7 +55,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 contextMock = new Mock<ControllerContext>();
                 sessionMock = new MockHttpSessionBase();
                 requestMock = new Mock<HttpRequestBase>();
-                
+
                 routeData = new RouteData();
                 routeData.Values.Add("HomeController", "_EmailMessageReceived");
 
@@ -116,7 +116,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.UpdateMailingListAsync(It.IsAny<MailingListItemViewModel>()), Times.Never);
                 jsfServiceMock.Verify(s => s.CreateMessageAsync(It.IsAny<CreateMessageViewModel>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-                
+
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
@@ -141,7 +141,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToCreateMessageErrorMessage,
+                Assert.AreEqual(string.Format(Resources.FailedToCreateMessageErrorMessage,
                                                                                             createMessageViewModel.Name,
                                                                                             createMessageViewModel.EmailAddress,
                                                                                             createMessageViewModel.Subject,
@@ -166,7 +166,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToSendMessageErrorMessage,
+                Assert.AreEqual(string.Format(Resources.FailedToSendMessageErrorMessage,
                                                                                             createMessageViewModel.Name,
                                                                                             createMessageViewModel.EmailAddress,
                                                                                             createMessageViewModel.Subject,

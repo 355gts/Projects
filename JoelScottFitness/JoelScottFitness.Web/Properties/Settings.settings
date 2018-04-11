@@ -53,65 +53,8 @@
     <Setting Name="DefaultItemQuantity" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="BasketItemsNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Attempted checkout with null basket session for customer '{0}'.</Value>
-    </Setting>
-    <Setting Name="BasketItemsAsyncNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve matching basket items from database for customer '{0}', id's searched were '{1}'.</Value>
-    </Setting>
-    <Setting Name="GetCustomerDetailsAsyncErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve customer details for customer with id '{0}';</Value>
-    </Setting>
-    <Setting Name="CustomerIdNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Ooops, we cannot find your customer id, please contact customer services if this continues.</Value>
-    </Setting>
-    <Setting Name="CreateGuestDetailsFailedErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to create guest account details for customer with emaill address '{0}'.</Value>
-    </Setting>
-    <Setting Name="UnableToFindExistingCustomerErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to find existing customer details for email address '{0}';</Value>
-    </Setting>
-    <Setting Name="FailedToUpdateExistingCustomerDetailsErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to update existing customer details for email address '{0}';</Value>
-    </Setting>
-    <Setting Name="FailedToRetrievePlansErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve plans from repository.</Value>
-    </Setting>
-    <Setting Name="FailedToInitiatePayPalPaymentErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to initiate paypal payment, error details '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToSaveItemsForPurchase" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to save items pending purchase for customer '{0}'.</Value>
-    </Setting>
-    <Setting Name="ConfirmOrderViewModelNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">The confirmOrderViewModel was null</Value>
-    </Setting>
     <Setting Name="CallbackUri" Type="System.String" Scope="Application">
       <Value Profile="(Default)">{0}/Home/ConfirmOrder?</Value>
-    </Setting>
-    <Setting Name="PaymentCompletionParameterNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Payment completion parameter '{0}' is null or empty, cannot complete transaction.</Value>
-    </Setting>
-    <Setting Name="PaymentCompletionErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">One or more payment completion parameters were null or empty</Value>
-    </Setting>
-    <Setting Name="FailedToCompletePayPalPaymentErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to complete paypal payment, error details '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToUpdateOrderStatusErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to update order status of transaction with id '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToRetrieveOrderErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve order '{0}' associated to transaction with id '{1}'.</Value>
-    </Setting>
-    <Setting Name="FailedToSendOrderConfirmationEmailErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to send order confirmation email for transaction with id '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToCreateOrUpdateQuestionnaireErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to create or update questionnaire for purchase with id '{0}'.</Value>
-    </Setting>
-    <Setting Name="QuestionnaireCompleteConfirmationMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Thanks, your tailored workout plan will be with you in the next 24 hours.</Value>
     </Setting>
     <Setting Name="ImageUploadErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">{0} image is empty, please re-select.</Value>
@@ -119,50 +62,11 @@
     <Setting Name="MissingCommentErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Please add a comment.</Value>
     </Setting>
-    <Setting Name="FailedToUploadHallOfFameImagesErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to upload hall of fame images associated to purchased item id '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToUploadHallOfFameErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to upload hall of fame associated to purchase item id '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToCreateMessageErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to create message for Name: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</Value>
-    </Setting>
     <Setting Name="MessageResponseSubject" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Re: {0}</Value>
     </Setting>
     <Setting Name="JoelScottFitnessEmaillAddress" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Blackmore__s@hotmail.com</Value>
-    </Setting>
-    <Setting Name="FailedToSendMessageErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to send message for Name: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</Value>
-    </Setting>
-    <Setting Name="FailedToFindUserErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to find user with account name '{0}';</Value>
-    </Setting>
-    <Setting Name="FailedToUploadPlanForCustomerErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to upload plan associated to purchase id '{0}' for customer with id '{1}'.</Value>
-    </Setting>
-    <Setting Name="FailedToAssociatePlanToPurchaseErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to associate plan '{0}' to purchase with id '{1}' for customer with id '{2}'.</Value>
-    </Setting>
-    <Setting Name="FailedToFindOrderErrorMessageErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve order with id '{0}' associated to customer with id '{1}'.</Value>
-    </Setting>
-    <Setting Name="FailedToSendOrderCompleteEmailErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to send order complete email for purchase with id '{0}' associated to customer with id '{1}'.</Value>
-    </Setting>
-    <Setting Name="FailedToFindCustomerErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to find customer with id '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToUploadFileErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to upload '{0}'.</Value>
-    </Setting>
-    <Setting Name="FailedToAddImageToDatabaseErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to add image '{0}' to database.</Value>
-    </Setting>
-    <Setting Name="FailedToDeleteImageErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to delete image with id '{0}'.</Value>
     </Setting>
   </Settings>
 </SettingsFile>

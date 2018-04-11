@@ -351,11 +351,11 @@ namespace JoelScottFitness.Web.Controllers
                 {
                     var uploadResult = fileHelper.UploadFile(file, Settings.Default.ImageDirectory);
                     if (!uploadResult.Success)
-                        return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Settings.Default.FailedToUploadFileErrorMessage, file.FileName) });
+                        return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Resources.FailedToUploadFileErrorMessage, file.FileName) });
 
                     var result = await jsfService.AddImageAsync(uploadResult.UploadPath);
                     if (!result.Success)
-                        return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Settings.Default.FailedToAddImageToDatabaseErrorMessage, uploadResult.UploadPath) });
+                        return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Resources.FailedToAddImageToDatabaseErrorMessage, uploadResult.UploadPath) });
                 }
             }
 
@@ -369,7 +369,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var result = await jsfService.DeleteImageAsync(imageId);
             if (!result)
-                return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Settings.Default.FailedToDeleteImageErrorMessage, imageId) });
+                return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = string.Format(Resources.FailedToDeleteImageErrorMessage, imageId) });
 
             return RedirectToAction("ImageConfiguration", "Admin");
         }
@@ -415,7 +415,7 @@ namespace JoelScottFitness.Web.Controllers
             var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
             if (customer == null)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
@@ -424,20 +424,20 @@ namespace JoelScottFitness.Web.Controllers
             var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
             if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadResult.UploadPath))
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
             var purchaseViewModel = await jsfService.GetOrderAsync(uploadPlanViewModel.OrderId);
             if (purchaseViewModel == null)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
@@ -450,7 +450,7 @@ namespace JoelScottFitness.Web.Controllers
                 // send confirmation email
                 if (!await SendOrderCompleteEmail(purchaseViewModel, planPaths))
                 {
-                    ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                    ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                     return View(uploadPlanViewModel);
                 }
             }
@@ -537,7 +537,7 @@ namespace JoelScottFitness.Web.Controllers
             var uploadResult = fileHelper.UploadFile(postedFile, directory, name);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToUploadFileErrorMessage, postedFile.FileName));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToUploadFileErrorMessage, postedFile.FileName));
             }
 
             return uploadResult;

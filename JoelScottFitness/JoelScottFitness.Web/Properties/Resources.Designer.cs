@@ -61,11 +61,299 @@ namespace JoelScottFitness.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve matching basket items from database for customer &apos;{0}&apos;, id&apos;s searched were &apos;{1}&apos;..
+        /// </summary>
+        internal static string BasketItemsAsyncNullErrorMessage {
+            get {
+                return ResourceManager.GetString("BasketItemsAsyncNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempted checkout with null basket session for customer &apos;{0}&apos;..
+        /// </summary>
+        internal static string BasketItemsNullErrorMessage {
+            get {
+                return ResourceManager.GetString("BasketItemsNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The confirmOrderViewModel was null.
+        /// </summary>
+        internal static string ConfirmOrderViewModelNullErrorMessage {
+            get {
+                return ResourceManager.GetString("ConfirmOrderViewModelNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create guest account details for customer with emaill address &apos;{0}&apos;..
+        /// </summary>
+        internal static string CreateGuestDetailsFailedErrorMessage {
+            get {
+                return ResourceManager.GetString("CreateGuestDetailsFailedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ooops, we cannot find your customer id, please contact customer services if this continues..
+        /// </summary>
+        internal static string CustomerIdNullErrorMessage {
+            get {
+                return ResourceManager.GetString("CustomerIdNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to add image &apos;{0}&apos; to database..
+        /// </summary>
+        internal static string FailedToAddImageToDatabaseErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToAddImageToDatabaseErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to associate plan &apos;{0}&apos; to purchase with id &apos;{1}&apos; for customer with id &apos;{2}&apos;..
+        /// </summary>
+        internal static string FailedToAssociatePlanToPurchaseErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToAssociatePlanToPurchaseErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to complete paypal payment, error details &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToCompletePayPalPaymentErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToCompletePayPalPaymentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create message for Name: &apos;{0}&apos;, Email Address &apos;{1}&apos;, Subject &apos;{2}&apos;, Message &apos;{3}&apos;..
+        /// </summary>
+        internal static string FailedToCreateMessageErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToCreateMessageErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create or update questionnaire for purchase with id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToCreateOrUpdateQuestionnaireErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToCreateOrUpdateQuestionnaireErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete image with id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToDeleteImageErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToDeleteImageErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to find customer with id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToFindCustomerErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToFindCustomerErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve order with id &apos;{0}&apos; associated to customer with id &apos;{1}&apos;..
+        /// </summary>
+        internal static string FailedToFindOrderErrorMessageErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToFindOrderErrorMessageErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to find user with account name &apos;{0}&apos;;.
+        /// </summary>
+        internal static string FailedToFindUserErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToFindUserErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to initiate paypal payment, error details &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToInitiatePayPalPaymentErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToInitiatePayPalPaymentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve order &apos;{0}&apos; associated to transaction with id &apos;{1}&apos;..
+        /// </summary>
+        internal static string FailedToRetrieveOrderErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToRetrieveOrderErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve plans from repository..
+        /// </summary>
+        internal static string FailedToRetrievePlansErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToRetrievePlansErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save items pending purchase for customer &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToSaveItemsForPurchase {
+            get {
+                return ResourceManager.GetString("FailedToSaveItemsForPurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to send message for Name: &apos;{0}&apos;, Email Address &apos;{1}&apos;, Subject &apos;{2}&apos;, Message &apos;{3}&apos;..
+        /// </summary>
+        internal static string FailedToSendMessageErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToSendMessageErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to send order complete email for purchase with id &apos;{0}&apos; associated to customer with id &apos;{1}&apos;..
+        /// </summary>
+        internal static string FailedToSendOrderCompleteEmailErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToSendOrderCompleteEmailErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to send order confirmation email for transaction with id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToSendOrderConfirmationEmailErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToSendOrderConfirmationEmailErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to update existing customer details for email address &apos;{0}&apos;;.
+        /// </summary>
+        internal static string FailedToUpdateExistingCustomerDetailsErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToUpdateExistingCustomerDetailsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to update order status of transaction with id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToUpdateOrderStatusErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToUpdateOrderStatusErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to upload &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToUploadFileErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToUploadFileErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to upload hall of fame associated to purchase item id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToUploadHallOfFameErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToUploadHallOfFameErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to upload hall of fame images associated to purchased item id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToUploadHallOfFameImagesErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToUploadHallOfFameImagesErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to upload plan associated to purchase id &apos;{0}&apos; for customer with id &apos;{1}&apos;..
+        /// </summary>
+        internal static string FailedToUploadPlanForCustomerErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToUploadPlanForCustomerErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oops! something went wrong please try again later..
         /// </summary>
         internal static string GenericErrorMessage {
             get {
                 return ResourceManager.GetString("GenericErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve customer details for customer with id &apos;{0}&apos;;.
+        /// </summary>
+        internal static string GetCustomerDetailsAsyncErrorMessage {
+            get {
+                return ResourceManager.GetString("GetCustomerDetailsAsyncErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more payment completion parameters were null or empty.
+        /// </summary>
+        internal static string PaymentCompletionErrorMessage {
+            get {
+                return ResourceManager.GetString("PaymentCompletionErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment completion parameter &apos;{0}&apos; is null or empty, cannot complete transaction..
+        /// </summary>
+        internal static string PaymentCompletionParameterNullErrorMessage {
+            get {
+                return ResourceManager.GetString("PaymentCompletionParameterNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thanks, your tailored workout plan will be with you in the next 24 hours..
+        /// </summary>
+        internal static string QuestionnaireCompleteConfirmationMessage {
+            get {
+                return ResourceManager.GetString("QuestionnaireCompleteConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to find existing customer details for email address &apos;{0}&apos;;.
+        /// </summary>
+        internal static string UnableToFindExistingCustomerErrorMessage {
+            get {
+                return ResourceManager.GetString("UnableToFindExistingCustomerErrorMessage", resourceCulture);
             }
         }
     }

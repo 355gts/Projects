@@ -112,7 +112,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.UnableToFindExistingCustomerErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.UnableToFindExistingCustomerErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -133,7 +133,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToUpdateExistingCustomerDetailsErrorMessage, customer.EmailAddress), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]

@@ -126,7 +126,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.CustomerIdNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.CustomerIdNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -146,7 +146,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.BasketItemsNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.BasketItemsNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -166,7 +166,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.GetCustomerDetailsAsyncErrorMessage, customerId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]

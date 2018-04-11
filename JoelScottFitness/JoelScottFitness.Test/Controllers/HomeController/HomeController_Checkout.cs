@@ -154,7 +154,7 @@
 //                Assert.IsNotNull(result);
 //                Assert.AreEqual("Error", result.RouteValues["action"]);
 //                Assert.AreEqual("Home", result.RouteValues["controller"]);
-//                Assert.AreEqual(Settings.Default.ConfirmPurchaseViewModelNullErrorMessage, result.RouteValues["errorMessage"]);
+//                Assert.AreEqual(Resources.ConfirmPurchaseViewModelNullErrorMessage, result.RouteValues["errorMessage"]);
 //            }
 
 //            [TestMethod]
@@ -177,7 +177,7 @@
 //                Assert.IsNotNull(result);
 //                Assert.AreEqual("Error", result.RouteValues["action"]);
 //                Assert.AreEqual("Home", result.RouteValues["controller"]);
-//                Assert.AreEqual(Settings.Default.FailedToRetrievePlansErrorMessage, result.RouteValues["errorMessage"]);
+//                Assert.AreEqual(Resources.FailedToRetrievePlansErrorMessage, result.RouteValues["errorMessage"]);
 
 //                // verify the session variables have been added
 //                Assert.AreEqual(0, sessionMock.Count);
@@ -203,7 +203,7 @@
 //                Assert.IsNotNull(result);
 //                Assert.AreEqual("Error", result.RouteValues["action"]);
 //                Assert.AreEqual("Home", result.RouteValues["controller"]);
-//                Assert.AreEqual(string.Format(Settings.Default.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage), result.RouteValues["errorMessage"]);
+//                Assert.AreEqual(string.Format(Resources.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage), result.RouteValues["errorMessage"]);
 
 //                // verify the session variables have been added
 //                Assert.AreEqual(0, sessionMock.Count);
@@ -234,7 +234,7 @@
 //                Assert.IsNotNull(result);
 //                Assert.AreEqual("Error", result.RouteValues["action"]);
 //                Assert.AreEqual("Home", result.RouteValues["controller"]);
-//                Assert.AreEqual(string.Format(Settings.Default.FailedToSaveItemsForPurchase, emailAddress), result.RouteValues["errorMessage"]);
+//                Assert.AreEqual(string.Format(Resources.FailedToSaveItemsForPurchase, emailAddress), result.RouteValues["errorMessage"]);
 
 //                Assert.IsNotNull(confirmPurchaseViewModelCallback);
 //                Assert.AreEqual(2, confirmPurchaseViewModelCallback.BasketItems.Count());

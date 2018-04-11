@@ -71,7 +71,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToCreateOrUpdateQuestionnaireErrorMessage, purchaseId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToCreateOrUpdateQuestionnaireErrorMessage, purchaseId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -85,7 +85,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result.Model);
                 var resultModel = (QuestionnaireViewModel)result.Model;
                 Assert.AreEqual(typeof(QuestionnaireViewModel), resultModel.GetType());
-                Assert.AreEqual(Settings.Default.QuestionnaireCompleteConfirmationMessage, result.ViewData["Message"]);
+                Assert.AreEqual(Resources.QuestionnaireCompleteConfirmationMessage, result.ViewData["Message"]);
             }
         }
     }

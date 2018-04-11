@@ -141,7 +141,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(Settings.Default.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
+                Assert.AreEqual(Resources.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -162,7 +162,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(Settings.Default.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
+                Assert.AreEqual(Resources.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -183,7 +183,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(Settings.Default.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
+                Assert.AreEqual(Resources.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -204,7 +204,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(Settings.Default.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
+                Assert.AreEqual(Resources.PaymentCompletionErrorMessage, result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -226,7 +226,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -248,7 +248,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToUpdateOrderStatusErrorMessage, transactionId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToUpdateOrderStatusErrorMessage, transactionId), result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
@@ -270,7 +270,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Settings.Default.FailedToRetrieveOrderErrorMessage, purchaseId, transactionId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(string.Format(Resources.FailedToRetrieveOrderErrorMessage, purchaseId, transactionId), result.RouteValues["errorMessage"]);
 
                 // verify the session variables have been added
                 Assert.AreEqual(1, sessionMock.Count);

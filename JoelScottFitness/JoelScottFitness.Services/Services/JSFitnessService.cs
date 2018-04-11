@@ -227,7 +227,7 @@ namespace JoelScottFitness.Services.Services
                 orderViewModel.Questionnaire = mapper.Map<Questionnaire, QuestionnaireViewModel>(order.Questionnaire);
 
             if (order.Customer?.Plans != null)
-                orderViewModel.Plans = mapper.MapEnumerable<CustomerPlan, CustomerPlanViewModel>(order.Customer?.Plans);
+                orderViewModel.Plans = mapper.MapEnumerable<CustomerPlan, CustomerPlanViewModel>(order.Customer?.Plans.Where(p => p.OrderId == id));
 
             return orderViewModel;
         }

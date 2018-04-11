@@ -117,7 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BasketItemsAsyncNullErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve matching basket items from database for customer '{0}', id's searched were '{1}'.</value>
+  </data>
+  <data name="BasketItemsNullErrorMessage" xml:space="preserve">
+    <value>Attempted checkout with null basket session for customer '{0}'.</value>
+  </data>
+  <data name="ConfirmOrderViewModelNullErrorMessage" xml:space="preserve">
+    <value>The confirmOrderViewModel was null</value>
+  </data>
+  <data name="CreateGuestDetailsFailedErrorMessage" xml:space="preserve">
+    <value>Failed to create guest account details for customer with emaill address '{0}'.</value>
+  </data>
+  <data name="CustomerIdNullErrorMessage" xml:space="preserve">
+    <value>Ooops, we cannot find your customer id, please contact customer services if this continues.</value>
+  </data>
+  <data name="FailedToAddImageToDatabaseErrorMessage" xml:space="preserve">
+    <value>Failed to add image '{0}' to database.</value>
+  </data>
+  <data name="FailedToAssociatePlanToPurchaseErrorMessage" xml:space="preserve">
+    <value>Failed to associate plan '{0}' to purchase with id '{1}' for customer with id '{2}'.</value>
+  </data>
+  <data name="FailedToCompletePayPalPaymentErrorMessage" xml:space="preserve">
+    <value>Failed to complete paypal payment, error details '{0}'.</value>
+  </data>
+  <data name="FailedToCreateMessageErrorMessage" xml:space="preserve">
+    <value>Failed to create message for Name: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</value>
+  </data>
+  <data name="FailedToCreateOrUpdateQuestionnaireErrorMessage" xml:space="preserve">
+    <value>Failed to create or update questionnaire for purchase with id '{0}'.</value>
+  </data>
+  <data name="FailedToDeleteImageErrorMessage" xml:space="preserve">
+    <value>Failed to delete image with id '{0}'.</value>
+  </data>
+  <data name="FailedToFindCustomerErrorMessage" xml:space="preserve">
+    <value>Failed to find customer with id '{0}'.</value>
+  </data>
+  <data name="FailedToFindOrderErrorMessageErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve order with id '{0}' associated to customer with id '{1}'.</value>
+  </data>
+  <data name="FailedToFindUserErrorMessage" xml:space="preserve">
+    <value>Failed to find user with account name '{0}';</value>
+  </data>
+  <data name="FailedToInitiatePayPalPaymentErrorMessage" xml:space="preserve">
+    <value>Failed to initiate paypal payment, error details '{0}'.</value>
+  </data>
+  <data name="FailedToRetrieveOrderErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve order '{0}' associated to transaction with id '{1}'.</value>
+  </data>
+  <data name="FailedToRetrievePlansErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve plans from repository.</value>
+  </data>
+  <data name="FailedToSaveItemsForPurchase" xml:space="preserve">
+    <value>Failed to save items pending purchase for customer '{0}'.</value>
+  </data>
+  <data name="FailedToSendMessageErrorMessage" xml:space="preserve">
+    <value>Failed to send message for Name: '{0}', Email Address '{1}', Subject '{2}', Message '{3}'.</value>
+  </data>
+  <data name="FailedToSendOrderCompleteEmailErrorMessage" xml:space="preserve">
+    <value>Failed to send order complete email for purchase with id '{0}' associated to customer with id '{1}'.</value>
+  </data>
+  <data name="FailedToSendOrderConfirmationEmailErrorMessage" xml:space="preserve">
+    <value>Failed to send order confirmation email for transaction with id '{0}'.</value>
+  </data>
+  <data name="FailedToUpdateExistingCustomerDetailsErrorMessage" xml:space="preserve">
+    <value>Failed to update existing customer details for email address '{0}';</value>
+  </data>
+  <data name="FailedToUpdateOrderStatusErrorMessage" xml:space="preserve">
+    <value>Failed to update order status of transaction with id '{0}'.</value>
+  </data>
+  <data name="FailedToUploadFileErrorMessage" xml:space="preserve">
+    <value>Failed to upload '{0}'.</value>
+  </data>
+  <data name="FailedToUploadHallOfFameErrorMessage" xml:space="preserve">
+    <value>Failed to upload hall of fame associated to purchase item id '{0}'.</value>
+  </data>
+  <data name="FailedToUploadHallOfFameImagesErrorMessage" xml:space="preserve">
+    <value>Failed to upload hall of fame images associated to purchased item id '{0}'.</value>
+  </data>
+  <data name="FailedToUploadPlanForCustomerErrorMessage" xml:space="preserve">
+    <value>Failed to upload plan associated to purchase id '{0}' for customer with id '{1}'.</value>
+  </data>
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>Oops! something went wrong please try again later.</value>
+  </data>
+  <data name="GetCustomerDetailsAsyncErrorMessage" xml:space="preserve">
+    <value>Failed to retrieve customer details for customer with id '{0}';</value>
+  </data>
+  <data name="PaymentCompletionErrorMessage" xml:space="preserve">
+    <value>One or more payment completion parameters were null or empty</value>
+  </data>
+  <data name="PaymentCompletionParameterNullErrorMessage" xml:space="preserve">
+    <value>Payment completion parameter '{0}' is null or empty, cannot complete transaction.</value>
+  </data>
+  <data name="QuestionnaireCompleteConfirmationMessage" xml:space="preserve">
+    <value>Thanks, your tailored workout plan will be with you in the next 24 hours.</value>
+  </data>
+  <data name="UnableToFindExistingCustomerErrorMessage" xml:space="preserve">
+    <value>Failed to find existing customer details for email address '{0}';</value>
   </data>
 </root>

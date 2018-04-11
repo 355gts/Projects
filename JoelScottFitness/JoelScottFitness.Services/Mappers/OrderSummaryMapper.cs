@@ -24,7 +24,10 @@ namespace JoelScottFitness.Services.Mappers
             order.TransactionId = fromObject.TransactionId;
             order.TotalAmount = fromObject.TotalAmount;
             order.QuestionnaireComplete = fromObject.Questionnaire != null;
-            order.RequiresAction = fromObject.RequiresAction;
+            order.RequiresAction = fromObject.Customer?.Plans != null && fromObject.Customer.Plans
+                                                                                            .Where(p => p.OrderId == fromObject.Id)
+                                                                                            .Any(p => string.IsNullOrEmpty(p.PlanPath));
+
 
             if (fromObject.Items != null && fromObject.Items.Any())
             {
