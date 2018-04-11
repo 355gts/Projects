@@ -21,7 +21,6 @@ namespace JoelScottFitness.Services.Mappers
             orderItem.OrderId = fromObject.OrderId;
             orderItem.Price = fromObject.Price;
             orderItem.Quantity = fromObject.Quantity;
-            orderItem.RequiresAction = fromObject.RequiresAction;
             orderItem.ItemTotal = fromObject.Total;
 
             return orderItem;
@@ -38,7 +37,6 @@ namespace JoelScottFitness.Services.Mappers
             orderItem.ItemCategory = fromObject.ItemCategory;
             orderItem.Price = fromObject.Price;
             orderItem.Quantity = fromObject.Quantity;
-            orderItem.RequiresAction = fromObject.RequiresAction;
             orderItem.Total = fromObject.ItemTotal;
 
             return orderItem;

@@ -26,7 +26,7 @@ namespace JoelScottFitness.PayPal.Services
 
         PaymentResult PayWithCreditCard();
 
-        PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
+        PaymentInitiationResult InitiatePayPalPayment(ConfirmOrderViewModel confirmOrderViewModel, string baseUri);
 
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
     }

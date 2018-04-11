@@ -18,6 +18,6 @@
 
         public const string Christmas = "Christmas";
 
-        public const string ConfirmPurchaseViewModel = "ConfirmPurchaseViewModel";
+        public const string ConfirmOrderViewModel = "ConfirmOrderViewModel";
     }
 }

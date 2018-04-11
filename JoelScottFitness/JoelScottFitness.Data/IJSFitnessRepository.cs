@@ -42,11 +42,11 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<Plan>> GetPlansByGenderAsync(Gender gender);
 
-        Task<Order> GetOrdersAsync(long id);
+        Task<Order> GetOrderAsync(long id);
 
-        Task<IEnumerable<Order>> GetPurchasesAsync(Guid customerId);
+        Task<IEnumerable<Order>> GetOrdersAsync(Guid customerId);
 
-        Task<IEnumerable<Order>> GetPurchasesAsync();
+        Task<IEnumerable<Order>> GetOrdersAsync();
 
         Task<bool> UpdateMailingListAsync(MailingListItem mailingListItem);
 
@@ -54,11 +54,11 @@ namespace JoelScottFitness.Data
 
         Task<AuthUser> GetUserAsync(string userName);
 
-        Task<AsyncResult<long>> SavePurchaseAsync(Order purchase);
+        Task<AsyncResult<long>> SaveOrderAsync(Order order);
 
-        Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status);
+        Task<bool> UpdateOrderStatusAsync(string transactionId, OrderStatus status);
 
-        Task<Order> GetPurchaseByOrderIdAsync(long orderId);
+        Task<Order> GetOrderByOrderIdAsync(long orderId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(Questionnaire questionnaire);
 
@@ -68,7 +68,7 @@ namespace JoelScottFitness.Data
 
         Task<bool> UpdateBlogStatusAsync(long blogId, bool status);
 
-        Task<bool> AssociateQuestionnaireToPurchaseAsync(long purchaseId, long questionnaireId);
+        Task<bool> AssociateQuestionnaireToOrderAsync(long orderId, long questionnaireId);
 
         Task<bool> AssociateQuestionnaireToPlansAsync(long orderId);
 
@@ -82,13 +82,13 @@ namespace JoelScottFitness.Data
 
         Task<ImageConfiguration> GetImageConfigurationAsync();
 
-        Task<bool> UploadCustomerPlanAsync(long purchasedItemId, string planPath);
+        Task<bool> UploadCustomerPlanAsync(long orderItemId, string planPath);
 
         Task<IEnumerable<PlanOption>> GetPlanOptionsAsync();
 
-        Task<OrderItem> GetPurchasedItemAsync(long purchasedItemId);
+        Task<OrderItem> GetOrderItemAsync(long OrderItemId);
 
-        Task<bool> UpdatePurchasedItemAsync(OrderItem purchasedItem);
+        Task<bool> UpdateOrderItemAsync(OrderItem orderItem);
 
         Task<IEnumerable<CustomerPlan>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
 
@@ -106,12 +106,14 @@ namespace JoelScottFitness.Data
 
         Task<AsyncResult<long>> UpdateCustomerPlanAsync(CustomerPlan customerPlan);
 
-        Task<IEnumerable<CustomerPlan>> GetCustomerPlansForPurchaseAsync(long orderId);
+        Task<IEnumerable<CustomerPlan>> GetCustomerPlansForOrderAsync(long orderId);
 
         Task<IEnumerable<CustomerPlan>> GetCustomerPlansAsync(Guid customerId);
 
         Task<CustomerPlan> GetCustomerPlanAsync(long customerPlanId);
 
         Task<bool> UpdateHallOfFameDetailsAsync(CustomerPlan customerPlan);
+
+        Task<bool> MarkOrderCompleteAsync(long orderId);
     }
 }

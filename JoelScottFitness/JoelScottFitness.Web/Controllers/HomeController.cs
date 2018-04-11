@@ -250,18 +250,18 @@ namespace JoelScottFitness.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ConfirmPurchase()
+        public ActionResult ConfirmOrder()
         {
             if (string.IsNullOrEmpty(Request.Params[SessionKeys.PayerId]))
                 return RedirectToAction("Error", "Home", new { errorMessage = "Payer id null" });
 
             Session.Add(SessionKeys.PayerId, Request.Params[SessionKeys.PayerId]);
 
-            var confirmPurchaseViewModel = (ConfirmPurchaseViewModel)Session[SessionKeys.ConfirmPurchaseViewModel];
-            if (confirmPurchaseViewModel == null)
+            var confirmOrderViewModel = (ConfirmOrderViewModel)Session[SessionKeys.ConfirmOrderViewModel];
+            if (confirmOrderViewModel == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = "Confirm purchase view model null" });
 
-            return View(confirmPurchaseViewModel);
+            return View(confirmOrderViewModel);
         }
 
         [HttpPost]
@@ -437,56 +437,26 @@ namespace JoelScottFitness.Web.Controllers
             if (customerDetails == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.GetCustomerDetailsAsyncErrorMessage, customerId) });
 
-            var confirmPurchaseViewModel = new ConfirmPurchaseViewModel()
+            var confirmOrderViewModel = new ConfirmOrderViewModel()
             {
                 CustomerDetails = customerDetails,
                 Basket = basket,
             };
 
-            var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, callbackUri);
+            var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmOrderViewModel, callbackUri);
             if (!paymentInitiationResult.Success)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage) });
 
             Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
             Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
 
-            confirmPurchaseViewModel.PayPalReference = paymentInitiationResult.PaymentId;
-            confirmPurchaseViewModel.TransactionId = paymentInitiationResult.TransactionId;
+            confirmOrderViewModel.PayPalReference = paymentInitiationResult.PaymentId;
+            confirmOrderViewModel.TransactionId = paymentInitiationResult.TransactionId;
 
-            Session.Add(SessionKeys.ConfirmPurchaseViewModel, confirmPurchaseViewModel);
+            Session.Add(SessionKeys.ConfirmOrderViewModel, confirmOrderViewModel);
 
             return Redirect(paymentInitiationResult.PayPalRedirectUrl);
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Checkout(ConfirmPurchaseViewModel confirmPurchaseViewModel)
-        //{
-        //    if (confirmPurchaseViewModel == null)
-        //        return RedirectToAction("Error", "Home", new { errorMessage = Settings.Default.ConfirmPurchaseViewModelNullErrorMessage });
-
-        //    // method used to initiate the paypal payment transaction
-        //    string callbackUri = string.Format(Settings.Default.CallbackUri, RootUri);
-
-        //    var paymentInitiationResult = jsfService.InitiatePayPalPayment(confirmPurchaseViewModel, callbackUri);
-        //    if (!paymentInitiationResult.Success)
-        //        return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToInitiatePayPalPaymentErrorMessage, paymentInitiationResult.ErrorMessage) });
-
-        //    Session.Add(SessionKeys.PaymentId, paymentInitiationResult.PaymentId);
-        //    Session.Add(SessionKeys.TransactionId, paymentInitiationResult.TransactionId);
-
-        //    confirmPurchaseViewModel.PayPalReference = paymentInitiationResult.PaymentId;
-        //    confirmPurchaseViewModel.TransactionId = paymentInitiationResult.TransactionId;
-
-        //    // save the pending purchase details in the database
-        //    var savePurchaseResult = await jsfService.SavePurchaseAsync(confirmPurchaseViewModel);
-        //    if (!savePurchaseResult.Success)
-        //        return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSaveItemsForPurchase, confirmPurchaseViewModel.CustomerDetails.EmailAddress) });
-
-        //    Session.Add(SessionKeys.PurchaseId, savePurchaseResult.Result);
-
-        //    return Redirect(paymentInitiationResult.PayPalRedirectUrl);
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -504,15 +474,15 @@ namespace JoelScottFitness.Web.Controllers
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToCompletePayPalPaymentErrorMessage, paymentResult.ErrorMessage) });
             }
 
-            var confirmPurchaseViewModel = (ConfirmPurchaseViewModel)Session[SessionKeys.ConfirmPurchaseViewModel];
-            if (confirmPurchaseViewModel == null)
+            var confirmOrderViewModel = (ConfirmOrderViewModel)Session[SessionKeys.ConfirmOrderViewModel];
+            if (confirmOrderViewModel == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = "Confirm purchase view model null" });
 
-            confirmPurchaseViewModel.PurchaseStatus = PurchaseStatus.Complete;
+            confirmOrderViewModel.PurchaseStatus = OrderStatus.Complete;
             // save the pending purchase details in the database
-            var savePurchaseResult = await jsfService.SavePurchaseAsync(confirmPurchaseViewModel);
+            var savePurchaseResult = await jsfService.SaveOrderAsync(confirmOrderViewModel);
             if (!savePurchaseResult.Success)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSaveItemsForPurchase, confirmPurchaseViewModel.CustomerDetails.EmailAddress) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToSaveItemsForPurchase, confirmOrderViewModel.CustomerDetails.EmailAddress) });
 
             // check whether the hall of fame is visible and re-add it after session is cleared
             var hallOfFameVisible = false;
@@ -525,9 +495,9 @@ namespace JoelScottFitness.Web.Controllers
             // re-add this to the session
             Session[SessionKeys.HallOfFame] = hallOfFameVisible;
 
-            var purchaseViewModel = await jsfService.GetPurchaseAsync(savePurchaseResult.Result);
+            var purchaseViewModel = await jsfService.GetOrderAsync(savePurchaseResult.Result);
             if (purchaseViewModel == null)
-                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToRetrievePurchaseErrorMessage, savePurchaseResult.Result, paymentCompletionResult.TransactionId) });
+                return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToRetrieveOrderErrorMessage, savePurchaseResult.Result, paymentCompletionResult.TransactionId) });
 
             // send confirmation email
             if (!await SendOrderConfirmationEmail(purchaseViewModel))
@@ -561,7 +531,7 @@ namespace JoelScottFitness.Web.Controllers
         {
             var questionnaireViewModel = new QuestionnaireViewModel();
 
-            var purchase = await jsfService.GetPurchaseByOrderIdAsync(orderId);
+            var purchase = await jsfService.GetOrderByOrderIdAsync(orderId);
             if (purchase == null)
             {
                 ViewBag.Message = $"Oops! Order Id '{orderId}' not recognised, please ";
@@ -606,7 +576,7 @@ namespace JoelScottFitness.Web.Controllers
             if (customerDetails == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Settings.Default.FailedToFindUserErrorMessage, userId) });
 
-            var purchases = await jsfService.GetPurchaseSummaryAsync(customerDetails.Id);
+            var purchases = await jsfService.GetOrderSummaryAsync(customerDetails.Id);
 
             return View(purchases);
         }
@@ -736,11 +706,11 @@ namespace JoelScottFitness.Web.Controllers
             }
         }
 
-        private async Task<bool> SendOrderConfirmationEmail(PurchaseHistoryViewModel purchaseViewModel)
+        private async Task<bool> SendOrderConfirmationEmail(OrderHistoryViewModel purchaseViewModel)
         {
             var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
+            return await jsfService.SendEmailAsync(string.Format(Settings.Default.OrderConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
         }
 
         private PaymentCompletionResult GetPaymentCompletionResult()

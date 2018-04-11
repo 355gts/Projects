@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace JoelScottFitness.Common.Models
 {
     [DataContract]
-    public class ConfirmPurchaseViewModel
+    public class ConfirmOrderViewModel
     {
         [Required]
         [DataMember(IsRequired = true)]
@@ -22,6 +22,6 @@ namespace JoelScottFitness.Common.Models
         public string TransactionId { get; set; }
 
         [Required]
-        public PurchaseStatus PurchaseStatus { get; set; }
+        public OrderStatus PurchaseStatus { get; set; }
     }
 }

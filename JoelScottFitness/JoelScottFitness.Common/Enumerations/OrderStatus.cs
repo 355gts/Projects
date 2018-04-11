@@ -1,6 +1,6 @@
 ﻿namespace JoelScottFitness.Common.Enumerations
 {
-    public enum PurchaseStatus
+    public enum OrderStatus
     {
         Pending,
         Complete,

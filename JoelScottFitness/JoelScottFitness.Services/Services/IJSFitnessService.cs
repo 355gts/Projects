@@ -47,13 +47,13 @@ namespace JoelScottFitness.Services.Services
 
         Task<PlanOptionViewModel> GetPlanOptionAsync(long id);
 
-        Task<PurchaseHistoryViewModel> GetPurchaseAsync(long id);
+        Task<OrderHistoryViewModel> GetOrderAsync(long id);
 
-        Task<IEnumerable<OrderSummaryViewModel>> GetPurchaseSummaryAsync(Guid customerId);
+        Task<IEnumerable<OrderSummaryViewModel>> GetOrderSummaryAsync(Guid customerId);
 
-        Task<IEnumerable<OrderSummaryViewModel>> GetPurchasesAsync();
+        Task<IEnumerable<OrderSummaryViewModel>> GetOrdersAsync();
 
-        PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri);
+        PaymentInitiationResult InitiatePayPalPayment(ConfirmOrderViewModel confirmOrderViewModel, string baseUri);
 
         PaymentResult CompletePayPalPayment(string paymentId, string payerId);
 
@@ -61,11 +61,11 @@ namespace JoelScottFitness.Services.Services
 
         Task<UserViewModel> GetUserAsync(string userName);
 
-        Task<AsyncResult<long>> SavePurchaseAsync(ConfirmPurchaseViewModel confirmPurchaseViewModel);
+        Task<AsyncResult<long>> SaveOrderAsync(ConfirmOrderViewModel confirmOrderViewModel);
 
-        Task<bool> UpdatePurchaseStatusAsync(string transactionId, PurchaseStatus status);
+        Task<bool> UpdateOrderStatusAsync(string transactionId, OrderStatus status);
 
-        Task<PurchaseHistoryViewModel> GetPurchaseByOrderIdAsync(long orderId);
+        Task<OrderHistoryViewModel> GetOrderByOrderIdAsync(long orderId);
 
         Task<AsyncResult<long>> CreateOrUpdateQuestionnaireAsync(QuestionnaireViewModel questionnaire);
 
@@ -87,7 +87,7 @@ namespace JoelScottFitness.Services.Services
 
         Task<SectionImageViewModel> GetSectionImagesAsync();
 
-        Task<bool> UploadCustomerPlanAsync(long orderId, string planPath);
+        Task<bool> UploadCustomerPlanAsync(long planId, string planPath);
 
         Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansAsync(Guid customerId);
 
@@ -116,6 +116,8 @@ namespace JoelScottFitness.Services.Services
 
         Task<AsyncResult<long>> UpdateCustomerPlanAsync(CustomerPlanViewModel customerPlan);
 
-        Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansForPurchaseAsync(long orderId);
+        Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansForOrderAsync(long orderId);
+
+        Task<bool> MarkOrderCompleteAsync(long orderId);
     }
 }

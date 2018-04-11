@@ -26,18 +26,18 @@ namespace JoelScottFitness.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Order #{0} Confirmation")]
-        public string PurchaseConfirmation {
+        public string OrderConfirmation {
             get {
-                return ((string)(this["PurchaseConfirmation"]));
+                return ((string)(this["OrderConfirmation"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Order #{0} Complete")]
-        public string PurchaseComplete {
+        public string OrderComplete {
             get {
-                return ((string)(this["PurchaseComplete"]));
+                return ((string)(this["OrderComplete"]));
             }
         }
         
@@ -270,16 +270,16 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("The confirmPurchaseViewModel was null")]
-        public string ConfirmPurchaseViewModelNullErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("The confirmOrderViewModel was null")]
+        public string ConfirmOrderViewModelNullErrorMessage {
             get {
-                return ((string)(this["ConfirmPurchaseViewModelNullErrorMessage"]));
+                return ((string)(this["ConfirmOrderViewModelNullErrorMessage"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0}/Home/ConfirmPurchase?")]
+        [global::System.Configuration.DefaultSettingValueAttribute("{0}/Home/ConfirmOrder?")]
         public string CallbackUri {
             get {
                 return ((string)(this["CallbackUri"]));
@@ -316,19 +316,19 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Failed to update purchase status of transaction with id \'{0}\'.")]
-        public string FailedToUpdatePurchaseStatusErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to update order status of transaction with id \'{0}\'.")]
+        public string FailedToUpdateOrderStatusErrorMessage {
             get {
-                return ((string)(this["FailedToUpdatePurchaseStatusErrorMessage"]));
+                return ((string)(this["FailedToUpdateOrderStatusErrorMessage"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve purchase \'{0}\' associated to transaction with id \'{1}\'.")]
-        public string FailedToRetrievePurchaseErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve order \'{0}\' associated to transaction with id \'{1}\'.")]
+        public string FailedToRetrieveOrderErrorMessage {
             get {
-                return ((string)(this["FailedToRetrievePurchaseErrorMessage"]));
+                return ((string)(this["FailedToRetrieveOrderErrorMessage"]));
             }
         }
         
@@ -464,10 +464,10 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve purchase with id \'{0}\' associated to customer with id \'{1}\'.")]
-        public string FailedToFindPurchaseErrorMessageErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("Failed to retrieve order with id \'{0}\' associated to customer with id \'{1}\'.")]
+        public string FailedToFindOrderErrorMessageErrorMessage {
             get {
-                return ((string)(this["FailedToFindPurchaseErrorMessageErrorMessage"]));
+                return ((string)(this["FailedToFindOrderErrorMessageErrorMessage"]));
             }
         }
         

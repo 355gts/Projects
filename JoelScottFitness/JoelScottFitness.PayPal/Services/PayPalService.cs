@@ -170,7 +170,7 @@ namespace JoelScottFitness.PayPal.Services
         }
 
 
-        public PaymentInitiationResult InitiatePayPalPayment(ConfirmPurchaseViewModel confirmPurchaseViewModel, string baseUri)
+        public PaymentInitiationResult InitiatePayPalPayment(ConfirmOrderViewModel confirmOrderViewModel, string baseUri)
         {
             try
             {
@@ -179,9 +179,9 @@ namespace JoelScottFitness.PayPal.Services
                 var transactionId = Convert.ToString((new Random()).Next(100000));
 
                 // add items to transaction
-                AddItems(confirmPurchaseViewModel.Basket.Items.Select(s => s.Value).ToList());
+                AddItems(confirmOrderViewModel.Basket.Items.Select(s => s.Value).ToList());
 
-                SetBillingAddress(confirmPurchaseViewModel.CustomerDetails.BillingAddress);
+                SetBillingAddress(confirmOrderViewModel.CustomerDetails.BillingAddress);
 
                 var createdPayment = this.CreatePayment(apiContext, transactionId, baseUri + "guid=" + transactionId);
 
@@ -194,7 +194,7 @@ namespace JoelScottFitness.PayPal.Services
                     return new PaymentInitiationResult()
                     {
                         Success = false,
-                        ErrorMessage = string.Format(Settings.Default.PayPalFailedToCreatePaymentForTransactionErrorMessage, transactionId, confirmPurchaseViewModel.CustomerDetails.EmailAddress),
+                        ErrorMessage = string.Format(Settings.Default.PayPalFailedToCreatePaymentForTransactionErrorMessage, transactionId, confirmOrderViewModel.CustomerDetails.EmailAddress),
                     };
                 }
 
@@ -208,7 +208,7 @@ namespace JoelScottFitness.PayPal.Services
             }
             catch (Exception ex)
             {
-                string erroMessage = string.Format(Settings.Default.PayPalExceptionOccuredCreatingPaymentErrorMessage, confirmPurchaseViewModel.CustomerDetails.EmailAddress, ex.Message);
+                string erroMessage = string.Format(Settings.Default.PayPalExceptionOccuredCreatingPaymentErrorMessage, confirmOrderViewModel.CustomerDetails.EmailAddress, ex.Message);
                 logger.Warn(erroMessage);
 
                 return new PaymentInitiationResult()

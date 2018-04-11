@@ -33,10 +33,6 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = true)]
         public ItemCategory ItemCategory { get; set; }
 
-        [Required]
-        [DataMember(IsRequired = true)]
-        public bool RequiresAction { get; set; }
-
         [DataMember(IsRequired = false)]
         public string TransactionId { get; set; }
 

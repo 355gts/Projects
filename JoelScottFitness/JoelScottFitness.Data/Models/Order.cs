@@ -31,7 +31,7 @@ namespace JoelScottFitness.Data.Models
         public Customer Customer { get; set; }
 
         [Required]
-        public PurchaseStatus Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         public ICollection<OrderItem> Items { get; set; }
 
@@ -39,5 +39,8 @@ namespace JoelScottFitness.Data.Models
         public long? QuestionnareId { get; set; }
 
         public Questionnaire Questionnaire { get; set; }
+
+        [Required]
+        public bool RequiresAction { get; set; }
     }
 }

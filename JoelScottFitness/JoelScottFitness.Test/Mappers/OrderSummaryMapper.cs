@@ -10,7 +10,7 @@ using Map = JoelScottFitness.Services.Mappers;
 namespace JoelScottFitness.Test.Mappers
 {
     [TestClass]
-    public class PurchaseSummaryMapper
+    public class OrderSummaryMapper
     {
         [TestClass]
         public class RepoToWeb
@@ -27,16 +27,15 @@ namespace JoelScottFitness.Test.Mappers
                     PurchaseDate = DateTime.UtcNow,
                     TransactionId = "SalesReference",
                     TotalAmount = 1234,
+                    RequiresAction = true,
                     Items = new List<OrderItem>()
                     {
                         new OrderItem()
                         {
                             ItemId = 456,
                             Quantity= 23,
-                            //Description = "Description",
                             ItemCategory = ItemCategory.Plan,
                             Price = 2.34,
-                            //Name = "Name",
                         }
                     },
                     Customer = new Customer()
@@ -70,16 +69,15 @@ namespace JoelScottFitness.Test.Mappers
                     PurchaseDate = DateTime.UtcNow,
                     TransactionId = "TransactionId",
                     TotalAmount = 1234,
+                    RequiresAction = true,
                     Items = new List<OrderItem>()
                     {
                         new OrderItem()
                         {
                             ItemId = 456,
                             Quantity = 23,
-                            //Description = "Description",
                             ItemCategory = ItemCategory.Plan,
                             Price = 2.34,
-                            //Name = "Name",
                         }
                     },
                     Customer = new Customer()
@@ -114,6 +112,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.PurchaseDate, webObject.PurchaseDate);
                 Assert.AreEqual(repoObject.TransactionId, webObject.TransactionId);
                 Assert.AreEqual(repoObject.TotalAmount, webObject.TotalAmount);
+                Assert.AreEqual(repoObject.RequiresAction, webObject.RequiresAction);
                 Assert.IsTrue(webObject.QuestionnaireComplete);
 
                 Assert.IsNotNull(webObject.Items);

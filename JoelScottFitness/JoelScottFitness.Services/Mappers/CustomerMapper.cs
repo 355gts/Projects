@@ -8,7 +8,7 @@ namespace JoelScottFitness.Services.Mappers
     sealed class CustomerMapper : ITypeMapper<CustomerViewModel, Customer>, ITypeMapper<Customer, CustomerViewModel>
     {
         AddressMapper addressMapper = new AddressMapper();
-        OrderMapper purchaseMapper = new OrderMapper();
+        OrderMapper orderMapper = new OrderMapper();
         UserMapper userMapper = new UserMapper();
 
         public Customer Map(CustomerViewModel fromObject, Customer toObject = null)
@@ -47,12 +47,12 @@ namespace JoelScottFitness.Services.Mappers
             if (fromObject.User != null)
                 customer.User = userMapper.Map(fromObject.User);
 
-            if (fromObject.PurchaseHistory != null)
+            if (fromObject.OrderHistory != null)
             {
-                var purchases = new List<PurchaseHistoryViewModel>();
-                foreach (var item in fromObject.PurchaseHistory)
+                var purchases = new List<OrderHistoryViewModel>();
+                foreach (var item in fromObject.OrderHistory)
                 {
-                    purchases.Add(purchaseMapper.Map(item));
+                    purchases.Add(orderMapper.Map(item));
                 }
 
                 customer.PurchaseHistory = purchases;

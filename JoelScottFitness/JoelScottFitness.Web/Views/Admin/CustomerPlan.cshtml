@@ -1,4 +1,4 @@
-﻿@model JoelScottFitness.Common.Models.PurchaseHistoryViewModel
+﻿@model JoelScottFitness.Common.Models.OrderHistoryViewModel
 
 <div class="container" style="font-family:'Bebas-Neue';font-size:12pt">
     <div class="row">
@@ -193,7 +193,7 @@
         @if (Model.Items == null || !Model.Items.Any())
         {
                 <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
-                    NO PLANS ASSOCIATED TO CUSTOMER
+                    No ITEMS ASSOCIATED TO CUSTOMER
                 </div>
         }
         else
@@ -216,21 +216,16 @@
                 <th>
                     <label>Item Type</label>
                 </th>
-                <th>
-                    <label>Plan Uploaded</label>
-                </th>
-                <th colspan="2"><label>Plans</label>
-                </th>
             </tr>
         
             @foreach (var item in Model.Items)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => item.Item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.Item.Description)
                     </td>
                     <td>
                         £@Html.DisplayFor(modelItem => item.Price)
@@ -241,21 +236,64 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ItemCategory)
                     </td>
-                    <td>
-                        @if (item.RequiresAction)
-                        {
-                            <i class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
-                        }
-                        else
-                        {
-                            <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
-                        }
-                    </td>
-                    
-                        @if (!string.IsNullOrEmpty(item.PlanPath))
+                </tr>
+            }
+</table>
+        }
+</div>
+    <div class="col-md-12">
+        <label style="font-size:14pt">Plans:</label>
+    </div>
+    <div class="col-md-12">
+        @if (Model.Plans == null || !Model.Plans.Any())
+        {
+            <div class="more-link-wrapper" style="padding-top:120px;padding-bottom:120px">
+                NO PLANS ASSOCIATED TO CUSTOMER
+            </div>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+
+                    <th>
+                        <label>Name</label>
+                    </th>
+                    <th>
+                        <label>Description</label>
+                    </th>
+                    <th>
+                        <label>Plan Uploaded</label>
+                    </th>
+                    <th colspan="2">
+                        <label>Plans</label>
+                    </th>
+                </tr>
+
+                @foreach (var plan in Model.Plans)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => plan.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => plan.Description)
+                        </td>
+                        <td>
+                            @if (plan.RequiresAction)
+                            {
+                                <i class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
+                            }
+                        </td>
+
+                        @if (!string.IsNullOrEmpty(plan.PlanPath))
                         {
                             <td colspan="2">
-                                <a href="@item.PlanPath" target="_blank">Plan</a>
+                                <a href="@plan.PlanPath" target="_blank">Plan</a>
                             </td>
                         }
                         else
@@ -264,26 +302,26 @@
                             {
                                 <td>
                                     @Html.AntiForgeryToken()
-                                    @Html.Hidden("PurchaseId", Model.Id, new { @style = "display:none" })
-                                    @Html.Hidden("PurchasedItemId", item.Id, new { @style = "display:none" })
+                                    @Html.Hidden("OrderId", Model.Id, new { @style = "display:none" })
+                                    @Html.Hidden("PlanId", plan.Id, new { @style = "display:none" })
                                     @Html.Hidden("CustomerId", Model.CustomerId, new { @style = "display:none" })
-                                    @Html.Hidden("Name", item.Name, new { @style = "display:none" })
-                                    @Html.Hidden("Description", item.Description, new { @style = "display:none" })
+                                    @Html.Hidden("Name", plan.Name, new { @style = "display:none" })
+                                    @Html.Hidden("Description", plan.Description, new { @style = "display:none" })
                                     <input type="file" id="postedFile" name="PostedFile" />
                                 </td>
                                 <td>
                                     <input type="submit" value="Upload" class="btn btn-default" />
                                 </td>
                             }
-                        }                        
-                    
-                </tr>
-            }
+                        }
+
+                    </tr>
+                }
 
 
-</table>
+            </table>
         }
-</div>
+    </div>
     <div class="row">
         <div class="form-group">
             <div class="col-md-6">

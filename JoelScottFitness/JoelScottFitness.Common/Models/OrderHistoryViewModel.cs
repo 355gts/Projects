@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace JoelScottFitness.Common.Models
 {
     [DataContract]
-    public class PurchaseHistoryViewModel : BaseViewModel
+    public class OrderHistoryViewModel : BaseViewModel
     {
         [Required]
         [DataMember(IsRequired = true)]
@@ -28,12 +28,16 @@ namespace JoelScottFitness.Common.Models
         [DataMember(IsRequired = true)]
         public string TransactionId { get; set; }
 
+        [Required]
+        [DataMember(IsRequired = true)]
+        public bool RequiresAction { get; set; }
+
         [DataMember(IsRequired = false)]
         public long? DiscountCodeId { get; set; }
 
         [DataMember(IsRequired = false)]
         public DiscountCodeViewModel DiscountCode { get; set; }
-        
+
         [Required]
         [DataMember(IsRequired = true)]
         public Guid CustomerId { get; set; }
@@ -49,5 +53,8 @@ namespace JoelScottFitness.Common.Models
 
         [DataMember(IsRequired = true)]
         public ICollection<OrderItemViewModel> Items { get; set; }
+
+        [DataMember(IsRequired = false)]
+        public IEnumerable<CustomerPlanViewModel> Plans { get; set; }
     }
 }

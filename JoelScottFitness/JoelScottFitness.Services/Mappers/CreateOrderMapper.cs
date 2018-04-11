@@ -8,33 +8,33 @@ using System.Linq;
 
 namespace JoelScottFitness.Services.Mappers
 {
-    sealed class CreateOrderMapper : ITypeMapper<ConfirmPurchaseViewModel, Order>
+    sealed class CreateOrderMapper : ITypeMapper<ConfirmOrderViewModel, Order>
     {
-        AddOrderItemMapper createPurchasedItemMapper = new AddOrderItemMapper();
+        AddOrderItemMapper createOrderItemMapper = new AddOrderItemMapper();
 
-        public Order Map(ConfirmPurchaseViewModel fromObject, Order toObject = null)
+        public Order Map(ConfirmOrderViewModel fromObject, Order toObject = null)
         {
-            var purchase = toObject ?? new Order();
+            var order = toObject ?? new Order();
 
-            purchase.CustomerId = fromObject.CustomerDetails.Id;
-            purchase.DiscountCodeId = fromObject.Basket?.DiscountCode?.Id;
-            purchase.PayPalReference = fromObject.PayPalReference;
-            purchase.PurchaseDate = DateTime.UtcNow;
-            purchase.Status = PurchaseStatus.Complete;
-            purchase.TotalAmount = fromObject.Basket.Total;
-            purchase.TransactionId = fromObject.TransactionId;
+            order.CustomerId = fromObject.CustomerDetails.Id;
+            order.DiscountCodeId = fromObject.Basket?.DiscountCode?.Id;
+            order.PayPalReference = fromObject.PayPalReference;
+            order.PurchaseDate = DateTime.UtcNow;
+            order.Status = OrderStatus.Complete;
+            order.TotalAmount = fromObject.Basket.Total;
+            order.TransactionId = fromObject.TransactionId;
 
             if (fromObject.Basket != null && fromObject.Basket.Items != null && fromObject.Basket.Items.Any())
             {
                 var items = new List<OrderItem>();
                 foreach (var item in fromObject.Basket.Items.Select(s => s.Value).ToList())
                 {
-                    items.Add(createPurchasedItemMapper.Map(item));
+                    items.Add(createOrderItemMapper.Map(item));
                 }
-                purchase.Items = items;
+                order.Items = items;
             }
 
-            return purchase;
+            return order;
         }
     }
 }

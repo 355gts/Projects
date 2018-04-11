@@ -28,16 +28,15 @@ namespace JoelScottFitness.Test.Mappers
                     TransactionId = "SalesReference",
                     TotalAmount = 1234,
                     QuestionnareId = 333,
+                    RequiresAction = true,
                     Items = new List<OrderItem>()
                     {
                         new OrderItem()
                         {
                             ItemId = 456,
                             Quantity= 23,
-                            //Description = "Description",
                             ItemCategory = ItemCategory.Plan,
                             Price = 2.34,
-                            //Name = "Name",
                         }
                     }
                 };
@@ -62,21 +61,20 @@ namespace JoelScottFitness.Test.Mappers
                     TransactionId = "TransactionId",
                     TotalAmount = 1234,
                     QuestionnareId = 333,
+                    RequiresAction = true,
                     Items = new List<OrderItem>()
                     {
                         new OrderItem()
                         {
                             ItemId = 456,
                             Quantity = 23,
-                            //Description = "Description",
                             ItemCategory = ItemCategory.Plan,
                             Price = 2.34,
-                            //Name = "Name",
                         }
                     }
                 };
 
-                PurchaseHistoryViewModel toObject = new PurchaseHistoryViewModel();
+                OrderHistoryViewModel toObject = new OrderHistoryViewModel();
 
                 var mapper = new Map.OrderMapper();
 
@@ -85,7 +83,7 @@ namespace JoelScottFitness.Test.Mappers
                 AssertAreEqual(repoObject, toObject);
             }
 
-            private void AssertAreEqual(Order repoObject, PurchaseHistoryViewModel webObject)
+            private void AssertAreEqual(Order repoObject, OrderHistoryViewModel webObject)
             {
                 Assert.AreEqual(repoObject.CustomerId, webObject.CustomerId);
                 Assert.AreEqual(repoObject.DiscountCodeId, webObject.DiscountCodeId);
@@ -95,6 +93,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.TransactionId, webObject.TransactionId);
                 Assert.AreEqual(repoObject.TotalAmount, webObject.TotalAmount);
                 Assert.AreEqual(repoObject.QuestionnareId, webObject.QuestionnaireId);
+                Assert.AreEqual(repoObject.RequiresAction, webObject.RequiresAction);
 
                 Assert.IsNotNull(webObject.Items);
 

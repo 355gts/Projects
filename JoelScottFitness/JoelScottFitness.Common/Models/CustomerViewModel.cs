@@ -47,6 +47,6 @@ namespace JoelScottFitness.Common.Models
         public UserViewModel User { get; set; }
 
         [DataMember(IsRequired = false)]
-        public ICollection<PurchaseHistoryViewModel> PurchaseHistory { get; set; }
+        public ICollection<OrderHistoryViewModel> PurchaseHistory { get; set; }
     }
 }

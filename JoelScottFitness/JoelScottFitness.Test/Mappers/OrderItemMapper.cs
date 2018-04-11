@@ -22,7 +22,6 @@ namespace JoelScottFitness.Test.Mappers
                 Price = 12.34,
                 ItemDiscounted = true,
                 OrderId = 123,
-                RequiresAction = true,
                 Total = 12.34,
             };
 
@@ -57,7 +56,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.OrderId, webObject.OrderId);
                 Assert.AreEqual(repoObject.Price, webObject.Price);
                 Assert.AreEqual(repoObject.Quantity, webObject.Quantity);
-                Assert.AreEqual(repoObject.RequiresAction, webObject.RequiresAction);
                 Assert.AreEqual(repoObject.Total, webObject.ItemTotal);
                 Assert.IsNotNull(webObject.Item);
             }
@@ -73,7 +71,6 @@ namespace JoelScottFitness.Test.Mappers
                 ItemCategory = ItemCategory.Plan,
                 Price = 12.34,
                 Quantity = 2,
-                RequiresAction = true,
                 OrderId = 123,
             };
 
@@ -104,8 +101,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(webObject.Id, repoObject.Id);
                 Assert.AreEqual(webObject.ItemId, repoObject.ItemId);
                 Assert.AreEqual(webObject.Quantity, repoObject.Quantity);
-                Assert.AreEqual(webObject.RequiresAction, repoObject.RequiresAction);
-                Assert.AreEqual(webObject.ItemTotal, webObject.Total);
+                Assert.AreEqual(webObject.ItemTotal, webObject.ItemTotal);
             }
         }
     }

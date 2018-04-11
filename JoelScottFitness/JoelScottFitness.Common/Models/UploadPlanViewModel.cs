@@ -8,10 +8,10 @@ namespace JoelScottFitness.Common.Models
     public class UploadPlanViewModel
     {
         [DataMember(IsRequired = true)]
-        public long PurchaseId { get; set; }
+        public long PlanId { get; set; }
 
         [DataMember(IsRequired = true)]
-        public long PurchasedItemId { get; set; }
+        public long OrderId { get; set; }
 
         [DataMember(IsRequired = true)]
         public Guid CustomerId { get; set; }

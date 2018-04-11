@@ -19,7 +19,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
     public partial class HomeController
     {
         [TestClass]
-        public class ConfirmPurchase
+        public class ConfirmOrder
         {
             Mock<IJSFitnessService> jsfServiceMock;
             Mock<IYouTubeClient> youtubeClientMock;
@@ -114,10 +114,10 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmPurchase_CustomerIdNull_ReturnRedirectToRouteResult()
+            public void ConfirmOrder_CustomerIdNull_ReturnRedirectToRouteResult()
             {
                 // test
-                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
+                var result = controller.ConfirmOrder() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasket(), Times.Never);
@@ -130,14 +130,14 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmPurchase_GetBasketFails_ReturnsRedirectToRouteResult()
+            public void ConfirmOrder_GetBasketFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 basketHelperMock.Setup(b => b.GetBasket())
                                 .Returns((BasketViewModel)null);
 
                 // test
-                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
+                var result = controller.ConfirmOrder() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
@@ -150,14 +150,14 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmPurchase_GetCustomerDetailsAsyncFails_ReturnsRedirectToRouteResult()
+            public void ConfirmOrder_GetCustomerDetailsAsyncFails_ReturnsRedirectToRouteResult()
             {
                 // setup
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
                               .ReturnsAsync((CustomerViewModel)null);
 
                 // test
-                var result = controller.ConfirmPurchase() as RedirectToRouteResult;
+                var result = controller.ConfirmOrder() as RedirectToRouteResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
@@ -170,10 +170,10 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmPurchase_ApplyDiscountCode_ReturnsView()
+            public void ConfirmOrder_ApplyDiscountCode_ReturnsView()
             {
                 // test
-                var result = controller.ConfirmPurchase() as ViewResult;
+                var result = controller.ConfirmOrder() as ViewResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
@@ -181,7 +181,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(result);
 
-                var resultModel = (ConfirmPurchaseViewModel)result.Model;
+                var resultModel = (ConfirmOrderViewModel)result.Model;
 
                 // assert customer details
                 Assert.IsNotNull(resultModel.CustomerDetails);
@@ -202,13 +202,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmPurchase_NoDiscountCode_ReturnsView()
+            public void ConfirmOrder_NoDiscountCode_ReturnsView()
             {
                 // setup
                 sessionMock[SessionKeys.DiscountCode] = null;
 
                 // test
-                var result = controller.ConfirmPurchase() as ViewResult;
+                var result = controller.ConfirmOrder() as ViewResult;
 
                 // verify
                 basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
@@ -216,7 +216,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(result);
 
-                var resultModel = (ConfirmPurchaseViewModel)result.Model;
+                var resultModel = (ConfirmOrderViewModel)result.Model;
 
                 // assert customer details
                 Assert.IsNotNull(resultModel.CustomerDetails);

@@ -90,9 +90,9 @@
 //                        Items = basketItems,
 //                    }
 //                        CustomerDetails = new CustomerViewModel()
-//                    {
-//                        EmailAddress = emailAddress,
-//                    },
+//                        {
+//                            EmailAddress = emailAddress,
+//                        },
 //                };
 
 //                plan1 = new PlanViewModel() { Id = planId1 };

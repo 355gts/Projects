@@ -67,7 +67,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<string>()))
                               .ReturnsAsync(customerViewModel);
-                jsfServiceMock.Setup(s => s.GetPurchaseSummaryAsync(It.IsAny<Guid>()))
+                jsfServiceMock.Setup(s => s.GetOrderSummaryAsync(It.IsAny<Guid>()))
                               .ReturnsAsync(new List<OrderSummaryViewModel>() { new OrderSummaryViewModel(), new OrderSummaryViewModel() });
 
                 controller = new CON.HomeController(jsfServiceMock.Object,
@@ -90,7 +90,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.GetPurchaseSummaryAsync(It.IsAny<Guid>()), Times.Never);
+                jsfServiceMock.Verify(s => s.GetOrderSummaryAsync(It.IsAny<Guid>()), Times.Never);
 
                 // verify the result is correct
                 Assert.IsNotNull(result);
@@ -103,7 +103,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             public void MyAccount_GetPurchaseSummaryAsync_ReturnsNull()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.GetPurchaseSummaryAsync(It.IsAny<Guid>()))
+                jsfServiceMock.Setup(s => s.GetOrderSummaryAsync(It.IsAny<Guid>()))
                               .ReturnsAsync((IEnumerable<OrderSummaryViewModel>)null);
 
                 // test
@@ -111,7 +111,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.GetPurchaseSummaryAsync(It.IsAny<Guid>()), Times.Once);
+                jsfServiceMock.Verify(s => s.GetOrderSummaryAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
                 Assert.IsNull(result.Model);
@@ -125,7 +125,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<string>()), Times.Once);
-                jsfServiceMock.Verify(s => s.GetPurchaseSummaryAsync(It.IsAny<Guid>()), Times.Once);
+                jsfServiceMock.Verify(s => s.GetOrderSummaryAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
                 var purchaseSummariesViewModel = (IEnumerable<OrderSummaryViewModel>)result.Model;

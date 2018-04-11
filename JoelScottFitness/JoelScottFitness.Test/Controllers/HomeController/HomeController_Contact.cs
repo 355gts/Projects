@@ -34,7 +34,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             string requestUrl = "requesturl";
             string requestScheme = "https";
             string emailAddress = "emailAddress";
-            PurchaseHistoryViewModel purchaseHistoryViewModel;
+            OrderHistoryViewModel purchaseHistoryViewModel;
             RouteData routeData = new RouteData();
             Mock<IView> viewMock;
             Mock<IViewEngine> engineMock;

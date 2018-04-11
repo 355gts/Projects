@@ -326,18 +326,18 @@ namespace JoelScottFitness.Web.Controllers
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> CustomerPlans()
         {
-            var purchases = await jsfService.GetPurchasesAsync();
+            var orders = await jsfService.GetOrdersAsync();
 
-            return View(purchases);
+            return View(orders);
         }
 
         [HttpGet]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> CustomerPlan(long purchaseId)
+        public async Task<ActionResult> CustomerPlan(long orderId)
         {
-            var purchase = await jsfService.GetPurchaseAsync(purchaseId);
+            var order = await jsfService.GetOrderAsync(orderId);
 
-            return View(purchase);
+            return View(order);
         }
 
         [HttpPost]
@@ -424,38 +424,38 @@ namespace JoelScottFitness.Web.Controllers
             var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
-            if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PurchasedItemId, uploadResult.UploadPath))
+            if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadResult.UploadPath))
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
-            var purchaseViewModel = await jsfService.GetPurchaseAsync(uploadPlanViewModel.PurchaseId);
+            var purchaseViewModel = await jsfService.GetOrderAsync(uploadPlanViewModel.OrderId);
             if (purchaseViewModel == null)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
-            // TODO refactor
-            // if none of the plans require action then they are all ready
-            //if (purchaseViewModel.Items != null && purchaseViewModel.Items.Any() && !purchaseViewModel.Items.Any(i => i.RequiresAction))
-            //{
-            //    var planPaths = purchaseViewModel.Items.Select(i => fileHelper.MapPath(i.PlanPath)).ToList();
+            if (purchaseViewModel.Plans != null && purchaseViewModel.Plans.Any() && !purchaseViewModel.Plans.Any(i => i.RequiresAction))
+            {
+                var orderCompleteResult = await jsfService.MarkOrderCompleteAsync(uploadPlanViewModel.OrderId);
 
-            //    // send confirmation email
-            //    if (!await SendOrderCompleteEmail(purchaseViewModel, planPaths))
-            //    {
-            //        ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.PurchaseId, uploadPlanViewModel.CustomerId));
-            //        return View(uploadPlanViewModel);
-            //    }
-            //}
+                var planPaths = purchaseViewModel.Plans.Select(i => fileHelper.MapPath(i.PlanPath)).ToList();
 
-            return RedirectToAction("CustomerPlan", "Admin", new { purchaseId = uploadPlanViewModel.PurchaseId });
+                // send confirmation email
+                if (!await SendOrderCompleteEmail(purchaseViewModel, planPaths))
+                {
+                    ModelState.AddModelError(string.Empty, string.Format(Settings.Default.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                    return View(uploadPlanViewModel);
+                }
+            }
+
+            return RedirectToAction("CustomerPlan", "Admin", new { orderId = uploadPlanViewModel.OrderId });
         }
 
         [HttpGet]
@@ -543,11 +543,11 @@ namespace JoelScottFitness.Web.Controllers
             return uploadResult;
         }
 
-        private async Task<bool> SendOrderCompleteEmail(PurchaseHistoryViewModel purchaseViewModel, IEnumerable<string> planPaths)
+        private async Task<bool> SendOrderCompleteEmail(OrderHistoryViewModel orderViewModel, IEnumerable<string> planPaths)
         {
-            var email = this.RenderRazorViewToString("_OrderComplete", purchaseViewModel, RootUri);
+            var email = this.RenderRazorViewToString("_OrderComplete", orderViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(string.Format(Settings.Default.PurchaseComplete, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress }, planPaths);
+            return await jsfService.SendEmailAsync(string.Format(Settings.Default.OrderComplete, orderViewModel.TransactionId), email, new List<string>() { orderViewModel.Customer.EmailAddress }, planPaths);
         }
 
         private async Task<bool> SendMessageResponseEmail(MessageViewModel messageViewModel)

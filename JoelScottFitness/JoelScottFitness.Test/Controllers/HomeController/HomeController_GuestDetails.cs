@@ -9,7 +9,6 @@ using JoelScottFitness.YouTube.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Linq;
 using System.Web.Mvc;
 using CON = JoelScottFitness.Web.Controllers;
 
@@ -118,7 +117,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(customerId, result.RouteValues["customerId"]);
-                Assert.AreEqual("ConfirmPurchase", result.RouteValues["action"]);
+                Assert.AreEqual("ConfirmOrder", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
             }
 
@@ -134,7 +133,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual(customerId, result.RouteValues["customerId"]);
-                Assert.AreEqual("ConfirmPurchase", result.RouteValues["action"]);
+                Assert.AreEqual("ConfirmOrder", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
             }
         }

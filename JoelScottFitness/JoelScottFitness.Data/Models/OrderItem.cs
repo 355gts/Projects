@@ -32,8 +32,5 @@ namespace JoelScottFitness.Data.Models
         public long OrderId { get; set; }
 
         public Order Order { get; set; }
-
-        [Required]
-        public bool RequiresAction { get; set; }
     }
 }

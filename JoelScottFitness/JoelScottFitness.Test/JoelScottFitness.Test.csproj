@@ -141,7 +141,7 @@
     <Compile Include="Mappers\PlanOptionMapper.cs" />
     <Compile Include="Mappers\OrderItemMapper.cs" />
     <Compile Include="Mappers\OrderMapper.cs" />
-    <Compile Include="Mappers\PurchaseSummaryMapper.cs" />
+    <Compile Include="Mappers\OrderSummaryMapper.cs" />
     <Compile Include="Mappers\QuestionnaireMapper.cs" />
     <Compile Include="Mappers\SectionImageConfigurationMapper.cs" />
     <Compile Include="Mappers\SelectedPlanOptionMapper.cs" />

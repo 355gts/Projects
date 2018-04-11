@@ -433,7 +433,7 @@
     <Content Include="Views\Home\Basket.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Home\GuestDetails.cshtml" />
-    <Content Include="Views\Home\ConfirmPurchase.cshtml" />
+    <Content Include="Views\Home\ConfirmOrder.cshtml" />
     <Content Include="Views\Home\ExistingCustomerDetails.cshtml" />
     <Content Include="Views\Home\PaymentConfirmation.cshtml" />
     <Content Include="Views\Home\CustomerQuestionnaire.cshtml" />

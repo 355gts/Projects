@@ -55,7 +55,7 @@
     <Compile Include="Enumerations\CreditCardType.cs" />
     <Compile Include="Enumerations\Gender.cs" />
     <Compile Include="Enumerations\ItemCategory.cs" />
-    <Compile Include="Enumerations\PurchaseStatus.cs" />
+    <Compile Include="Enumerations\OrderStatus.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="IO\FileHelper.cs" />
     <Compile Include="IO\FileUtility.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Models\KaleidoscopeViewModel.cs" />
     <Compile Include="Models\OrderConfirmationViewModel.cs" />
     <Compile Include="Models\PaymentConfirmationViewModel.cs" />
-    <Compile Include="Models\ConfirmPurchaseViewModel.cs" />
+    <Compile Include="Models\ConfirmOrderViewModel.cs" />
     <Compile Include="Models\CreateCustomerViewModel.cs" />
     <Compile Include="Models\CreditCardViewModel.cs" />
     <Compile Include="Models\CustomerViewModel.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Models\PlanOptionViewModel.cs" />
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\OrderItemViewModel.cs" />
-    <Compile Include="Models\PurchaseHistoryViewModel.cs" />
+    <Compile Include="Models\OrderHistoryViewModel.cs" />
     <Compile Include="Models\OrderSummaryViewModel.cs" />
     <Compile Include="Models\QuestionnaireViewModel.cs" />
     <Compile Include="Models\CallbackViewModel.cs" />

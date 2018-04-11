@@ -8,39 +8,35 @@ namespace JoelScottFitness.Services.Mappers
 {
     sealed class OrderSummaryMapper : ITypeMapper<Order, OrderSummaryViewModel>
     {
-        OrderItemMapper purchasedItemMapper = new OrderItemMapper();
+        OrderItemMapper orderItemMapper = new OrderItemMapper();
 
         public OrderSummaryViewModel Map(Order fromObject, OrderSummaryViewModel toObject = null)
         {
-            var purchase = toObject ?? new OrderSummaryViewModel();
+            var order = toObject ?? new OrderSummaryViewModel();
 
-            purchase.CustomerId = fromObject.CustomerId.Value;
-            purchase.CustomerName = $"{fromObject.Customer?.Firstname} {fromObject.Customer?.Surname}";
-            purchase.DiscountCodeId = fromObject.DiscountCodeId;
-            purchase.DiscountCode = fromObject.DiscountCode?.Code;
-            purchase.Id = fromObject.Id;
-            purchase.PayPalReference = fromObject.PayPalReference;
-            purchase.PurchaseDate = fromObject.PurchaseDate;
-            purchase.TransactionId = fromObject.TransactionId;
-            purchase.TotalAmount = fromObject.TotalAmount;
-            purchase.QuestionnaireComplete = fromObject.Questionnaire != null;
+            order.CustomerId = fromObject.CustomerId.Value;
+            order.CustomerName = $"{fromObject.Customer?.Firstname} {fromObject.Customer?.Surname}";
+            order.DiscountCodeId = fromObject.DiscountCodeId;
+            order.DiscountCode = fromObject.DiscountCode?.Code;
+            order.Id = fromObject.Id;
+            order.PayPalReference = fromObject.PayPalReference;
+            order.PurchaseDate = fromObject.PurchaseDate;
+            order.TransactionId = fromObject.TransactionId;
+            order.TotalAmount = fromObject.TotalAmount;
+            order.QuestionnaireComplete = fromObject.Questionnaire != null;
+            order.RequiresAction = fromObject.RequiresAction;
 
             if (fromObject.Items != null && fromObject.Items.Any())
             {
                 var items = new List<OrderItemViewModel>();
                 foreach (var item in fromObject.Items)
                 {
-                    items.Add(purchasedItemMapper.Map(item));
+                    items.Add(orderItemMapper.Map(item));
                 }
-                purchase.Items = items;
+                order.Items = items;
             }
 
-            if (fromObject.Items != null && fromObject.Items.Any())
-            {
-                purchase.RequiresAction = purchase.Items.Any(p => p.RequiresAction);
-            }
-
-            return purchase;
+            return order;
         }
     }
 }

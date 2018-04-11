@@ -2,10 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.Web.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="PurchaseConfirmation" Type="System.String" Scope="Application">
+    <Setting Name="OrderConfirmation" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Confirmation</Value>
     </Setting>
-    <Setting Name="PurchaseComplete" Type="System.String" Scope="Application">
+    <Setting Name="OrderComplete" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Complete</Value>
     </Setting>
     <Setting Name="ConfirmAccount" Type="System.String" Scope="Application">
@@ -83,11 +83,11 @@
     <Setting Name="FailedToSaveItemsForPurchase" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to save items pending purchase for customer '{0}'.</Value>
     </Setting>
-    <Setting Name="ConfirmPurchaseViewModelNullErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">The confirmPurchaseViewModel was null</Value>
+    <Setting Name="ConfirmOrderViewModelNullErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">The confirmOrderViewModel was null</Value>
     </Setting>
     <Setting Name="CallbackUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0}/Home/ConfirmPurchase?</Value>
+      <Value Profile="(Default)">{0}/Home/ConfirmOrder?</Value>
     </Setting>
     <Setting Name="PaymentCompletionParameterNullErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Payment completion parameter '{0}' is null or empty, cannot complete transaction.</Value>
@@ -98,11 +98,11 @@
     <Setting Name="FailedToCompletePayPalPaymentErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to complete paypal payment, error details '{0}'.</Value>
     </Setting>
-    <Setting Name="FailedToUpdatePurchaseStatusErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to update purchase status of transaction with id '{0}'.</Value>
+    <Setting Name="FailedToUpdateOrderStatusErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to update order status of transaction with id '{0}'.</Value>
     </Setting>
-    <Setting Name="FailedToRetrievePurchaseErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve purchase '{0}' associated to transaction with id '{1}'.</Value>
+    <Setting Name="FailedToRetrieveOrderErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to retrieve order '{0}' associated to transaction with id '{1}'.</Value>
     </Setting>
     <Setting Name="FailedToSendOrderConfirmationEmailErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to send order confirmation email for transaction with id '{0}'.</Value>
@@ -146,8 +146,8 @@
     <Setting Name="FailedToAssociatePlanToPurchaseErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to associate plan '{0}' to purchase with id '{1}' for customer with id '{2}'.</Value>
     </Setting>
-    <Setting Name="FailedToFindPurchaseErrorMessageErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to retrieve purchase with id '{0}' associated to customer with id '{1}'.</Value>
+    <Setting Name="FailedToFindOrderErrorMessageErrorMessage" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Failed to retrieve order with id '{0}' associated to customer with id '{1}'.</Value>
     </Setting>
     <Setting Name="FailedToSendOrderCompleteEmailErrorMessage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Failed to send order complete email for purchase with id '{0}' associated to customer with id '{1}'.</Value>

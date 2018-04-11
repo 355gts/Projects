@@ -40,7 +40,7 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<Order>(),
+                    OrderHistory = new List<Order>(),
                     User = new AuthUser()
                     {
                         Id = 123,
@@ -81,7 +81,7 @@ namespace JoelScottFitness.Test.Mappers
                         Id = 123,
                         Region = "Region",
                     },
-                    PurchaseHistory = new List<Order>(),
+                    OrderHistory = new List<Order>(),
                     User = new AuthUser()
                     {
                         Id = 123,
@@ -123,7 +123,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.User.Id, webObject.User.Id);
                 Assert.AreEqual(repoObject.User.UserName, webObject.User.UserName);
 
-                Assert.AreEqual(repoObject.PurchaseHistory.Count(), webObject.PurchaseHistory.Count());
+                Assert.AreEqual(repoObject.OrderHistory.Count(), webObject.PurchaseHistory.Count());
             }
         }
 
