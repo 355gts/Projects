@@ -105,6 +105,7 @@
     <Compile Include="Controllers\HomeController\HomeController_ApplyDiscountCode.cs" />
     <Compile Include="Controllers\HomeController\HomeController_BeforeAndAfter.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Blogs.cs" />
+    <Compile Include="Controllers\HomeController\HomeController_CheckoutWithPaypal.cs" />
     <Compile Include="Controllers\HomeController\HomeController_CompletePayment.cs" />
     <Compile Include="Controllers\HomeController\HomeController_ConfirmPurchase.cs" />
     <Compile Include="Controllers\HomeController\HomeController_Contact.cs" />

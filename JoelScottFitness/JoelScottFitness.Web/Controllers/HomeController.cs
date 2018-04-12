@@ -426,9 +426,6 @@ namespace JoelScottFitness.Web.Controllers
             // method used to initiate the paypal payment transaction
             string callbackUri = string.Format(Settings.Default.CallbackUri, RootUri);
 
-            if (customerId == null || customerId == Guid.Empty)
-                return RedirectToAction("Error", "Home", new { errorMessage = Resources.CustomerIdNullErrorMessage });
-
             var basket = basketHelper.GetBasket();
             if (basket == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.BasketItemsNullErrorMessage, customerId) });
@@ -495,12 +492,12 @@ namespace JoelScottFitness.Web.Controllers
             // re-add this to the session
             Session[SessionKeys.HallOfFame] = hallOfFameVisible;
 
-            var purchaseViewModel = await jsfService.GetOrderAsync(savePurchaseResult.Result);
-            if (purchaseViewModel == null)
+            var orderViewModel = await jsfService.GetOrderAsync(savePurchaseResult.Result);
+            if (orderViewModel == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToRetrieveOrderErrorMessage, savePurchaseResult.Result, paymentCompletionResult.TransactionId) });
 
             // send confirmation email
-            if (!await SendOrderConfirmationEmail(purchaseViewModel))
+            if (!await SendOrderConfirmationEmail(orderViewModel))
                 logger.Error(string.Format(Resources.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId));
 
             // redirect them to a normal Get method incase they refresh
