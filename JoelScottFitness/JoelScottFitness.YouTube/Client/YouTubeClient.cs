@@ -1,6 +1,7 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using JoelScottFitness.YouTube.Models;
+using log4net;
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +9,8 @@ namespace JoelScottFitness.YouTube.Client
 {
     public class YouTubeClient : IYouTubeClient
     {
+        private ILog logger = LogManager.GetLogger(nameof(YouTubeClient));
+
         private const string apiKey = "AIzaSyAgf8J3106URkifq8DpiE3M0iueH_KCHT0";
         private const string channelId = "UCubxF1muUJF5xH7yLe_KfFg";
 
@@ -39,10 +42,9 @@ namespace JoelScottFitness.YouTube.Client
                     });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                // TODO handle exception
-                string err = ex.Message;
+                logger.Warn($"Failed to retrieve youtube videos, error details '{ex.Message}'.");
             }
 
             return videos;

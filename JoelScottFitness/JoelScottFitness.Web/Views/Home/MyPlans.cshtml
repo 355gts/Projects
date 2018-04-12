@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 plan-row-container">
+        <div class="plan-row-container">
             @{
                 if (Model == null || !Model.Any())
                 {
@@ -54,20 +54,22 @@
                                     <div><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i></div>
                                 }
                             </div>
-                            <div class="plan-upload-icon-wrapper-container">
-                                @if (!string.IsNullOrEmpty(item.PlanPath))
-                                {
-                                    <div class="plan-upload-icon-wrapper">
-                                        <div class="plan-upload-icon">
-                                            <a onclick="showUploadModal(@item.Id);"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
+                            @if (!string.IsNullOrEmpty(item.PlanPath))
+                            {
+                                <div class="plan-upload-icon-wrapper-container">
+
+                                        <div class="plan-upload-icon-wrapper">
+                                            <div class="plan-upload-icon">
+                                                <a onclick="showUploadModal(@item.Id);"><i class="fa fa-cloud-upload" aria-hidden="true" style="padding:0px"></i></a>
+                                            </div>
+                                            <div class="plan-upload-text">
+                                                <label class="plan-upload-text-label">Upload Before & After</label>
+                                            </div>
+                                            <div style="clear:both"></div>
                                         </div>
-                                        <div class="plan-upload-text">
-                                            <label class="plan-upload-text-label">Upload Before & After</label>
-                                        </div>
-                                        <div style="clear:both"></div>
-                                    </div>
-                                }
-                            </div>
+                  
+                                </div>
+                            }
                             <div style="clear:both"></div>
                         </div>
                     }

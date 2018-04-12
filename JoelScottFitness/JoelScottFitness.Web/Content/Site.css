@@ -404,7 +404,7 @@ a:hover {
 .section-title {
     width: 100%;
     text-align: center;
-    align-content: center;plan-row-container
+    align-content: center;
     margin: 0px;
 }
 
@@ -1409,11 +1409,13 @@ a:hover {
     margin-top: 0;
     padding-top: 0;
     display: inline-block;
+    vertical-align:top;
 }
 
 .plan-container {
     width: 300px;
-    height: 360px;
+    min-height: 360px;
+    height:360px;
     position: relative;
     text-align: center;
     display: inline-block;

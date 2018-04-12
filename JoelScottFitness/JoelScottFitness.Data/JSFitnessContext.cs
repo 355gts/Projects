@@ -11,7 +11,7 @@ namespace JoelScottFitness.Data
         private static readonly ILog logger = LogManager.GetLogger(typeof(JSFitnessContext));
 
         public JSFitnessContext()
-            : base("DefaultConnection")
+            : base("JoelScottFitnessDb")
         {
             Database.SetInitializer(new JSFitnessInitializer());
 

@@ -271,17 +271,14 @@ namespace JoelScottFitness.Web.Controllers
             var planOption = await jsfService.GetPlanOptionAsync(id);
             if (planOption == null)
             {
-                // TODO maybe dont move to error but respond to ajax with error
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToFindItemErrorMessage, id) });
             }
 
             if (!basketHelper.AddItemToBasket(id, planOption.Name, planOption.Description, planOption.Price))
             {
-                // TODO maybe dont move to error but respond to ajax with error
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToAddItemToBasketErrorMessage, id) });
             }
-
-            // TODO is this correct??
+            
             return null;
         }
 

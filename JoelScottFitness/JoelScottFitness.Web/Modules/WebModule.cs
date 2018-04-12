@@ -7,8 +7,7 @@ namespace JoelScottFitness.Web.Modules
     {
         public override void Load()
         {
-            // TODO check scopes are correct when multiple users access the site
-            Bind<IBasketHelper>().To<BasketHelper>().InSingletonScope();
+            Bind<IBasketHelper>().To<BasketHelper>();
         }
     }
 }

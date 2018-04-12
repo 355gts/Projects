@@ -1,15 +1,15 @@
-﻿using System;
-using System.Data.Entity;
-using JoelScottFitness.Identity.Models;
+﻿using JoelScottFitness.Identity.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace JoelScottFitness.Identity
 {
     public class IdentityContext : IdentityDbContext<AuthUser, AuthRole, long, AuthLogin, AuthUserRole, AuthClaim>, IIdentityContext
     {
         public IdentityContext()
-    :       base("DefaultConnection")
+    : base("JoelScottFitnessDb")
         {
         }
 
