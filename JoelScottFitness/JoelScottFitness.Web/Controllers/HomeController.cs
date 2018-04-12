@@ -591,9 +591,9 @@ namespace JoelScottFitness.Web.Controllers
             if (customerDetails == null)
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToFindUserErrorMessage, userId) });
 
-            var purchase = await jsfService.GetCustomerPlansAsync(customerDetails.Id);
+            var plans = await jsfService.GetCustomerPlansAsync(customerDetails.Id);
 
-            return View(purchase);
+            return View(plans);
         }
 
         [HttpGet]

@@ -1,17 +1,14 @@
 ﻿using JoelScottFitness.Common.IO;
 using JoelScottFitness.Common.Models;
-using JoelScottFitness.Common.Results;
 using JoelScottFitness.Services.Services;
 using JoelScottFitness.Test.Helpers;
 using JoelScottFitness.Web.Constants;
 using JoelScottFitness.Web.Helpers;
-using JoelScottFitness.Web.Properties;
 using JoelScottFitness.YouTube.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using CON = JoelScottFitness.Web.Controllers;
@@ -59,8 +56,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                     ValidTo = DateTime.UtcNow.AddDays(1),
                 };
 
-                sessionMock[SessionKeys.DiscountCode] = discountCode;
-                
                 controller = new CON.HomeController(jsfServiceMock.Object,
                                                     youtubeClientMock.Object,
                                                     basketHelperMock.Object,
@@ -86,9 +81,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify the json result contains the correct properties
                 Assert.IsFalse((bool)data["applied"]);
-
-                // verify the discount code has NOT been added to the session
-                Assert.AreEqual(0, sessionMock.Keys.Count);
             }
 
             [TestMethod]
@@ -98,6 +90,8 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 var result = controller.RemoveDiscountCode() as JsonResult;
 
                 // verify
+                basketHelperMock.Verify(b => b.RemoveDiscountCode(), Times.Once);
+
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Data);
 
@@ -105,9 +99,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 // verify the json result contains the correct properties
                 Assert.IsFalse((bool)data["applied"]);
-
-                // verify the discount code has NOT been added to the session
-                Assert.AreEqual(0, sessionMock.Keys.Count);
             }
         }
     }

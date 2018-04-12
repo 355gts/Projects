@@ -348,6 +348,7 @@ namespace JoelScottFitness.Services.Services
             {
                 logger.Warn(string.Format(Resources.FailedToAssociateQuestionnaireToPurchaseErrorMessage, questionnaireViewModel.OrderId));
                 result.Success = false;
+                return result;
             }
 
             // associate the questionnaire to the order

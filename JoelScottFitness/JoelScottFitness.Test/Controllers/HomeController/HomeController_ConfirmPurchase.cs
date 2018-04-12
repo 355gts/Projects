@@ -10,7 +10,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Specialized;
+using System.Web;
 using System.Web.Mvc;
 using CON = JoelScottFitness.Web.Controllers;
 
@@ -27,8 +28,10 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             Mock<IFileHelper> fileHelperMock;
             Mock<ControllerContext> contextMock;
             MockHttpSessionBase sessionMock;
+            Mock<HttpRequestBase> requestMock;
 
             Guid customerId = Guid.NewGuid();
+            string payerId = "payerId";
             long basketItemId1 = 111;
             long basketItemId2 = 222;
             long basketItemId3 = 333;
@@ -44,7 +47,6 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             IDictionary<long, BasketItemViewModel> basketItemViewModels;
             BasketViewModel basketViewModel;
             CustomerViewModel customer;
-            DiscountCodeViewModel discountCode;
             long discountCodeId = 555;
 
             CON.HomeController controller;
@@ -58,13 +60,17 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 fileHelperMock = new Mock<IFileHelper>();
                 contextMock = new Mock<ControllerContext>();
                 sessionMock = new MockHttpSessionBase();
+                requestMock = new Mock<HttpRequestBase>();
 
-                discountCode = new DiscountCodeViewModel() { Id = discountCodeId };
+                requestMock.SetupGet(r => r.Params)
+                           .Returns(new NameValueCollection() { { SessionKeys.PayerId, payerId } });
 
-                sessionMock[SessionKeys.DiscountCode] = discountCode;
+                sessionMock.Add(SessionKeys.ConfirmOrderViewModel, new ConfirmOrderViewModel());
 
                 contextMock.Setup(c => c.HttpContext.Session)
                            .Returns(sessionMock);
+                contextMock.Setup(c => c.HttpContext.Request)
+                           .Returns(requestMock.Object);
 
                 BasketItemViewModel1 = new BasketItemViewModel() { Id = basketItemId1, Quantity = basketItemQuantity1 };
                 BasketItemViewModel2 = new BasketItemViewModel() { Id = basketItemId2, Quantity = basketItemQuantity2 };
@@ -114,125 +120,53 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void ConfirmOrder_CustomerIdNull_ReturnRedirectToRouteResult()
-            {
-                // test
-                var result = controller.ConfirmOrder() as RedirectToRouteResult;
-
-                // verify
-                basketHelperMock.Verify(b => b.GetBasket(), Times.Never);
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual("Error", result.RouteValues["action"]);
-                Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Resources.CustomerIdNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
-            }
-
-            [TestMethod]
-            public void ConfirmOrder_GetBasketFails_ReturnsRedirectToRouteResult()
+            public void ConfirmOrder_PayerIdNull_RedirectsToError()
             {
                 // setup
-                basketHelperMock.Setup(b => b.GetBasket())
-                                .Returns((BasketViewModel)null);
+                requestMock.SetupGet(r => r.Params)
+                           .Returns(new NameValueCollection() { { SessionKeys.PayerId, null } });
 
                 // test
                 var result = controller.ConfirmOrder() as RedirectToRouteResult;
 
                 // verify
-                basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
-
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Resources.BasketItemsNullErrorMessage, customerId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(Resources.PayerIdNullErrorMessage, result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
-            public void ConfirmOrder_GetCustomerDetailsAsyncFails_ReturnsRedirectToRouteResult()
+            public void ConfirmOrder_ConfirmOrderViewModelNull_RedirectsToError()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
-                              .ReturnsAsync((CustomerViewModel)null);
+                sessionMock.Remove(SessionKeys.ConfirmOrderViewModel);
 
                 // test
                 var result = controller.ConfirmOrder() as RedirectToRouteResult;
 
                 // verify
-                basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-
                 Assert.IsNotNull(result);
                 Assert.AreEqual("Error", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
-                Assert.AreEqual(string.Format(Resources.GetCustomerDetailsAsyncErrorMessage, customerId), result.RouteValues["errorMessage"]);
+                Assert.AreEqual(Resources.ConfirmOrderViewModelNullErrorMessage, result.RouteValues["errorMessage"]);
             }
 
             [TestMethod]
-            public void ConfirmOrder_ApplyDiscountCode_ReturnsView()
+            public void ConfirmOrder_Success_ReturnsView()
             {
                 // test
                 var result = controller.ConfirmOrder() as ViewResult;
 
                 // verify
-                basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-
                 Assert.IsNotNull(result);
+                var confirmOrderViewModel = (ConfirmOrderViewModel)result.Model;
+                Assert.IsNotNull(confirmOrderViewModel);
 
-                var resultModel = (ConfirmOrderViewModel)result.Model;
-
-                // assert customer details
-                Assert.IsNotNull(resultModel.CustomerDetails);
-                Assert.AreEqual(customerId, resultModel.CustomerDetails.Id);
-
-                // assert basket item details
-                Assert.IsNotNull(resultModel.Basket.Items);
-                Assert.AreEqual(3, resultModel.Basket.Items.Count());
-                Assert.AreEqual(basketItemQuantity1, resultModel.Basket.Items.First(b => b.Value.Id == basketItemId1).Value.Quantity);
-                Assert.AreEqual(basketItemQuantity2, resultModel.Basket.Items.First(b => b.Value.Id == basketItemId2).Value.Quantity);
-
-                // check item is set to default quantity
-                Assert.AreEqual(basketItemDefaultQuantity, resultModel.Basket.Items.First(b => b.Value.Id == basketItemId3).Value.Quantity);
-
-                // verify discount code is present
-                Assert.IsNotNull(resultModel.Basket.DiscountCode);
-                Assert.AreEqual(discountCodeId, resultModel.Basket.DiscountCode.Id);
-            }
-
-            [TestMethod]
-            public void ConfirmOrder_NoDiscountCode_ReturnsView()
-            {
-                // setup
-                sessionMock[SessionKeys.DiscountCode] = null;
-
-                // test
-                var result = controller.ConfirmOrder() as ViewResult;
-
-                // verify
-                basketHelperMock.Verify(b => b.GetBasket(), Times.Once);
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-
-                Assert.IsNotNull(result);
-
-                var resultModel = (ConfirmOrderViewModel)result.Model;
-
-                // assert customer details
-                Assert.IsNotNull(resultModel.CustomerDetails);
-                Assert.AreEqual(customerId, resultModel.CustomerDetails.Id);
-
-                // assert basket item details
-                Assert.IsNotNull(resultModel.Basket.Items);
-                Assert.AreEqual(3, resultModel.Basket.Items.Count());
-                Assert.AreEqual(basketItemQuantity1, resultModel.Basket.Items.First(b => b.Value.Id == basketItemId1).Value.Quantity);
-                Assert.AreEqual(basketItemQuantity2, resultModel.Basket.Items.First(b => b.Value.Id == basketItemId2).Value.Quantity);
-
-                // check item is set to default quantity
-                Assert.AreEqual(basketItemDefaultQuantity, resultModel.Basket.Items.First(b => b.Value.Id == basketItemId3).Value.Quantity);
-
-                // verify discount code is null
-                Assert.IsNull(resultModel.Basket.DiscountCode);
+                // verify the session variables have been added
+                Assert.AreEqual(2, sessionMock.Count);
+                Assert.IsNotNull((string)sessionMock[SessionKeys.PayerId]);
+                Assert.IsNotNull((ConfirmOrderViewModel)sessionMock[SessionKeys.ConfirmOrderViewModel]);
             }
         }
     }

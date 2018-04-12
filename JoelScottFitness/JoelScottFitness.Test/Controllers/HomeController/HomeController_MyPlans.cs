@@ -118,7 +118,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             }
 
             [TestMethod]
-            public void MyPlans_Success_ReturnsPurchases()
+            public void MyPlans_Success_ReturnsPlans()
             {
                 // test
                 var result = controller.MyPlans().Result as ViewResult;
@@ -128,8 +128,8 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.GetCustomerPlansAsync(It.IsAny<Guid>()), Times.Once);
 
                 Assert.IsNotNull(result);
-                var purchaseHistoryItemsViewModel = (IEnumerable<OrderItemViewModel>)result.Model;
-                Assert.AreEqual(2, purchaseHistoryItemsViewModel.Count());
+                var customerPlansViewModel = (IEnumerable<CustomerPlanViewModel>)result.Model;
+                Assert.AreEqual(2, customerPlansViewModel.Count());
             }
         }
     }
