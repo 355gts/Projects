@@ -291,6 +291,12 @@
     <Content Include="Content\Images\Logos\believe-achieve-black.svg" />
     <Content Include="Content\Images\Logos\jsf-black.svg" />
     <Content Include="Content\Images\Logos\jsf-white.svg" />
+    <Content Include="Content\Images\Plans\BeachBody.jpg" />
+    <Content Include="Content\Images\Plans\ProjectMass.jpg" />
+    <Content Include="Content\Images\Plans\ShortcutToShred.jpg" />
+    <Content Include="Content\Images\Plans\TheHulkEffect.jpg" />
+    <Content Include="Content\Images\Plans\UltimateBootyBuilder.jpg" />
+    <Content Include="Content\Images\Plans\WonderWomanPhysique.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -465,7 +471,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\HallOfFame\" />
-    <Folder Include="Content\Images\Plans\" />
     <Folder Include="Content\Plans\" />
   </ItemGroup>
   <ItemGroup>
