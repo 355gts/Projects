@@ -278,7 +278,7 @@ namespace JoelScottFitness.Web.Controllers
             {
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToAddItemToBasketErrorMessage, id) });
             }
-            
+
             return null;
         }
 
@@ -677,6 +677,9 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> HallOfFame()
         {
             var hallOfFameEntries = await jsfService.GetHallOfFameEntriesAsync();
+
+            if (hallOfFameEntries == null || !hallOfFameEntries.Any())
+                return RedirectToAction("Index", "Home");
 
             return View(hallOfFameEntries);
         }

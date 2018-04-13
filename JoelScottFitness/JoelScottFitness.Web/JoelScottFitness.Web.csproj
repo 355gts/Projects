@@ -254,8 +254,6 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\Default\banner.JPG" />
-    <Content Include="Content\Images\Blogs\Chrys.jpg" />
-    <Content Include="Content\Images\Blogs\Desert.jpg" />
     <Content Include="Content\Images\Blogs\ladies1.jpg" />
     <Content Include="Content\Images\Blogs\ladies2.jpg" />
     <Content Include="Content\Images\Blogs\ladies3.jpg" />
@@ -284,14 +282,6 @@
     <Content Include="Content\Images\Logos\youtube2-black.png" />
     <Content Include="Content\Images\Logos\youtube2-grey.png" />
     <Content Include="Content\Images\Logos\youtube2-white.png" />
-    <Content Include="Content\Images\Plans\female-plan1.jpg" />
-    <Content Include="Content\Images\Plans\female-plan2.jpg" />
-    <Content Include="Content\Images\Plans\female-plan3.jpg" />
-    <Content Include="Content\Images\Plans\female-plan4.jpg" />
-    <Content Include="Content\Images\Plans\male-plan1.jpg" />
-    <Content Include="Content\Images\Plans\male-plan2.jpg" />
-    <Content Include="Content\Images\Plans\male-plan3.jpg" />
-    <Content Include="Content\Images\Plans\male-plan4.jpg" />
     <Content Include="Content\Images\Blogs\mens1.jpg" />
     <Content Include="Content\Images\Default\section1.PNG" />
     <Content Include="Content\Images\Default\section2.PNG" />
@@ -374,6 +364,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\flipclock.min.js" />
     <Content Include="Scripts\JoelScottFitness.js" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -474,6 +465,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\HallOfFame\" />
+    <Folder Include="Content\Images\Plans\" />
     <Folder Include="Content\Plans\" />
   </ItemGroup>
   <ItemGroup>

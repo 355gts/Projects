@@ -530,6 +530,7 @@ a:hover {
     margin-top: 0;
     padding-top: 0;
     display: inline-block;
+    width:100%;
 }
 
 .blog-container {
@@ -1410,6 +1411,7 @@ a:hover {
     padding-top: 0;
     display: inline-block;
     vertical-align:top;
+    width:100%;
 }
 
 .plan-container {
