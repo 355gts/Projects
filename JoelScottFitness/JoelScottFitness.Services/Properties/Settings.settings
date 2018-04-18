@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.Services.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EmailPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">458Ferrari!</Value>
+    </Setting>
+    <Setting Name="SmtpHostName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mail.joelscottfitness.com</Value>
+    </Setting>
+    <Setting Name="SmtpPort" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="EmailAccount" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sales@joelscottfitness.com</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

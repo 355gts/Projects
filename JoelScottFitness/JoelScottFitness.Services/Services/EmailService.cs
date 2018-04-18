@@ -1,4 +1,5 @@
 ﻿using JoelScottFitness.Common.IO;
+using JoelScottFitness.Services.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,25 +31,25 @@ namespace JoelScottFitness.Services.Services
             bool success = false;
             try
             {
-                Parallel.ForEach(receivers, (receiver) => 
+                Parallel.ForEach(receivers, (receiver) =>
                 {
                     using (var client = new SmtpClient())
                     {
-                        client.Host = "smtp.gmail.com";
-                        client.Port = 587;
-                        client.Credentials = new NetworkCredential("sb355gts@gmail.com", "458Ferrari!");
+                        client.Host = Settings.Default.SmtpHostName;
+                        client.Port = Settings.Default.SmtpPort;
+                        client.Credentials = new NetworkCredential(Settings.Default.EmailAccount, Settings.Default.EmailPassword);
                         client.EnableSsl = true;
 
-                        MailMessage message = new MailMessage("Joel@JoelScottFitness.com", receiver, subject, content);
+                        MailMessage message = new MailMessage(Settings.Default.EmailAccount, receiver, subject, content);
                         message.IsBodyHtml = true;
-                        
+
                         client.Send(message);
                     }
                 });
-                
+
                 success = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var x = ex.Message;
             }
@@ -73,13 +74,13 @@ namespace JoelScottFitness.Services.Services
                     emailTasks.Add(Task.Run(() =>
                     {
                         var client = new SmtpClient();
-                        client.Host = "smtp.gmail.com";
-                        client.Port = 587;
-                        client.Credentials = new NetworkCredential("sb355gts@gmail.com", "458Ferrari!");
+                        client.Host = Settings.Default.SmtpHostName;
+                        client.Port = Settings.Default.SmtpPort;
+                        client.Credentials = new NetworkCredential(Settings.Default.EmailAccount, Settings.Default.EmailPassword);
                         client.EnableSsl = true;
                         client.SendCompleted += (s, e) => client.Dispose();
 
-                        MailMessage mail = new MailMessage("Joel@JoelScottFitness.com", receiver, subject, content);
+                        MailMessage mail = new MailMessage(Settings.Default.EmailAccount, receiver, subject, content);
 
                         // attach files
                         if (attachmentPaths != null && attachmentPaths.Any())
@@ -92,13 +93,13 @@ namespace JoelScottFitness.Services.Services
                                 }
                             }
                         }
-                        
+
                         mail.IsBodyHtml = true;
 
                         client.SendMailAsync(mail);
                     }));
                 }
-                
+
                 await Task.WhenAll(emailTasks);
                 success = true;
             }
