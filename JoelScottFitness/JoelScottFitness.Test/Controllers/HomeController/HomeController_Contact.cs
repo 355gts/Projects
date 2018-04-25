@@ -168,7 +168,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
                 Assert.AreEqual(string.Format(Resources.FailedToSendMessageErrorMessage,
                                                                                             createMessageViewModel.Name,
-                                                                                            createMessageViewModel.EmailAddress,
+                                                                                            Settings.Default.EmailAddress,
                                                                                             createMessageViewModel.Subject,
                                                                                             createMessageViewModel.Message), result.RouteValues["errorMessage"]);
             }
@@ -191,7 +191,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 // verify email parameters
                 Assert.IsNotNull(emailAddressesCallback);
                 Assert.AreEqual(1, emailAddressesCallback.Count());
-                Assert.AreEqual(Settings.Default.JoelScottFitnessEmaillAddress, emailAddressesCallback.First());
+                Assert.AreEqual(Settings.Default.EmailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
                 Assert.AreEqual("New Customer Enquiry", emailSubjectCallback);
             }

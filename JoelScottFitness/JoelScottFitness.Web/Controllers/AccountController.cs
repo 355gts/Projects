@@ -436,14 +436,14 @@ namespace JoelScottFitness.Web.Controllers
         {
             var email = this.RenderRazorViewToString("_EmailConfirmAccount", callbackViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(Settings.Default.ConfirmAccount, email, new List<string>() { emailAddress });
+            return await jsfService.SendEmailAsync(Resources.ConfirmAccount, email, new List<string>() { emailAddress });
         }
 
         private async Task<bool> SendResetPasswordEmail(CallbackViewModel callbackViewModel, string emailAddress)
         {
             var email = this.RenderRazorViewToString("_EmailResetPassword", callbackViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(Settings.Default.ResetPassword, email, new List<string>() { emailAddress });
+            return await jsfService.SendEmailAsync(Resources.ResetPassword, email, new List<string>() { emailAddress });
         }
     }
 }

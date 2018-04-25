@@ -174,6 +174,7 @@ namespace JoelScottFitness.PayPal.Services
         {
             try
             {
+                //APIContext apiContext = new APIContext(,)
                 APIContext apiContext = PayPalConfiguration.GetAPIContext();
 
                 var transactionId = Convert.ToString((new Random()).Next(100000));
@@ -194,7 +195,7 @@ namespace JoelScottFitness.PayPal.Services
                     return new PaymentInitiationResult()
                     {
                         Success = false,
-                        ErrorMessage = string.Format(Settings.Default.PayPalFailedToCreatePaymentForTransactionErrorMessage, transactionId, confirmOrderViewModel.CustomerDetails.EmailAddress),
+                        ErrorMessage = string.Format(Resources.PayPalFailedToCreatePaymentForTransactionErrorMessage, transactionId, confirmOrderViewModel.CustomerDetails.EmailAddress),
                     };
                 }
 
@@ -208,7 +209,7 @@ namespace JoelScottFitness.PayPal.Services
             }
             catch (Exception ex)
             {
-                string erroMessage = string.Format(Settings.Default.PayPalExceptionOccuredCreatingPaymentErrorMessage, confirmOrderViewModel.CustomerDetails.EmailAddress, ex.Message);
+                string erroMessage = string.Format(Resources.PayPalExceptionOccuredCreatingPaymentErrorMessage, confirmOrderViewModel.CustomerDetails.EmailAddress, ex.Message);
                 logger.Warn(erroMessage);
 
                 return new PaymentInitiationResult()
@@ -232,7 +233,7 @@ namespace JoelScottFitness.PayPal.Services
                     return new PaymentResult()
                     {
                         Success = false,
-                        ErrorMessage = string.Format(Settings.Default.PayPalPaymentFailedErrorMessage, paymentId, payerId, executedPayment.state)
+                        ErrorMessage = string.Format(Resources.PayPalPaymentFailedErrorMessage, paymentId, payerId, executedPayment.state)
                     };
                 }
 
@@ -243,7 +244,7 @@ namespace JoelScottFitness.PayPal.Services
             }
             catch (Exception ex)
             {
-                string erroMessage = string.Format(Settings.Default.PayPalPaymentExceptionErrorMessage, paymentId, payerId, ex.Message);
+                string erroMessage = string.Format(Resources.PayPalPaymentExceptionErrorMessage, paymentId, payerId, ex.Message);
                 logger.Warn(erroMessage);
 
                 return new PaymentResult()

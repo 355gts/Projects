@@ -38,7 +38,7 @@ namespace JoelScottFitness.Services.Services
                         client.Host = Settings.Default.SmtpHostName;
                         client.Port = Settings.Default.SmtpPort;
                         client.Credentials = new NetworkCredential(Settings.Default.EmailAccount, Settings.Default.EmailPassword);
-                        client.EnableSsl = true;
+                        client.EnableSsl = (Settings.Default.SmtpPort == 465);
 
                         MailMessage message = new MailMessage(Settings.Default.EmailAccount, receiver, subject, content);
                         message.IsBodyHtml = true;
@@ -77,7 +77,7 @@ namespace JoelScottFitness.Services.Services
                         client.Host = Settings.Default.SmtpHostName;
                         client.Port = Settings.Default.SmtpPort;
                         client.Credentials = new NetworkCredential(Settings.Default.EmailAccount, Settings.Default.EmailPassword);
-                        client.EnableSsl = true;
+                        client.EnableSsl = (Settings.Default.SmtpPort == 465);
                         client.SendCompleted += (s, e) => client.Dispose();
 
                         MailMessage mail = new MailMessage(Settings.Default.EmailAccount, receiver, subject, content);

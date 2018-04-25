@@ -14,6 +14,9 @@ namespace JoelScottFitness.Common.Models
         public long OrderId { get; set; }
 
         [DataMember(IsRequired = true)]
+        public string TransactionId { get; set; }
+
+        [DataMember(IsRequired = true)]
         public Guid CustomerId { get; set; }
 
         [DataMember(IsRequired = true)]

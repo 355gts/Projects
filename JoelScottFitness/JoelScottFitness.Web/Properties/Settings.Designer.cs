@@ -25,42 +25,6 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Order #{0} Confirmation")]
-        public string OrderConfirmation {
-            get {
-                return ((string)(this["OrderConfirmation"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Order #{0} Complete")]
-        public string OrderComplete {
-            get {
-                return ((string)(this["OrderComplete"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Confirm Account")]
-        public string ConfirmAccount {
-            get {
-                return ((string)(this["ConfirmAccount"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Joel Scott Fitness - Reset Password")]
-        public string ResetPassword {
-            get {
-                return ((string)(this["ResetPassword"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Content/Images/HallOfFame")]
         public string HallOfFameDirectory {
             get {
@@ -106,15 +70,6 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0} {1} - {2} - {3} - {4}.pdf")]
-        public string PlanFilenameFormat {
-            get {
-                return ((string)(this["PlanFilenameFormat"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("/Content/Images/Default/section1.jpg")]
         public string DefaultSectionImage1 {
             get {
@@ -151,73 +106,10 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0}_BEFORE_{1}")]
-        public string BeforeFileNameFormat {
+        [global::System.Configuration.DefaultSettingValueAttribute("joel@joelscottfitness.com")]
+        public string EmailAddress {
             get {
-                return ((string)(this["BeforeFileNameFormat"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0}_AFTER_{1}")]
-        public string AfterFileNameFormat {
-            get {
-                return ((string)(this["AfterFileNameFormat"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int DefaultItemQuantity {
-            get {
-                return ((int)(this["DefaultItemQuantity"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0}/Home/ConfirmOrder?")]
-        public string CallbackUri {
-            get {
-                return ((string)(this["CallbackUri"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{0} image is empty, please re-select.")]
-        public string ImageUploadErrorMessage {
-            get {
-                return ((string)(this["ImageUploadErrorMessage"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Please add a comment.")]
-        public string MissingCommentErrorMessage {
-            get {
-                return ((string)(this["MissingCommentErrorMessage"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Re: {0}")]
-        public string MessageResponseSubject {
-            get {
-                return ((string)(this["MessageResponseSubject"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blackmore__s@hotmail.com")]
-        public string JoelScottFitnessEmaillAddress {
-            get {
-                return ((string)(this["JoelScottFitnessEmaillAddress"]));
+                return ((string)(this["EmailAddress"]));
             }
         }
     }

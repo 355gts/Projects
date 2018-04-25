@@ -2,17 +2,26 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.PayPal.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="PayPalFailedToCreatePaymentForTransactionErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Failed to create payment for transaction '{0}' associated to customer '{1}'.</Value>
+    <Setting Name="Mode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sandbox</Value>
     </Setting>
-    <Setting Name="PayPalExceptionOccuredCreatingPaymentErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">An error occured initiating paypal payment for customer '{0}', error details - '{1}'.</Value>
+    <Setting Name="ConnectionTimeout" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">360000</Value>
     </Setting>
-    <Setting Name="PayPalPaymentFailedErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Payment associated to paymentId '{0}' and payerId '{1}' failed, paypal response returned payment state of '{2}'.</Value>
+    <Setting Name="RequestRetries" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="PayPalPaymentExceptionErrorMessage" Type="System.String" Scope="User">
-      <Value Profile="(Default)">An exception occured processing paypal payment for paymentId '{0}' and payerId '{1}', error details '{2}'.</Value>
+    <Setting Name="LCID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AbP_MOF0BvQi4AE8oVi0nMnrwMWChCFnyZiF5rYI_cd2rvUoNXUPgGP-SF0XsgEy0vE5_5cRIpWz7YFj</Value>
+    </Setting>
+    <Setting Name="LCS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">EH_djivM49yeLlhbkql2msDfcpuS2a_nXZ_p7dNv0wRPO56QhYJitG8tiWiMdTtBC8dS1i4lnvRs-a6k</Value>
+    </Setting>
+    <Setting Name="SCID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ASHoNRWg_CJ3bHxVbcDt9b0muO9Yx_DUGBWLDO5X01J2xwNofomRQtoVJSUOagCHd1gRkhSeLT8DO9Vf</Value>
+    </Setting>
+    <Setting Name="SCS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">EKozir3vCoSLcxmGUt2PGLMuQazsL31LbCLJ9vTOzrryrUVoZUjvjYtoABoRvCTSB_S9M8xs_TpJH7G_</Value>
     </Setting>
   </Settings>
 </SettingsFile>

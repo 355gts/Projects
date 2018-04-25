@@ -256,6 +256,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
                 Assert.AreEqual(transactionId, result.RouteValues["transactionId"]);
+                Assert.AreEqual(orderId, result.RouteValues["orderId"]);
 
                 // verify the session variables have been added
                 Assert.AreEqual(1, sessionMock.Count);
@@ -266,7 +267,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(1, emailAddressesCallback.Count());
                 Assert.AreEqual(emailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Settings.Default.OrderConfirmation, transactionId), emailSubjectCallback);
+                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallback);
             }
 
             [TestMethod]
@@ -285,6 +286,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
                 Assert.AreEqual(transactionId, result.RouteValues["transactionId"]);
+                Assert.AreEqual(orderId, result.RouteValues["orderId"]);
 
                 // verify the session variables have been added
                 Assert.AreEqual(1, sessionMock.Count);
@@ -295,7 +297,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(1, emailAddressesCallback.Count());
                 Assert.AreEqual(emailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Settings.Default.OrderConfirmation, transactionId), emailSubjectCallback);
+                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallback);
             }
 
             [TestMethod]
@@ -316,6 +318,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
                 Assert.AreEqual("Home", result.RouteValues["controller"]);
                 Assert.AreEqual(transactionId, result.RouteValues["transactionId"]);
+                Assert.AreEqual(orderId, result.RouteValues["orderId"]);
 
                 // verify the session variables have been added
                 Assert.AreEqual(1, sessionMock.Count);
@@ -326,7 +329,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(1, emailAddressesCallback.Count());
                 Assert.AreEqual(emailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Settings.Default.OrderConfirmation, transactionId), emailSubjectCallback);
+                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallback);
             }
 
         }

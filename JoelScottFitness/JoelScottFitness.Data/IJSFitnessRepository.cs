@@ -50,6 +50,8 @@ namespace JoelScottFitness.Data
 
         Task<bool> UpdateMailingListAsync(MailingListItem mailingListItem);
 
+        Task<IEnumerable<MailingListItem>> GetMailingListAsync();
+
         Task<IEnumerable<PlanOption>> GetBasketItemsAsync(IEnumerable<long> ids);
 
         Task<AuthUser> GetUserAsync(string userName);

@@ -61,6 +61,15 @@ namespace JoelScottFitness.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}_AFTER_{1}.
+        /// </summary>
+        internal static string AfterFileNameFormat {
+            get {
+                return ResourceManager.GetString("AfterFileNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to retrieve matching basket items from database for customer &apos;{0}&apos;, id&apos;s searched were &apos;{1}&apos;..
         /// </summary>
         internal static string BasketItemsAsyncNullErrorMessage {
@@ -75,6 +84,33 @@ namespace JoelScottFitness.Web.Properties {
         internal static string BasketItemsNullErrorMessage {
             get {
                 return ResourceManager.GetString("BasketItemsNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}_BEFORE_{1}.
+        /// </summary>
+        internal static string BeforeFileNameFormat {
+            get {
+                return ResourceManager.GetString("BeforeFileNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/Home/ConfirmOrder?.
+        /// </summary>
+        internal static string CallbackUri {
+            get {
+                return ResourceManager.GetString("CallbackUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joel Scott Fitness - Confirm Account.
+        /// </summary>
+        internal static string ConfirmAccount {
+            get {
+                return ResourceManager.GetString("ConfirmAccount", resourceCulture);
             }
         }
         
@@ -102,6 +138,15 @@ namespace JoelScottFitness.Web.Properties {
         internal static string CustomerIdNullErrorMessage {
             get {
                 return ResourceManager.GetString("CustomerIdNullErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string DefaultItemQuantity {
+            get {
+                return ResourceManager.GetString("DefaultItemQuantity", resourceCulture);
             }
         }
         
@@ -268,6 +313,24 @@ namespace JoelScottFitness.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to send order received email for transaction with id &apos;{0}&apos;..
+        /// </summary>
+        internal static string FailedToSendOrderReceivedEmailErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToSendOrderReceivedEmailErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to send questionnaire complete email for order #{0}..
+        /// </summary>
+        internal static string FailedToSendQuestionnaireCompleteEmailErrorMessage {
+            get {
+                return ResourceManager.GetString("FailedToSendQuestionnaireCompleteEmailErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to update existing customer details for email address &apos;{0}&apos;;.
         /// </summary>
         internal static string FailedToUpdateExistingCustomerDetailsErrorMessage {
@@ -340,11 +403,83 @@ namespace JoelScottFitness.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} image is empty, please re-select..
+        /// </summary>
+        internal static string ImageUploadErrorMessage {
+            get {
+                return ResourceManager.GetString("ImageUploadErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JoelScottFitness MailingList {0}.txt.
+        /// </summary>
+        internal static string MailingListFilename {
+            get {
+                return ResourceManager.GetString("MailingListFilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Re: {0}.
+        /// </summary>
+        internal static string MessageResponseSubject {
+            get {
+                return ResourceManager.GetString("MessageResponseSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please add a comment..
+        /// </summary>
+        internal static string MissingCommentErrorMessage {
+            get {
+                return ResourceManager.GetString("MissingCommentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Customer Query.
+        /// </summary>
+        internal static string NewCustomerQuery {
+            get {
+                return ResourceManager.GetString("NewCustomerQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joel Scott Fitness - Order #{0} Complete.
+        /// </summary>
+        internal static string OrderComplete {
+            get {
+                return ResourceManager.GetString("OrderComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joel Scott Fitness - Order #{0} Confirmation.
+        /// </summary>
+        internal static string OrderConfirmation {
+            get {
+                return ResourceManager.GetString("OrderConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order with id &apos;{0}&apos; was not found..
         /// </summary>
         internal static string OrderNotFoundErrorMessage {
             get {
                 return ResourceManager.GetString("OrderNotFoundErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joel Scott Fitness - Order #{0} Received.
+        /// </summary>
+        internal static string OrderReceived {
+            get {
+                return ResourceManager.GetString("OrderReceived", resourceCulture);
             }
         }
         
@@ -376,11 +511,38 @@ namespace JoelScottFitness.Web.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} {1} - {2} - {3} - #{4} - {5}.pdf.
+        /// </summary>
+        internal static string PlanFilenameFormat {
+            get {
+                return ResourceManager.GetString("PlanFilenameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Questionnaire for Order#{0} Complete.
+        /// </summary>
+        internal static string QuestionnaireComplete {
+            get {
+                return ResourceManager.GetString("QuestionnaireComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thanks, your tailored workout plan will be with you in the next 24 hours..
         /// </summary>
         internal static string QuestionnaireCompleteConfirmationMessage {
             get {
                 return ResourceManager.GetString("QuestionnaireCompleteConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joel Scott Fitness - Reset Password.
+        /// </summary>
+        internal static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
             }
         }
         

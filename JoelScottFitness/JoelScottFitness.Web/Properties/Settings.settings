@@ -2,18 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JoelScottFitness.Web.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="OrderConfirmation" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Confirmation</Value>
-    </Setting>
-    <Setting Name="OrderComplete" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Joel Scott Fitness - Order #{0} Complete</Value>
-    </Setting>
-    <Setting Name="ConfirmAccount" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Joel Scott Fitness - Confirm Account</Value>
-    </Setting>
-    <Setting Name="ResetPassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Joel Scott Fitness - Reset Password</Value>
-    </Setting>
     <Setting Name="HallOfFameDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Content/Images/HallOfFame</Value>
     </Setting>
@@ -29,9 +17,6 @@
     <Setting Name="PlanDirectory" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Content/Plans</Value>
     </Setting>
-    <Setting Name="PlanFilenameFormat" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0} {1} - {2} - {3} - {4}.pdf</Value>
-    </Setting>
     <Setting Name="DefaultSectionImage1" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/Content/Images/Default/section1.jpg</Value>
     </Setting>
@@ -44,29 +29,8 @@
     <Setting Name="DefaultSplashImage" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/Content/Images/Default/banner.jpg</Value>
     </Setting>
-    <Setting Name="BeforeFileNameFormat" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0}_BEFORE_{1}</Value>
-    </Setting>
-    <Setting Name="AfterFileNameFormat" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0}_AFTER_{1}</Value>
-    </Setting>
-    <Setting Name="DefaultItemQuantity" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
-    <Setting Name="CallbackUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0}/Home/ConfirmOrder?</Value>
-    </Setting>
-    <Setting Name="ImageUploadErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">{0} image is empty, please re-select.</Value>
-    </Setting>
-    <Setting Name="MissingCommentErrorMessage" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Please add a comment.</Value>
-    </Setting>
-    <Setting Name="MessageResponseSubject" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Re: {0}</Value>
-    </Setting>
-    <Setting Name="JoelScottFitnessEmaillAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Blackmore__s@hotmail.com</Value>
+    <Setting Name="EmailAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">joel@joelscottfitness.com</Value>
     </Setting>
   </Settings>
 </SettingsFile>

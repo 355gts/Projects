@@ -109,7 +109,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 // verify
                 fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.UploadHallOfFameAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                
+
                 Assert.IsNotNull(result);
                 Assert.IsNotNull(result.Data);
 
@@ -220,8 +220,8 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 Assert.IsNotNull(imageFileNamesCallback);
                 Assert.AreEqual(2, imageFileNamesCallback.Count);
-                Assert.AreEqual(1, imageFileNamesCallback.Count(f => f == string.Format(Settings.Default.BeforeFileNameFormat, purchasedItemId, beforeImageFilename)));
-                Assert.AreEqual(1, imageFileNamesCallback.Count(f => f == string.Format(Settings.Default.AfterFileNameFormat, purchasedItemId, afterImageFilename)));
+                Assert.AreEqual(1, imageFileNamesCallback.Count(f => f == string.Format(Resources.BeforeFileNameFormat, purchasedItemId, beforeImageFilename)));
+                Assert.AreEqual(1, imageFileNamesCallback.Count(f => f == string.Format(Resources.AfterFileNameFormat, purchasedItemId, afterImageFilename)));
             }
 
             [TestMethod]

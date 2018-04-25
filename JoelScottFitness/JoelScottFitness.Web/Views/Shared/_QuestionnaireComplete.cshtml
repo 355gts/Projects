@@ -1,0 +1,19 @@
+﻿@model JoelScottFitness.Common.Models.QuestionnaireViewModel
+@{
+    Layout = "~/Views/Shared/_EmailLayout.cshtml";
+}
+
+<div class="email-content-wrapper">
+    <div class="email-content-container">
+        <h3 class="email-order-confirmation">ORDER RECEIVED</h3>
+        @{
+            <label class="email-order-summary">The customer questionnaire for Order #@Model.TransactionId is complete, click below to upload the plans.</label>
+
+            <hr />
+            <a href=@string.Format("{0}/Admin/CustomerPlans", TempData["RootUri"]) target="_blank" rel="noopener noreferrer" class="email-order-status-button" style="margin-bottom:30px;margin-top:30px;">
+                <span style="text-decoration:none;font-size:10pt;">Upload Plans</span>
+            </a>
+            <hr />
+        }
+    </div>
+</div>

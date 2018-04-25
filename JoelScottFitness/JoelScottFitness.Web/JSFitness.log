@@ -2222,3 +2222,95 @@ Parameter name: parameters
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
    at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
+2018-04-19 19:50:26,928       [53] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.Web.HttpParseException (0x80004005): "@" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{" are valid.
+
+   at System.Web.WebPages.Razor.RazorBuildProvider.EnsureGeneratedCode()
+   at System.Web.WebPages.Razor.RazorBuildProvider.get_CodeCompilerType()
+   at System.Web.Compilation.BuildProvider.GetCompilerTypeFromBuildProvider(BuildProvider buildProvider)
+   at System.Web.Compilation.BuildProvidersCompiler.ProcessBuildProviders()
+   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
+   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
+   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
+   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
+   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
+   at System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.GetCompiledType(String virtualPath)
+   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   at JoelScottFitness.Web.Extensions.ControllerExtensions.RenderRazorViewToString(Controller controller, String viewName, Object model, String rootUri) in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Extensions\ControllerExtensions.cs:line 20
+   at JoelScottFitness.Web.Controllers.AccountController.<SendConfirmAccountEmail>d__34.MoveNext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Controllers\AccountController.cs:line 437
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at JoelScottFitness.Web.Controllers.AccountController.<Register>d__16.MoveNext() in D:\DEV\Projects\JoelScottFitness\JoelScottFitness.Web\Controllers\AccountController.cs:line 205
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__36(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)'.
+2018-04-19 20:31:51,394       [26] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1865.
+2018-04-19 20:41:35,067       [6] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1868.
+2018-04-19 20:45:17,808       [17] WARN  YouTubeClient [(null)] Failed to retrieve youtube videos, error details 'An error occurred while sending the request.'.
+2018-04-24 19:33:45,557       [29] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.
+2018-04-24 20:02:58,491       [104] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1875.
+2018-04-24 20:03:01,487       [100] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.ArgumentException: The parameters dictionary contains a null entry for parameter 'orderId' of non-nullable type 'System.Int64' for method 'System.Threading.Tasks.Task`1[System.Web.Mvc.ActionResult] CustomerQuestionnaire(Int64)' in 'JoelScottFitness.Web.Controllers.HomeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.<>c__DisplayClass8.<BeginExecute>b__2(ParameterInfo parameterInfo)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.BeginExecute(ControllerContext controllerContext, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__35(AsyncCallback asyncCallback, Object asyncState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeAsynchronousActionMethod(ControllerContext controllerContext, AsyncActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__31(AsyncCallback asyncCallback, Object asyncState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)'.
+2018-04-24 20:03:52,265       [99] ERROR GlobalExceptionAttribute [(null)] An error has occured 'System.ArgumentException: The parameters dictionary contains a null entry for parameter 'orderId' of non-nullable type 'System.Int64' for method 'System.Threading.Tasks.Task`1[System.Web.Mvc.ActionResult] CustomerQuestionnaire(Int64)' in 'JoelScottFitness.Web.Controllers.HomeController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.<>c__DisplayClass8.<BeginExecute>b__2(ParameterInfo parameterInfo)
+   at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at System.Web.Mvc.Async.TaskAsyncActionDescriptor.BeginExecute(ControllerContext controllerContext, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass37.<BeginInvokeAsynchronousActionMethod>b__35(AsyncCallback asyncCallback, Object asyncState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeAsynchronousActionMethod(ControllerContext controllerContext, AsyncActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.InvokeActionMethodFilterAsynchronouslyRecursive(Int32 filterIndex)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__31(AsyncCallback asyncCallback, Object asyncState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallBeginDelegate(AsyncCallback callback, Object callbackState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.Begin(AsyncCallback callback, Object state, Int32 timeout)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.BeginInvokeActionMethodWithFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2 parameters, AsyncCallback callback, Object state)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__19(AsyncCallback asyncCallback, Object asyncState)'.
+2018-04-24 20:17:37,126       [5] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1875.
+2018-04-24 20:25:07,178       [12] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1984.
+2018-04-24 20:30:17,378       [17] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.
+2018-04-24 20:33:58,466       [7] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1822.
+2018-04-24 21:12:46,481       [26] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.
+2018-04-24 21:23:07,874       [67] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.
+2018-04-24 21:24:43,599       [60] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1863.
+2018-04-24 21:54:35,848       [39] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1864.
+2018-04-24 22:41:20,542       [8] ERROR PayPal.Api.JsonFormatter [(null)] Error while deserializing JSON: Could not find member 'soft_descriptor' on object of type 'Sale'. Path 'transactions[0].related_resources[0].sale.soft_descriptor', line 1, position 1868.

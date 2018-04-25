@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace JoelScottFitness.Web
 {
@@ -11,8 +10,20 @@ namespace JoelScottFitness.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui-{version}.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery-snow").Include(
+                        "~/Scripts/jquery.snow.min.{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/joel-scott-fitness").Include(
+                        "~/Scripts/joel-scott-fitness.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/christmas").Include(
+                        "~/Scripts/christmas.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -24,8 +35,10 @@ namespace JoelScottFitness.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/themes/base/jquery-ui.min.css",
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/Site.css"));
         }
     }
 }

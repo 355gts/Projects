@@ -8,6 +8,10 @@ namespace JoelScottFitness.Common.Models
     {
         [Required]
         [DataMember(IsRequired = true)]
+        public long OrderId { get; set; }
+
+        [Required]
+        [DataMember(IsRequired = true)]
         public string TransactionId { get; set; }
 
         [Required]

@@ -608,5 +608,12 @@ namespace JoelScottFitness.Services.Services
         {
             return await repository.MarkOrderCompleteAsync(orderId);
         }
+
+        public async Task<IEnumerable<MailingListItemViewModel>> GetMailingListAsync()
+        {
+            var mailingList = await repository.GetMailingListAsync();
+
+            return mapper.MapEnumerable<MailingListItem, MailingListItemViewModel>(mailingList);
+        }
     }
 }

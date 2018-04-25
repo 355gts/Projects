@@ -105,7 +105,7 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult Countdown()
         {
-            var goLive = new DateTime(2017, 12, 01, 18, 00, 00);
+            var goLive = new DateTime(2018, 05, 01, 18, 00, 00);
             DateTime nowTime = DateTime.Now;
 
             double result = (goLive - DateTime.Now).TotalSeconds;
@@ -421,7 +421,7 @@ namespace JoelScottFitness.Web.Controllers
                 return RedirectToAction("Error", "Home", new { errorMessage = Resources.CustomerIdNullErrorMessage });
 
             // method used to initiate the paypal payment transaction
-            string callbackUri = string.Format(Settings.Default.CallbackUri, RootUri);
+            string callbackUri = string.Format(Resources.CallbackUri, RootUri);
 
             var basket = basketHelper.GetBasket();
             if (basket == null)
@@ -497,15 +497,20 @@ namespace JoelScottFitness.Web.Controllers
             if (!await SendOrderConfirmationEmail(orderViewModel))
                 logger.Error(string.Format(Resources.FailedToSendOrderConfirmationEmailErrorMessage, paymentCompletionResult.TransactionId));
 
+            // send order received email
+            if (!await SendOrderReceivedEmail(orderViewModel))
+                logger.Error(string.Format(Resources.FailedToSendOrderReceivedEmailErrorMessage, paymentCompletionResult.TransactionId));
+
             // redirect them to a normal Get method incase they refresh
-            return RedirectToAction("PaymentConfirmation", "Home", new { transactionId = paymentCompletionResult.TransactionId });
+            return RedirectToAction("PaymentConfirmation", "Home", new { orderId = savePurchaseResult.Result, transactionId = paymentCompletionResult.TransactionId });
         }
 
         [HttpGet]
-        public ActionResult PaymentConfirmation(string transactionId)
+        public ActionResult PaymentConfirmation(long orderId, string transactionId)
         {
             var completePaymentViewModel = new PaymentConfirmationViewModel()
             {
+                OrderId = orderId,
                 TransactionId = transactionId,
             };
 
@@ -539,6 +544,7 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             questionnaireViewModel.OrderId = purchase.Id;
+            questionnaireViewModel.TransactionId = purchase.TransactionId;
 
             return View(questionnaireViewModel);
         }
@@ -556,6 +562,9 @@ namespace JoelScottFitness.Web.Controllers
                 return RedirectToAction("Error", "Home", new { errorMessage = string.Format(Resources.FailedToCreateOrUpdateQuestionnaireErrorMessage, questionnaire.OrderId) });
 
             ViewBag.Message = Resources.QuestionnaireCompleteConfirmationMessage;
+
+            if (!await SendQuestionnaireCompleteEmail(questionnaire))
+                logger.Warn(string.Format(Resources.FailedToSendQuestionnaireCompleteEmailErrorMessage, questionnaire.TransactionId));
 
             return View(questionnaire);
         }
@@ -636,7 +645,7 @@ namespace JoelScottFitness.Web.Controllers
                 {
                     errorMessage = string.Format(Resources.FailedToSendMessageErrorMessage,
                                                                             messageViewModel.Name,
-                                                                            messageViewModel.EmailAddress,
+                                                                            Settings.Default.EmailAddress,
                                                                             messageViewModel.Subject,
                                                                             messageViewModel.Message)
                 });
@@ -652,8 +661,8 @@ namespace JoelScottFitness.Web.Controllers
             if (!ModelState.IsValid)
                 return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
 
-            var beforeImageFilename = string.Format(Settings.Default.BeforeFileNameFormat, model.OrderId, Path.GetFileName(model.BeforeFile.FileName));
-            var afterImageFilename = string.Format(Settings.Default.AfterFileNameFormat, model.OrderId, Path.GetFileName(model.AfterFile.FileName));
+            var beforeImageFilename = string.Format(Resources.BeforeFileNameFormat, model.OrderId, Path.GetFileName(model.BeforeFile.FileName));
+            var afterImageFilename = string.Format(Resources.AfterFileNameFormat, model.OrderId, Path.GetFileName(model.AfterFile.FileName));
 
             var beforeUploadResult = fileHelper.UploadFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
             var afterUploadResult = fileHelper.UploadFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
@@ -703,13 +712,6 @@ namespace JoelScottFitness.Web.Controllers
             }
         }
 
-        private async Task<bool> SendOrderConfirmationEmail(OrderHistoryViewModel purchaseViewModel)
-        {
-            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel, RootUri);
-
-            return await jsfService.SendEmailAsync(string.Format(Settings.Default.OrderConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
-        }
-
         private PaymentCompletionResult GetPaymentCompletionResult()
         {
             var paymentCompletionResult = new PaymentCompletionResult() { Success = true };
@@ -739,11 +741,32 @@ namespace JoelScottFitness.Web.Controllers
             return paymentCompletionResult;
         }
 
+        private async Task<bool> SendOrderConfirmationEmail(OrderHistoryViewModel purchaseViewModel)
+        {
+            var email = this.RenderRazorViewToString("_OrderConfirmation", purchaseViewModel, RootUri);
+
+            return await jsfService.SendEmailAsync(string.Format(Resources.OrderConfirmation, purchaseViewModel.TransactionId), email, new List<string>() { purchaseViewModel.Customer.EmailAddress });
+        }
+
+        private async Task<bool> SendOrderReceivedEmail(OrderHistoryViewModel purchaseViewModel)
+        {
+            var email = this.RenderRazorViewToString("_OrderReceived", purchaseViewModel, RootUri);
+
+            return await jsfService.SendEmailAsync(string.Format(Resources.OrderReceived, purchaseViewModel.TransactionId), email, new List<string>() { Settings.Default.EmailAddress });
+        }
+
         private async Task<bool> SendMessageReceivedEmail(CreateMessageViewModel messageViewModel)
         {
             var email = this.RenderRazorViewToString("_EmailMessageReceived", messageViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync("New Customer Enquiry", email, new List<string>() { Settings.Default.JoelScottFitnessEmaillAddress });
+            return await jsfService.SendEmailAsync(Resources.NewCustomerQuery, email, new List<string>() { Settings.Default.EmailAddress });
+        }
+
+        private async Task<bool> SendQuestionnaireCompleteEmail(QuestionnaireViewModel messageViewModel)
+        {
+            var email = this.RenderRazorViewToString("_QuestionnaireComplete", messageViewModel, RootUri);
+
+            return await jsfService.SendEmailAsync(string.Format(Resources.QuestionnaireComplete, messageViewModel.TransactionId), email, new List<string>() { Settings.Default.EmailAddress });
         }
     }
 }

@@ -8,13 +8,13 @@
         <div style="clear:both;"></div>
     </div>
     <div style="text-align:center;padding-top:50px">
-        Purchase successful, transaction number: @Model.TransactionId
+        Purchase successful. Order #@Model.TransactionId
         <br />
         <br /> 
         A confirmation email will be sent shortly.
         <br />
         <br />
-        Please complete your customer insight @Html.ActionLink("here", "CustomerQuestionnaire", new { transactionId = Model.TransactionId })
+        Please complete your customer insight @Html.ActionLink("here", "CustomerQuestionnaire", new { orderId = Model.OrderId, transactionId = Model.TransactionId })
     </div>
 </div>
 

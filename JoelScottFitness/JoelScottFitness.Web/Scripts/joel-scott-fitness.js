@@ -159,7 +159,7 @@ function triggerCarousel() {
 
 // upload before and after images
 function showUploadModal(id) {
-    $('#purchased-item-id').val(id);
+    $('#order-id').val(id);
     $('#upload-title').text('Upload Before and After');
     $('#upload-sub-title').text('Show the world your transformation!');
     $('#upload-modal').modal();
@@ -502,3 +502,97 @@ function addBlogImage(blogId) {
 $(function () {
     $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
 });
+
+$(function () {
+    $('.plans-link').click(function () {
+        $('.navbar-toggle:visible').click();
+    });
+});
+
+$(function () {
+
+    var uploadForm = document.getElementById('upload-form');
+    var uploadButton = document.getElementById('upload-button');
+    var beforeFileInput = document.getElementById('before-image');
+    var afterFileInput = document.getElementById('after-image');
+    var validationSummary = document.getElementById('validation-summary');
+    
+    uploadForm.onsubmit = function (event) {
+        event.preventDefault();
+
+        validationSummary.innerHTML = '';
+        validationSummary.hidden = true;
+
+        // Update button text.
+        uploadButton.innerHTML = 'Uploading...<i class="fa fa-spinner fa-pulse" aria-hidden="true"></i>';
+
+        // check valid file types
+        if (beforeFileInput.files.length <= 0 || afterFileInput.files.length <= 0) {
+            validationSummary.innerHTML = 'Please select image files.';
+            validationSummary.hidden = false;
+            uploadButton.innerHTML = 'Submit';
+            return;
+        }
+
+        if ($('#comment').val().trim(' ').length <= 0) {
+            validationSummary.innerHTML = 'Please enter a comment.';
+            validationSummary.hidden = false;
+            uploadButton.innerHTML = 'Submit';
+            return;
+        }
+
+        var beforeFile = beforeFileInput.files[0];
+        var afterFile = afterFileInput.files[0];
+
+        var formData = new FormData();
+        formData.append('BeforeFile', beforeFile, beforeFile.name);
+        formData.append('AfterFile', afterFile, afterFile.name);
+        formData.append('Comment', $('#comment').val().trim(' '));
+        formData.append('OrderId', $('#order-id').val());
+        formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
+
+        // check valid file types
+        if (!checkFileType(beforeFile.name) || !checkFileType(afterFile.name)) {
+            validationSummary.innerHTML = 'Files must be images.';
+            validationSummary.hidden = false;
+            uploadButton.innerHTML = 'Submit';
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/BeforeAndAfter', true);
+        // Set up a handler for when the request finishes.
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // File(s) uploaded.
+                uploadButton.innerHTML = 'Submit';
+                var responseData = JSON.parse(xhr.response);
+                if (responseData.success === false) {
+                    validationSummary.innerHTML = responseData.errorMessage;
+                    validationSummary.hidden = false;
+                }
+                else {
+                    $('#upload-modal').modal('hide');
+                    $('#comment').val('');
+                    $('#order-id').val('');
+                    $('#before-image').val('');
+                    $('#after-image').val('');
+                }
+            } else {
+                validationSummary.innerHTML = 'Oops! something went wrong please try again later.';
+                validationSummary.hidden = false;
+                uploadButton.innerHTML = 'Submit';
+            }
+        };
+
+        xhr.send(formData);
+    }
+});
+
+function checkFileType(filename) {
+    var extension = filename.toLowerCase().substring(filename.lastIndexOf('.') + 1);
+    if ($.inArray(extension, ['gif', 'png', 'jpg', 'jpeg']) < 0) {
+        return false;
+    }
+    return true;
+}

@@ -757,5 +757,11 @@ namespace JoelScottFitness.Data
 
             return await SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<MailingListItem>> GetMailingListAsync()
+        {
+            return await dbContext.MailingList.Where(m => m.Active)
+                                              .ToListAsync();
+        }
     }
 }

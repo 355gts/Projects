@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AfterFileNameFormat" xml:space="preserve">
+    <value>{0}_AFTER_{1}</value>
+  </data>
   <data name="BasketItemsAsyncNullErrorMessage" xml:space="preserve">
     <value>Failed to retrieve matching basket items from database for customer '{0}', id's searched were '{1}'.</value>
   </data>
   <data name="BasketItemsNullErrorMessage" xml:space="preserve">
     <value>Attempted checkout with null basket session for customer '{0}'.</value>
+  </data>
+  <data name="BeforeFileNameFormat" xml:space="preserve">
+    <value>{0}_BEFORE_{1}</value>
+  </data>
+  <data name="CallbackUri" xml:space="preserve">
+    <value>{0}/Home/ConfirmOrder?</value>
+  </data>
+  <data name="ConfirmAccount" xml:space="preserve">
+    <value>Joel Scott Fitness - Confirm Account</value>
   </data>
   <data name="ConfirmOrderViewModelNullErrorMessage" xml:space="preserve">
     <value>The confirmOrderViewModel was null</value>
@@ -131,6 +143,9 @@
   </data>
   <data name="CustomerIdNullErrorMessage" xml:space="preserve">
     <value>Ooops, we cannot find your customer id, please contact customer services if this continues.</value>
+  </data>
+  <data name="DefaultItemQuantity" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="FailedToAddImageToDatabaseErrorMessage" xml:space="preserve">
     <value>Failed to add image '{0}' to database.</value>
@@ -186,6 +201,12 @@
   <data name="FailedToSendOrderConfirmationEmailErrorMessage" xml:space="preserve">
     <value>Failed to send order confirmation email for transaction with id '{0}'.</value>
   </data>
+  <data name="FailedToSendOrderReceivedEmailErrorMessage" xml:space="preserve">
+    <value>Failed to send order received email for transaction with id '{0}'.</value>
+  </data>
+  <data name="FailedToSendQuestionnaireCompleteEmailErrorMessage" xml:space="preserve">
+    <value>Failed to send questionnaire complete email for order #{0}.</value>
+  </data>
   <data name="FailedToUpdateExistingCustomerDetailsErrorMessage" xml:space="preserve">
     <value>Failed to update existing customer details for email address '{0}';</value>
   </data>
@@ -210,8 +231,32 @@
   <data name="GetCustomerDetailsAsyncErrorMessage" xml:space="preserve">
     <value>Failed to retrieve customer details for customer with id '{0}';</value>
   </data>
+  <data name="ImageUploadErrorMessage" xml:space="preserve">
+    <value>{0} image is empty, please re-select.</value>
+  </data>
+  <data name="MailingListFilename" xml:space="preserve">
+    <value>JoelScottFitness MailingList {0}.txt</value>
+  </data>
+  <data name="MessageResponseSubject" xml:space="preserve">
+    <value>Re: {0}</value>
+  </data>
+  <data name="MissingCommentErrorMessage" xml:space="preserve">
+    <value>Please add a comment.</value>
+  </data>
+  <data name="NewCustomerQuery" xml:space="preserve">
+    <value>New Customer Query</value>
+  </data>
+  <data name="OrderComplete" xml:space="preserve">
+    <value>Joel Scott Fitness - Order #{0} Complete</value>
+  </data>
+  <data name="OrderConfirmation" xml:space="preserve">
+    <value>Joel Scott Fitness - Order #{0} Confirmation</value>
+  </data>
   <data name="OrderNotFoundErrorMessage" xml:space="preserve">
     <value>Order with id '{0}' was not found.</value>
+  </data>
+  <data name="OrderReceived" xml:space="preserve">
+    <value>Joel Scott Fitness - Order #{0} Received</value>
   </data>
   <data name="PayerIdNullErrorMessage" xml:space="preserve">
     <value>Payer id null</value>
@@ -222,8 +267,17 @@
   <data name="PaymentCompletionParameterNullErrorMessage" xml:space="preserve">
     <value>Payment completion parameter '{0}' is null or empty, cannot complete transaction.</value>
   </data>
+  <data name="PlanFilenameFormat" xml:space="preserve">
+    <value>{0} {1} - {2} - {3} - #{4} - {5}.pdf</value>
+  </data>
+  <data name="QuestionnaireComplete" xml:space="preserve">
+    <value>Questionnaire for Order#{0} Complete</value>
+  </data>
   <data name="QuestionnaireCompleteConfirmationMessage" xml:space="preserve">
     <value>Thanks, your tailored workout plan will be with you in the next 24 hours.</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Joel Scott Fitness - Reset Password</value>
   </data>
   <data name="UnableToFindExistingCustomerErrorMessage" xml:space="preserve">
     <value>Failed to find existing customer details for email address '{0}';</value>

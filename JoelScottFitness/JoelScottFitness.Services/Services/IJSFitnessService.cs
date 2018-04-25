@@ -119,5 +119,7 @@ namespace JoelScottFitness.Services.Services
         Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansForOrderAsync(long orderId);
 
         Task<bool> MarkOrderCompleteAsync(long orderId);
+
+        Task<IEnumerable<MailingListItemViewModel>> GetMailingListAsync();
     }
 }

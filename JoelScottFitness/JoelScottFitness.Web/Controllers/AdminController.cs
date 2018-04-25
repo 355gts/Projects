@@ -8,6 +8,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -419,18 +420,18 @@ namespace JoelScottFitness.Web.Controllers
                 return View(uploadPlanViewModel);
             }
 
-            string fileName = string.Format(Settings.Default.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd"));
+            string fileName = string.Format(Resources.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, uploadPlanViewModel.TransactionId, DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
 
             var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
             if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadResult.UploadPath))
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId));
                 return View(uploadPlanViewModel);
             }
 
@@ -532,6 +533,16 @@ namespace JoelScottFitness.Web.Controllers
             return RedirectToAction("Messages", "Admin");
         }
 
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<FileResult> DownloadMailingList()
+        {
+            var mailingList = await jsfService.GetMailingListAsync();
+
+            string fileName = string.Format(Resources.MailingListFilename, DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
+            return File(Encoding.UTF8.GetBytes(string.Join("\r\n", mailingList.OrderBy(s => s.Email).Select(s => s.Email).ToList())), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+
         private UploadResult UploadFile(HttpPostedFileBase postedFile, string directory, string name = null)
         {
             var uploadResult = fileHelper.UploadFile(postedFile, directory, name);
@@ -547,14 +558,14 @@ namespace JoelScottFitness.Web.Controllers
         {
             var email = this.RenderRazorViewToString("_OrderComplete", orderViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(string.Format(Settings.Default.OrderComplete, orderViewModel.TransactionId), email, new List<string>() { orderViewModel.Customer.EmailAddress }, planPaths);
+            return await jsfService.SendEmailAsync(string.Format(Resources.OrderComplete, orderViewModel.TransactionId), email, new List<string>() { orderViewModel.Customer.EmailAddress }, planPaths);
         }
 
         private async Task<bool> SendMessageResponseEmail(MessageViewModel messageViewModel)
         {
             var email = this.RenderRazorViewToString("_EmailMessageResponse", messageViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(string.Format(Settings.Default.MessageResponseSubject, messageViewModel.Subject), email, new List<string>() { messageViewModel.EmailAddress });
+            return await jsfService.SendEmailAsync(string.Format(Resources.MessageResponseSubject, messageViewModel.Subject), email, new List<string>() { messageViewModel.EmailAddress });
         }
     }
 }

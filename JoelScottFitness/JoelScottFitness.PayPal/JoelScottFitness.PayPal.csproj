@@ -53,11 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\PayPalConfiguration.cs" />
+    <Compile Include="Constants\PayPalProperties.cs" />
     <Compile Include="Mappers\AddressMapper.cs" />
     <Compile Include="Mappers\CreditCardMapper.cs" />
     <Compile Include="Mappers\ItemMapper.cs" />
     <Compile Include="Modules\PayPalModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -77,7 +83,12 @@
   <ItemGroup>
     <Content Include="app.config.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JoelScottFitness.Common\JoelScottFitness.Common.csproj">
       <Project>{2f9ea598-48ae-4bc6-87d4-db0b06213267}</Project>

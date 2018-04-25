@@ -324,10 +324,10 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.AreEqual(1, emailAddressesCallback.Count());
                 Assert.AreEqual(emailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Settings.Default.OrderComplete, transactionId), emailSubjectCallback);
+                Assert.AreEqual(string.Format(Resources.OrderComplete, transactionId), emailSubjectCallback);
 
                 // verify the uploaded file name
-                Assert.AreEqual(string.Format(Settings.Default.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd")), uploadFilename);
+                Assert.AreEqual(string.Format(Resources.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd")), uploadFilename);
             }
         }
     }

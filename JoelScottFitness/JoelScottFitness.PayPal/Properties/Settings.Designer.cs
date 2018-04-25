@@ -25,43 +25,64 @@ namespace JoelScottFitness.PayPal.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Failed to create payment for transaction \'{0}\' associated to customer \'{1}\'.")]
-        public string PayPalFailedToCreatePaymentForTransactionErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("sandbox")]
+        public string Mode {
             get {
-                return ((string)(this["PayPalFailedToCreatePaymentForTransactionErrorMessage"]));
+                return ((string)(this["Mode"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occured initiating paypal payment for customer \'{0}\', error details - \'{" +
-            "1}\'.")]
-        public string PayPalExceptionOccuredCreatingPaymentErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("360000")]
+        public string ConnectionTimeout {
             get {
-                return ((string)(this["PayPalExceptionOccuredCreatingPaymentErrorMessage"]));
+                return ((string)(this["ConnectionTimeout"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Payment associated to paymentId \'{0}\' and payerId \'{1}\' failed, paypal response r" +
-            "eturned payment state of \'{2}\'.")]
-        public string PayPalPaymentFailedErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public string RequestRetries {
             get {
-                return ((string)(this["PayPalPaymentFailedErrorMessage"]));
+                return ((string)(this["RequestRetries"]));
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An exception occured processing paypal payment for paymentId \'{0}\' and payerId \'{" +
-            "1}\', error details \'{2}\'.")]
-        public string PayPalPaymentExceptionErrorMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("AbP_MOF0BvQi4AE8oVi0nMnrwMWChCFnyZiF5rYI_cd2rvUoNXUPgGP-SF0XsgEy0vE5_5cRIpWz7YFj")]
+        public string LCID {
             get {
-                return ((string)(this["PayPalPaymentExceptionErrorMessage"]));
+                return ((string)(this["LCID"]));
             }
-            set {
-                this["PayPalPaymentExceptionErrorMessage"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EH_djivM49yeLlhbkql2msDfcpuS2a_nXZ_p7dNv0wRPO56QhYJitG8tiWiMdTtBC8dS1i4lnvRs-a6k")]
+        public string LCS {
+            get {
+                return ((string)(this["LCS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ASHoNRWg_CJ3bHxVbcDt9b0muO9Yx_DUGBWLDO5X01J2xwNofomRQtoVJSUOagCHd1gRkhSeLT8DO9Vf")]
+        public string SCID {
+            get {
+                return ((string)(this["SCID"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EKozir3vCoSLcxmGUt2PGLMuQazsL31LbCLJ9vTOzrryrUVoZUjvjYtoABoRvCTSB_S9M8xs_TpJH7G_")]
+        public string SCS {
+            get {
+                return ((string)(this["SCS"]));
             }
         }
     }

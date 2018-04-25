@@ -1,0 +1,22 @@
+﻿@model JoelScottFitness.Common.Models.OrderHistoryViewModel
+@{
+    Layout = "~/Views/Shared/_EmailLayout.cshtml";
+}
+
+<div class="email-content-wrapper">
+    <div class="email-content-container">
+        <h3 class="email-order-confirmation">ORDER RECEIVED</h3>
+        @{
+            <label class="email-order-summary">Order Number: #@Model.TransactionId received.</label>
+            <label class="email-order-summary">Purchase Date: @Model.PurchaseDateDisplayString</label>
+            <label class="email-order-summary">Customer: @string.Format("{0} {1}", @Model.Customer.Firstname, @Model.Customer.Surname)</label>
+            <label class="email-order-summary">Email Address: @Model.Customer.EmailAddress</label>
+
+            <hr />
+            <a href=@string.Format("{0}/Admin/CustomerPlans", TempData["RootUri"]) target="_blank" rel="noopener noreferrer" class="email-order-status-button" style="margin-bottom:30px;margin-top:30px;">
+                <span style="text-decoration:none;font-size:10pt;">View Orders</span>
+            </a>
+            <hr />
+        }
+    </div>
+</div>
