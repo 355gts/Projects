@@ -30,8 +30,6 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             string uploadPath = "uploadPath";
             string uploadPathCallback;
             string uploadFilename;
-            string planPath1 = "planPath1";
-            string planPath2 = "planPath2";
             CustomerViewModel customerViewModel;
             OrderHistoryViewModel purchaseHistoryViewModel;
             OrderItemViewModel purchasedHistoryItemViewModel1;
@@ -101,6 +99,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                     Description = "Description",
                     OrderId = orderId,
                     PostedFile = fileMock.Object,
+                    TransactionId = transactionId,
                 };
 
                 customerPlanViewModel1 = new CustomerPlanViewModel() { PlanPath = "Plan1" };
@@ -219,8 +218,8 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
                 Assert.AreEqual(2, controller.ModelState.Values.First().Errors.Count());
-                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId)));
                 Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadFileErrorMessage, postedFileName)));
+                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId)));
 
             }
 
@@ -246,7 +245,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.IsNotNull(result);
                 Assert.AreEqual(1, controller.ModelState.Count());
                 Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
             }
 
             [TestMethod]
@@ -327,7 +326,7 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.AreEqual(string.Format(Resources.OrderComplete, transactionId), emailSubjectCallback);
 
                 // verify the uploaded file name
-                Assert.AreEqual(string.Format(Resources.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, DateTime.UtcNow.ToString("yyyyMMdd")), uploadFilename);
+                Assert.AreEqual(string.Format(Resources.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, uploadPlanViewModel.TransactionId, DateTime.UtcNow.ToString("yyyyMMddHHmmss")), uploadFilename);
             }
         }
     }

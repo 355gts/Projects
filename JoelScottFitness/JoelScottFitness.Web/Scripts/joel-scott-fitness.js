@@ -159,7 +159,7 @@ function triggerCarousel() {
 
 // upload before and after images
 function showUploadModal(id) {
-    $('#order-id').val(id);
+    $('#plan-id').val(id);
     $('#upload-title').text('Upload Before and After');
     $('#upload-sub-title').text('Show the world your transformation!');
     $('#upload-modal').modal();
@@ -548,7 +548,7 @@ $(function () {
         formData.append('BeforeFile', beforeFile, beforeFile.name);
         formData.append('AfterFile', afterFile, afterFile.name);
         formData.append('Comment', $('#comment').val().trim(' '));
-        formData.append('OrderId', $('#order-id').val());
+        formData.append('PlanId', $('#plan-id').val());
         formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
 
         // check valid file types
@@ -574,7 +574,7 @@ $(function () {
                 else {
                     $('#upload-modal').modal('hide');
                     $('#comment').val('');
-                    $('#order-id').val('');
+                    $('#plan-id').val('');
                     $('#before-image').val('');
                     $('#after-image').val('');
                 }

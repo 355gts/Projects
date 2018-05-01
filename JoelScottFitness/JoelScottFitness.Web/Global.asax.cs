@@ -15,7 +15,9 @@ namespace JoelScottFitness.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+#if !DEBUG
             BundleTable.EnableOptimizations = true;
+#endif
         }
     }
 }

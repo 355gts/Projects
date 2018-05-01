@@ -193,7 +193,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(1, emailAddressesCallback.Count());
                 Assert.AreEqual(Settings.Default.EmailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual("New Customer Enquiry", emailSubjectCallback);
+                Assert.AreEqual(Resources.NewCustomerQuery, emailSubjectCallback);
             }
         }
     }

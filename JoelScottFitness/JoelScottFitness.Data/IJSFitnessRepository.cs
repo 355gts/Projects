@@ -94,9 +94,9 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<CustomerPlan>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
 
-        Task<bool> UpdateHallOfFameStatusAsync(long customerPlanId, bool status);
+        Task<bool> UpdateHallOfFameStatusAsync(long planId, bool status);
 
-        Task<bool> DeleteHallOfFameEntryAsync(long customerPlanId);
+        Task<bool> DeleteHallOfFameEntryAsync(long planId);
 
         Task<AsyncResult<long>> CreateOrUpdateMessageAsync(Message message);
 
@@ -112,7 +112,7 @@ namespace JoelScottFitness.Data
 
         Task<IEnumerable<CustomerPlan>> GetCustomerPlansAsync(Guid customerId);
 
-        Task<CustomerPlan> GetCustomerPlanAsync(long customerPlanId);
+        Task<CustomerPlan> GetCustomerPlanAsync(long planId);
 
         Task<bool> UpdateHallOfFameDetailsAsync(CustomerPlan customerPlan);
 

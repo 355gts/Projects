@@ -45,7 +45,7 @@
                         <div style="position:relative;display:inline-block">
                             @if (entry.Enabled)
                             {
-                                using (Html.BeginForm("UpdateHallOfFameStatus", "Admin", new { orderId = entry.OrderId, status = false }, FormMethod.Post, new { role = "form" }))
+                                using (Html.BeginForm("UpdateHallOfFameStatus", "Admin", new { planId = entry.PlanId, status = false }, FormMethod.Post, new { role = "form" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     <input type="submit" value="Disable" class="btn btn-default" />
@@ -53,7 +53,7 @@
                             }
                             else
                             {
-                                using (Html.BeginForm("UpdateHallOfFameStatus", "Admin", new { orderId = entry.OrderId, status = true }, FormMethod.Post, new { role = "form" }))
+                                using (Html.BeginForm("UpdateHallOfFameStatus", "Admin", new { planId = entry.PlanId, status = true }, FormMethod.Post, new { role = "form" }))
                                 {
                                     @Html.AntiForgeryToken()
                                     <input type="submit" value="Enable" class="btn btn-default" />
@@ -62,7 +62,7 @@
                         </div>
                         <div style="position:relative;display:inline-block">
 
-                            @using (Html.BeginForm("DeleteHallOfFameStatus", "Admin", new { orderId = entry.OrderId }, FormMethod.Post, new { role = "form" }))
+                            @using (Html.BeginForm("DeleteHallOfFameStatus", "Admin", new { planId = entry.PlanId }, FormMethod.Post, new { role = "form" }))
                             {
                                 @Html.AntiForgeryToken()
                                 <input type="submit" value="Delete" class="btn btn-default" />

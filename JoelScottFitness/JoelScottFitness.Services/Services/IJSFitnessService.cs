@@ -93,12 +93,13 @@ namespace JoelScottFitness.Services.Services
 
         Task<KaleidoscopeViewModel> GetKaleidoscopeImagesAsync();
 
-        Task<bool> UploadHallOfFameAsync(long orderId, string beforeImage, string afterImage, string comment);
+        Task<bool> UploadHallOfFameAsync(long planId, string beforeImage, string afterImage, string comment);
 
         Task<IEnumerable<HallOfFameViewModel>> GetHallOfFameEntriesAsync(bool onlyEnabled = true, int? numberOfEntries = null);
 
-        Task<bool> UpdateHallOfFameStatusAsync(long orderId, bool status);
-        Task<bool> DeleteHallOfFameEntryAsync(long orderId);
+        Task<bool> UpdateHallOfFameStatusAsync(long planId, bool status);
+
+        Task<bool> DeleteHallOfFameEntryAsync(long planId);
 
         Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers);
 

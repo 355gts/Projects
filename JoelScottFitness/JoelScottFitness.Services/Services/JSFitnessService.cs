@@ -470,11 +470,11 @@ namespace JoelScottFitness.Services.Services
             return await repository.UploadCustomerPlanAsync(planId, planPath);
         }
 
-        public async Task<bool> UploadHallOfFameAsync(long customerPlanId, string beforeImage, string afterImage, string comment)
+        public async Task<bool> UploadHallOfFameAsync(long planId, string beforeImage, string afterImage, string comment)
         {
             bool success = false;
 
-            var customerPlan = await repository.GetCustomerPlanAsync(customerPlanId);
+            var customerPlan = await repository.GetCustomerPlanAsync(planId);
             if (customerPlan != null)
             {
                 customerPlan.BeforeImage = beforeImage;
@@ -502,14 +502,14 @@ namespace JoelScottFitness.Services.Services
             return mappedHallOfFameEntriesViewModel;
         }
 
-        public async Task<bool> UpdateHallOfFameStatusAsync(long orderItemId, bool status)
+        public async Task<bool> UpdateHallOfFameStatusAsync(long planId, bool status)
         {
-            return await repository.UpdateHallOfFameStatusAsync(orderItemId, status);
+            return await repository.UpdateHallOfFameStatusAsync(planId, status);
         }
 
-        public async Task<bool> DeleteHallOfFameEntryAsync(long orderItemId)
+        public async Task<bool> DeleteHallOfFameEntryAsync(long planId)
         {
-            return await repository.DeleteHallOfFameEntryAsync(orderItemId);
+            return await repository.DeleteHallOfFameEntryAsync(planId);
         }
 
         public Task<bool> SendEmailAsync(string subject, string content, IEnumerable<string> receivers)

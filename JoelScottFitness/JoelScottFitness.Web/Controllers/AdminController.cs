@@ -471,9 +471,9 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> UpdateHallOfFameStatus(long orderId, bool status)
+        public async Task<ActionResult> UpdateHallOfFameStatus(long planId, bool status)
         {
-            var result = await jsfService.UpdateHallOfFameStatusAsync(orderId, status);
+            var result = await jsfService.UpdateHallOfFameStatusAsync(planId, status);
 
             if (result)
                 return RedirectToAction("HallOfFame", "Admin");
@@ -484,9 +484,9 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> DeleteHallOfFameStatus(long orderId)
+        public async Task<ActionResult> DeleteHallOfFameStatus(long planId)
         {
-            var result = await jsfService.DeleteHallOfFameEntryAsync(orderId);
+            var result = await jsfService.DeleteHallOfFameEntryAsync(planId);
 
             if (result)
                 return RedirectToAction("HallOfFame", "Admin");

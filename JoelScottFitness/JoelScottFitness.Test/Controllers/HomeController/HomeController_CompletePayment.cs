@@ -47,8 +47,8 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             Mock<IView> viewMock;
             Mock<IViewEngine> engineMock;
             ViewEngineResult viewEngineResultMock;
-            IEnumerable<string> emailAddressesCallback;
-            string emailSubjectCallback;
+            List<string> emailAddressesCallbacks;
+            List<string> emailSubjectCallbacks;
 
             CON.HomeController controller;
 
@@ -111,13 +111,15 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 contextMock.Setup(c => c.HttpContext.Request)
                            .Returns(requestMock.Object);
 
+                emailAddressesCallbacks = new List<string>();
+                emailSubjectCallbacks = new List<string>();
+                
                 jsfServiceMock.Setup(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()))
                               .Returns(paymentResult);
                 jsfServiceMock.Setup(s => s.GetOrderAsync(It.IsAny<long>()))
                               .ReturnsAsync(purchaseHistoryViewModel);
-                emailAddressesCallback = new List<string>();
                 jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
-                              .Callback<string, string, IEnumerable<string>>((a, b, c) => { emailSubjectCallback = a; emailAddressesCallback = c; })
+                              .Callback<string, string, IEnumerable<string>>((a, b, c) => { emailSubjectCallbacks.Add(a); emailAddressesCallbacks.AddRange(c); })
                               .ReturnsAsync(true);
                 jsfServiceMock.Setup(s => s.SaveOrderAsync(It.IsAny<ConfirmOrderViewModel>()))
                               .ReturnsAsync(new AsyncResult<long>() { Success = true, Result = orderId });
@@ -241,7 +243,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
             {
                 // setup
                 jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
-                              .Callback<string, string, IEnumerable<string>>((a, b, c) => { emailSubjectCallback = a; emailAddressesCallback = c; })
+                              .Callback<string, string, IEnumerable<string>>((a, b, c) => { emailSubjectCallbacks.Add(a); emailAddressesCallbacks.AddRange(c); })
                               .ReturnsAsync(false);
 
                 // test
@@ -250,7 +252,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Exactly(2));
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
@@ -263,11 +265,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsFalse((bool)sessionMock[SessionKeys.HallOfFame]);
 
                 // verify email parameters
-                Assert.IsNotNull(emailAddressesCallback);
-                Assert.AreEqual(1, emailAddressesCallback.Count());
-                Assert.AreEqual(emailAddress, emailAddressesCallback.First());
-                Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallback);
+                Assert.IsNotNull(emailAddressesCallbacks);
+                Assert.AreEqual(2, emailAddressesCallbacks.Count());
+                Assert.AreEqual(emailAddress, emailAddressesCallbacks.First());
+                Assert.AreEqual(Settings.Default.EmailAddress, emailAddressesCallbacks.Skip(1).First());
+                Assert.IsNotNull(emailSubjectCallbacks);
+                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallbacks.First());
+                Assert.AreEqual(string.Format(Resources.OrderReceived, transactionId), emailSubjectCallbacks.Skip(1).First());
             }
 
             [TestMethod]
@@ -280,7 +284,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
                 jsfServiceMock.Verify(s => s.SaveOrderAsync(It.IsAny<ConfirmOrderViewModel>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Exactly(2));
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
@@ -293,11 +297,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsFalse((bool)sessionMock[SessionKeys.HallOfFame]);
 
                 // verify email parameters
-                Assert.IsNotNull(emailAddressesCallback);
-                Assert.AreEqual(1, emailAddressesCallback.Count());
-                Assert.AreEqual(emailAddress, emailAddressesCallback.First());
-                Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallback);
+                Assert.IsNotNull(emailAddressesCallbacks);
+                Assert.AreEqual(2, emailAddressesCallbacks.Count());
+                Assert.AreEqual(emailAddress, emailAddressesCallbacks.First());
+                Assert.AreEqual(Settings.Default.EmailAddress, emailAddressesCallbacks.Skip(1).First());
+                Assert.IsNotNull(emailSubjectCallbacks);
+                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallbacks.First());
+                Assert.AreEqual(string.Format(Resources.OrderReceived, transactionId), emailSubjectCallbacks.Skip(1).First());
             }
 
             [TestMethod]
@@ -312,7 +318,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 // verify
                 jsfServiceMock.Verify(s => s.CompletePayPalPayment(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Exactly(2));
 
                 Assert.IsNotNull(result);
                 Assert.AreEqual("PaymentConfirmation", result.RouteValues["action"]);
@@ -325,11 +331,13 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.IsTrue((bool)sessionMock[SessionKeys.HallOfFame]);
 
                 // verify email parameters
-                Assert.IsNotNull(emailAddressesCallback);
-                Assert.AreEqual(1, emailAddressesCallback.Count());
-                Assert.AreEqual(emailAddress, emailAddressesCallback.First());
-                Assert.IsNotNull(emailSubjectCallback);
-                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallback);
+                Assert.IsNotNull(emailAddressesCallbacks);
+                Assert.AreEqual(2, emailAddressesCallbacks.Count());
+                Assert.AreEqual(emailAddress, emailAddressesCallbacks.First());
+                Assert.AreEqual(Settings.Default.EmailAddress, emailAddressesCallbacks.Skip(1).First());
+                Assert.IsNotNull(emailSubjectCallbacks);
+                Assert.AreEqual(string.Format(Resources.OrderConfirmation, transactionId), emailSubjectCallbacks.First());
+                Assert.AreEqual(string.Format(Resources.OrderReceived, transactionId), emailSubjectCallbacks.Skip(1).First());
             }
 
         }

@@ -533,13 +533,13 @@ namespace JoelScottFitness.Web.Controllers
             var purchase = await jsfService.GetOrderByOrderIdAsync(orderId);
             if (purchase == null)
             {
-                ViewBag.Message = $"Oops! Order Id '{orderId}' not recognised, please ";
+                ViewBag.Message = $"Oops! Order not recognised, please ";
                 return View(questionnaireViewModel);
             }
 
             if (purchase.QuestionnaireId.HasValue)
             {
-                ViewBag.Message = $"Customer insight questionnaire for order Id '{orderId}' has already been submitted, to make amendments please ";
+                ViewBag.Message = $"Customer insight questionnaire for Order #{purchase.TransactionId} has already been submitted, to make amendments please ";
                 return View(questionnaireViewModel);
             }
 
@@ -661,21 +661,21 @@ namespace JoelScottFitness.Web.Controllers
             if (!ModelState.IsValid)
                 return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
 
-            var beforeImageFilename = string.Format(Resources.BeforeFileNameFormat, model.OrderId, Path.GetFileName(model.BeforeFile.FileName));
-            var afterImageFilename = string.Format(Resources.AfterFileNameFormat, model.OrderId, Path.GetFileName(model.AfterFile.FileName));
+            var beforeImageFilename = string.Format(Resources.BeforeFileNameFormat, model.PlanId, Path.GetFileName(model.BeforeFile.FileName));
+            var afterImageFilename = string.Format(Resources.AfterFileNameFormat, model.PlanId, Path.GetFileName(model.AfterFile.FileName));
 
             var beforeUploadResult = fileHelper.UploadFile(model.BeforeFile, Settings.Default.HallOfFameDirectory, beforeImageFilename);
             var afterUploadResult = fileHelper.UploadFile(model.AfterFile, Settings.Default.HallOfFameDirectory, afterImageFilename);
 
             if (!beforeUploadResult.Success || !afterUploadResult.Success)
             {
-                logger.Warn(string.Format(Resources.FailedToUploadHallOfFameImagesErrorMessage, model.OrderId));
+                logger.Warn(string.Format(Resources.FailedToUploadHallOfFameImagesErrorMessage, model.PlanId));
                 return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
             }
 
-            if (!await jsfService.UploadHallOfFameAsync(model.OrderId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
+            if (!await jsfService.UploadHallOfFameAsync(model.PlanId, beforeUploadResult.UploadPath, afterUploadResult.UploadPath, model.Comment))
             {
-                logger.Warn(string.Format(Resources.FailedToUploadHallOfFameErrorMessage, model.OrderId));
+                logger.Warn(string.Format(Resources.FailedToUploadHallOfFameErrorMessage, model.PlanId));
                 return new JsonResult() { Data = new { success = false, errorMessage = Resources.GenericErrorMessage } };
             }
 

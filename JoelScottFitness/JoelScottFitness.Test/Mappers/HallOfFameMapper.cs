@@ -27,7 +27,8 @@ namespace JoelScottFitness.Test.Mappers
                 {
                     Name = "ItemName",
                     Description = "ItemDescription",
-                }
+                },
+                Id = 123,
             };
 
             [TestMethod]
@@ -62,6 +63,7 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.OrderId, webObject.OrderId);
                 Assert.AreEqual(repoObject.Item?.Name, webObject.PlanName);
                 Assert.AreEqual(repoObject.Item?.Description, webObject.PlanDescription);
+                Assert.AreEqual(repoObject.Id, webObject.PlanId);
             }
         }
     }

@@ -606,9 +606,9 @@ namespace JoelScottFitness.Data
             return await query.ToListAsync();
         }
 
-        public async Task<bool> UpdateHallOfFameStatusAsync(long customerPlanId, bool status)
+        public async Task<bool> UpdateHallOfFameStatusAsync(long planId, bool status)
         {
-            var customerPlan = await dbContext.CustomerPlans.FindAsync(customerPlanId);
+            var customerPlan = await dbContext.CustomerPlans.FindAsync(planId);
 
             if (customerPlan == null)
                 return false;
@@ -620,9 +620,9 @@ namespace JoelScottFitness.Data
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteHallOfFameEntryAsync(long customerPlanId)
+        public async Task<bool> DeleteHallOfFameEntryAsync(long planId)
         {
-            var orderItem = await dbContext.CustomerPlans.FindAsync(customerPlanId);
+            var orderItem = await dbContext.CustomerPlans.FindAsync(planId);
 
             if (orderItem == null)
                 return false;
@@ -724,9 +724,9 @@ namespace JoelScottFitness.Data
             return await dbContext.CustomerPlans.Where(c => c.OrderId == orderId).ToListAsync();
         }
 
-        public async Task<CustomerPlan> GetCustomerPlanAsync(long customerPlanId)
+        public async Task<CustomerPlan> GetCustomerPlanAsync(long planId)
         {
-            return await dbContext.CustomerPlans.FindAsync(customerPlanId);
+            return await dbContext.CustomerPlans.FindAsync(planId);
         }
 
         public async Task<bool> UpdateHallOfFameDetailsAsync(CustomerPlan customerPlan)

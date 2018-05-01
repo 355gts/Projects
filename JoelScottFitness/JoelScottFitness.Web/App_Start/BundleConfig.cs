@@ -19,9 +19,13 @@ namespace JoelScottFitness.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery-snow").Include(
                         "~/Scripts/jquery.snow.min.{version}.js"));
 
+#if !DEBUG
             bundles.Add(new ScriptBundle("~/bundles/joel-scott-fitness").Include(
                         "~/Scripts/joel-scott-fitness.min.js"));
-
+#else
+            bundles.Add(new ScriptBundle("~/bundles/joel-scott-fitness").Include(
+                        "~/Scripts/joel-scott-fitness.js"));
+#endif
             bundles.Add(new ScriptBundle("~/bundles/christmas").Include(
                         "~/Scripts/christmas.js"));
 
