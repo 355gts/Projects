@@ -20,6 +20,23 @@
 
             videoCount++;
         }
+
+        if (Model.Count() > 3)
+        {
+            <div class="row col-xs-12" style="margin:0px;">
+                <div class="more-link-wrapper">
+                    <a href="https://www.youtube.com/channel/UCubxF1muUJF5xH7yLe_KfFg" target="_blank" class="more-link">VIEW MY CHANNEL</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div>
+                <div class="more-link-wrapper">
+                    <a href="/Home/Media" class="more-link">MORE</a>
+                </div>
+            </div>
+        }
     }
     else
     {

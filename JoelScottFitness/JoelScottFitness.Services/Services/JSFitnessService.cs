@@ -615,5 +615,19 @@ namespace JoelScottFitness.Services.Services
 
             return mapper.MapEnumerable<MailingListItem, MailingListItemViewModel>(mailingList);
         }
+
+        public async Task<bool> DeleteBlogAsync(long blogId)
+        {
+            return await repository.DeleteBlogAsync(blogId);
+        }
+        public async Task<bool> DeleteBlogImageAsync(long blogImageId)
+        {
+            return await repository.DeleteBlogImageAsync(blogImageId);
+        }
+
+        public async Task<bool> DeleteMessageAsync(long messageId)
+        {
+            return await repository.DeleteMessageAsync(messageId);
+        }
     }
 }

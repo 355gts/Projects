@@ -26,6 +26,7 @@
                     @Html.DisplayNameFor(model => model.Responded)
                 </th>
                 <th></th>
+                <th></th>
             </tr>
 
             @foreach (var item in Model)
@@ -56,7 +57,15 @@
                     <td>
                         @Html.ActionLink("Respond", "Message", "Admin", new { messageId = item.Id }, new { @class = "btn btn-default" })
                     </td>
-                </tr>
+                    <td>
+                        @using (Html.BeginForm("DeleteMessage", "Admin", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" value="@item.Id" id="messageId" name="messageId"/>
+                            <input type="submit" value="Delete" class="btn btn-default" />
+                        }
+                        </td>
+                        </tr>
             }
         </table>
 

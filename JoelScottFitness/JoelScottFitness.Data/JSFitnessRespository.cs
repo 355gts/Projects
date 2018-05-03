@@ -763,5 +763,41 @@ namespace JoelScottFitness.Data
             return await dbContext.MailingList.Where(m => m.Active)
                                               .ToListAsync();
         }
+
+        public async Task<bool> DeleteBlogAsync(long blogId)
+        {
+            var blog = await dbContext.Blogs.FindAsync(blogId);
+
+            if (blog != null)
+            {
+                dbContext.Blogs.Remove(blog);
+            }
+
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteBlogImageAsync(long blogImageId)
+        {
+            var blogImage = await dbContext.BlogImages.FindAsync(blogImageId);
+
+            if (blogImage != null)
+            {
+                dbContext.BlogImages.Remove(blogImage);
+            }
+
+            return await SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteMessageAsync(long messageId)
+        {
+            var message = await dbContext.Messages.FindAsync(messageId);
+
+            if (message != null)
+            {
+                dbContext.Messages.Remove(message);
+            }
+
+            return await SaveChangesAsync();
+        }
     }
 }

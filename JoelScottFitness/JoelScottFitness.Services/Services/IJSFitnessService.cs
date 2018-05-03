@@ -122,5 +122,11 @@ namespace JoelScottFitness.Services.Services
         Task<bool> MarkOrderCompleteAsync(long orderId);
 
         Task<IEnumerable<MailingListItemViewModel>> GetMailingListAsync();
+
+        Task<bool> DeleteBlogAsync(long blogId);
+
+        Task<bool> DeleteBlogImageAsync(long blogImageId);
+
+        Task<bool> DeleteMessageAsync(long messageId);
     }
 }

@@ -1,7 +1,7 @@
 ﻿@model JoelScottFitness.Common.Models.IndexViewModel
 @using System.Text;
 
-<div style="position:relative;z-index:2;background-color:white;text-align:center;height:100vh">
+<div style="position:relative;z-index:2;background-color:white;text-align:center;min-height:100vh">
     <div class="title-wrapper">
        <div class="title-welcome-wrapper">
            WELCOME TO
@@ -40,20 +40,14 @@
     {
         <div class="sect sect1" style="z-index:-10"></div>
     }
-    <div class="subSect">
+    <div class="subSect" style="min-height:100vh">
         <div class="section-title-wrapper">
             <div id="media" class="section-title">
                 <div class="home-row sect-header">
                     MEDIA
                 </div>
-            </div>
-
-            <div class="media-wrapper">
-                @Html.Partial("_Media", Model.Videos)
-            </div>
-            <div>
-                <div class="more-link-wrapper">
-                    <a href="/Home/Media" class="more-link">MORE</a>
+                <div class="media-wrapper">
+                    @Html.Partial("_Media", Model.Videos)
                 </div>
             </div>
         </div>
@@ -72,7 +66,7 @@
      
 
     </style>
-    <div id="plans" class="subSect">
+    <div id="plans" class="subSect" style="min-height:100vh">
         <div class="section-title-wrapper">
             <div class="row section-title">
                 <div class="home-row sect-header">
@@ -112,7 +106,7 @@
         <div class="sect sect2"></div>
     }
 
-    <div class="subSect">
+    <div class="subSect" style="min-height:100vh">
         <div class="section-title-wrapper">
             <div class="section-title">
                 <div class="home-row sect-header">
@@ -160,7 +154,7 @@
 
 @if (Model?.LatestHallOfFamer != null)
 {
-    <div class="subSect">
+    <div class="subSect" style="min-height:100vh">
         <div class="section-title-wrapper">
             <div id="hall-of-fame" class="section-title">
                 <div class="home-row sect-header">

@@ -108,7 +108,7 @@
                             var itemCount = 0;
                             foreach (var item in Model.BlogImages)
                             {
-                                <tr>
+                                <tr id="blog-image-@item.Id" class="blog-image-@item.Id">
                                     @Html.Hidden("BlogImages[" + @itemCount + "].Id", item.Id, new { @class = "basket-value", @id = "BlogImages[" + @itemCount + "].Id" })
                                     @Html.Hidden("BlogImages[" + @itemCount + "].BlogId", item.BlogId, new { @class = "basket-value", @id = "BlogImages[" + @itemCount + "].BlogId" })
                                     @Html.Hidden("BlogImages[" + @itemCount + "].ImagePath", item.ImagePath, new { @class = "basket-value", @id = "BlogImages[" + @itemCount + "].ImagePath" })
@@ -127,7 +127,9 @@
                                     <td>
                                         @Html.DropDownList("BlogImages[" + @itemCount + "].CaptionColour", item.CaptionColours.Select(o => new SelectListItem() { Text = o.Key, Value = o.Value, Selected = o.Key == item.CaptionColour.ToString() }).ToList(), new { @style = "width:100%", @id = "BlogImages[" + @itemCount + "].CaptionColour" })
                                     </td>
-                                    <td></td>
+                                    <td>
+                                          <input type="button" value="Delete" class="btn btn-default" onclick="deleteBlogImage(@Model.Id, @item.Id)" />
+                                    </td>
                                 </tr>
 
                                 itemCount++;

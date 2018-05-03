@@ -65,9 +65,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-font navbar-pad">
-                    <li><a href="/Home/Index#home">Home</a></li>
-                    <li>@Html.ActionLink("Blog", "Blogs", "Home")</li>
                     <li><a class="plans-link" href="/Home/Index#plans">Plans</a></li>
+                    <li><a class="plans-link" href="/Home/Index#media">Media</a></li>
+                    <li>@Html.ActionLink("Blog", "Blogs", "Home")</li>
                     @if (Session["HallOfFame"] != null && (bool)Session["HallOfFame"])
                     {
                         <li>@Html.ActionLink("Hall Of Fame", "HallOfFame", "Home")</li>

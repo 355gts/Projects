@@ -117,5 +117,11 @@ namespace JoelScottFitness.Data
         Task<bool> UpdateHallOfFameDetailsAsync(CustomerPlan customerPlan);
 
         Task<bool> MarkOrderCompleteAsync(long orderId);
+
+        Task<bool> DeleteBlogAsync(long blogId);
+
+        Task<bool> DeleteBlogImageAsync(long blogImageId);
+
+        Task<bool> DeleteMessageAsync(long messageId);
     }
 }

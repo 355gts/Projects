@@ -498,6 +498,24 @@ function addBlogImage(blogId) {
     $("#blog-image-count").val(index + 1);
 }
 
+function deleteBlogImage(blogId, blogImageId) {
+    $.ajax({
+        type: 'POST',
+        cache: false,
+        url: '/Admin/DeleteBlogImage',
+        data: {
+            blogId: blogId,
+            blogImageId: blogImageId,
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function (data) {
+            $('#blog-image-' + blogImageId).remove();
+        }
+    });
+
+    return false;
+}
+
 // for creating editing discount codes
 $(function () {
     $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });

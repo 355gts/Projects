@@ -147,6 +147,37 @@ namespace JoelScottFitness.Web.Controllers
             return View(blog);
         }
 
+        [HttpPost]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> DeleteBlog(long blogId)
+        {
+            var success = await jsfService.DeleteBlogAsync(blogId);
+
+            if (!success)
+                logger.Warn($"Failed to delete blog with id {blogId}.");
+
+            return RedirectToAction("Blogs", "Admin");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<JsonResult> DeleteBlogImage(long blogId, long blogImageId)
+        {
+            var success = await jsfService.DeleteBlogImageAsync(blogImageId);
+
+            if (!success)
+                logger.Warn($"Failed to delete blog image with id {blogImageId}.");
+
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    success = true
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            };
+        }
+
         [HttpGet]
         [Authorize(Roles = JsfRoles.Admin)]
         public async Task<ActionResult> Plans()
@@ -529,6 +560,18 @@ namespace JoelScottFitness.Web.Controllers
                 ModelState.AddModelError(string.Empty, $"Failed to send response message to {messageViewModel.EmailAddress}.");
                 return View(messageViewModel);
             }
+
+            return RedirectToAction("Messages", "Admin");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> DeleteMessage(long messageId)
+        {
+            var success = await jsfService.DeleteMessageAsync(messageId);
+
+            if (!success)
+                logger.Warn($"Failed to delete message with id {messageId}.");
 
             return RedirectToAction("Messages", "Admin");
         }
