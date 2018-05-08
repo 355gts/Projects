@@ -9,6 +9,7 @@ namespace JoelScottFitness.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new GlobalExceptionAttribute());
+            filters.Add(new RequestFilter());
 #if !DEBUG
             filters.Add(new RequireSecureConnectionFilter());
 #endif

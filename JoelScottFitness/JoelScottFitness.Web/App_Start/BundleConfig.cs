@@ -21,10 +21,12 @@ namespace JoelScottFitness.Web
 
 #if !DEBUG
             bundles.Add(new ScriptBundle("~/bundles/joel-scott-fitness").Include(
-                        "~/Scripts/joel-scott-fitness.min.js"));
+                        "~/Scripts/joel-scott-fitness.min.js",
+                        "~/Scripts/jquery.countdown.min.js"));
 #else
             bundles.Add(new ScriptBundle("~/bundles/joel-scott-fitness").Include(
-                        "~/Scripts/joel-scott-fitness.js"));
+                        "~/Scripts/joel-scott-fitness.js",
+                        "~/Scripts/jquery.countdown.js"));
 #endif
             bundles.Add(new ScriptBundle("~/bundles/christmas").Include(
                         "~/Scripts/christmas.js"));

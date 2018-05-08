@@ -1,0 +1,39 @@
+﻿@model IEnumerable<JoelScottFitness.Common.Models.UiPlanViewModel>
+
+@using System.Collections.Generic;
+
+
+<div class="title-format">
+    PLANS
+</div>
+
+@{
+    var planCount = 0;
+
+    foreach (var plan in Model)
+    {
+        <div class="plan-main-row-container">
+            <div class="plan-main-image" style="background-image:url('@plan.ImagePathLarge');">
+                <div class="plan-main-title" style="color:@plan.BannerColour">@plan.Name</div>
+                <div class="plan-main-header" style="color:@plan.BannerColour">@plan.BannerHeader</div>
+                <div class="plan-main-options-wrapper">
+                    <div class="plan-main-options" style="color:@plan.BannerColour">Options:</div>
+                    <div class="plan-main-options-dropdown-wrapper">
+                        @Html.DropDownListFor(p => plan.SelectedOptionId, plan.Options.Select(o => new SelectListItem() { Text = o.Description + "  -  £" + o.Price, Value = o.Id.ToString() }).ToList(), new { @id = "drop-down-" + @planCount, @class = "plan-main-options-dropdown" })
+                    </div>
+                    <div class="plan-main-button-wrapper">
+                        <button type="button" class="btn btn-default btn-lg plan-main-button" onclick="addToBasket('drop-down-@planCount')"><span class="plan-main-button-text">BUY</span></button>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="plan-main-description">@plan.Description</div>
+            </div>
+            <div style="padding-bottom:20px"></div>
+        </div>
+
+        planCount++;
+    }
+}
+
+<div style="padding-bottom:20px;"></div>

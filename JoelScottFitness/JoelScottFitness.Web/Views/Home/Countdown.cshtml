@@ -1,4 +1,4 @@
-﻿
+﻿@model JoelScottFitness.Common.Models.CountdownViewModel
 @{
     Layout = null;
 }
@@ -14,24 +14,31 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/Countdown.css" rel="stylesheet" />
-    <link href="~/Content/flipclock.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="logo-wrapper">
         <img src="~/Content/Images/Logos/jsf-white.svg" class="logo" />
     </div>
+
+    @if (Model.CountdownEnabled)
+    {
     <div class="strap-line-wrapper">
         <label>THE COUNTDOWN HAS BEGUN</label>
     </div>
 
-    <div class="daily-counter-wrapper" style="text-align:center">
-        <div id="daily-clock" class="flip-counter daily-clock flip-clock-wrapper" style="margin:0 auto;width:auto;position:relative;display:inline-block!important"></div>
+    <div style="position: relative; width: 80%; height: 50px; margin:0 auto;" id="countdown"></div>
+    <div style="clear:both"></div>
+    <div class="go-live-strap" style="position: relative; width: 100%; text-align:center;">
+        <label>Friday 1st June 2018 6pm (BST)</label>
     </div>
-    <div class="hourly-counter-wrapper" style="text-align:center;">
-        <div id="hourly-clock" class="flip-counter hourly-clock flip-clock-wrapper" style="margin:0 auto;width:auto;position:relative;display:inline-block!important"></div>
-    </div>
-
+    }
+    else
+    {
+        <div class="coming-soon-wrapper">
+            <label>COMING SOON</label>
+        </div>
+    }
     <div style="clear:both"></div>
     <div class="social-footer-container">
         <div class="social-footer-column-wrapper">
@@ -61,47 +68,34 @@
         <div style="clear:both"></div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/flipclock.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var dailyClock;
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/jquery.responsive_countdown.min.js"></script>
 
-            dailyClock = $('.daily-clock').FlipClock({
-                clockFace: 'DailyCounter',
-                autoStart: false,
-                callbacks: {
-                    stop: function () {
-                        $('.message').html('The clock has stopped!')
-                    }
-                }
-            });
-
-            dailyClock.setTime(@ViewBag.CountDownMilliseconds);
-            dailyClock.setCountdown(true);
-            dailyClock.start();
-
+    <script>
+        $("#countdown").ResponsiveCountdown({
+            target_date: '@Model.GoLiveDate.ToString("MM/dd/yyyy HH:mm:ss")',
+            time_zone: 1, target_future: false,
+            set_id: 0, pan_id: 0, day_digits: 2,
+            fillStyleSymbol1: "rgba(255,255,255,1)",
+            fillStyleSymbol2: "rgba(255,255,255,1)",
+            fillStylesPanel_g1_1: "rgba(0, 0, 0, 1)",
+            fillStylesPanel_g1_2: "rgba(59, 59, 59, 1)",
+            fillStylesPanel_g2_1: "rgba(0, 0, 0, 1)",
+            fillStylesPanel_g2_2: "rgba(59, 59, 59, 1)",
+            text_color: "rgba(255,255,255,1)",
+            text_glow: "rgba(0,0,0,1)",
+            show_ss: true, show_mm: true,
+            show_hh: true, show_dd: true,
+            f_family: "Bebas-Neue", show_labels: true,
+            type3d: "single", max_height: 300,
+            days_long: "days", days_short: "dd",
+            hours_long: "hours", hours_short: "hh",
+            mins_long: "minutes", mins_short: "mm",
+            secs_long: "seconds", secs_short: "ss",
+            min_f_size: 18, max_f_size: 30,
+            spacer: "none", groups_spacing: 2, text_blur: 2,
+            font_to_digit_ratio: 0.125, labels_space: 1.2
         });
-
-        $(document).ready(function () {
-            var hourlyClock;
-
-            hourlyClock = $('.hourly-clock').FlipClock({
-                clockFace: 'HourlyCounter',
-                autoStart: false,
-                callbacks: {
-                    stop: function () {
-                        $('.message').html('The clock has stopped!')
-                    }
-                }
-            });
-
-            hourlyClock.setTime(@ViewBag.CountDownMilliseconds);
-            hourlyClock.setCountdown(true);
-            hourlyClock.start();
-
-        });
-
     </script>
 </body>
 </html>

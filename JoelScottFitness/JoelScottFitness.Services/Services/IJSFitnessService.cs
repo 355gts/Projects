@@ -41,6 +41,8 @@ namespace JoelScottFitness.Services.Services
 
         Task<PlanViewModel> GetPlanAsync(long id);
 
+        Task<UiPlanViewModel> GetUiPlanAsync(long id);
+
         Task<IEnumerable<PlanViewModel>> GetPlansAsync();
 
         Task<IEnumerable<UiPlanViewModel>> GetPlansByGenderAsync(Gender gender);

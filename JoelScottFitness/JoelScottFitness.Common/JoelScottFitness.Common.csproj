@@ -71,6 +71,7 @@
     <Compile Include="Models\BeforeAndAfterViewModel.cs" />
     <Compile Include="Models\BlogImageViewModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
+    <Compile Include="Models\CountdownViewModel.cs" />
     <Compile Include="Models\CreateAddressViewModel.cs" />
     <Compile Include="Models\CreateBlogImageViewModel.cs" />
     <Compile Include="Models\CreateBlogViewModel.cs" />

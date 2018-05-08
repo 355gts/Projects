@@ -112,5 +112,50 @@ namespace JoelScottFitness.Web.Properties {
                 return ((string)(this["EmailAddress"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RedirectEnabled {
+            get {
+                return ((bool)(this["RedirectEnabled"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://joelscottfitness-001-site1.etempurl.com")]
+        public string TempUrl {
+            get {
+                return ((string)(this["TempUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("06/01/2018 18:00:00")]
+        public global::System.DateTime GoLiveDate {
+            get {
+                return ((global::System.DateTime)(this["GoLiveDate"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:58262/Home/Countdown")]
+        public string RedirectUrl {
+            get {
+                return ((string)(this["RedirectUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CountdownEnabled {
+            get {
+                return ((bool)(this["CountdownEnabled"]));
+            }
+        }
     }
 }

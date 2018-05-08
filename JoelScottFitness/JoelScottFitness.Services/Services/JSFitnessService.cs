@@ -188,6 +188,16 @@ namespace JoelScottFitness.Services.Services
             return mapper.MapEnumerable<Plan, PlanViewModel>(plans);
         }
 
+        public async Task<UiPlanViewModel> GetUiPlanAsync(long planId)
+        {
+            var plan = await repository.GetPlanAsync(planId);
+
+            if (plan == null)
+                return null;
+
+            return mapper.Map<Plan, UiPlanViewModel>(plan);
+        }
+
         public async Task<IEnumerable<UiPlanViewModel>> GetPlansByGenderAsync(Gender gender)
         {
             var plans = await repository.GetPlansByGenderAsync(gender);

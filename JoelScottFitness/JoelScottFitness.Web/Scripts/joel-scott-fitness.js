@@ -77,7 +77,7 @@ function getBlog(id) {
             $('#blog-title').text(data.title);
             $('#blog-sub-title').text(data.subTitle);
             $('#blog-date').text(data.date);
-            $('#blog-content').text(data.content);
+            document.getElementById('blog-content').innerHTML = data.content;
 
             var indicators = '';
             var entries = '';
@@ -104,7 +104,7 @@ function getBlog(id) {
                     }
 
                     var logoClass = "blog-modal-carousel-item-caption-logo-black";
-                    if (entry.CaptionColour == 1) {
+                    if (entry.CaptionColour === 1) {
                         logoClass = "blog-modal-carousel-item-caption-logo-white";
                     }  
                     entries = entries + "<div class='logo blog-modal-carousel-item-caption-logo " + logoClass+"'></div>";
@@ -275,7 +275,7 @@ function applyDiscountCode(codeControl) {
 
     var code = $('.'+ codeControl).val();
 
-    if (code != '' && code != null) {
+    if (code !== '' && code !== null) {
         $.ajax({
             type: 'POST',
             cache: false,
@@ -285,7 +285,7 @@ function applyDiscountCode(codeControl) {
                 __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
             },
             success: function (data) {
-                if (data.applied == true) {
+                if (data.applied === true) {
                     hideApplyDiscountCode(data.description);
                     $('.discount').val(data.discount);
                     calculateBasketItemTotals();

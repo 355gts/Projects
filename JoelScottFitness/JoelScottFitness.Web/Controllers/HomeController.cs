@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -105,16 +106,15 @@ namespace JoelScottFitness.Web.Controllers
         [HttpGet]
         public ActionResult Countdown()
         {
-            var goLive = new DateTime(2018, 05, 01, 18, 00, 00);
-            DateTime nowTime = DateTime.Now;
+            var s = Settings.Default.GoLiveDate.ToString("MM/dd/yyyy HH:mm:ss");
 
-            double result = (goLive - DateTime.Now).TotalSeconds;
-            if (result <= 0)
-                result += TimeSpan.FromHours(24).TotalSeconds;
+            var countdownViewModel = new CountdownViewModel()
+            {
+                CountdownEnabled = Settings.Default.CountdownEnabled,
+                GoLiveDate = Settings.Default.GoLiveDate
+            };
 
-            ViewBag.CountDownMilliseconds = result;
-
-            return View();
+            return View(countdownViewModel);
         }
 
         [HttpGet]
@@ -133,6 +133,14 @@ namespace JoelScottFitness.Web.Controllers
         {
             var blog = await jsfService.GetBlogAsync(id);
 
+            var paragraphs = blog.Content.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            StringBuilder content = new StringBuilder();
+            foreach (var paragraph in paragraphs)
+            {
+                if (!string.IsNullOrEmpty(paragraph))
+                    content.Append($"<p>{paragraph}</p>");
+            }
+
             return new JsonResult()
             {
                 Data = new
@@ -140,7 +148,7 @@ namespace JoelScottFitness.Web.Controllers
                     title = blog.Title,
                     date = blog.CreatedDate.DateTimeDisplayStringLong(),
                     subTitle = blog.SubHeader,
-                    content = blog.Content,
+                    content = content.ToString(),
                     images = blog.BlogImages,
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,

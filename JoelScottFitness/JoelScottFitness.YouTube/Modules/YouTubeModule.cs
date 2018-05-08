@@ -7,7 +7,7 @@ namespace JoelScottFitness.YouTube.Modules
     {
         public override void Load()
         {
-            Bind<IYouTubeClient>().To<YouTubeClient>();
+            Bind<IYouTubeClient>().To<YouTubeClient>().InSingletonScope();
         }
     }
 }

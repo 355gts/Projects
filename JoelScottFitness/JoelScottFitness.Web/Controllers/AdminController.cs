@@ -49,6 +49,18 @@ namespace JoelScottFitness.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> PreviewBlog(long blogId)
+        {
+            var blog = await jsfService.GetBlogAsync(blogId);
+
+            if (blog == null)
+                return RedirectToAction("Blogs", "Admin");
+
+            return View(new List<BlogViewModel>() { blog });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
         public ActionResult CreateBlog()
         {
             return View();
@@ -225,6 +237,20 @@ namespace JoelScottFitness.Web.Controllers
             }
 
             return View(plan);
+        }
+
+
+
+        [HttpGet]
+        [Authorize(Roles = JsfRoles.Admin)]
+        public async Task<ActionResult> PreviewPlan(long planId)
+        {
+            var plan = await jsfService.GetUiPlanAsync(planId);
+
+            if (plan == null)
+                return RedirectToAction("Plans", "Admin");
+
+            return View(new List<UiPlanViewModel>() { plan });
         }
 
         [HttpGet]

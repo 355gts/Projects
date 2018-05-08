@@ -5,6 +5,6 @@ namespace JoelScottFitness.YouTube.Client
 {
     public interface IYouTubeClient
     {
-        IEnumerable<YouTubeVideo> GetVideos(long limit);
+        IEnumerable<YouTubeVideo> GetVideos(int limit);
     }
 }

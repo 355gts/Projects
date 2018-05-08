@@ -32,6 +32,7 @@
                 </th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
 
             @foreach (var item in Model)
@@ -54,6 +55,9 @@
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "UpdatePlan", "Admin", new { planId = item.Id }, new { @class = "btn btn-default" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Preview", "PreviewPlan", "Admin", new { planId = item.Id }, new { @class = "btn btn-default", target = "_blank" })
                     </td>
                     <td>
                         @if (item.Active)

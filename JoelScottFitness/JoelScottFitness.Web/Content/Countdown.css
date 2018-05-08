@@ -7,6 +7,10 @@ body {
     background-color: black;
     min-width: 300px;
     white-space: nowrap;
+    margin: 0px;
+    padding: 0px;
+    background-color: #000;
+    overflow-x: hidden;
 }
 
 #daily-clock span span {
@@ -88,8 +92,7 @@ body {
 .logo-wrapper {
     margin: 0 auto;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px
+    padding-top:10px;
 }
 
 .logo {
@@ -100,9 +103,25 @@ body {
 .strap-line-wrapper {
     margin: 0 auto;
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 30px;
     font-family: 'Bebas-Neue';
     font-size: 30pt;
     color: #999999;
+}
+
+.coming-soon-wrapper {
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Bebas-Neue';
+    font-size: 30pt;
+    color: #999999;
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.go-live-strap {
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Bebas-Neue';
+    font-size: 22pt;
+    color: #999999;
+    font-kerning: auto;
 }
