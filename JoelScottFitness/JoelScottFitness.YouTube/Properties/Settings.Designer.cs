@@ -40,5 +40,23 @@ namespace JoelScottFitness.YouTube.Properties {
                 return ((int)(this["RefreshPeriodMinutes"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AIzaSyAgf8J3106URkifq8DpiE3M0iueH_KCHT0")]
+        public string AK {
+            get {
+                return ((string)(this["AK"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("UCubxF1muUJF5xH7yLe_KfFg")]
+        public string CID {
+            get {
+                return ((string)(this["CID"]));
+            }
+        }
     }
 }

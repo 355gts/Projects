@@ -12,10 +12,6 @@ namespace JoelScottFitness.YouTube.Client
     public class YouTubeClient : IYouTubeClient
     {
         private ILog logger = LogManager.GetLogger(nameof(YouTubeClient));
-
-        private const string apiKey = "AIzaSyAgf8J3106URkifq8DpiE3M0iueH_KCHT0";
-        private const string channelId = "UCubxF1muUJF5xH7yLe_KfFg";
-
         private IList<YouTubeVideo> videos;
         private DateTime? lastRefreshed;
 
@@ -29,14 +25,14 @@ namespace JoelScottFitness.YouTube.Client
                     videos = new List<YouTubeVideo>();
                     lastRefreshed = DateTime.UtcNow;
 
-                    YouTubeService yt = new YouTubeService(new BaseClientService.Initializer() { ApiKey = apiKey });
+                    YouTubeService yt = new YouTubeService(new BaseClientService.Initializer() { ApiKey = Settings.Default.AK });
                     List<string> videoList = new List<string>();
 
                     // configure the search query
                     var searchListRequest = yt.Search.List("snippet");
                     searchListRequest.MaxResults = Settings.Default.DefaultVideoLimit;
                     searchListRequest.Order = SearchResource.ListRequest.OrderEnum.Date;
-                    searchListRequest.ChannelId = channelId;
+                    searchListRequest.ChannelId = Settings.Default.CID;
 
                     // call the youtube api
                     var searchListResult = searchListRequest.Execute();
