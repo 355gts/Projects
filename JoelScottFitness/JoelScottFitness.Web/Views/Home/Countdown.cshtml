@@ -17,12 +17,12 @@
 </head>
 
 <body>
-    <div class="logo-wrapper">
-        <img src="~/Content/Images/Logos/jsf-white.svg" class="logo" />
-    </div>
 
     @if (Model.CountdownEnabled)
     {
+        <div class="logo-wrapper">
+            <img src="~/Content/Images/Logos/jsf-white.svg" class="logo" />
+        </div>
     <div class="strap-line-wrapper">
         <label>THE COUNTDOWN HAS BEGUN</label>
     </div>
@@ -35,6 +35,13 @@
     }
     else
     {
+        <div class="row">
+            <div style="width:100vw;position:relative">
+                <div style="width: 80%;margin:0 auto;padding-top: 50px;">
+                    <img src="~/Content/Images/Logos/jsf-white.svg" />
+                </div>
+            </div>
+        </div>
         <div class="coming-soon-wrapper">
             <label>COMING SOON</label>
         </div>

@@ -66,6 +66,18 @@ namespace JoelScottFitness.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult GetToken()
+        {
+            var cookie = new HttpCookie("access");
+            cookie.HttpOnly = true;
+            cookie.Expires = DateTime.UtcNow.AddDays(1);
+            HttpContext.Response.Cookies.Add(cookie);
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]

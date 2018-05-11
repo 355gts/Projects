@@ -115,19 +115,10 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool RedirectEnabled {
             get {
                 return ((bool)(this["RedirectEnabled"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://joelscottfitness-001-site1.etempurl.com")]
-        public string TempUrl {
-            get {
-                return ((string)(this["TempUrl"]));
             }
         }
         
@@ -142,7 +133,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:58262/Home/Countdown")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/Home/Countdown")]
         public string RedirectUrl {
             get {
                 return ((string)(this["RedirectUrl"]));
@@ -151,7 +142,7 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CountdownEnabled {
             get {
                 return ((bool)(this["CountdownEnabled"]));

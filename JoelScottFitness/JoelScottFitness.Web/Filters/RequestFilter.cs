@@ -1,4 +1,5 @@
 ﻿using JoelScottFitness.Web.Properties;
+using log4net;
 using System;
 using System.Web.Mvc;
 
@@ -6,16 +7,24 @@ namespace JoelScottFitness.Web.Filters
 {
     public class RequestFilter : ActionFilterAttribute
     {
+        ILog logger = LogManager.GetLogger(typeof(RequestFilter));
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Settings.Default.RedirectEnabled)
+            var cookieExists = filterContext.HttpContext.Request.Cookies["access"] != null;
+            if (!cookieExists && !filterContext.HttpContext.Request.Url.ToString().Contains("GetToken"))
             {
-                var ukTime = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+                if (Settings.Default.RedirectEnabled)
+                {
+                    var ukTime = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
 
-                if (!filterContext.HttpContext.Request.Url.ToString().Contains(Settings.Default.TempUrl)
-                    && TimeZoneInfo.ConvertTime(DateTime.UtcNow, ukTime) < Settings.Default.GoLiveDate
-                    && !filterContext.HttpContext.Request.Url.ToString().Contains("Countdown"))
-                    filterContext.Result = new RedirectResult(Settings.Default.RedirectUrl);
+                    if (TimeZoneInfo.ConvertTime(DateTime.UtcNow, ukTime) < Settings.Default.GoLiveDate
+                        && !filterContext.HttpContext.Request.Url.ToString().Contains("Countdown"))
+                    {
+                        string redirectUrl = $"{filterContext.HttpContext.Request.Url.ToString().Trim('/')}{Settings.Default.RedirectUrl}";
+                        filterContext.Result = new RedirectResult(redirectUrl);
+                    }
+                }
             }
 
             base.OnActionExecuting(filterContext);

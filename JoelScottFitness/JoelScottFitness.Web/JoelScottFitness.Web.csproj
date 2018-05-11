@@ -382,6 +382,7 @@
     <Content Include="Scripts\joel-scott-fitness.min.js" />
     <Content Include="Scripts\joel-scott-fitness.js" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\JoelScottFitness-HTTPS.pubxml" />
     <None Include="Properties\PublishProfiles\JoelScottFitness-Main.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
