@@ -1,0 +1,57 @@
+﻿@model JoelScottFitness.Common.Models.CustomerPlanViewModel
+
+
+<tr>
+    <td>
+        @Html.DisplayFor(model => model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(model => model.Description)
+    </td>
+    <td>
+        @if (Model.RequiresAction)
+        {
+            <i class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
+        }
+        else
+        {
+            <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
+        }
+    </td>
+
+    @if (!string.IsNullOrEmpty(Model.PlanPath) && !string.IsNullOrEmpty(Model.SheetsUri))
+    {
+        <td>
+            <a href="@Model.PlanPath" target="_blank">Plan</a>
+        </td>
+                            <td>
+                                <a href="@Model.SheetsUri" target="_blank">Google Sheets</a>
+                            </td>
+                            <td></td>
+    }
+    else
+    {
+        using (Html.BeginForm("UploadPlan", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <td>
+                @Html.AntiForgeryToken()
+                @Html.Hidden("OrderId", Model.Id, new { @style = "display:none" })
+                @*@Html.Hidden("TransactionId", Model.TransactionId, new { @style = "display:none" })*@
+                @Html.Hidden("PlanId", Model.Id, new { @style = "display:none" })
+                @Html.Hidden("CustomerId", Model.CustomerId, new { @style = "display:none" })
+                @Html.Hidden("Name", Model.Name, new { @style = "display:none" })
+                @Html.Hidden("Description", Model.Description, new { @style = "display:none" })
+                <input type="file" id="postedFile" name="PostedFile" />
+            </td>
+                                <td>
+                                    <input type="text" id="SheetsUri" name="SheetsUri" value="@Model.SheetsUri" />
+                                    @Html.ValidationMessageFor(model => Model.SheetsUri, "", new { @class = "text-danger form-warning" })
+                                </td>
+                                <td>
+                                    <input type="submit" value="Upload" class="btn btn-default" />
+                                </td>
+        }
+    }
+
+</tr>
+

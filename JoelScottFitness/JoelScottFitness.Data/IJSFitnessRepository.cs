@@ -84,7 +84,7 @@ namespace JoelScottFitness.Data
 
         Task<ImageConfiguration> GetImageConfigurationAsync();
 
-        Task<bool> UploadCustomerPlanAsync(long orderItemId, string planPath);
+        Task<bool> UploadCustomerPlanAsync(long orderItemId, string planPath, string sheetsUri);
 
         Task<IEnumerable<PlanOption>> GetPlanOptionsAsync();
 

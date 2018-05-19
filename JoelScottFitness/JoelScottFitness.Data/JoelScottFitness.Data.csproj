@@ -64,11 +64,6 @@
     <Compile Include="JSFitnessContext.cs" />
     <Compile Include="JSFitnessInitializer.cs" />
     <Compile Include="JSFitnessRespository.cs" />
-    <Compile Include="Migrations\201804121504488_Initial.cs" />
-    <Compile Include="Migrations\201804121504488_Initial.Designer.cs">
-      <DependentUpon>201804121504488_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CustomerPlan.cs" />
     <Compile Include="Models\Message.cs" />
@@ -104,11 +99,6 @@
       <Project>{063079cc-26be-41e2-9ff6-444df77c5f4b}</Project>
       <Name>JoelScottFitness.Identity</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804121504488_Initial.resx">
-      <DependentUpon>201804121504488_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

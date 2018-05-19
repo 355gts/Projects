@@ -244,6 +244,14 @@
     <div class="col-md-12">
         <label style="font-size:14pt">Plans:</label>
     </div>
+    @if (!string.IsNullOrEmpty(ViewBag.Error))    
+    {
+    <div class="col-md-12">
+        <ul>
+            <li><label style="color:red">@ViewBag.Error</label></li>
+        </ul>
+    </div>
+    }
     <div class="col-md-12">
         @if (Model.Plans == null || !Model.Plans.Any())
         {
@@ -265,58 +273,19 @@
                     <th>
                         <label>Plan Uploaded</label>
                     </th>
-                    <th colspan="2">
+                    <th>
                         <label>Plans</label>
+                    </th>
+                    <th>
+                        <label>Sheets Uris</label>
+                    </th>
+                    <th>
                     </th>
                 </tr>
 
                 @foreach (var plan in Model.Plans)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => plan.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => plan.Description)
-                        </td>
-                        <td>
-                            @if (plan.RequiresAction)
-                            {
-                                <i class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
-                            }
-                            else
-                            {
-                                <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
-                            }
-                        </td>
-
-                        @if (!string.IsNullOrEmpty(plan.PlanPath))
-                        {
-                            <td colspan="2">
-                                <a href="@plan.PlanPath" target="_blank">Plan</a>
-                            </td>
-                        }
-                        else
-                        {
-                            using (Html.BeginForm("UploadPlan", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                                <td>
-                                    @Html.AntiForgeryToken()
-                                    @Html.Hidden("OrderId", Model.Id, new { @style = "display:none" })
-                                    @Html.Hidden("TransactionId", Model.TransactionId, new { @style = "display:none" })
-                                    @Html.Hidden("PlanId", plan.Id, new { @style = "display:none" })
-                                    @Html.Hidden("CustomerId", Model.CustomerId, new { @style = "display:none" })
-                                    @Html.Hidden("Name", plan.Name, new { @style = "display:none" })
-                                    @Html.Hidden("Description", plan.Description, new { @style = "display:none" })
-                                    <input type="file" id="postedFile" name="PostedFile" />
-                                </td>
-                                <td>
-                                    <input type="submit" value="Upload" class="btn btn-default" />
-                                </td>
-                            }
-                        }
-
-                    </tr>
+                    Html.RenderPartial("_CustomerPlan", plan);
                 }
 
 

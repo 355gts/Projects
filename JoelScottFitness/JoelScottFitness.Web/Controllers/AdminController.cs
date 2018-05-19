@@ -489,25 +489,25 @@ namespace JoelScottFitness.Web.Controllers
                 return View(uploadPlanViewModel);
             }
 
-            string fileName = string.Format(Resources.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, uploadPlanViewModel.TransactionId, DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
+            string fileName = string.Format(Resources.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, uploadPlanViewModel.OrderId, DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
 
             var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId));
+                ViewBag.Error = string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId);
                 return View(uploadPlanViewModel);
             }
 
-            if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadResult.UploadPath))
+            if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadResult.UploadPath, uploadPlanViewModel.SheetsUri))
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId));
+                ViewBag.Error = string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId);
                 return View(uploadPlanViewModel);
             }
 
             var orderViewModel = await jsfService.GetOrderAsync(uploadPlanViewModel.OrderId);
             if (orderViewModel == null)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId));
+                ViewBag.Error = string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId);
                 return View(uploadPlanViewModel);
             }
 
@@ -520,7 +520,7 @@ namespace JoelScottFitness.Web.Controllers
                 // send confirmation email
                 if (!await SendOrderCompleteEmail(orderViewModel, planPaths))
                 {
-                    ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                    ViewBag.Error = string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId);
                     return View(uploadPlanViewModel);
                 }
             }
@@ -629,7 +629,7 @@ namespace JoelScottFitness.Web.Controllers
             var uploadResult = fileHelper.UploadFile(postedFile, directory, name);
             if (!uploadResult.Success)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToUploadFileErrorMessage, postedFile.FileName));
+                ViewBag.Error = string.Format(Resources.FailedToUploadFileErrorMessage, name);
             }
 
             return uploadResult;

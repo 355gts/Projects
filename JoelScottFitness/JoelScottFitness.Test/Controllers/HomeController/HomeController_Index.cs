@@ -69,7 +69,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
 
                 contextMock.Setup(c => c.HttpContext.Session)
                            .Returns(sessionMock);
-                
+
                 blogs = new List<BlogViewModel>()
                 {
                     new BlogViewModel(),
@@ -119,7 +119,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 jsfServiceMock.Setup(s => s.GetHallOfFameEntriesAsync(It.IsAny<bool>(), It.IsAny<int?>()))
                               .ReturnsAsync(hallOfFameViewModels);
 
-                youtubeClientMock.Setup(y => y.GetVideos(It.IsAny<long>()))
+                youtubeClientMock.Setup(y => y.GetVideos(It.IsAny<int>()))
                                  .Returns(videos);
 
                 controller = new CON.HomeController(jsfServiceMock.Object,
@@ -239,7 +239,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(sectionImage2, indexViewModel.SectionImages.SectionImage2);
                 Assert.AreEqual(sectionImage3, indexViewModel.SectionImages.SectionImage3);
                 Assert.AreEqual(splashImage, indexViewModel.SectionImages.SplashImage);
-                
+
                 // check session variables
                 Assert.AreEqual(1, sessionMock.Keys.Count);
                 Assert.IsTrue((bool)sessionMock[SessionKeys.HallOfFame]);

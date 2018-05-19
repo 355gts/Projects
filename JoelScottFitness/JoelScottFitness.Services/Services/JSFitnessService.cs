@@ -475,9 +475,9 @@ namespace JoelScottFitness.Services.Services
             return mapper.Map<ImageConfiguration, KaleidoscopeViewModel>(imageConfiguration);
         }
 
-        public async Task<bool> UploadCustomerPlanAsync(long planId, string planPath)
+        public async Task<bool> UploadCustomerPlanAsync(long planId, string planPath, string sheetsUri)
         {
-            return await repository.UploadCustomerPlanAsync(planId, planPath);
+            return await repository.UploadCustomerPlanAsync(planId, planPath, sheetsUri);
         }
 
         public async Task<bool> UploadHallOfFameAsync(long planId, string beforeImage, string afterImage, string comment)

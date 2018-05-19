@@ -20,6 +20,7 @@ namespace JoelScottFitness.Services.Mappers
             customerPlan.PlanPath = fromObject.PlanPath;
             customerPlan.QuestionnaireComplete = fromObject.QuestionnaireComplete;
             customerPlan.RequiresAction = fromObject.RequiresAction;
+            customerPlan.SheetsUri = fromObject.SheetsUri;
 
             return customerPlan;
         }

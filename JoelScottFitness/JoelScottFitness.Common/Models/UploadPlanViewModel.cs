@@ -26,6 +26,9 @@ namespace JoelScottFitness.Common.Models
         public string Description { get; set; }
 
         [DataMember(IsRequired = true)]
+        public string SheetsUri { get; set; }
+
+        [DataMember(IsRequired = true)]
         public HttpPostedFileBase PostedFile { get; set; }
     }
 }

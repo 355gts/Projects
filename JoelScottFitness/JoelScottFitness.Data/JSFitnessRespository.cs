@@ -562,7 +562,7 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UploadCustomerPlanAsync(long planId, string planPath)
+        public async Task<bool> UploadCustomerPlanAsync(long planId, string planPath, string sheetsUri)
         {
             var customerPlan = await dbContext.CustomerPlans.FindAsync(planId);
 
@@ -570,8 +570,10 @@ namespace JoelScottFitness.Data
                 return false;
 
             customerPlan.PlanPath = planPath;
+            customerPlan.SheetsUri = sheetsUri;
 
             dbContext.SetPropertyModified(customerPlan, nameof(customerPlan.PlanPath));
+            dbContext.SetPropertyModified(customerPlan, nameof(customerPlan.SheetsUri));
 
             return await SaveChangesAsync();
         }

@@ -130,6 +130,7 @@
     <Compile Include="Mappers\CreatePlanMapper.cs" />
     <Compile Include="Mappers\CreatePlanOptionMapper.cs" />
     <Compile Include="Mappers\CustomerMapper.cs" />
+    <Compile Include="Mappers\CustomerPlanMapper.cs" />
     <Compile Include="Mappers\DiscountCodeMapper.cs" />
     <Compile Include="Mappers\HallOfFameMapper.cs" />
     <Compile Include="Mappers\ImageConfigurationMapper.cs" />

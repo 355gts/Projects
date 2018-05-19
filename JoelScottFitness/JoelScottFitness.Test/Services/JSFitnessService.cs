@@ -27,6 +27,7 @@ namespace JoelScottFitness.Test.Services
         string userName = "userName";
         Guid customerId = Guid.NewGuid();
         string idString = "id";
+        string sheetsUri = "sheetsUri";
         long id = 1234;
         OrderItem purchasedItemCallback;
         CustomerPlan customerPlanCallback;
@@ -100,7 +101,7 @@ namespace JoelScottFitness.Test.Services
                           .ReturnsAsync(new AsyncResult<long>() { Success = true });
             repositoryMock.Setup(r => r.GetImageConfigurationAsync())
                           .ReturnsAsync(new ImageConfiguration());
-            repositoryMock.Setup(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()))
+            repositoryMock.Setup(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()))
                           .ReturnsAsync(true);
             repositoryMock.Setup(r => r.GetOrderItemAsync(It.IsAny<long>()))
                           .ReturnsAsync(new OrderItem());
@@ -1370,14 +1371,14 @@ namespace JoelScottFitness.Test.Services
         public void AssociatePlanToPurchaseAsync_Fails_ReturnsFalse()
         {
             // setup
-            repositoryMock.Setup(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()))
+            repositoryMock.Setup(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()))
                           .ReturnsAsync(false);
 
             // test
-            var result = service.UploadCustomerPlanAsync(id, idString).Result;
+            var result = service.UploadCustomerPlanAsync(id, idString, sheetsUri).Result;
 
             // verify
-            repositoryMock.Verify(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+            repositoryMock.Verify(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
             Assert.IsNotNull(result);
             Assert.IsFalse(result);
@@ -1387,10 +1388,10 @@ namespace JoelScottFitness.Test.Services
         public void AssociatePlanToPurchaseAsync_Success_ReturnsTrue()
         {
             // test
-            var result = service.UploadCustomerPlanAsync(id, idString).Result;
+            var result = service.UploadCustomerPlanAsync(id, idString, sheetsUri).Result;
 
             // verify
-            repositoryMock.Verify(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
+            repositoryMock.Verify(r => r.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result);

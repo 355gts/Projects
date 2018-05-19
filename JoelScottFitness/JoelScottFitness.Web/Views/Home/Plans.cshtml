@@ -3,6 +3,70 @@
 @using System.Collections.Generic;
 
 
+<style>
+    .plans-headers {
+        font-family: 'Bebas Neue';
+        font-size: 40px;
+    }
+
+    .plans-blurb {
+        font-family: 'Bebas Neue';
+        font-size: 20px;
+        color: black;
+        text-align: justify;
+    }
+
+    @@media (min-width:0px) and (max-width:768px) {
+
+        .plans-blurb-list-container {
+            margin: 20px;
+        }
+        .small-icons {
+            display: block;
+        }
+
+        .large-icons {
+            display: none;
+        }
+    }
+
+
+    @@media (min-width: 769px) {
+
+        .plans-blurb-list-container {
+            margin: 20px 80px;
+        }
+
+        .small-icons{
+            display:none;
+        }
+        .large-icons{
+            display:block;
+        }
+    }
+
+    .plans-blurb-list {
+        list-style-type: none;
+        padding: 0px;
+    }
+
+    .plans-bullets {
+        font-family: 'Bebas Neue';
+        font-size: 24px;
+        color: white;
+        list-style-type:none;
+        margin:0px;
+        margin-top:10px;
+        padding:0px;
+    }
+
+    .plans-bullets li a {
+        text-decoration:none;
+        color:white;
+    }
+</style>
+
+
 <div class="title-format">
     PLANS
 </div>
@@ -25,6 +89,12 @@
                         <button type="button" class="btn btn-default btn-lg plan-main-button" onclick="addToBasket('drop-down-@planCount')"><span class="plan-main-button-text">BUY</span></button>
                         <div style="clear:both"></div>
                     </div>
+                    <div>
+                        <ul class="plans-bullets">
+                            <li><a class="plans-link" href="#plan-details"><i class="fas fa-check-circle fa-1x"></i> &nbsp; Tailored Plan</a></li>
+                            <li><a class="plans-link" href="#plan-details"><i class="fas fa-check-circle"></i> &nbsp; Realtime Coaching</a></li>
+                        </ul>
+                    </div>
                     <div style="clear:both"></div>
                 </div>
                 <div class="plan-main-description">@plan.Description</div>
@@ -36,4 +106,48 @@
     }
 }
 
-<div style="padding-bottom:20px;"></div>
+<div id="plan-details" style="padding-top:60px"></div>
+
+
+
+<div  class="title-format">
+    WHY CHOOSE ME?
+</div>
+<div class="plans-blurb-list-container">
+    <ul class="plans-blurb-list">
+        <li>
+            <h3 class="plans-headers">Tailored to you</h3>
+            <p class="plans-blurb">All of my plans are geared towards attaining certain goals whether it be bulking or shredding.  While the end goal 
+            maybe the same everybodies journey is different, and one plan certainly does not fit all!  When you buy a plan from me
+            it is completely tailored to you, taking into account your current fitness levels ans lifestyle.  Simply complete the 
+            questionnaire after purchase and I can begin preparing the fitness plan that will get you that body you've always wanted.</p>
+        </li>
+        <li>
+            <h3 class="plans-headers">Realtime Coaching</h3>
+            <p class="plans-blurb"> 
+                My help does not end with a fitness plan dropping into your inbox.  All of my fitness plans are delivered via 
+                <strong>Google Sheets</strong> a free app available for all smart devices.  Tracking your progress in <strong>Google Sheets</strong> 
+                enables me to monitor it in realtime and ensure you are achieving the goals you desire.  
+            </p>
+        </li>
+    </ul>
+        <div class="large-icons" style="text-align:center;padding-bottom:50px">
+            <img style="width:160px;position:relative" alt='Get it on the App Store' src='~/Content/Images/Logos/google-sheets-icon.png' />
+
+            <a href='https://play.google.com/store/apps/details?id=com.google.android.apps.docs.editors.sheets&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img style="height:68px" alt='Get it on Google Play' src='~/Content/Images/Logos/google-play-badge.png' /></a>
+
+            <a href='https://itunes.apple.com/us/app/google-sheets/id842849113?mt=8' target="_blank"><img style="width:160px" alt='Get it on the App Store' src='~/Content/Images/Logos/Download_on_the_App_Store_Badge.svg.png' /></a>
+        </div>
+
+    <div class="small-icons" style="text-align:center;padding-bottom:50px">
+        <div>
+            <img style="width:160px;position:relative" alt='Get it on the App Store' src='~/Content/Images/Logos/google-sheets-icon.png' />
+        </div>
+        <div>
+            <a href='https://play.google.com/store/apps/details?id=com.google.android.apps.docs.editors.sheets&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img style="height:68px" alt='Get it on Google Play' src='~/Content/Images/Logos/google-play-badge.png' /></a>
+        </div>
+        <div>
+            <a href='https://itunes.apple.com/us/app/google-sheets/id842849113?mt=8' target="_blank"><img style="width:160px" alt='Get it on the App Store' src='~/Content/Images/Logos/Download_on_the_App_Store_Badge.svg.png' /></a>
+        </div>
+    </div>
+</div>

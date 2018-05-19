@@ -102,6 +102,7 @@
     <Compile Include="Models\MediaViewModel.cs" />
     <Compile Include="Models\PaymentOptionViewModel.cs" />
     <Compile Include="Models\PlanOptionViewModel.cs" />
+    <Compile Include="Models\PlanPathViewModel.cs" />
     <Compile Include="Models\PlanViewModel.cs" />
     <Compile Include="Models\OrderItemViewModel.cs" />
     <Compile Include="Models\OrderHistoryViewModel.cs" />

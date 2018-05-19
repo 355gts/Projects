@@ -28,7 +28,11 @@ namespace JoelScottFitness.Data.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public bool RequiresAction
         {
-            get { return string.IsNullOrEmpty(PlanPath); }
+            get
+            {
+                return string.IsNullOrEmpty(PlanPath)
+                    || string.IsNullOrEmpty(SheetsUri);
+            }
         }
 
         public string PlanPath { get; set; }
@@ -47,5 +51,7 @@ namespace JoelScottFitness.Data.Models
 
         [Required]
         public bool QuestionnaireComplete { get; set; }
+
+        public string SheetsUri { get; set; }
     }
 }

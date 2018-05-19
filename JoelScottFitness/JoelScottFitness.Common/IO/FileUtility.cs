@@ -42,13 +42,20 @@ namespace JoelScottFitness.Common.IO
 
         public static UploadResult UploadFile(HttpPostedFileBase file, string directory, string name = null)
         {
+            UploadResult uploadResult = new UploadResult();
+
             if (file == null)
-                throw new ArgumentNullException(nameof(file));
+            {
+                logger.Warn($"Cannot upload null file");
+                return uploadResult;
+            }
 
             if (string.IsNullOrEmpty(directory))
-                throw new ArgumentException("String is null or empty", nameof(directory));
+            {
+                logger.Warn($"Upload directory cannot be numm");
+                return uploadResult;
+            }
 
-            UploadResult uploadResult = new UploadResult();
             try
             {
                 string path = HttpContext.Current.Server.MapPath($"~/{directory}/");

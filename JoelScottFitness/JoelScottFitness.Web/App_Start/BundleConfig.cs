@@ -43,7 +43,7 @@ namespace JoelScottFitness.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/themes/base/jquery-ui.min.css",
-                      "~/Content/font-awesome.min.css",
+                      "~/Content/fontawesome-all.min.css",
                       "~/Content/Site.css"));
         }
     }
