@@ -18,13 +18,11 @@
     
     @if (Model.DiscountCode != null)
     {
-        @*@Html.HiddenFor(model => Model.DiscountCodeId, new { @style = "display:none", @class = "discount-code-id" })*@
         <input type="hidden" class="discount" value="@Model.DiscountCode.PercentDiscount" />
     }
     else
     {
         <input type="hidden" class="discount" value="0" />
-        @*<input type="hidden" id="DiscountCodeId" name="DiscountCodeId" class="discount-code-id" value="0" />*@
     }
     <div style="clear:both"></div>
     <div class="large-table">
@@ -55,13 +53,13 @@
                                     <td class="col-sm-3" scope="row">@Html.TextBox("BasketItems[" + @itemCountLarge + "].Name", item.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Name" })</td>
                                     <td class="col-sm-5"> @Html.TextBox("BasketItems[" + @itemCountLarge + "].Description", item.Description, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCountLarge + "].Decription" })</td>
                                     <td class="" style="display:inline-flex;text-align:center">
-                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@item.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@item.Id','basket-quantity-new-@itemCountLarge')"><i class="fas fa-plus"></i></button>
                                         @Html.TextBox("BasketItems[" + @itemCountLarge + "].Quantity", item.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCountLarge, @id = "BasketItems[" + @itemCountLarge + "].Quantity", @style = "text-align:center;width:60px" })
-                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@item.Id','basket-quantity-new-@itemCountLarge')"><i class="fa fa-minus"></i></button>
+                                        <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@item.Id','basket-quantity-new-@itemCountLarge')"><i class="fas fa-minus"></i></button>
                                     </td>
                                     <td class="col-sm-2"><div style="position:relative;"> <input id="basket-item-price" class="basket-value-new" name="Price" readonly="readonly" type="text" value="£@item.Price" style="text-align:center">
                                                              <input id="basket-item-hidden-price" class="basket-value-new" name="Price" readonly="readonly" type="hidden" value="@item.Price" style="text-align:center"></div></td>
-                                    <td class="col-sm-1"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@item.Id','basket-item-row-@itemCountLarge')"><i class="fa fa-close"></i></button>
+                                    <td class="col-sm-1"><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@item.Id','basket-item-row-@itemCountLarge')"><i class="fas fa-times"></i></button>
                                 </tr>
                                 itemCountLarge++;
                             }
@@ -132,7 +130,7 @@
                                 <tbody>
                                     <tr>
                                         <th colspan="2" scope="col" style="text-align:left">Plan</th>
-                                        <td colspan="1" style="text-align:right" ><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@item.Id','basket-item-row-@itemCount')"><i class="fa fa-close"></i></button></td>
+                                        <td colspan="1" style="text-align:right" ><button type="button" class="btn btn-default btn-sm basket-button" onclick="removeFromBasket('@item.Id','basket-item-row-@itemCount')"><i class="fas fa-times"></i></button></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" scope="row">@Html.TextBox("BasketItems[" + @itemCount + "].Name", item.Name, new { @readonly = true, @class = "basket-value-new", @id = "BasketItems[" + @itemCount + "].Name", @style = "text-align:center" })</td>
@@ -149,13 +147,13 @@
                                     <tr>
 
                                         <td>
-                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@item.Id','basket-quantity-new-@itemCount')"><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="increaseQuantity('@item.Id','basket-quantity-new-@itemCount')"><i class="fas fa-plus"></i></button>
                                         </td>
                                         <td>
                                             @Html.TextBox("BasketItems[" + @itemCount + "].Quantity", item.Quantity, new { @readonly = true, @class = "basket-quantity-new basket-item-quantity basket-quantity-new-" + @itemCount, @id = "BasketItems[" + @itemCount + "].Quantity", @style = "text-align:center;width:100%" })
                                         </td>
                                         <td style="text-align:right">
-                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@item.Id','basket-quantity-new-@itemCount')"><i class="fa fa-minus"></i></button>
+                                            <button type="button" class="btn btn-default btn-sm basket-button" onclick="decreaseQuantity('@item.Id','basket-quantity-new-@itemCount')"><i class="fas fa-minus"></i></button>
                                         </td>
                                     </tr>
                                     <tr>

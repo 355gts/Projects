@@ -542,7 +542,7 @@ $(function () {
         validationSummary.hidden = true;
 
         // Update button text.
-        uploadButton.innerHTML = 'Uploading...<i class="fa fa-spinner fa-pulse" aria-hidden="true"></i>';
+        uploadButton.innerHTML = 'Uploading...<i class="fas fa-spinner fa-pulse" aria-hidden="true"></i>';
 
         // check valid file types
         if (beforeFileInput.files.length <= 0 || afterFileInput.files.length <= 0) {
