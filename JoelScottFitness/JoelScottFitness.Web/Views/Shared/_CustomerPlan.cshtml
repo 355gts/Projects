@@ -11,47 +11,38 @@
     <td>
         @if (Model.RequiresAction)
         {
-            <i class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
+            <i id="requires-action-@Model.Id" class="fa fa-exclamation" aria-hidden="true" style="color:red"></i>
         }
         else
         {
-            <i class="fa fa-check" aria-hidden="true" style="color:green"></i>
+            <i id="requires-action-@Model.Id" class="fa fa-check" aria-hidden="true" style="color:green"></i>
         }
     </td>
 
-    @if (!string.IsNullOrEmpty(Model.PlanPath) && !string.IsNullOrEmpty(Model.SheetsUri))
-    {
-        <td>
-            <a href="@Model.PlanPath" target="_blank">Plan</a>
-        </td>
-                            <td>
-                                <a href="@Model.SheetsUri" target="_blank">Google Sheets</a>
-                            </td>
-                            <td></td>
-    }
-    else
-    {
-        using (Html.BeginForm("UploadPlan", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    <td>
+
+        <input type="hidden" id="order-id-@Model.Id" value="@Model.OrderId" />
+        <input type="hidden" id="plan-id-@Model.Id" value="@Model.Id" />
+        <input type="hidden" id="customer-id-@Model.Id" value="@Model.CustomerId" />
+        <input type="hidden" id="name-@Model.Id" value="@Model.Name" />
+        <input type="hidden" id="description-@Model.Id" value="@Model.Description" />
+        <input type="text" style="width:100%" id="sheets-uri-@Model.Id" name="SheetsUri" value="@Model.SheetsUri" />
+        @Html.ValidationMessageFor(model => Model.SheetsUri, "", new { @class = "text-danger form-warning" })
+    </td>
+    <td>
+        <input type="button" id="upload-uri-@Model.Id" onclick="uploadSheetsUri(@Model.Id)" value="Upload" class="btn btn-default" />
+
+        @if (!string.IsNullOrEmpty(Model.SheetsUri) && !string.IsNullOrEmpty(Model.SheetsUri))
         {
-            <td>
-                @Html.AntiForgeryToken()
-                @Html.Hidden("OrderId", Model.Id, new { @style = "display:none" })
-                @*@Html.Hidden("TransactionId", Model.TransactionId, new { @style = "display:none" })*@
-                @Html.Hidden("PlanId", Model.Id, new { @style = "display:none" })
-                @Html.Hidden("CustomerId", Model.CustomerId, new { @style = "display:none" })
-                @Html.Hidden("Name", Model.Name, new { @style = "display:none" })
-                @Html.Hidden("Description", Model.Description, new { @style = "display:none" })
-                <input type="file" id="postedFile" name="PostedFile" />
-            </td>
-                                <td>
-                                    <input type="text" id="SheetsUri" name="SheetsUri" value="@Model.SheetsUri" />
-                                    @Html.ValidationMessageFor(model => Model.SheetsUri, "", new { @class = "text-danger form-warning" })
-                                </td>
-                                <td>
-                                    <input type="submit" value="Upload" class="btn btn-default" />
-                                </td>
+
+            <a id="sheets-uri-link-@Model.Id" class="btn btn-default" href="@Model.SheetsUri" target="_blank">Open</a>
         }
-    }
+        else
+        {
+            <a id="sheets-uri-link-@Model.Id" class="btn btn-default" href="#" target="_blank" disabled="disabled">Open</a>
+        }
+    </td>
+
 
 </tr>
-

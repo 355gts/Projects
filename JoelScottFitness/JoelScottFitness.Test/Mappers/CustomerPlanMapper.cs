@@ -24,7 +24,6 @@ namespace JoelScottFitness.Test.Mappers
                 },
                 MemberOfHallOfFame = true,
                 OrderId = 678,
-                PlanPath = "PlantPath",
                 QuestionnaireComplete = true,
                 SheetsUri = "SheetsUri",
             };
@@ -60,7 +59,6 @@ namespace JoelScottFitness.Test.Mappers
                 Assert.AreEqual(repoObject.ItemId, webObject.ItemId);
                 Assert.AreEqual(repoObject.Item.Name, webObject.Name);
                 Assert.AreEqual(repoObject.OrderId, webObject.OrderId);
-                Assert.AreEqual(repoObject.PlanPath, webObject.PlanPath);
                 Assert.AreEqual(repoObject.QuestionnaireComplete, webObject.QuestionnaireComplete);
                 Assert.AreEqual(repoObject.RequiresAction, webObject.RequiresAction);
                 Assert.AreEqual(repoObject.SheetsUri, webObject.SheetsUri);

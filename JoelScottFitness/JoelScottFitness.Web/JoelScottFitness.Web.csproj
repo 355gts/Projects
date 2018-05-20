@@ -269,6 +269,7 @@
     <Content Include="Content\Images\Default\section1.jpg" />
     <Content Include="Content\Images\Default\section2.jpg" />
     <Content Include="Content\Images\Default\section3.jpg" />
+    <Content Include="Content\Images\Logos\Download_on_the_App_Store_Badge-68.png" />
     <Content Include="Content\Images\Logos\Download_on_the_App_Store_Badge.svg.png" />
     <Content Include="Content\Images\Logos\facebook-black.png" />
     <Content Include="Content\Images\Logos\facebook-grey.png" />
@@ -276,6 +277,7 @@
     <Content Include="Content\Images\Logos\facebook2-black.png" />
     <Content Include="Content\Images\Logos\facebook2-grey.png" />
     <Content Include="Content\Images\Logos\facebook2-white.png" />
+    <Content Include="Content\Images\Logos\google-play-badge-68.png" />
     <Content Include="Content\Images\Logos\google-play-badge.png" />
     <Content Include="Content\Images\Logos\google-sheets-icon.png" />
     <Content Include="Content\Images\Logos\google-sheets.png" />
@@ -507,6 +509,8 @@
     <Content Include="webfonts\fa-brands-400.woff" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
+    <Content Include="Views\Shared\_GoogleSheetsIcons.cshtml" />
+    <Content Include="Views\Home\GetTemp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,6 @@ namespace JoelScottFitness.Services.Mappers
             customerPlan.ItemId = fromObject.ItemId;
             customerPlan.Name = fromObject.Item?.Name;
             customerPlan.OrderId = fromObject.OrderId;
-            customerPlan.PlanPath = fromObject.PlanPath;
             customerPlan.QuestionnaireComplete = fromObject.QuestionnaireComplete;
             customerPlan.RequiresAction = fromObject.RequiresAction;
             customerPlan.SheetsUri = fromObject.SheetsUri;

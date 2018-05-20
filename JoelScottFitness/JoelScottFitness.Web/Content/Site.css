@@ -992,7 +992,8 @@ a:hover {
 }
 
 .basket-icon-container {
-    position: absolute;
+    position: relative;
+    padding-top:2px;
     text-align: center;
     width: 100%;
     display: inline-block;
@@ -1006,8 +1007,10 @@ a:hover {
 }
 
 .basket-badge {
+    float:left;
+    position:relative;
     color: black;
-    margin-top: -12px;
+    margin-top: 4px;
     background-color: white;
     font-family: 'Bebas-Neue';
     font-size: 14px;
@@ -1020,6 +1023,7 @@ a:hover {
     color: white;
     margin-right: 10px;
     text-decoration: none;
+    margin-top:2px;
 }
 
 .basket-cart:before {
@@ -1908,3 +1912,73 @@ a:hover {
     color: white;
 }
 /* ACTIVE BUTTON STYLE END */
+
+/* GOOGLE SHEETS ICONS START */
+.plans-headers {
+    font-family: 'Bebas Neue';
+    font-size: 40px;
+}
+
+.plans-blurb {
+    font-family: 'Bebas Neue';
+    font-size: 20px;
+    color: black;
+    text-align: justify;
+}
+
+.google-icon-container {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+@media (min-width:0px) and (max-width:768px) {
+
+    .plans-blurb-list-container {
+        margin: 20px;
+    }
+
+    .small-icons {
+        display: block;
+    }
+
+    .large-icons {
+        display: none;
+    }
+}
+
+
+@media (min-width: 769px) {
+
+    .plans-blurb-list-container {
+        margin: 20px 80px;
+    }
+
+    .small-icons {
+        display: none;
+    }
+
+    .large-icons {
+        display: block;
+    }
+}
+
+.plans-blurb-list {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.plans-bullets {
+    font-family: 'Bebas Neue';
+    font-size: 24px;
+    color: white;
+    list-style-type: none;
+    margin: 0px;
+    margin-top: 10px;
+    padding: 0px;
+}
+
+.plans-bullets li a {
+    text-decoration: none;
+    color: white;
+}
+/* GOOGLE SHEETS ICONS END*/

@@ -562,17 +562,15 @@ namespace JoelScottFitness.Data
                                   .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> UploadCustomerPlanAsync(long planId, string planPath, string sheetsUri)
+        public async Task<bool> UploadCustomerPlanAsync(long planId, string sheetsUri)
         {
             var customerPlan = await dbContext.CustomerPlans.FindAsync(planId);
 
             if (customerPlan == null)
                 return false;
 
-            customerPlan.PlanPath = planPath;
             customerPlan.SheetsUri = sheetsUri;
 
-            dbContext.SetPropertyModified(customerPlan, nameof(customerPlan.PlanPath));
             dbContext.SetPropertyModified(customerPlan, nameof(customerPlan.SheetsUri));
 
             return await SaveChangesAsync();

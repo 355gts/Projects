@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.Web;
 
 namespace JoelScottFitness.Common.Models
 {
@@ -14,21 +13,9 @@ namespace JoelScottFitness.Common.Models
         public long OrderId { get; set; }
 
         [DataMember(IsRequired = true)]
-        public string TransactionId { get; set; }
-
-        [DataMember(IsRequired = true)]
         public Guid CustomerId { get; set; }
 
         [DataMember(IsRequired = true)]
-        public string Name { get; set; }
-
-        [DataMember(IsRequired = true)]
-        public string Description { get; set; }
-
-        [DataMember(IsRequired = true)]
         public string SheetsUri { get; set; }
-
-        [DataMember(IsRequired = true)]
-        public HttpPostedFileBase PostedFile { get; set; }
     }
 }

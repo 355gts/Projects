@@ -89,7 +89,7 @@ namespace JoelScottFitness.Services.Services
 
         Task<SectionImageViewModel> GetSectionImagesAsync();
 
-        Task<bool> UploadCustomerPlanAsync(long planId, string planPath, string sheetsUri);
+        Task<bool> UploadCustomerPlanAsync(long planId, string sheetsUri);
 
         Task<IEnumerable<CustomerPlanViewModel>> GetCustomerPlansAsync(Guid customerId);
 

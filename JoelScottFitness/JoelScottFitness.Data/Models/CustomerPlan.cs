@@ -30,12 +30,9 @@ namespace JoelScottFitness.Data.Models
         {
             get
             {
-                return string.IsNullOrEmpty(PlanPath)
-                    || string.IsNullOrEmpty(SheetsUri);
+                return string.IsNullOrEmpty(SheetsUri);
             }
         }
-
-        public string PlanPath { get; set; }
 
         public bool MemberOfHallOfFame { get; set; }
 

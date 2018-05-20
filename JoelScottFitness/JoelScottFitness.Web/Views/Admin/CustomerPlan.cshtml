@@ -274,10 +274,7 @@
                         <label>Plan Uploaded</label>
                     </th>
                     <th>
-                        <label>Plans</label>
-                    </th>
-                    <th>
-                        <label>Sheets Uris</label>
+                        <label>Sheets Uri</label>
                     </th>
                     <th>
                     </th>
@@ -288,6 +285,13 @@
                     Html.RenderPartial("_CustomerPlan", plan);
                 }
 
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <ul id="upload-error" class="alert" style="display:none"></ul>
+                        </td>
+                    </tr>
+                </tfoot>
 
             </table>
         }

@@ -18,9 +18,6 @@ namespace JoelScottFitness.Common.Models
         public string ImagePath { get; set; }
 
         [DataMember(IsRequired = true)]
-        public string PlanPath { get; set; }
-
-        [DataMember(IsRequired = true)]
         public string SheetsUri { get; set; }
 
         [DataMember(IsRequired = true)]

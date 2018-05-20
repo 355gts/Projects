@@ -29,7 +29,7 @@ namespace JoelScottFitness.Services.Mappers
             {
                 order.RequiresAction = fromObject.Customer.Plans
                                                           .Where(p => p.OrderId == fromObject.Id)
-                                                          .Any(p => string.IsNullOrEmpty(p.PlanPath));
+                                                          .Any(p => string.IsNullOrEmpty(p.SheetsUri));
             }
 
             if (fromObject.Items != null && fromObject.Items.Any())

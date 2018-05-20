@@ -162,7 +162,7 @@ namespace JoelScottFitness.Test.Controllers.HomeController
                 Assert.AreEqual(blog1.Title, data["title"]);
                 Assert.AreEqual(blog1.CreatedDate.DateTimeDisplayStringLong(), data["date"]);
                 Assert.AreEqual(blog1.SubHeader, data["subTitle"]);
-                Assert.AreEqual(blog1.Content, data["content"]);
+                Assert.AreEqual($"<p>{blog1.Content}</p>", data["content"]);
 
                 var blogImages = ((IEnumerable<BlogImageViewModel>)data["images"]);
 

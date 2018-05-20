@@ -22,8 +22,8 @@
 
         <table class="email-table" cellspacing="0" cellpadding="0">
             <tbody>
-        @if (Model.Customer.UserId.HasValue)
-        {
+                @if (Model.Customer.UserId.HasValue)
+                {
                     <tr>
                         <td colspan="3" style="text-align:center">
                             <hr />
@@ -34,7 +34,7 @@
                             <hr />
                         </td>
                     </tr>
-        }
+                }
                 <tr>
                     <td colspan="3" style="text-align:center">
                         <label class="email-order-summary">Please do not hesitate <a href=@string.Format("{0}/Home/Contact", TempData["RootUri"]) target="_blank" rel="noopener noreferrer">contact me</a> if you have any questions.</label>

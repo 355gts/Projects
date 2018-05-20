@@ -614,3 +614,41 @@ function checkFileType(filename) {
     }
     return true;
 }
+
+function uploadSheetsUri(controlId) {
+    
+    var sheetsUriLink = document.getElementById('sheets-uri-link-' + controlId);
+    $('#upload-error').empty();
+    $('#upload-error' + controlId).attr('style', 'display:none');
+
+    $.ajax({
+        type: 'POST',
+        cache: false,
+        url: '/Admin/UploadPlan',
+        data: {
+            OrderId: $('#order-id-' + controlId).val(),
+            PlanId: $('#plan-id-' + controlId).val(),
+            CustomerId: $('#customer-id-' + controlId).val(),
+            Name: $('#name-' + controlId).val(),
+            Description: $('#description-id-' + controlId).val(),
+            SheetsUri: $('#sheets-uri-' + controlId).val(),
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+        },
+        success: function (data) {
+            if (data.success === true){
+                $('#sheets-uri-link-' + controlId).attr('href', $('#sheets-uri-' + controlId).val())
+                $('#sheets-uri-link-' + controlId).removeAttr('disabled');
+                $('#requires-action-' + controlId).removeClass('fa-exclamation').addClass('fa-check');
+                $('#requires-action-' + controlId).attr('style', 'color:green');
+            } else {
+                $.each(data.errors, function (index, entry) {
+                    $('#upload-error').append('<li>' + entry + '</li>');
+                    $('#upload-error').removeAttr('style');
+                    $('#upload-error').attr('style', 'color:red');
+                });
+            }
+        }
+    });
+
+    return false;
+}

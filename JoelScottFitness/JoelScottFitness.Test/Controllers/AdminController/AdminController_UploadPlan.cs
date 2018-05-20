@@ -27,9 +27,8 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             Mock<HttpRequestBase> requestMock;
             Mock<HttpPostedFileBase> fileMock;
 
-            string uploadPath = "uploadPath";
-            string uploadPathCallback;
-            string uploadFilename;
+            string uploadSheetsUri = "uploadPath";
+            string uploadSheetsUriCallback;
             CustomerViewModel customerViewModel;
             OrderHistoryViewModel purchaseHistoryViewModel;
             OrderItemViewModel purchasedHistoryItemViewModel1;
@@ -95,15 +94,12 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 uploadPlanViewModel = new UploadPlanViewModel()
                 {
                     CustomerId = customerId,
-                    Name = "Name",
-                    Description = "Description",
                     OrderId = orderId,
-                    PostedFile = fileMock.Object,
-                    TransactionId = transactionId,
+                    SheetsUri = uploadSheetsUri,
                 };
 
-                customerPlanViewModel1 = new CustomerPlanViewModel() { PlanPath = "Plan1" };
-                customerPlanViewModel2 = new CustomerPlanViewModel() { PlanPath = "Plan2" };
+                customerPlanViewModel1 = new CustomerPlanViewModel() { SheetsUri = "SheetsUri1" };
+                customerPlanViewModel2 = new CustomerPlanViewModel() { SheetsUri = "SheetsUri2" };
 
                 purchasedHistoryItemViewModel1 = new OrderItemViewModel();
                 purchasedHistoryItemViewModel2 = new OrderItemViewModel();
@@ -125,20 +121,14 @@ namespace JoelScottFitness.Test.Controllers.AdminController
 
                 jsfServiceMock.Setup(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()))
                               .ReturnsAsync(customerViewModel);
-                jsfServiceMock.Setup(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()))
-                              .Callback<long, string>((a, b) => { uploadPathCallback = b; })
+                jsfServiceMock.Setup(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()))
+                              .Callback<long, string>((a, b) => { uploadSheetsUriCallback = b; })
                               .ReturnsAsync(true);
                 jsfServiceMock.Setup(s => s.GetOrderAsync(It.IsAny<long>()))
                               .ReturnsAsync(purchaseHistoryViewModel);
-                jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
-                              .Callback<string, string, IEnumerable<string>, IEnumerable<string>>((a, b, c, d) => { emailSubjectCallback = a; emailAddressesCallback = c; })
+                jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
+                              .Callback<string, string, IEnumerable<string>>((a, b, c) => { emailSubjectCallback = a; emailAddressesCallback = c; })
                               .ReturnsAsync(true);
-
-                fileHelperMock.Setup(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()))
-                              .Callback<HttpPostedFileBase, string, string>((a, b, c) => { uploadFilename = c; })
-                              .Returns(new UploadResult() { Success = true, UploadPath = uploadPath });
-                fileHelperMock.Setup(f => f.MapPath(It.IsAny<string>()))
-                              .Returns(uploadPath);
 
                 controller = new CON.AdminController(jsfServiceMock.Object,
                                                      fileHelperMock.Object);
@@ -150,24 +140,28 @@ namespace JoelScottFitness.Test.Controllers.AdminController
             public void UploadPlan_ModelStateInvalid_ReturnsViewResult()
             {
                 // setup
-                controller.ModelState.AddModelError(string.Empty, "Error");
+                controller.ModelState.AddModelError(string.Empty, "Error1");
+                controller.ModelState.AddModelError(string.Empty, "Error2");
 
                 // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as ViewResult;
+                var result = controller.UploadPlan(uploadPlanViewModel).Result as JsonResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Never);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
                 Assert.IsNotNull(result);
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual("Error", controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.IsNotNull(result.Data);
+
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
+
+                // verify the json result contains the correct properties
+                Assert.IsFalse((bool)data["success"]);
+                Assert.AreEqual(2, ((IEnumerable<string>)data["errors"]).Count());
+                Assert.AreEqual("Error1", ((IEnumerable<string>)data["errors"]).First());
+                Assert.AreEqual("Error2", ((IEnumerable<string>)data["errors"]).Skip(1).First());
             }
 
             [TestMethod]
@@ -178,74 +172,50 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                               .ReturnsAsync((CustomerViewModel)null);
 
                 // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as ViewResult;
+                var result = controller.UploadPlan(uploadPlanViewModel).Result as JsonResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Never);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
                 Assert.IsNotNull(result);
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Resources.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
-            }
+                Assert.IsNotNull(result.Data);
 
-            [TestMethod]
-            public void UploadPlan_UploadFileFails_ReturnsViewResult()
-            {
-                // setup
-                fileHelperMock.Setup(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()))
-                              .Returns(new UploadResult() { Success = false });
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
 
-                // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as ViewResult;
-
-                // verify
-                jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
-                jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(2, controller.ModelState.Values.First().Errors.Count());
-                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadFileErrorMessage, postedFileName)));
-                Assert.AreEqual(1, controller.ModelState.Values.First().Errors.Count(e => e.ErrorMessage == string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId)));
-
+                // verify the json result contains the correct properties
+                Assert.IsFalse((bool)data["success"]);
+                Assert.AreEqual(1, ((IEnumerable<string>)data["errors"]).Count());
+                Assert.AreEqual(string.Format(Resources.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId), ((IEnumerable<string>)data["errors"]).First());
             }
 
             [TestMethod]
             public void UploadPlan_AssociatePlanToPurchaseAsyncFails_ReturnsViewResult()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()))
+                jsfServiceMock.Setup(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()))
                               .ReturnsAsync(false);
 
                 // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as ViewResult;
+                var result = controller.UploadPlan(uploadPlanViewModel).Result as JsonResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Never);
                 jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
-
                 Assert.IsNotNull(result);
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPath, uploadPlanViewModel.TransactionId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.IsNotNull(result.Data);
+
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
+
+                // verify the json result contains the correct properties
+                Assert.IsFalse((bool)data["success"]);
+                Assert.AreEqual(1, ((IEnumerable<string>)data["errors"]).Count());
+                Assert.AreEqual(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadSheetsUri, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), ((IEnumerable<string>)data["errors"]).First());
             }
 
             [TestMethod]
@@ -256,67 +226,72 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                               .ReturnsAsync((OrderHistoryViewModel)null);
 
                 // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as ViewResult;
+                var result = controller.UploadPlan(uploadPlanViewModel).Result as JsonResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Never);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Never);
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Never);
 
                 Assert.IsNotNull(result);
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.IsNotNull(result.Data);
+
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
+
+                // verify the json result contains the correct properties
+                Assert.IsFalse((bool)data["success"]);
+                Assert.AreEqual(1, ((IEnumerable<string>)data["errors"]).Count());
+                Assert.AreEqual(string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId), ((IEnumerable<string>)data["errors"]).First());
             }
 
             [TestMethod]
             public void UploadPlan_SendOrderCompleteEmailFails_ReturnsViewResult()
             {
                 // setup
-                jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()))
+                jsfServiceMock.Setup(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()))
                               .ReturnsAsync(false);
 
                 // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as ViewResult;
+                var result = controller.UploadPlan(uploadPlanViewModel).Result as JsonResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Once);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Exactly(purchaseHistoryViewModel.Items.Count()));
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 
                 Assert.IsNotNull(result);
-                Assert.AreEqual(1, controller.ModelState.Count());
-                Assert.IsFalse(controller.ModelState.IsValid);
-                Assert.AreEqual(string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), controller.ModelState.Values.First().Errors.First().ErrorMessage);
+                Assert.IsNotNull(result.Data);
+
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
+
+                // verify the json result contains the correct properties
+                Assert.IsFalse((bool)data["success"]);
+                Assert.AreEqual(1, ((IEnumerable<string>)data["errors"]).Count());
+                Assert.AreEqual(string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId), ((IEnumerable<string>)data["errors"]).First());
             }
 
             [TestMethod]
             public void UploadPlan_Success_ReturnsRedirectToRouteResult()
             {
                 // test
-                var result = controller.UploadPlan(uploadPlanViewModel).Result as RedirectToRouteResult;
+                var result = controller.UploadPlan(uploadPlanViewModel).Result as JsonResult;
 
                 // verify
                 jsfServiceMock.Verify(s => s.GetCustomerDetailsAsync(It.IsAny<Guid>()), Times.Once);
-                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+                jsfServiceMock.Verify(s => s.UploadCustomerPlanAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
                 jsfServiceMock.Verify(s => s.GetOrderAsync(It.IsAny<long>()), Times.Once);
-                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>(), It.IsAny<IEnumerable<string>>()), Times.Once);
-
-                fileHelperMock.Verify(f => f.UploadFile(It.IsAny<HttpPostedFileBase>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-                fileHelperMock.Verify(f => f.MapPath(It.IsAny<string>()), Times.Exactly(purchaseHistoryViewModel.Items.Count()));
+                jsfServiceMock.Verify(s => s.SendEmailAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IEnumerable<string>>()), Times.Once);
 
                 Assert.IsNotNull(result);
-                Assert.AreEqual("CustomerPlan", result.RouteValues["action"]);
-                Assert.AreEqual("Admin", result.RouteValues["controller"]);
-                Assert.AreEqual(orderId, result.RouteValues["orderId"]);
+                Assert.IsNotNull(result.Data);
+
+                IDictionary<string, object> data = new RouteValueDictionary(result.Data);
+
+                // verify the json result contains the correct properties
+                Assert.IsTrue((bool)data["success"]);
+                Assert.AreEqual(0, ((IEnumerable<string>)data["errors"]).Count());
 
                 // verify email parameters
                 Assert.IsNotNull(emailAddressesCallback);
@@ -324,9 +299,6 @@ namespace JoelScottFitness.Test.Controllers.AdminController
                 Assert.AreEqual(emailAddress, emailAddressesCallback.First());
                 Assert.IsNotNull(emailSubjectCallback);
                 Assert.AreEqual(string.Format(Resources.OrderComplete, transactionId), emailSubjectCallback);
-
-                // verify the uploaded file name
-                Assert.AreEqual(string.Format(Resources.PlanFilenameFormat, customerViewModel.Firstname, customerViewModel.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, uploadPlanViewModel.TransactionId, DateTime.UtcNow.ToString("yyyyMMddHHmmss")), uploadFilename);
             }
         }
     }

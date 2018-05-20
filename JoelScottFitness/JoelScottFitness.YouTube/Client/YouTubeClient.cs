@@ -40,11 +40,14 @@ namespace JoelScottFitness.YouTube.Client
                     // iterate the results
                     foreach (var item in searchListResult.Items)
                     {
-                        videos.Add(new YouTubeVideo()
+                        if (item != null)
                         {
-                            VideoId = item.Id.VideoId,
-                            Description = item.Snippet.Description,
-                        });
+                            videos.Add(new YouTubeVideo()
+                            {
+                                VideoId = item.Id.VideoId,
+                                Description = item.Snippet.Description,
+                            });
+                        }
                     }
                 }
             }
@@ -52,7 +55,7 @@ namespace JoelScottFitness.YouTube.Client
             {
                 logger.Warn($"Failed to retrieve youtube videos, error details '{ex.Message}'.");
             }
-
+            
             return videos.Take(limit);
         }
     }

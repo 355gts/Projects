@@ -477,55 +477,61 @@ namespace JoelScottFitness.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = JsfRoles.Admin)]
-        public async Task<ActionResult> UploadPlan(UploadPlanViewModel uploadPlanViewModel)
+        public async Task<JsonResult> UploadPlan(UploadPlanViewModel uploadPlanViewModel)
         {
+            List<string> modelErrors = new List<string>();
+
             if (!ModelState.IsValid)
-                return View(uploadPlanViewModel);
-
-            var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
-            if (customer == null)
             {
-                ModelState.AddModelError(string.Empty, string.Format(Resources.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId));
-                return View(uploadPlanViewModel);
+                modelErrors.AddRange(ModelState.Values.SelectMany(s => s.Errors)
+                                                      .Where(s => !string.IsNullOrEmpty(s.ErrorMessage))
+                                                      .Select(s => s.ErrorMessage)
+                                                      .ToList());
             }
 
-            string fileName = string.Format(Resources.PlanFilenameFormat, customer.Firstname, customer.Surname, uploadPlanViewModel.Name, uploadPlanViewModel.Description, uploadPlanViewModel.OrderId, DateTime.UtcNow.ToString("yyyyMMddHHmmss"));
-
-            var uploadResult = UploadFile(uploadPlanViewModel.PostedFile, Settings.Default.PlanDirectory, fileName);
-            if (!uploadResult.Success)
+            if (!modelErrors.Any())
             {
-                ViewBag.Error = string.Format(Resources.FailedToUploadPlanForCustomerErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId);
-                return View(uploadPlanViewModel);
-            }
-
-            if (!await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadResult.UploadPath, uploadPlanViewModel.SheetsUri))
-            {
-                ViewBag.Error = string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadResult.UploadPath, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId);
-                return View(uploadPlanViewModel);
-            }
-
-            var orderViewModel = await jsfService.GetOrderAsync(uploadPlanViewModel.OrderId);
-            if (orderViewModel == null)
-            {
-                ViewBag.Error = string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId);
-                return View(uploadPlanViewModel);
-            }
-
-            if (orderViewModel.Plans != null && orderViewModel.Plans.Any() && !orderViewModel.Plans.Any(i => i.RequiresAction))
-            {
-                var orderCompleteResult = await jsfService.MarkOrderCompleteAsync(uploadPlanViewModel.OrderId);
-
-                var planPaths = orderViewModel.Plans.Select(i => fileHelper.MapPath(i.PlanPath)).ToList();
-
-                // send confirmation email
-                if (!await SendOrderCompleteEmail(orderViewModel, planPaths))
+                var customer = await jsfService.GetCustomerDetailsAsync(uploadPlanViewModel.CustomerId);
+                if (customer == null)
                 {
-                    ViewBag.Error = string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId);
-                    return View(uploadPlanViewModel);
+                    modelErrors.Add(string.Format(Resources.FailedToFindCustomerErrorMessage, uploadPlanViewModel.CustomerId));
                 }
             }
 
-            return RedirectToAction("CustomerPlan", "Admin", new { orderId = uploadPlanViewModel.OrderId });
+            if (!modelErrors.Any() && !await jsfService.UploadCustomerPlanAsync(uploadPlanViewModel.PlanId, uploadPlanViewModel.SheetsUri))
+            {
+                modelErrors.Add(string.Format(Resources.FailedToAssociatePlanToPurchaseErrorMessage, uploadPlanViewModel.SheetsUri, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+            }
+
+            if (!modelErrors.Any())
+            {
+                var orderViewModel = await jsfService.GetOrderAsync(uploadPlanViewModel.OrderId);
+                if (orderViewModel == null)
+                {
+                    modelErrors.Add(string.Format(Resources.OrderNotFoundErrorMessage, uploadPlanViewModel.OrderId));
+                }
+
+                if (!modelErrors.Any() && orderViewModel.Plans != null && orderViewModel.Plans.Any() && !orderViewModel.Plans.Any(i => i.RequiresAction))
+                {
+                    var orderCompleteResult = await jsfService.MarkOrderCompleteAsync(uploadPlanViewModel.OrderId);
+
+                    // send confirmation email
+                    if (!await SendOrderCompleteEmail(orderViewModel))
+                    {
+                        modelErrors.Add(string.Format(Resources.FailedToSendOrderCompleteEmailErrorMessage, uploadPlanViewModel.OrderId, uploadPlanViewModel.CustomerId));
+                    }
+                }
+            }
+
+            return new JsonResult()
+            {
+                Data = new
+                {
+                    success = !modelErrors.Any(),
+                    errors = modelErrors
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+            };
         }
 
         [HttpGet]
@@ -635,11 +641,11 @@ namespace JoelScottFitness.Web.Controllers
             return uploadResult;
         }
 
-        private async Task<bool> SendOrderCompleteEmail(OrderHistoryViewModel orderViewModel, IEnumerable<string> planPaths)
+        private async Task<bool> SendOrderCompleteEmail(OrderHistoryViewModel orderViewModel)
         {
             var email = this.RenderRazorViewToString("_OrderComplete", orderViewModel, RootUri);
 
-            return await jsfService.SendEmailAsync(string.Format(Resources.OrderComplete, orderViewModel.TransactionId), email, new List<string>() { orderViewModel.Customer.EmailAddress }, planPaths);
+            return await jsfService.SendEmailAsync(string.Format(Resources.OrderComplete, orderViewModel.TransactionId), email, new List<string>() { orderViewModel.Customer.EmailAddress });
         }
 
         private async Task<bool> SendMessageResponseEmail(MessageViewModel messageViewModel)

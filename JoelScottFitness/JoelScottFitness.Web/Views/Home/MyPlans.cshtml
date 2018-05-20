@@ -26,7 +26,7 @@
                     {
                         @Html.HiddenFor(model => item.Id, new { @style = "display:none" });
                         greyscaleClass = string.Empty;
-                        if (string.IsNullOrEmpty(item.PlanPath))
+                        if (string.IsNullOrEmpty(item.SheetsUri))
                         {
                             greyscaleClass = "plan-image-greyscale";
                         }
@@ -40,10 +40,10 @@
                                         @Html.ActionLink("Complete Questionnaire", "CustomerQuestionnaire", new { orderId = item.OrderId })
                                     </div>
                                 }
-                                else if (!string.IsNullOrEmpty(item.PlanPath))
+                                else if (!string.IsNullOrEmpty(item.SheetsUri))
                                 {
                                     <div class="plan-download-format">
-                                        <a href="@item.PlanPath" target="_blank" rel="nofollow">Download</a>
+                                        <a href="@item.SheetsUri" target="_blank" rel="nofollow">Download</a>
                                     </div>
                                 }
                                 else
@@ -54,7 +54,7 @@
                                     <div><i class="fa fa-spinner fa-pulse" aria-hidden="true"></i></div>
                                 }
                             </div>
-                            @if (!string.IsNullOrEmpty(item.PlanPath))
+                            @if (!string.IsNullOrEmpty(item.SheetsUri))
                             {
                                 <div class="plan-upload-icon-wrapper-container">
 
