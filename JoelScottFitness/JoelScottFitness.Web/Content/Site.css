@@ -563,6 +563,12 @@ a:hover {
     padding-left: 10px;
 }
 
+.blog-title-format {
+    font-size: 20px;
+    position: relative;
+    top: 10px;
+}
+
 .blog-date {
     font-weight: normal;
     width: 40px;

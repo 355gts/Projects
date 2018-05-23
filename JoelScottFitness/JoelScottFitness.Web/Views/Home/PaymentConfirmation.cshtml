@@ -16,5 +16,9 @@
         <br />
         Please complete your customer insight @Html.ActionLink("here", "CustomerQuestionnaire", new { orderId = Model.OrderId, transactionId = Model.TransactionId })
     </div>
+    <div style="padding-top:200px;position:relative">
+        @{Html.RenderPartial("_GoogleSheetsIcons");}
+    </div>
 </div>
+
 

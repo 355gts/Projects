@@ -198,10 +198,9 @@ namespace JoelScottFitness.Data
                                      .Include(b => b.BlogImages)
                                      .OrderByDescending(b => b.CreatedDate);
 
-            if (number > 0)
-                blogQuery.Take(number);
-
-            return await blogQuery.ToListAsync();
+            return number > 0 
+                ? await blogQuery.Take(number).ToListAsync() 
+                : await blogQuery.ToListAsync();
         }
 
         public async Task<Customer> GetCustomerDetailsAsync(Guid id)

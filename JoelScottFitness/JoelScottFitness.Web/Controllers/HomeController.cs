@@ -61,10 +61,10 @@ namespace JoelScottFitness.Web.Controllers
         public async Task<ActionResult> Index(bool christmas = false)
         {
             var blogs = await jsfService.GetBlogsAsync(6);
-            var videos = youTubeClient.GetVideos(3);
             var sectionImages = await jsfService.GetSectionImagesAsync();
             var kaleidoscopeImages = await jsfService.GetKaleidoscopeImagesAsync();
             var hallOfFame = await jsfService.GetHallOfFameEntriesAsync(true, 1);
+            var videos = youTubeClient.GetVideos(3);
 
             if (sectionImages == null)
             {
@@ -77,20 +77,22 @@ namespace JoelScottFitness.Web.Controllers
                 };
             }
 
-            var videoViewModel = videos.Select(v => new MediaViewModel()
-            {
-                VideoId = v.VideoId,
-                Description = v.Description,
-            });
-
             var indexViewModel = new IndexViewModel()
             {
                 Blogs = blogs,
-                Videos = videoViewModel,
                 SectionImages = sectionImages,
                 KaleidoscopeImages = kaleidoscopeImages,
                 LatestHallOfFamer = hallOfFame.FirstOrDefault()
             };
+
+            if (videos != null && videos.Any())
+            {
+                indexViewModel.Videos = videos.Select(v => new MediaViewModel()
+                {
+                    VideoId = v.VideoId,
+                    Description = v.Description,
+                });
+            }
 
             // used to determine whether to show the hall of fame link
             Session[SessionKeys.HallOfFame] = false;
