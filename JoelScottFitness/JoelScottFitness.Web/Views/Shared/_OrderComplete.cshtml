@@ -21,12 +21,45 @@
         }
 
         <table class="email-table" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <td colspan="3" class="email-table-head">
+                        <label class="email-table-head-order">ORDER #@Model.TransactionId</label>
+                    </td>
+                </tr>
+            </thead>
             <tbody>
-        @if (Model.Customer.UserId.HasValue)
-        {
+                @foreach (var plan in @Model.Plans)
+                {
+                    <tr>
+                        <td colspan="3">
+                            <div style="position:relative;margin-bottom:6px;margin-top:6px">
+                                <div class="email-table-item-image" style='position:relative; background-image:url(@string.Format(@"{0}/{1}", TempData["RootUri"], plan.ImagePath)'>
+                                    <h2 class="email-table-item-title" style="margin:0">@plan.Name</h2>
+                                    <div class="email-open-plan-wrapper">
+                                        <a class="email-open-plan-link" target="_blank" href="@plan.SheetsUri">
+                                            <div class="email-open-plan-button">
+                                                <div class="email-open-plan-label">Open Plan</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <hr style="margin-top:14px" />
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <table class="email-table" cellspacing="0" cellpadding="0">
+            <tbody>
+                @if (Model.Customer.UserId.HasValue)
+                {
                     <tr>
                         <td colspan="3" style="text-align:center">
-                            <hr />
                             <a href=@string.Format("{0}/Home/MyPlans", TempData["RootUri"]) target="_blank" rel="noopener noreferrer" class="email-order-status-button" style="margin-bottom:30px;margin-top:30px;">
                                 <span style="text-decoration:none;font-size:10pt;">View Plans</span>
 
@@ -34,7 +67,7 @@
                             <hr />
                         </td>
                     </tr>
-        }
+                }
                 <tr>
                     <td colspan="3" style="text-align:center">
                         <label class="email-order-summary">Please do not hesitate <a href=@string.Format("{0}/Home/Contact", TempData["RootUri"]) target="_blank" rel="noopener noreferrer">contact me</a> if you have any questions.</label>
@@ -42,13 +75,14 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-</div>
 
-<div class="google-icon-container" style="text-align:center;position:relative;margin-top: 12px;">
-    <img style="height: 40px;" alt='Get it on the App Store' src=@string.Format("{0}/Content/Images/Logos/google-sheets-icon.png", TempData["RootUri"]) />
-    <span style="padding:10px"></span>
-    <a href='https://play.google.com/store/apps/details?id=com.google.android.apps.docs.editors.sheets&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img style="height: 40px;" alt='Get it on Google Play' src=@string.Format("{0}/Content/Images/Logos/google-play-badge-68.png", TempData["RootUri"]) /></a>
-    <span style="padding:10px"></span>
-    <a href='https://itunes.apple.com/us/app/google-sheets/id842849113?mt=8' target="_blank"><img style="height: 40px;" alt='Get it on the App Store' src=@string.Format("{0}/Content/Images/Logos/Download_on_the_App_Store_Badge-68.png", TempData["RootUri"]) /></a>
+        <div class="google-icon-container" style="text-align:center;position:relative;margin-top: 12px;">
+            <img style="height: 40px;" alt='Get it on the App Store' src=@string.Format("{0}/Content/Images/Logos/google-sheets-icon.png", TempData["RootUri"]) />
+            <span style="padding:10px"></span>
+            <a href='https://play.google.com/store/apps/details?id=com.google.android.apps.docs.editors.sheets&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1' target="_blank"><img style="height: 40px;" alt='Get it on Google Play' src=@string.Format("{0}/Content/Images/Logos/google-play-badge-68.png", TempData["RootUri"]) /></a>
+            <span style="padding:10px"></span>
+            <a href='https://itunes.apple.com/us/app/google-sheets/id842849113?mt=8' target="_blank"><img style="height: 40px;" alt='Get it on the App Store' src=@string.Format("{0}/Content/Images/Logos/Download_on_the_App_Store_Badge-68.png", TempData["RootUri"]) /></a>
+        </div>
+
+    </div>
 </div>

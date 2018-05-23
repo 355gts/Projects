@@ -290,14 +290,6 @@ namespace JoelScottFitness.Web.Controllers
             return null;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetTemp()
-        {
-            var orderViewModel = await jsfService.GetOrderAsync(22);
-
-            return View(orderViewModel);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public void RemoveFromBasket(long id)
