@@ -1,136 +1,151 @@
 ﻿@model JoelScottFitness.Common.Models.IndexViewModel
 @using System.Text;
 
-<div style="position:relative;z-index:2;background-color:white;text-align:center;min-height:100vh">
-    <div class="title-wrapper">
-       <div class="title-welcome-wrapper">
-           WELCOME TO
-       </div>
-        <div class="title-logo-wrapper">
-            <img src="~/Content/Images/Logos/jsf-black.svg" class="title-logo" />
+<div class="welcome-container">
+        <div class="welcome-background-container">
+            <div class="welcome-overlay">
         </div>
-    </div>
-
-    <div style="padding-bottom:120px;padding-top:50px;width:100vw;padding-left:20px;padding-right:20px">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus pretium ante id elementum. Etiam sit amet dapibus purus. Curabitur posuere dui vel porta aliquet. Etiam commodo dolor ligula, in tempor ante eleifend eget. Aliquam erat volutpat. Ut euismod porttitor leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque tempor nisi nec lobortis rhoncus. In molestie purus eget tristique consequat.
-        </p>
-
-        <div style="clear:both"></div>
-    </div>
-    <div style="width:100vw">
-        <div class="believe-achieve-logo-wrapper">
-            <div class="believe-achieve-logo-footer believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
-                <img src="~/Content/Images/Logos/believe-achieve-black.svg" />
+            <article class="welcome-article">
+                <h1 class="welcome-article-header">
+                    Welcome to
+                    <img src="~/Content/Images/Logos/jsf-black.svg" class="welcome-article-img" />
+                </h1>
+                <span class="welcome-article-text">
+                    <p>
+                        For the past 4 years weight training and nutrition have been my passion, so much so that I decided to make it my career and become a PT and online coach.
+                    </p><p>
+                        Weight training not only makes me feel great but opens up a whole new community.  My journey so far has enabled me to meet lots of like minded people.
+                    </p><p>
+                        With the launch of my site I hope to share my ongoing journey and also help you reach and exceed your fitness goals.
+                    </p><p>
+                        Join me in the pursuit of physical fitness and long term health.
+                    </p><p style="margin-bottom:0px">
+                        Lets get started!
+                    </p>
+                    
+                </span>
+                <div class="welcome-signature-wrapper">
+                    <img src="~/Content/Images/Default/joel-black.png" class="welcome-signature" />
+                </div>
+            </article>
+            <div style="width:100vw">
+                <div class="believe-achieve-logo-wrapper">
+                    <div class="believe-achieve-logo-footer believe-achieve-logo-bottom-center" style="padding-bottom:20px;">
+                        <img src="~/Content/Images/Logos/believe-achieve-black.svg" />
+                    </div>
+                </div>
             </div>
-        </div>
+    <div class="clearfix"></div>
     </div>
 </div>
-<input id="splash-image" type="hidden" style="display:none" value="@Model.SectionImages.SplashImage" />
 
-<div class="believe-achieve-background-footer"></div>
-<div class="joel-scott-fitness-background-logo-footer"></div>
+<div class="clearfix"></div>
 
-<div class="sectContainer">
-    @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage1))
-    {
-        <div class="sect" style="z-index:-10;background-image: url('@Model.SectionImages.SectionImage1');"></div>
-    }
-    else
-    {
-        <div class="sect sect1" style="z-index:-10"></div>
-    }
-    <div id="media" class="subSect" style="min-height:100vh">
-        <div class="section-title-wrapper">
-            <div class="row section-title">
-                <div class="home-row sect-header">
-                    MEDIA
-                </div>
-                <div class="media-wrapper">
-                    @Html.Partial("_Media", Model.Videos)
-                </div>
-            </div>
-        </div>
-        <div style="clear:both"></div>
-    </div>
-    @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage2))
-    {
-        <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage2');"></div>
-    }
-    else
-    {
-        <div class="sect sect2"></div>
-    }
+    <input id="splash-image" type="hidden" style="display:none" value="@Model.SectionImages.SplashImage" />
 
-    <style>
-     
+    <div class="believe-achieve-background-footer"></div>
+    <div class="joel-scott-fitness-background-logo-footer"></div>
 
-    </style>
-    <div id="plans" class="subSect" style="min-height:100vh">
-        <div class="section-title-wrapper">
-            <div class="row section-title">
-                <div class="home-row sect-header">
-                    PLANS
+    <div class="sectContainer">
+        @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage1))
+        {
+            <div class="sect" style="z-index:-10;background-image: url('@Model.SectionImages.SectionImage1');"></div>
+        }
+        else
+        {
+            <div class="sect sect1" style="z-index:-10"></div>
+        }
+        <div id="media" class="subSect" style="min-height:100vh">
+            <div class="section-title-wrapper">
+                <div class="row section-title">
+                    <div class="home-row sect-header">
+                        MEDIA
+                    </div>
+                    <div class="media-wrapper">
+                        @Html.Partial("_Media", Model.Videos)
+                    </div>
                 </div>
             </div>
-
-            <div class="plan-index-row-container">
-                <div class="plan-index-container">
-                    <a href=@Url.Action("Plans", "Home", new { gender = "Female" }, Request.Url.Scheme) class="plan-index-link">
-                        <div class="plan-index-image" style="background-image: url('../../Content/Images/Default/for-her-plan.jpg');">
-                            <div class="plan-index-title">
-                                FOR HER
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="plan-index-container">
-                    <a href=@Url.Action("Plans", "Home", new { gender = "Male" }, Request.Url.Scheme) style="text-decoration:none">
-                        <div class="plan-index-image" style="background-image: url('../../Content/Images/Default/for-him-plan.jpg');">
-                            <div class="plan-index-title">
-                                FOR HIM
-                            </div>
-                        </div>
-                    </a>
-                </div>
             <div style="clear:both"></div>
         </div>
-    </div>
-        </div>
-    @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage3))
-    {
-        <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage3');"></div>
-    }
-    else
-    {
-        <div class="sect sect2"></div>
-    }
+        @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage2))
+        {
+            <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage2');"></div>
+        }
+        else
+        {
+            <div class="sect sect2"></div>
+        }
 
-    <div class="subSect" style="min-height:100vh">
-        <div class="section-title-wrapper">
-            <div class="section-title">
-                <div class="home-row sect-header">
-                    BLOG
+        <style>
+
+
+        </style>
+        <div id="plans" class="subSect" style="min-height:100vh">
+            <div class="section-title-wrapper">
+                <div class="row section-title">
+                    <div class="home-row sect-header">
+                        PLANS
+                    </div>
                 </div>
-                <div style="clear:both"></div>
+
+                <div class="plan-index-row-container">
+                    <div class="plan-index-container">
+                        <a href=@Url.Action("Plans", "Home", new { gender = "Female" }, Request.Url.Scheme) class="plan-index-link">
+                            <div class="plan-index-image" style="background-image: url('../../Content/Images/Default/for-her-plan.jpg');">
+                                <div class="plan-index-title">
+                                    FOR HER
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="plan-index-container">
+                        <a href=@Url.Action("Plans", "Home", new { gender = "Male" }, Request.Url.Scheme) style="text-decoration:none">
+                            <div class="plan-index-image" style="background-image: url('../../Content/Images/Default/for-him-plan.jpg');">
+                                <div class="plan-index-title">
+                                    FOR HIM
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
             </div>
+        </div>
+        @if (Model.SectionImages != null && !string.IsNullOrEmpty(Model.SectionImages.SectionImage3))
+        {
+            <div class="sect" style="background-image: url('@Model.SectionImages.SectionImage3');"></div>
+        }
+        else
+        {
+            <div class="sect sect2"></div>
+        }
+
+        <div class="subSect" style="min-height:100vh">
+            <div class="section-title-wrapper">
+                <div class="section-title">
+                    <div class="home-row sect-header">
+                        BLOG
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
                 <div class="blog-row-container">
-                   @Html.Partial("_Blog", Model.Blogs)
+                    @Html.Partial("_Blog", Model.Blogs)
                 </div>
 
-            <hr />
-            <div>
+                <hr />
+                <div>
                     <div class="more-link-wrapper">
                         <a href="/Home/Blogs" class="more-link">MORE</a>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
-    @if(Model?.KaleidoscopeImages != null && !string.IsNullOrEmpty(Model?.KaleidoscopeImages?.Image1))
+    @if (Model?.KaleidoscopeImages != null && !string.IsNullOrEmpty(Model?.KaleidoscopeImages?.Image1))
     {
         <div class="row kaleidoscope-wrapper">
             <div class="col-xs-12 col-sm-6 kaleidoscope-large" style="background-image:url('@Model.KaleidoscopeImages.Image1')">
@@ -152,22 +167,22 @@
         </div>
     }
 
-@if (Model?.LatestHallOfFamer != null)
-{
-    <div class="subSect" style="min-height:100vh">
-        <div class="section-title-wrapper">
-            <div id="hall-of-fame" class="section-title">
-                <div class="home-row sect-header">
-                    LATEST HALL OF FAMER
+    @if (Model?.LatestHallOfFamer != null)
+    {
+        <div class="subSect" style="min-height:100vh">
+            <div class="section-title-wrapper">
+                <div id="hall-of-fame" class="section-title">
+                    <div class="home-row sect-header">
+                        LATEST HALL OF FAMER
+                    </div>
                 </div>
-            </div>
 
-            @Html.Partial("_HallOfFame", Model.LatestHallOfFamer)
+                @Html.Partial("_HallOfFame", Model.LatestHallOfFamer)
 
                 <div class="more-link-wrapper">
                     <a href="/Home/HallOfFame" class="more-link">MORE</a>
                 </div>
+            </div>
+            <div style="clear:both"></div>
         </div>
-        <div style="clear:both"></div>
-    </div>
-}
+    }

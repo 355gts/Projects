@@ -1,5 +1,33 @@
 ﻿@model IEnumerable<JoelScottFitness.Common.Models.CustomerPlanViewModel>
 
+<style>
+    .plan-link {
+        text-decoration: none !important;
+        color: white;
+    }
+
+    .plan-button {
+        position: relative;
+        border-radius: 22px !important;
+        margin: 0px auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: solid 2px white;
+        width: 200px;
+        height: 40px;
+    }
+
+    .plan-button:hover {
+        background-color: black;
+        text-decoration: none;
+    }
+
+    .plan-label {
+        position: relative;
+        margin-top: 4px;
+    }
+</style>
+
 <div class="container page-container" style="font-family:'Bebas-Neue';font-size:12pt">
     <div class="row">
         <div class="col-xs-12 title-format">
@@ -43,13 +71,21 @@
                                 else if (!string.IsNullOrEmpty(item.SheetsUri))
                                 {
                                     <div class="plan-download-format">
-                                        <a href="@item.SheetsUri" target="_blank" rel="nofollow">Download</a>
+                                        <a class="plan-link" target="_blank" href="@item.SheetsUri">
+                                            <div class="plan-button">
+                                                <div class="plan-label">Open Plan</div>
+                                            </div>
+                                        </a>
                                     </div>
+
                                 }
                                 else
                                 {
                                     <div class="plan-preparing-format">
-                                        Preparing
+                                        <div class="plan-button">
+                                            <div class="plan-label">Preparing</div>
+                                        </div>
+                                        
                                     </div>
                                     <div><i class="fas fa-spinner fa-pulse" aria-hidden="true"></i></div>
                                 }

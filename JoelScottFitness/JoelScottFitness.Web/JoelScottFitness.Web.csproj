@@ -259,12 +259,15 @@
     <Content Include="Content\flipclock.css" />
     <Content Include="Content\fontawesome-all.css" />
     <Content Include="Content\fontawesome-all.min.css" />
+    <Content Include="Content\Images\Default\background.jpg" />
     <Content Include="Content\Images\Default\banner.JPG" />
     <Content Include="Content\Images\Blogs\ladies1.jpg" />
     <Content Include="Content\Images\Blogs\ladies2.jpg" />
     <Content Include="Content\Images\Blogs\ladies3.jpg" />
     <Content Include="Content\Images\Default\for-her-plan.jpg" />
     <Content Include="Content\Images\Default\for-him-plan.jpg" />
+    <Content Include="Content\Images\Default\joel-black.png" />
+    <Content Include="Content\Images\Default\Joel.png" />
     <Content Include="Content\Images\Default\JoelScottFitness.jpg" />
     <Content Include="Content\Images\Default\section1.jpg" />
     <Content Include="Content\Images\Default\section2.jpg" />
@@ -420,6 +423,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>

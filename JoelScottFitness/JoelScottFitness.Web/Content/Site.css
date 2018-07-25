@@ -113,6 +113,7 @@ textarea {
     background-size: cover;
     background-image: url('Images/Default/banner.JPG');
     background-position: center top;
+    overflow:hidden;
 }
 
 .logo {
@@ -1454,7 +1455,7 @@ a:hover {
     text-align: center;
     width: 100%;
     padding-top: 10px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
 
 .plan-download-format {
@@ -1474,6 +1475,7 @@ a:hover {
 .plan-preparing-format {
     text-align: center;
     width: 100%;
+    padding-bottom:20px;
 }
 
 .plan-questionnaire-format {
@@ -1988,3 +1990,109 @@ a:hover {
     color: white;
 }
 /* GOOGLE SHEETS ICONS END*/
+
+/* WELCOME SECTION STYLES START */
+
+.welcome-container {
+    position: relative;
+    z-index: 2;
+    background-color: white;
+    padding-bottom: 40px;
+}
+
+.welcome-background-container {
+    position: relative;
+    margin: 10px;
+    margin-top:-12px;
+    height: 100%;
+    width: 100%;
+    top: 12px;
+    background-image: url(/Content/Images/Default/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top right;
+    overflow: hidden;
+}
+
+.welcome-overlay {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    opacity: .4;
+}
+
+.welcome-article {
+    text-align: left;
+    margin: 10px;
+    opacity: 1;
+    font-family: 'Bebas Neue';
+    position: relative;
+    max-width: 700px;
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+@media (min-width:0px) and (max-width: 767px) {
+    .welcome-background-container {
+        margin: 0px;
+    }
+
+    .welcome-article {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .welcome-article-header {
+        text-align: center;
+        font-size: 60px;
+        margin-bottom: 50px;
+        color: black;
+        padding: 0px;
+    }
+
+    .welcome-article-img {
+        height: auto;
+        width: 320px;
+    }
+
+    .welcome-signature-wrapper {
+        width: 75%;
+        text-align: right;
+    }
+}
+
+@media (min-width: 768px) {
+    .welcome-article-header {
+        text-align: left;
+        font-size: 60px;
+        margin-bottom: 50px;
+        color: black;
+    }
+
+    .welcome-article-img {
+        height: auto;
+        width: 380px;
+    }
+
+    .welcome-signature-wrapper {
+        width: 32%;
+        text-align: right;
+    }
+}
+
+.welcome-article-text {
+    text-align: justify;
+    color: black;
+    font-size: 20px;
+}
+
+.welcome-signature-wrapper {
+    padding-bottom: 20px;
+}
+
+.welcome-signature {
+    max-width: 100px;
+}
+
+/* WELCOME SECTION STYLES END */

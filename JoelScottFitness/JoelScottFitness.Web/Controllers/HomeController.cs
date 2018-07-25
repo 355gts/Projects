@@ -93,6 +93,10 @@ namespace JoelScottFitness.Web.Controllers
                     Description = v.Description,
                 });
             }
+            else
+            {
+                indexViewModel.Videos = Enumerable.Empty<MediaViewModel>();
+            }
 
             // used to determine whether to show the hall of fame link
             Session[SessionKeys.HallOfFame] = false;

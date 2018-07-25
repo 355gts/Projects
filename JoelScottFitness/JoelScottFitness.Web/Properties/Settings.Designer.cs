@@ -124,15 +124,6 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("06/01/2018 18:00:00")]
-        public global::System.DateTime GoLiveDate {
-            get {
-                return ((global::System.DateTime)(this["GoLiveDate"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("/Home/Countdown")]
         public string RedirectUrl {
             get {
@@ -142,7 +133,16 @@ namespace JoelScottFitness.Web.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("07/28/2018 18:00:00")]
+        public global::System.DateTime GoLiveDate {
+            get {
+                return ((global::System.DateTime)(this["GoLiveDate"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool CountdownEnabled {
             get {
                 return ((bool)(this["CountdownEnabled"]));

@@ -35,14 +35,14 @@
     <Setting Name="RedirectEnabled" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="GoLiveDate" Type="System.DateTime" Scope="Application">
-      <Value Profile="(Default)">06/01/2018 18:00:00</Value>
-    </Setting>
     <Setting Name="RedirectUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">/Home/Countdown</Value>
     </Setting>
+    <Setting Name="GoLiveDate" Type="System.DateTime" Scope="Application">
+      <Value Profile="(Default)">07/28/2018 18:00:00</Value>
+    </Setting>
     <Setting Name="CountdownEnabled" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
