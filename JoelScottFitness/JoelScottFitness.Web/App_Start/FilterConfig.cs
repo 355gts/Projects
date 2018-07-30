@@ -1,6 +1,8 @@
 ﻿using JoelScottFitness.Web.Attributes;
-using JoelScottFitness.Web.Filters;
 using System.Web.Mvc;
+#if !DEBUG
+using JoelScottFitness.Web.Filters;
+#endif
 
 namespace JoelScottFitness.Web
 {
@@ -9,7 +11,7 @@ namespace JoelScottFitness.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new GlobalExceptionAttribute());
-            filters.Add(new RequestFilter());
+            //filters.Add(new RequestFilter());
 #if !DEBUG
             filters.Add(new RequireSecureConnectionFilter());
 #endif

@@ -198,8 +198,8 @@ namespace JoelScottFitness.Data
                                      .Include(b => b.BlogImages)
                                      .OrderByDescending(b => b.CreatedDate);
 
-            return number > 0 
-                ? await blogQuery.Take(number).ToListAsync() 
+            return number > 0
+                ? await blogQuery.Take(number).ToListAsync()
                 : await blogQuery.ToListAsync();
         }
 
@@ -797,6 +797,11 @@ namespace JoelScottFitness.Data
             }
 
             return await SaveChangesAsync();
+        }
+
+        public async Task<Image> GetImageAsync(long imageId)
+        {
+            return await dbContext.Images.FindAsync(imageId);
         }
     }
 }

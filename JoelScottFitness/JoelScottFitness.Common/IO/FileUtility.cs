@@ -87,5 +87,35 @@ namespace JoelScottFitness.Common.IO
         {
             return HttpContext.Current.Server.MapPath(file);
         }
+
+        public static bool CopyFile(string sourceFilename, string targetFilename)
+        {
+            bool success = false;
+            try
+            {
+                string sourceMappedFilename = MapPath(sourceFilename);
+                if (!FileExists(sourceMappedFilename))
+                {
+                    logger.Warn($"Cannot find file '{sourceFilename}'.");
+                    return false;
+                }
+                else
+                {
+                    logger.Info($"File exists");
+                }
+
+                string targetMappedFilename = MapPath(targetFilename);
+
+                File.Copy(sourceMappedFilename, targetMappedFilename, true);
+
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                logger.Warn($"An exception occured attempting to copy file '{sourceFilename}' to '{targetFilename}', error details: '{ex.Message}'.");
+            }
+
+            return success;
+        }
     }
 }

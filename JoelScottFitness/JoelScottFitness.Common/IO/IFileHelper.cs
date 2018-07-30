@@ -10,5 +10,6 @@ namespace JoelScottFitness.Common.IO
         string GetFileName(string path);
         UploadResult UploadFile(HttpPostedFileBase postedFile, string directory, string name = null);
         string MapPath(string file);
+        bool CopyFile(string sourceFilename, string targetFilename);
     }
 }

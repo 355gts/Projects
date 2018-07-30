@@ -639,5 +639,12 @@ namespace JoelScottFitness.Services.Services
         {
             return await repository.DeleteMessageAsync(messageId);
         }
+
+        public async Task<ImageViewModel> GetImageAsync(long imageId)
+        {
+            var repoImage = await repository.GetImageAsync(imageId);
+
+            return mapper.Map<Image, ImageViewModel>(repoImage);
+        }
     }
 }

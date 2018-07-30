@@ -468,6 +468,12 @@ namespace JoelScottFitness.Web.Controllers
                 if (!result.Success)
                     return RedirectToAction("ImageConfiguration", "Admin", new { errorMessage = "An error occured configuring images." });
 
+                if (!imageConfiguration.Randomize && imageConfiguration.SplashImageId > 0)
+                {
+                    var image = await jsfService.GetImageAsync(imageConfiguration.SplashImageId);
+                    var copyResult = fileHelper.CopyFile(image.ImagePath, Settings.Default.DefaultSplashImage);
+                }
+
                 return RedirectToAction("ImageConfiguration", "Admin");
             }
 

@@ -7,8 +7,7 @@ namespace JoelScottFitness.Common.Models
     [DataContract]
     public class CreateItemViewModel
     {
-        [Required]
-        [DataMember(IsRequired = true)]
+        [DataMember(IsRequired = false)]
         public string Name { get; set; }
 
         [Required]

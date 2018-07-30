@@ -130,5 +130,7 @@ namespace JoelScottFitness.Services.Services
         Task<bool> DeleteBlogImageAsync(long blogImageId);
 
         Task<bool> DeleteMessageAsync(long messageId);
+
+        Task<ImageViewModel> GetImageAsync(long imageId);
     }
 }

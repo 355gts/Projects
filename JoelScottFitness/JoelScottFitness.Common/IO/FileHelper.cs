@@ -33,5 +33,10 @@ namespace JoelScottFitness.Common.IO
         {
             return FileUtility.MapPath(file);
         }
+
+        public bool CopyFile(string sourceFilename, string targetFilename)
+        {
+            return FileUtility.CopyFile(sourceFilename, targetFilename);
+        }
     }
 }

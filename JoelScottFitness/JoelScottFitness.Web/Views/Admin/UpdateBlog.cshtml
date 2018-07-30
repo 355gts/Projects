@@ -20,7 +20,7 @@
             @Html.HiddenFor(model => model.ImagePath, new { @style = "display:none" })
             <div class="form-horizontal">
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">

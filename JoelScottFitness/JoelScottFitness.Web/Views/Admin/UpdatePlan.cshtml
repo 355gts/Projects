@@ -22,7 +22,7 @@
 
             <div class="form-horizontal">
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.Id)
 
                 <div class="form-group">
@@ -118,6 +118,7 @@
                                     @Html.Hidden("Options[" + @itemCount + "].PlanId", item.PlanId, new { @class = "basket-value", @id = "Options[" + @itemCount + "].PlanId" })
                                     @Html.Hidden("Options[" + @itemCount + "].CreatedDate", item.CreatedDate, new { @class = "basket-value", @id = "Options[" + @itemCount + "].CreatedDate" })
                                     @Html.Hidden("Options[" + @itemCount + "].ModifiedDate", item.ModifiedDate, new { @class = "basket-value", @id = "Options[" + @itemCount + "].ModifiedDate" })
+                                    @Html.Hidden("Options[" + @itemCount + "].Name", item.Name, new { @class = "basket-value", @id = "Options[" + @itemCount + "].Name" })
                                     <td>
                                         @Html.TextBox("Options[" + @itemCount + "].Description", item.Description, new { @id = "Options[" + @itemCount + "].Description" })
                                     </td>
